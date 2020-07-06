@@ -7,6 +7,13 @@
     width: 19% !important;
 
 }
+.nav>li>a {  
+    display: inline;
+    padding: 0px 0px;
+}
+.nav>li>a:focus, .nav>li>a:hover {
+    background-color: #fff;
+}
 </style>
 
 
@@ -25,13 +32,12 @@
 </div>
 
 <div class="streamtube-nav" id="header-section">
-
-    <div class="row" style=" text-align: center;">
-    <small >
-                    <strong>Helpline:</strong> +256 772 888 444  or help
-                    <a href="mailto:#">@sooma.org</a> or Chat
-                  </small>
-    </div>
+    <!-- <div class="row" style=" text-align: center;">
+        <small >
+            <strong>Helpline:</strong> +256 772 888 444  or help
+            <a href="mailto:#">@sooma.org</a> or Chat
+        </small>
+    </div> -->
     <div class="row">
 
         <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6">
@@ -42,7 +48,7 @@
                 @if(Setting::get('site_logo'))
                     <img src="{{Setting::get('site_logo')}}" class="logo-img">
                 @else
-                    <img src="{{asset('logo.png')}}" class="logo-img">Classroom
+                    <img src="{{asset('logo.png')}}" class="logo-img">SOOMA
                 @endif
             </a>
 
@@ -53,10 +59,8 @@
             
 
             <div id="custom-search-input" class="">
-            @if(Auth::check())
-
-
-@else
+            @if(!Auth::check())
+            
     <div class="y-button">
         <a href="{{route('user.login.form')}}" ><i class='fas fa-stream' style='font-size:24px'></i>Live</a>
         &nbsp&nbsp&nbsp
@@ -188,9 +192,8 @@
                     &nbsp&nbsp&nbsp
                     <a href="{{route('user.login.form')}}" >Enter</a>
                     &nbsp&nbsp&nbsp
-                    <a href="{{route('user.login.form')}}" >Register</a>
+                    <a href="{{route('user.register.form')}}" >Register</a>
                     &nbsp&nbsp&nbsp
-                    <a href="{{route('user.login.form')}}" >Resources <span class="caret"></span></a>
                 </div>
 
                 @if(Setting::get('is_direct_upload_button') == YES)

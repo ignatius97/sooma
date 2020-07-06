@@ -49,162 +49,50 @@
 @section('content')
 
     <div class="y-content">
-
-        <div class="row"style="margin-top: 80px;" >
-            
-      
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 first" >
-                <h1>Popular</h1><hr/>
-                <br/>
-                @if(count($recent_videos->items) > 0)
-
-<hr>
-
-    <div class="slide-area">
-
-
-        <div class="box" style="transform: translate3d(0px, 0px, 0px); width: 500px;">
-
-            @foreach($recent_videos->items as $recent_video)
-            <div class="slide-box">
-                <div class="slide-image">
-                    <a href="{{$recent_video->url}}">
-                        <!-- <img src="{{$recent_video->video_image}}" /> -->
-                        <!-- <div style="background-image: url({{$recent_video->video_image}});" class="slide-img1"></div> -->
-                        <img src="{{asset('streamtube/images/placeholder.gif')}}" data-src="{{$recent_video->video_image}}"class="slide-img1 placeholder" />
-                    </a>
-                    @if($recent_video->ppv_amount > 0)
-                        @if(!$recent_video->ppv_status)
-                            <div class="video_amount">
-
-                            {{tr('pay')}} - {{Setting::get('currency')}}{{$recent_video->ppv_amount}}
-
-                            </div>
-                        @endif
-                    @endif
-                    <div class="video_mobile_views">
-                        {{$recent_video->watch_count}} {{tr('views')}}
-                    </div>
-                    <div class="video_duration">
-                        {{$recent_video->duration}}
-                    </div>
-                </div><!--end of slide-image-->
-
-                <div class="video-details">
-                    <div class="video-head">
-                        <a href="{{$recent_video->url}}">{{$recent_video->title}}</a>
-                    </div>
-
-                    <span class="video_views">
-                        <div><a href="{{route('user.channel',$recent_video->channel_id)}}">{{$recent_video->channel_name}}</a></div>
-                        <div class="hidden-mobile"><i class="fa fa-eye"></i> {{$recent_video->watch_count}} {{tr('views')}} <b>.</b> 
-                        {{common_date($recent_video->created_at) }}</div>
-                    </span>
-                </div><!--end of video-details-->
-            </div><!--end of slide-box-->
-            @endforeach
-   
-              
-        </div><!--end of box--> 
-   
-    </div>
-    <!--end of slide-area-->
-
-@endif
-
-                <br/>
-                <hr/>
-                <div align="center" style="color: black;"><strong>Join Now! Its FREE!!!</strong></div>
-                <hr/>
-                <div  style="text-align: center; color: black;">
-                   
-                    Classroom
-                    <br/>
-                    Discusions
-                    <br/>
-                  
-                    Coaching
-                    <br/>
-                    School
-                  
-                </div>
-            </div><!-- end col-lg-4 -->
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" align="center" style="background-color: rgba(0,0,0,0.5);">
-                <div id="carouselExampleIndicators"  class="carousel slide" data-ride="carousel">
-                  
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <div class="carousel-caption d-md-block">
-                        <video width="100%"  autoplay loop muted >
-                          <source src="videos/6_Introduction.mp4" type="video/mp4">
-                        </video>
-                        <span class="description">
-                          <span class="description-heading">Lorem Ipsum</span>
-                          <span class="description-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna.Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <div class="carousel-caption d-md-block">
-                        <video width="100%"  autoplay loop muted >
-                          <source src="videos/reactnative34.mp4" type="video/mp4">
-                        </video>
-                        <span class="description">
-                          <span class="description-heading">Lorem Ipsum</span>
-                          <span class="description-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna.Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <div class="carousel-caption d-md-block">
-                        <video width="100%" autoplay loop muted  >
-                          <source src="videos/Hard vs Soft Links in Linux (Linux Links) - YouTube.mp4" type="video/mp4">
-                        </video>
-                        <span class="description">
-                          <span class="description-heading">Lorem Ipsum</span>
-                          <span class="description-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna.Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-                        </span>  
-                      </div>
-                    </div>
-                  </div>
-                  <a  class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                  </a>        
-                </div><!-- end check -->    
-            </div><!-- end col-lg-4 -->
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 last" align="center">
-                <br/>
-                <br/>
-                <br/>
-                <a href="#"><strong>Trending</strong></a><br/><br/>
-                <a href="#"><strong>History</strong></a><br/><br/>
-                <a href="#"><strong>WatchList</strong></a><br/><br/>
-                <a href="#"><strong>Downloads</strong></a>
-                
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <hr/>
-                <a href="#"><strong>Blog(Updates/News)</strong></a>
-                <hr/>
-                <div>Education or school Related News or updates </div>
-            </div><!-- end col-lg-4 --> 
-        </div><!-- end row -->
-
-            
        
         <div class="row content-row">
 
-           
+        @include('layouts.user.nav')
 
-            <div class="page-inner col-xs-12 col-sm-12 col-md-12">
+            <div class="page-inner col-xs-8 col-sm-8 col-md-10">
+                <div class="row">
+                <div class="container">
+  <h2>Carousel Example</h2>  
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+      <div class="item active">
+        <img src="la.jpg" alt="Los Angeles" style="width:100%;">
+      </div>
+
+      <div class="item">
+        <img src="chicago.jpg" alt="Chicago" style="width:100%;">
+      </div>
+    
+      <div class="item">
+        <img src="ny.jpg" alt="New york" style="width:100%;">
+      </div>
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+                </div>
 
                 @if(Setting::get('is_banner_video'))
 
