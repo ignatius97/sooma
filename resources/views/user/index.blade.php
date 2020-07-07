@@ -55,7 +55,7 @@
 
         @include('layouts.user.nav')
 
-            <div class="page-inner col-xs-8 col-sm-8 col-md-10">
+            <div class="page-inner col-xs-12 col-sm-12 col-md-10">
                 <div class="row">
                 <div class="container">
   
