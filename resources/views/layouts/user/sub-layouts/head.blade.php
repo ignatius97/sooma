@@ -37,6 +37,47 @@
         z-index: 99999;
     }
 
+    .contact{
+    	margin-top: 0px !important;
+    	text-align: center;
+    	color: red;
+    
+    }
+    .popular_class_title{
+    
+    	margin-left: 15px;
+    	margin-top: 0px !important;
+    	font-weight: bold !important;
+    }
+
+    #hom a{
+    	margin-top: 5px;
+    	padding: 0px;
+    	margin-left: 10px;
+
+    }
+    
+
+    .view_to_end{
+    	margin-left: 5%;
+    }
+    .my_bg_color{
+    	background-color: white !important;
+    	margin-right: 15px;
+
+    }
+    .sooma_header{
+    	margin-top: 20px;
+    	padding-top: 10px;
+    }
+
+    .sooma_color{
+    	color: brown;
+    }
+    .sign_up_btn{
+    	margin-bottom: 10px;
+    	margin-left: 40px;
+    }
 </style>
 
 @yield('meta_tags')

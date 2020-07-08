@@ -1191,11 +1191,14 @@ class UserController extends Controller {
 
         }
 
+
         $response = $this->UserAPI->channel_list($request)->getData();
+         $trending = $this->UserAPI->trending_list($request)->getData();
 
 
         return view('user.channels.list')->with('page', 'channels')
                 ->with('subPage', 'channel_list')
+                ->with('trendings', $trendings)
                 ->with('response', $response);
 
     }    
@@ -1257,10 +1260,12 @@ class UserController extends Controller {
         ]);
 
         $histories = $this->UserAPI->watch_list($request)->getData();
+         $trendings = $this->UserAPI->trending_list($request)->getData();
 
         return view('user.account.history')
                         ->with('page' , 'history')
                         ->with('subPage' , 'user-history')
+                        ->with('trendings', $trendings)
                         ->with('histories' , $histories);
     
     }
@@ -1289,10 +1294,12 @@ class UserController extends Controller {
         ]);
         
         $videos = $this->UserAPI->wishlist_list($request)->getData();
+         $trendings = $this->UserAPI->trending_list($request)->getData();
 
         return view('user.account.wishlist')
                     ->with('page' , 'wishlist')
                     ->with('subPage' , 'user-wishlist')
+                    ->with('trendings', $trendings)
                     ->with('videos' , $videos);
     
     }
@@ -1345,6 +1352,7 @@ class UserController extends Controller {
             $payment_videos = $this->UserAPI->payment_videos($id, 0)->getData();
 
             $live_videos = VideoRepo::live_videos_list($id, WEB, null);
+             $trendings = $this->UserAPI->trending_list($request)->getData();
 
             $subscribe_status = false;
 
@@ -1380,6 +1388,7 @@ class UserController extends Controller {
                         ->with('channel_playlists', $channel_playlists)
                         ->with('payment_videos', $payment_videos)
                         ->with('subscribe_status', $subscribe_status)
+                        ->with('trendings', $trendings)
                         ->with('subscriberscnt', $subscriberscnt)
                         ->with('live_video_history', $live_video_history);
         } else {
@@ -1481,6 +1490,7 @@ class UserController extends Controller {
                 $this->watch_count($request);
 
             }
+             $trendings = $this->UserAPI->trending_list($request)->getData();
             
             return view('user.single-video')
                         ->with('page' , '')
@@ -1509,6 +1519,7 @@ class UserController extends Controller {
                         ->with('comment_rating_status', $response->comment_rating_status)
                         ->with('embed_link', $response->embed_link)
                         ->with('tags', $response->tags)
+                        ->with('trendings', $trendings)
                         ->with('playlists', $playlists);
        
         } 
@@ -2091,22 +2102,23 @@ class UserController extends Controller {
      *
      * @created Vithya R
      *
-     * @updated 
+     * @updated w
      *
      * @return respnse with flash message
      */
-    public function channel_create() {
+    public function channel_create(Request $request) {
         
         $model = new Channel;
 
         $channels = getChannels(Auth::user()->id);
+         $trendings = $this->UserAPI->trending_list($request)->getData();
 
         if((count($channels) == 0 || Setting::get('multi_channel_status'))) {
 
             if (Auth::user()->user_type) {
 
                 return view('user.channels.create')->with('page', 'channels')
-                    ->with('subPage', 'create_channel')->with('model', $model);
+                    ->with('subPage', 'create_channel')->with('model', $model)->with('trendings', $trendings);
 
             } else {
 
@@ -2476,11 +2488,13 @@ class UserController extends Controller {
         }
 
         $categories_list = $this->UserAPI->categories_list($request)->getData();
+         $trendings = $this->UserAPI->trending_list($request)->getData();
 
         $tags = $this->UserAPI->tags_list($request)->getData()->data;
 
         return view('user.videos.create')->with('model', $model)->with('page', 'videos')
             ->with('subPage', 'upload_video')->with('id', $id)
+            ->with('trendings', $trendings)
             ->with('categories', $categories_list)
             ->with('tags', $tags);
     
@@ -3650,9 +3664,12 @@ class UserController extends Controller {
         ]);
 
         $response = $this->UserAPI->user_channel_list($request)->getData();
+         $trendings = $this->UserAPI->trending_list($request)->getData();
+
 
         return view('user.channels.list')->with('page', 'my_channel')
                 ->with('subPage', 'channel_list')
+                ->with('trendings', $trendings)
                 ->with('response', $response);
     }
 
@@ -4108,9 +4125,11 @@ class UserController extends Controller {
      * @return list of options
      */
     public function settings(Request $request) {
+         $trendings = $this->UserAPI->trending_list($request)->getData();
 
         return view('user.settings')
                 ->with('page', 'settings')
+                ->with('trendings', $trendings)
                 ->with('subPage', '');
     }
 
@@ -4334,8 +4353,9 @@ class UserController extends Controller {
             }
 
             $playlists = $response->data;
+             $trendings = $this->UserAPI->trending_list($request)->getData();
 
-            return view('user.playlists.index')->with('playlists', $playlists)->with('playlist_type', PLAYLIST_TYPE_USER);
+            return view('user.playlists.index')->with('playlists', $playlists)->with('playlist_type', PLAYLIST_TYPE_USER)->with('trendings', $trendings);
 
         } catch(Exception $e) {
 

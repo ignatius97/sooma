@@ -1,44 +1,25 @@
-<div class="y-menu col-sm-3 col-md-2 scroll">
-    <ul class="y-home menu1">
-        <li id="home">
-            <a href="{{route('user.dashboard')}}">
-                <img src="{{asset('images/sidebar/home-grey.png')}}" class="grey-img">
-                <img src="{{asset('images/sidebar/home-red.png')}}" class="red-img">
-                <span>{{tr('home')}}</span>
-            </a>
-        </li>
-        <li id="trending">
-            <a href="{{route('user.trending')}}">
-                <img src="{{asset('images/sidebar/trending-grey.png')}}" class="grey-img">
-                <img src="{{asset('images/sidebar/trending-red.png')}}" class="red-img">
-                <span>{{tr('trending')}}</span>
-            </a>
+<div class="y-menu col-sm-2 col-md-2 scroll" >
+    <div style="position:fixed; width:16vw;">
+        <ul class="y-home menu1">
+
+        <li class="popular_class_title"><h3>Popular classes</h3></li>
+
+
+        @if(count($trendings->items) > 0)
+
+        <div style="background-color: white; overflow-y: scroll; height: 280px;">
+        @foreach($trendings->items as $video)
+        <li id="hom" >
+            <a href="{{$video->url}}" > <img id="img" src="{{asset('streamtube/images/placeholder.gif')}}" data-src="{{$video->video_image}}" class="slide-img1 placeholder" /> <h6 style="display: inline-grid; vertical-align: bottom;" > {{$video->title}} <br/> <span class="view_to_end"> <i class="fa fa-eye"></i> {{$video->watch_count}} {{tr('views')}}</span></h6></a>
         </li>
 
-        <li id="custom_live_videos">
-            <a href="{{route('user.custom_live_videos.index')}}">
-                <img src="{{asset('images/sidebar/video-camera-grey.png')}}" class="grey-img">
-                <img src="{{asset('images/sidebar/video-camera-red.png')}}" class="red-img">
-                <span>{{tr('user_custom_live_videos')}}</span>
-            </a>
-        </li>
-        <li id="live_videos">
-            <a href="{{route('user.live_videos')}}">
-                <img src="{{asset('images/sidebar/live-video.png')}}" class="grey-img">
-                <img src="{{asset('images/sidebar/live-video-active.png')}}" class="red-img">
-                <span>{{tr('live_videos')}}</span>
-            </a>
-        </li>
+        @endforeach
+        </div>
+        @else
 
-        </li>
+            <li> {{tr('no_trending_videos')}} </li>
+        @endif
 
-        <li id="channels">
-            <a href="{{route('user.channel.list')}}">
-                <img src="{{asset('images/sidebar/search-grey.png')}}" class="grey-img">
-                <img src="{{asset('images/sidebar/search-red.png')}}" class="red-img">
-                <span>{{tr('browse_channels')}}</span>
-            </a>
-        </li>
 
         @if(Auth::check())
 
@@ -81,26 +62,13 @@
                     <span>{{tr('playlists')}}</span>
                 </a>
             </li>
-    
+
         @endif
-    
-    </ul>
-                
-    @if(count($channels = loadChannels()) > 0)
-        
-        <ul class="y-home menu1" style="margin-top: 10px;">
 
-            <h3>{{tr('channels')}}</h3>
-
-            @foreach($channels as $channel)
-                <li id="channels_{{$channel->id}}">
-                    <a href="{{route('user.channel',$channel->id)}}"><img src="{{$channel->picture}}">{{$channel->name}}</a>
-                </li>
-            @endforeach              
         </ul>
-
-    @endif
-
+    </div>
+                
+    
     <!-- ============PLAY STORE, APP STORE AND SHARE LINKS======= -->
 
     @if(Setting::get('appstore') || Setting::get('playstore'))
@@ -208,11 +176,14 @@
         @endif
 
     @else
-        <div class="menu4 top nav-space">
-            <p>{{tr('signin_nav_content')}}</p>
-            <form method="get" action="{{route('user.login.form')}}">
-                <button type="submit">{{tr('login')}}</button>
+        <div style="position:fixed; margin-top:300px; width:17vw;">
+        <div class="menu4 top nav-space my_bg_color">
+            <h3 class="sooma_header">Join the <span class="sooma_color">sooma</span> community</h3>
+            <p>Discover the best resources for education</p>
+            <form method="get" action="{{route('user.register.form')}}">
+                <button type="submit" class="sign_up_btn">sign up</button>
             </form>
-        </div>   
+        </div> 
+        </div>  
     @endif             
 </div>

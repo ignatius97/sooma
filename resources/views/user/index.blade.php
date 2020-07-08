@@ -68,7 +68,12 @@
                 <li>
                     <a href="{{$recent_video->url}}">  
                         <img src="{{asset('streamtube/images/placeholder.gif')}}" data-src="{{$recent_video->video_image}}"class="slide-img1 placeholder"style="width:100%;"  />
-                        <div class="caption">{{$recent_video->title}}</div>
+                        <div class="caption">{{$recent_video->title}}
+                            <br/>
+                            {{$recent_video->duration}}
+                            <br/>
+                            {{$recent_video->watch_count}} {{tr('views')}}
+                        </div>
                     </a>
                 </li>
                 @endforeach
