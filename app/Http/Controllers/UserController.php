@@ -447,6 +447,7 @@ class UserController extends Controller {
 
 
     public function live_videos(Request $request) {
+         $trendings = $this->UserAPI->trending_list($request)->getData();
 
         $query = LiveVideo::where('is_streaming', DEFAULT_TRUE)
                     ->where('status', DEFAULT_FALSE)
@@ -463,6 +464,7 @@ class UserController extends Controller {
        return view('user.videos.live_videos_list')
                 ->with('videos', $videos)
                 ->with('page', 'live_videos')
+                ->with('trendings', $trendings)
                 ->with('subPage', 'live_videos');
 
     }
@@ -1061,6 +1063,7 @@ class UserController extends Controller {
         $database = config('database.connections.mysql.database');
         
         $username = config('database.connections.mysql.username');
+       
 
         if($database && $username && Setting::get('installation_process') == 2) {
 
@@ -1086,6 +1089,7 @@ class UserController extends Controller {
             $recent_videos = $this->UserAPI->recently_added($request)->getData();
 
             $trendings = $this->UserAPI->trending_list($request)->getData();
+
             
             $suggestions  = $this->UserAPI->suggestion_videos($request)->getData();
 
@@ -1123,6 +1127,7 @@ class UserController extends Controller {
                         ->with('suggestions' , $suggestions)
                         ->with('channels' , $channels)
                         ->with('banner_videos', $banner_videos)
+                       
                         ->with('banner_ads', $banner_ads);
         } else {
 
@@ -1159,8 +1164,10 @@ class UserController extends Controller {
         }
 
         $trending = $this->UserAPI->trending_list($request)->getData();
+         $trendings = $this->UserAPI->trending_list($request)->getData();
 
         return view('user.trending')->with('page', 'trending')
+                                    ->with('trendings', $trendings)
                                     ->with('videos',$trending);
     
     }
@@ -1193,7 +1200,7 @@ class UserController extends Controller {
 
 
         $response = $this->UserAPI->channel_list($request)->getData();
-         $trending = $this->UserAPI->trending_list($request)->getData();
+         $trendings = $this->UserAPI->trending_list($request)->getData();
 
 
         return view('user.channels.list')->with('page', 'channels')
@@ -1645,12 +1652,14 @@ class UserController extends Controller {
         ]);
 
         $wishlist = $this->UserAPI->wishlist_list($request)->getData();
+        $trendings = $this->UserAPI->trending_list($request)->getData();
 
         $user = User::find(\Auth::user()->id);
 
         return view('user.account.profile')
                     ->with('page' , 'profile')
                     ->with('user', $user)
+                    ->with('trendings', $trendings)
                     ->with('subPage' , 'user-profile')->with('wishlist', $wishlist);
     }
 
@@ -1677,9 +1686,11 @@ class UserController extends Controller {
         ]);
 
         $wishlist = $this->UserAPI->wishlist_list($request)->getData();
+        $trendings = $this->UserAPI->trending_list($request)->getData();
 
         return view('user.account.edit-profile')->with('page' , 'profile')
                     ->with('subPage' , 'user-update-profile')
+                    ->with('trendings', $trendings)
                     ->with('wishlist', $wishlist);
     
     }
@@ -1742,6 +1753,7 @@ class UserController extends Controller {
 
         $response = $this->UserAPI->change_password($request)->getData();
 
+
         if($response->success) {
 
             return back()->with('flash_success' , tr('password_success'));
@@ -1769,8 +1781,9 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function profile_change_password(Request $request) {
+        $trendings = $this->UserAPI->trending_list($request)->getData();
 
-        return view('user.account.change-password')->with('page' , 'profile')
+        return view('user.account.change-password')->with('page' , 'profile')->with('trendings', $trendings)
                     ->with('subPage' , 'user-change-password');
 
     }
@@ -2259,11 +2272,13 @@ class UserController extends Controller {
      * @return response of success/failure message
      */
     public function delete_account(Request $request) {
+        $trendings = $this->UserAPI->trending_list($request)->getData();
 
         if(\Auth::user()->login_by == 'manual') {
 
             return view('user.account.delete-account')
                     ->with('page' , 'profile')
+                    ->with('trendings', $trendings)
                     ->with('subPage' , 'delete-account');
         } else {
 
@@ -2407,18 +2422,21 @@ class UserController extends Controller {
         // Get logged in user id
 
         $model = $this->UserAPI->spam_videos($request, 12)->getData();
+        $trendings = $this->UserAPI->trending_list($request)->getData();
 
         // Return array of values
         return view('user.account.spam_videos')->with('model' , $model)
                         ->with('page' , 'Profile')
+                        ->with('trendings', $trendings)
                         ->with('subPage' , 'Spam Videos');
     
     }   
 
 
-    public function subscriptions() {
+    public function subscriptions(Request $request) {
 
         $query = Subscription::where('status', DEFAULT_TRUE);
+        $trendings = $this->UserAPI->trending_list($request)->getData();
 
         if(Auth::check()) {
 
@@ -2432,7 +2450,8 @@ class UserController extends Controller {
 
         $model = $query->get();
 
-        return view('user.account.subscriptions')->with('subscriptions', $model)->with('page', 'Profile')->with('subPage', 'Subscriptions');
+        return view('user.account.subscriptions')->with('subscriptions', $model)->with('page', 'Profile')->with('subPage', 'Subscriptions')
+            ->with('trendings',$trendings);
     
     }
 
@@ -2682,6 +2701,7 @@ class UserController extends Controller {
      */
 
     public function redeems(Request $request) {
+        $trendings = $this->UserAPI->trending_list($request)->getData();
 
         $redeem_details = Auth::user()->userRedeem;
 
@@ -2707,6 +2727,7 @@ class UserController extends Controller {
 
         return view('user.redeems.index')
                     ->with('redeem_details', $redeem_details)
+                    ->with('trendings', $trendings)
                     ->with('redeem_requests', $redeem_requests);
 
     }
@@ -2974,6 +2995,7 @@ class UserController extends Controller {
     public function card_details(Request $request) {
 
         $cards = Card::where('user_id', Auth::user()->id)->get();
+        $trendings = $this->UserAPI->trending_list($request)->getData();
 
         $video_id = $request->v_id ? $request->v_id : '';
 
@@ -2982,6 +3004,7 @@ class UserController extends Controller {
         return view('user.account.cards')->with('page', 'account')
             ->with('subPage', 'cards')
             ->with('cards', $cards)
+            ->with('trendings', $trendings)
             ->with('video_id', $video_id)
             ->with('subscription_id', $subscription_id);
     }
@@ -3219,7 +3242,8 @@ class UserController extends Controller {
 
         $request->request->add([ 
             'id' => \Auth::user()->id,
-        ]);        
+        ]);     
+        $trendings = $this->UserAPI->trending_list($request)->getData();   
 
         if ($request->id) {
 
@@ -3236,6 +3260,7 @@ class UserController extends Controller {
 
         return view('user.channels.list')->with('page', 'channels')
                 ->with('subPage', 'channel_list')
+                ->with('trendings', $trendings)
                 ->with('response', $response);
 
     }
@@ -3722,13 +3747,14 @@ class UserController extends Controller {
             'token'=>Auth::user()->token,
             'device_type'=>DEVICE_WEB,
         ]); 
-
+        $trendings = $this->UserAPI->trending_list($request)->getData();
         $response = $this->UserAPI->subscribedPlans($request)->getData();
 
         if ($response->success) {
 
             return view('user.history.subscription_history')->with('page', 'history')
                 ->with('subPage', 'subscription_history')
+                ->with('trendings', $trendings)
                 ->with('response', $response);
 
         } else {
@@ -3761,11 +3787,13 @@ class UserController extends Controller {
         ]); 
 
         $response = $this->UserAPI->ppv_list($request)->getData();
+        $trendings = $this->UserAPI->trending_list($request)->getData();
 
         if ($response->success) {
 
             return view('user.history.ppv_history')->with('page', 'history')
                 ->with('subPage', 'ppv_history')
+                ->with('trendings', $trendings)
                 ->with('response', $response);
 
         } else {
@@ -5130,6 +5158,8 @@ class UserController extends Controller {
             $user_details =  Auth::user();
 
             $user_referrer_details = UserReferrer::where('user_id', $user_details->id)->first();
+              $trendings = $this->UserAPI->trending_list($request)->getData();
+
 
             if(!$user_referrer_details) {
 
@@ -5160,6 +5190,7 @@ class UserController extends Controller {
 
             return view('user.referrals.index')
                     ->with('referrals', $referrals)
+                    ->with('trendings', $trendings)
                     ->with('user_referrer_details', $user_referrer_details);
 
         } catch(Exception $e) {

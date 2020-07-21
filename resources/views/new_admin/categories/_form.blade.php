@@ -19,9 +19,25 @@
 
                         <div class="form-group">
 
-                            <label for="title" class="">{{ tr('name') }}*</label>
+                            <label for="title" class="">Class Name*</label>
 
-                            <input type="text" name="name" value="{{ old('name') ?: $category_details->name }}" maxlength="64" required class="form-control" placeholder="{{ tr('name') }}">
+                            <input type="text" name="name" value="{{ old('name') ?: $category_details->name }}" maxlength="64" required class="form-control" placeholder="Class Name">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="class_title" class="">country *</label>
+
+                            <input type="text" name="country" value="{{ old('country') ?: $category_details->country }}" maxlength="64" required class="form-control" placeholder="Country">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="class_title" class="">curriculum *</label>
+
+                            <input type="text" name="curriculum" value="{{ old('curriculum') ?: $category_details->curriculum }}" maxlength="64" required class="form-control" placeholder="Curriculum">
 
                         </div>
 

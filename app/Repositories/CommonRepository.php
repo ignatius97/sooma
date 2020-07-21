@@ -313,6 +313,8 @@ class CommonRepository {
 
             $validator = Validator::make( $request->all(), array(
                         'title'         => 'required|max:255',
+                        'subject'         => 'required|max:255',
+                        'topic'         => 'required|max:255',
                         'category_id'=>'required|exists:categories,id,status,'.CATEGORY_APPROVE_STATUS,
                         'tag_id'=>"",
                         'description'   => 'required',
@@ -405,6 +407,10 @@ class CommonRepository {
                 $model->uploaded_by = $request->uploaded_by ?: "user";
 
                 $model->title = $request->has('title') ? $request->title : $model->title;
+
+                $model->subject = $request->has('subject') ? $request->subject : $model->subject;
+
+                $model->topic = $request->has('topic') ? $request->topic : $model->topic;
 
                 $model->description = $request->has('description') ? $request->description : $model->description;
 
@@ -517,6 +523,10 @@ class CommonRepository {
                 $category = Category::find($request->category_id);
 
                 $model->category_name = $category->name;
+
+                $model->category_country = $category->country;
+
+                $model->category_curriculum = $category->curriculum;
 
                 $model->unique_id = $model->title;
 

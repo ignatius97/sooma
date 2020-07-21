@@ -7280,6 +7280,7 @@ class UserApiController extends Controller {
 
             $video['category_name'] = $category ? $category->name : '';
 
+
             $response_array = [
                 'tags'=>$tags,
                 'video'=>$video, 'comments'=>$comments, 
@@ -8427,7 +8428,7 @@ class UserApiController extends Controller {
      */
     public function categories_list(Request $request) {
 
-        $model = Category::select('id as category_id', 'name as category_name')->where('status', CATEGORY_APPROVE_STATUS)->orderBy('created_at', 'desc')
+        $model = Category::select('id as category_id', 'name as category_name', 'country as category_country', 'curriculum as category_curriculum')->where('status', CATEGORY_APPROVE_STATUS)->orderBy('created_at', 'desc')
                 ->get();
 
         return response()->json($model);

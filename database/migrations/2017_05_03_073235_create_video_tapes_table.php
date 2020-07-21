@@ -17,6 +17,8 @@ class CreateVideoTapesTable extends Migration
             $table->integer('channel_id');
             $table->string('unique_id');
             $table->string('title');
+            $table->string('subject');
+            $table->string('topic');
             $table->text('description');
             $table->string('default_image');
             $table->string('video');

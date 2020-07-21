@@ -1625,6 +1625,8 @@ class NewAdminController extends Controller {
 
             $validator = Validator::make($request->all() , [
                 'name' => $request->category_id ? 'required|unique:categories,name,'.$request->category_id.',id|max:128|min:2' : 'required|unique:categories,name,NULL,id|max:128|min:2',
+                'country'=>$request->category_id ? 'required|unique:categories,country,'.$request->category_id.',id|max:128|min:2' : 'required|unique:categories,country,NULL,id|max:128|min:2',
+                'curriculum'=>$request->category_id ? 'required|unique:categories,curriculum,'.$request->category_id.',id|max:128|min:2' : 'required|unique:categories,curriculum,NULL,id|max:128|min:2',
                 'category_id' => 'exists:categories,id', 
                 'image' => $request->category_id ? 'mimes:jpeg,jpg,bmp,png' : 'required|mimes:jpeg,jpg,bmp,png',
                     'description' => 'required',
@@ -1640,6 +1642,10 @@ class NewAdminController extends Controller {
             $category_details = $request->category_id ? Category::find($request->category_id) : new Category;
 
             $category_details->name = $request->name;
+
+            $category_details->country = $request->country;
+
+            $category_details->curriculum = $request->curriculum;
 
             $category_details->unique_id = seoUrl($category_details->name);
 

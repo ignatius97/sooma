@@ -149,12 +149,29 @@
                                     </div>
 
                                     <div class="clearfix"></div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <label for="subject" class="control-label"> Subject * </label>
+                                        <div>
+                                            <input type="text" required class="form-control" id="title" name="subject" placeholder=" Subject " value="{{old('subject')}}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <label for="topic" class="control-label"> Topic * </label>
+                                        <div>
+                                            <input type="text" required class="form-control" id="title" name="topic" placeholder=" Topic " value="{{old('topic')}}">
+                                        </div>
+                                    </div>
+                                       
+                                    
+
+                                    <div class="clearfix"></div>
 
                                     <div class="form-data">
 
                                       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                          
-                                          <label for="video" class="control-label">{{tr('category')}} * </label>
+                                          <label for="video" class="control-label">Class * </label>
                                           <div>
 
                                             <select id="category_id" name="category_id" class="form-control select2" required data-placeholder="{{tr('select_category')}}*" style="width: 100% !important">
@@ -178,6 +195,41 @@
                                                 @endforeach
                                             </select>
 
+
+                                          </div>
+                                       
+                                      </div>       
+                                    </div>
+
+                                    <div class="clearfix"></div>
+
+                                    <div class="form-data">
+
+                                      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                         
+                                          <label for="video" class="control-label">Country * </label>
+                                          <div>
+
+                                            <select id="category_id" name="category_id" class="form-control select2" required data-placeholder="{{tr('select_category')}}*" style="width: 100% !important">
+                                                @foreach($categories as $category)
+                                                      <option value="{{$category->category_id}}">{{$category->category_country}}</option>
+                                                    @endforeach
+                                            </select>
+
+                                          </div>
+                                       
+                                      </div>
+
+                                      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                         
+                                      <label for="video" class="control-label">Curriculum * </label>
+                                          <div>
+
+                                            <select id="category_id" name="category_id" class="form-control select2" required data-placeholder="{{tr('select_category')}}*" style="width: 100% !important">
+                                                @foreach($categories as $category)
+                                                      <option value="{{$category->category_id}}">{{$category->category_curriculum}}</option>
+                                                    @endforeach
+                                            </select>
 
                                           </div>
                                        

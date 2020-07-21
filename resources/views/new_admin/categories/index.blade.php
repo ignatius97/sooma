@@ -32,6 +32,8 @@
 						    <tr>
 						      	<th>{{ tr('id') }}</th>
 						      	<th>{{ tr('name') }}</th>
+								<th> country </th>
+								<th> curriculum </th>
 						      	<th>{{ tr('no_of_uploads') }}</th>
 						      	<th>{{ tr('picture') }}</th>
 						      	<th>{{ tr('status') }}</th>
@@ -49,6 +51,14 @@
 							      	<td>
 							      		<a target="_blank" href="{{ route('admin.categories.view', ['category_id' => $category_details->id]) }}">{{ $category_details->name }}</a>
 							      	</td>
+
+									<td>
+							      		<a target="_blank" href="{{ route('admin.categories.view', ['category_id' => $category_details->id]) }}">{{ $category_details->country }}</a>
+							      	</td>
+
+									<td>
+							      		<a target="_blank" href="{{ route('admin.categories.view', ['category_id' => $category_details->id]) }}">{{ $category_details->curriculum }}</a>
+							      	</td>    
 
 							      	<td>
 							      		<a target="_blank" href="{{ route('admin.categories.videos', ['category_id' => $category_details->id]) }}">{{ $category_details->get_videos_count }}</a>
