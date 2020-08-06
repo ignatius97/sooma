@@ -99,7 +99,7 @@ class AuthController extends Controller
         $user_details = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'mobile' => $data['mobile'],
+            'mobile' => $data['mobile_code'] . $data['mobile'] ,
             'password' => \Hash::make($data['password']),
             'timezone' => $data['timezone'],
             'picture' => asset('placeholder.png'),

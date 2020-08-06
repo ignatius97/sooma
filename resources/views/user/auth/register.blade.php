@@ -139,13 +139,21 @@
                     <div class="form-group">
                         <input type="text" required name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="{{tr('name')}}" title="{{tr('username_notes')}}" value="{{old('name')}}">
                     </div>
+
+                    <div class="form-group">
+                        <select name="mobile_code" id="" class="form-control" style="display: inline-block; width: 20%;">
+                            <option value="+256-">+256</option>
+                            <option value="+256-">+254</option>
+                            <option value="+256-">+253</option>
+                        </select>
+                        <input type="tel" name="mobile" class="form-control" style="display: inline-block; width: 79%;" placeholder="{{tr('enter_number')}}"  required autocomplete="off">
+                    </div>
+
                     <div class="form-group">
                         <input type="email" required name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="{{tr('email')}}" value="{{old('email')}}"> 
                     </div>
 
-                    <div class="form-group">
-                        <input type="tel" name="mobile" class="form-control" placeholder="{{tr('enter_number')}}"  required autocomplete="off">
-                    </div>
+                    
 
                     <div class="form-group">
                         <input type="password" required name="password" min="6" class="form-control" id="password" placeholder="{{tr('password')}}" value="{{old('password')}}">
