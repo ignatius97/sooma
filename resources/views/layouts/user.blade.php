@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -8,16 +9,11 @@
     <meta name="viewport" content="width=device-width,  initial-scale=1">
 
     <link href="video_audio_slider/video_audio_slider.css" rel="stylesheet" type="text/css" />
-    <!--videoVideoPlugin.js is required only when the slider contains video or audio.-->
-    <script src="video_audio_slider/VideoPlugin.js"></script>
-    <script src="video_audio_slider/video_audio_slider.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        //don't copy the script below into your page.
-        if (!document.domain) alert("The video will not work properly if opening the page by local path. Please test this page through HTTP on a web or localhost server");    
-    </script>
 
     @include('layouts.user.sub-layouts.head')
 </head>
+
+
 
 <body>
 
@@ -34,8 +30,21 @@
         @include('layouts.user.footer')
 
     </div>
+
+
     
     @include('layouts.user.sub-layouts.scripts')
+
+
+
+
+    <script type="text/javascript">
+
+    
+    $("#options").change(function(){
+        this.form.submit();
+    });
+   </script>
 
 </body>
 

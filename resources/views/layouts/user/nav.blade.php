@@ -1,13 +1,13 @@
-<div class="y-menu col-sm-2 col-md-2 scroll" >
-    <div style="position:fixed; width:16vw;">
+<div class="y-menu col-sm-2 col-md-2 scroll final_static" >
+    <div class="side_bar_style">
         <ul class="y-home menu1">
 
-        <li class="popular_class_title"><h3>Popular classes</h3></li>
+        <li><h3 class="popular_title" style="color: black; font-weight: bold; font-style: italic; font-size: 17px"> Popular classes</h3></li>
 
 
         @if(count($trendings->items) > 0)
 
-        <div style="background-color: white; overflow-y: scroll; height: 280px;">
+        <div>
         @foreach($trendings->items as $video)
         <li id="hom" >
             <a href="{{$video->url}}" > <img id="img" src="{{asset('streamtube/images/placeholder.gif')}}" data-src="{{$video->video_image}}" class="slide-img1 placeholder" /> <h6 style="display: inline-grid; vertical-align: bottom;" > {{$video->title}} <br/> <span class="view_to_end"> <i class="fa fa-eye"></i> {{$video->watch_count}} {{tr('views')}}</span></h6></a>
@@ -19,6 +19,18 @@
 
             <li> {{tr('no_trending_videos')}} </li>
         @endif
+
+
+
+        </ul>
+    </div>
+              
+
+
+
+ <div>
+        <ul class="y-home menu1">
+
 
 
         @if(Auth::check())
@@ -63,11 +75,9 @@
                 </a>
             </li>
 
-        @endif
-
-        </ul>
-    </div>
-                
+        @endif  
+    </ul>
+</div>
     
     <!-- ============PLAY STORE, APP STORE AND SHARE LINKS======= -->
 
@@ -176,12 +186,12 @@
         @endif
 
     @else
-        <div style="position:fixed; margin-top:300px; width:17vw;">
+        <div class="sign_up_slogan">
         <div class="menu4 top nav-space my_bg_color">
-            <h3 class="sooma_header">Join the <span class="sooma_color">sooma</span> community</h3>
-            <p>Discover the best resources for education</p>
+            <h3 class="sooma_header" >Join the <span class="sooma_color">sooma</span> community</h3>
+            <p>Teach and learn from anywhere at any time</p>
             <form method="get" action="{{route('user.register.form')}}">
-                <button type="submit" class="sign_up_btn">sign up</button>
+                <button type="submit" class="sign_up_btn" style="background-color: brown;">sign up</button>
             </form>
         </div> 
         </div>  

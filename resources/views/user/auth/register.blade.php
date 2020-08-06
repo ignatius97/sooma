@@ -37,7 +37,7 @@
 
                                 <a href="#">
                                     <button type="submit">
-                                        <i class="fa fa-facebook"></i>{{tr('login_via_fb')}}
+                                        <i class="fa fa-facebook"></i> {{tr('signup_fb')}}
                                     </button>
                                 </a>
                         
@@ -77,7 +77,7 @@
                                 
                                 <a href="#">
                                     <button type="submit">
-                                        <i class="fa fa-google-plus"></i>{{tr('login_via_google')}}
+                                        <i class="fa fa-google-plus"></i>{{tr('signup_google')}}
                                     </button>
                                 </a>
                             </form>
@@ -137,26 +137,22 @@
                     @endif
                     
                     <div class="form-group">
-                        <label for="name">{{tr('name')}}</label>
                         <input type="text" required name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="{{tr('name')}}" title="{{tr('username_notes')}}" value="{{old('name')}}">
                     </div>
                     <div class="form-group">
-                        <label for="email">{{tr('email')}}</label>
                         <input type="email" required name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="{{tr('email')}}" value="{{old('email')}}"> 
                     </div>
 
                     <div class="form-group">
-                        <label for="dob">{{tr('dob')}}</label>
-                        <input type="text" name="dob" class="form-control" placeholder="{{tr('enter_dob')}}" id="dob" required autocomplete="off" value="{{old('dob')}}">
+                        <input type="tel" name="mobile" class="form-control" placeholder="{{tr('enter_number')}}"  required autocomplete="off">
                     </div>
 
                     <div class="form-group">
-                        <label for="password">{{tr('password')}}</label>
                         <input type="password" required name="password" min="6" class="form-control" id="password" placeholder="{{tr('password')}}" value="{{old('password')}}">
                     </div>
 
                     <div class="form-group">
-                        <label for="confirm_password">{{tr('confirm_password')}}</label>
+
                         <input type="password" required name="password_confirmation" min="6" class="form-control" id="confirm_password" placeholder="{{tr('confirm_password')}}" value="{{old('confirm_password')}}">
                     </div>
 
@@ -164,7 +160,8 @@
 
                     <div class="change-pwd">
                         <button type="submit" class="btn btn-primary signup-submit">{{tr('submit')}}</button>
-                    </div>  
+                    </div> 
+                    <p class="text-right">By signing up, you agree to our <a href=""> Terms </a> of Use and <a href="">  Privacy Policy. </a> </p> 
                     <p class="text-right">{{tr('already_account')}} <a href="{{route('user.login.form')}}">{{tr('login')}}</a></p>         
                 </form>
             </div><!--end of sign-up-->

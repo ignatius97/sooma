@@ -12,11 +12,11 @@
 
   <div class="row content-row">
 
-		@include('layouts.user.nav')
+    @include('layouts.user.nav')
 
     <div class="page-inner">
         <!--      Wizard container        -->
-          <div class="col-sm-12">
+          <div class="col-sm-10 margin_left" >
                 <div class="wizard-container">
                     <div class="card wizard-card" data-color="red" id="wizard">
                         <form action="{{Setting::get('admin_delete_control') ? '' : route('user.video_save')}}" method="post" id="video_form" enctype="multipart/form-data">
@@ -150,14 +150,14 @@
 
                                     <div class="clearfix"></div>
                                     <div class="col-lg-6 col-md-6 col-sm-12">
-                                        <label for="subject" class="control-label"> Subject * </label>
+                                        <label for="subject" class="control-label"> {{tr('subject_name')}}  * </label>
                                         <div>
                                             <input type="text" required class="form-control" id="title" name="subject" placeholder=" Subject " value="{{old('subject')}}">
                                         </div>
                                     </div>
 
                                     <div class="col-lg-6 col-md-6 col-sm-12">
-                                        <label for="topic" class="control-label"> Topic * </label>
+                                        <label for="topic" class="control-label"> {{tr('topic_name')}}  * </label>
                                         <div>
                                             <input type="text" required class="form-control" id="title" name="topic" placeholder=" Topic " value="{{old('topic')}}">
                                         </div>
@@ -171,7 +171,7 @@
 
                                       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                          
-                                          <label for="video" class="control-label">Class * </label>
+                                          <label for="video" class="control-label">{{tr('class_name')}}  * </label>
                                           <div>
 
                                             <select id="category_id" name="category_id" class="form-control select2" required data-placeholder="{{tr('select_category')}}*" style="width: 100% !important">
@@ -207,12 +207,12 @@
 
                                       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                          
-                                          <label for="video" class="control-label">Country * </label>
+                                          <label for="video" class="control-label">{{tr('country_name')}}  * </label>
                                           <div>
 
-                                            <select id="category_id" name="category_id" class="form-control select2" required data-placeholder="{{tr('select_category')}}*" style="width: 100% !important">
+                                            <select id="category_id" name="country" class="form-control select2" required data-placeholder="{{tr('select_category')}}*" style="width: 100% !important">
                                                 @foreach($categories as $category)
-                                                      <option value="{{$category->category_id}}">{{$category->category_country}}</option>
+                                                      <option value="{{$category->category_country}}">{{$category->category_country}}</option>
                                                     @endforeach
                                             </select>
 
@@ -222,12 +222,13 @@
 
                                       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                          
-                                      <label for="video" class="control-label">Curriculum * </label>
+                                      <label for="video" class="control-label">{{tr('curriculum')}}  * </label>
                                           <div>
 
-                                            <select id="category_id" name="category_id" class="form-control select2" required data-placeholder="{{tr('select_category')}}*" style="width: 100% !important">
+                                            <select id="category_id" name="curriculum" class="form-control select2" required data-placeholder="{{tr('select_category')}}*" style="width: 100% !important">
                                                 @foreach($categories as $category)
-                                                      <option value="{{$category->category_id}}">{{$category->category_curriculum}}</option>
+                                                      <option value="{{$category->category_curriculum}}">
+                                                        {{$category->category_curriculum}}</option>
                                                     @endforeach
                                             </select>
 
@@ -437,7 +438,7 @@
       <div class="sidebar-back"></div> 
     </div>
     </div>
-    		
+        
 </div>
 <!-- <div class="overlay">
     <div id="loading-img"></div>

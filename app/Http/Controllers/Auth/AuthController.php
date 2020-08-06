@@ -41,7 +41,7 @@ class AuthController extends Controller
      */
     protected $redirectTo = '/';
 
-    protected $redirectAfterLogout = '/login';
+    protected $redirectAfterLogout = '/';
 
     /**
      * The Login form view that should be used.
@@ -82,8 +82,7 @@ class AuthController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
-            'dob'=>'required',
-            'age_limit'=>'required',
+            'mobile'=>'required',
             'referral' => 'exists:user_referrers,referral_code,status,'.DEFAULT_TRUE
         ]);
     }
@@ -100,14 +99,14 @@ class AuthController extends Controller
         $user_details = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'mobile' => $data['mobile'],
             'password' => \Hash::make($data['password']),
             'timezone' => $data['timezone'],
             'picture' => asset('placeholder.png'),
             'chat_picture'=>asset('placeholder.png'),
             'login_by' => 'manual',
             'device_type' => 'web',
-            'dob' => date('Y-m-d', strtotime($data['dob'])),
-            'age_limit'=>$data['age_limit']
+            
         ]);
 
         // Check the default subscription and save the user type 
@@ -136,24 +135,6 @@ class AuthController extends Controller
     public function register(Request $request)
     {
 
-        $age_limit = 0;
-
-        if ($request->dob) {
-
-            $dob = date('Y-m-d', strtotime($request->dob));
-
-            $from = new \DateTime($dob);
-
-            $to   = new \DateTime('today');
-
-            $age_limit = $from->diff($to)->y;
-
-        }
-
-        $request->request->add([ 
-            'age_limit'=>$age_limit,
-        ]);
-
         $validator = $this->validator($request->all());
 
         if ($validator->fails()) {
@@ -162,10 +143,7 @@ class AuthController extends Controller
             );
         }
 
-        if ($age_limit < 10) {
-
-           return back()->with('flash_error', tr('min_age_error'));
-        }
+       
 
         $user = $this->create($request->all());
       

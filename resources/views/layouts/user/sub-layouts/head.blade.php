@@ -32,52 +32,78 @@
 <link rel="shortcut icon" type="image/png" href="{{Setting::get('site_icon' , asset('img/favicon.png'))}}"/>
 
 <style type="text/css">
-    
+
+
     .ui-autocomplete{
         z-index: 99999;
     }
 
-    .contact{
-    	margin-top: 0px !important;
-    	text-align: center;
-    	color: red;
-    
-    }
-    .popular_class_title{
-    
-    	margin-left: 15px;
-    	margin-top: 0px !important;
-    	font-weight: bold !important;
-    }
-
-    #hom a{
-    	margin-top: 5px;
-    	padding: 0px;
-    	margin-left: 10px;
+    .side_bar_style{
+        
+    height: 55vh;
+    overflow: auto;
 
     }
-    
+    .sign_up_slogan{
+       
+        height: 60vh;
 
-    .view_to_end{
-    	margin-left: 5%;
+        background-color: white;
+        margin-top: 10px;
+        margin-left: 15px;
+        margin-right:15px;
+        align-items: center;
     }
-    .my_bg_color{
-    	background-color: white !important;
-    	margin-right: 15px;
 
+    .sign_up_slogan p,h3{
+     text-align: cente;
     }
-    .sooma_header{
-    	margin-top: 20px;
-    	padding-top: 10px;
+    .sign_up_slogan h3{
+        margin-top: 10px;
+    }
+    .sign_up_slogan button{
+        margin-left: 25%;
+    }
+    .final_static{
+        position: fixed;
+    }
+
+    .margin_left{
+        margin-left: 16% !important;
+        margin-right: 10% !important;
+        margin-top: 5% !important;
+    }
+    .popular_title{
+        font-family: sans-serif;
+        font-style: italic;
+        color: black;
+        font-size: 20px
     }
 
     .sooma_color{
-    	color: brown;
+        color: brown;
     }
-    .sign_up_btn{
-    	margin-bottom: 10px;
-    	margin-left: 40px;
+
+
+    .product_name{
+        color: white;
     }
+
+    .main_nav_btn a{
+        color: white;
+        font-size: 18px;
+    }
+
+    @media only screen and (max-width : 1300px) {
+
+    .main_nav_btn a{
+        font-size: 16px;
+    }
+
+   }
+
+
+
 </style>
 
 @yield('meta_tags')

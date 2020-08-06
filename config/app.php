@@ -163,6 +163,16 @@ return [
         vidhyar2612\Enveditor\EnveditorServiceProvider::class,
         Alaouy\Youtube\YoutubeServiceProvider::class,
 
+
+        //location Api for laravel
+        Stevebauman\Location\LocationServiceProvider::class,
+
+
+        // Laravel Socialite 
+       
+       
+     
+
     ],
 
     /*
@@ -214,6 +224,15 @@ return [
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Enveditor' => 'vidhyar2612\Enveditor\Facade',
         'Youtube' => Alaouy\Youtube\Facades\Youtube::class,
+
+        'Location' => 'Stevebauman\Location\Facades\Location',
+
+        //Laravel Socialite Package 
+
+
+
+
+
     ],
 
 ];

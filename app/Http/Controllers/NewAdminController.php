@@ -160,7 +160,7 @@ class NewAdminController extends Controller {
         $view = last_days(10);
 
         return view('new_admin.dashboard.dashboard')
-        			->withPage('dashboard')
+                    ->withPage('dashboard')
                     ->with('sub_page','')
                     ->with('user_count' , $user_count)
                     ->with('video_count' , $video_count)

@@ -313,8 +313,6 @@ class CommonRepository {
 
             $validator = Validator::make( $request->all(), array(
                         'title'         => 'required|max:255',
-                        'subject'         => 'required|max:255',
-                        'topic'         => 'required|max:255',
                         'category_id'=>'required|exists:categories,id,status,'.CATEGORY_APPROVE_STATUS,
                         'tag_id'=>"",
                         'description'   => 'required',
@@ -365,9 +363,14 @@ class CommonRepository {
 
                 } else {
 
+                   // if (Setting::get('ffmpeg_installed') == FFMPEG_NOT_INSTALLED) {
+
+                     //   throw new Exception(tr('ffmpeg_need_to_configure'));
+                        
+                    //}
 
                     $uploadVideovalidator = Validator::make( $request->all(), array(
-                        'video'=>$request->id ? 'mimes:mp4' : 'required|mimes:mp4',
+                        'video'=>$request->id ? 'mimetypes:mp4,webm,ogv,flv' : 'required|mimes:mp4,webm,ogv,flv',
                     ));
                     if($uploadVideovalidator->fails()) {
 
@@ -386,7 +389,7 @@ class CommonRepository {
                     if ($request->video_type == VIDEO_TYPE_UPLOAD) {
 
                         $uploadVideovalidator = Validator::make( $request->all(), array(
-                            'video'=>'required|mimes:mp4',
+                            'video'=>'required|mimetypes:mp4,webm, ogv',
                         ));
 
                         if($uploadVideovalidator->fails()) {
@@ -407,10 +410,6 @@ class CommonRepository {
                 $model->uploaded_by = $request->uploaded_by ?: "user";
 
                 $model->title = $request->has('title') ? $request->title : $model->title;
-
-                $model->subject = $request->has('subject') ? $request->subject : $model->subject;
-
-                $model->topic = $request->has('topic') ? $request->topic : $model->topic;
 
                 $model->description = $request->has('description') ? $request->description : $model->description;
 
@@ -490,6 +489,10 @@ class CommonRepository {
                  */
 
                 $model->video_type = $request->video_type;
+                $model->category_country=strtolower($request->country);
+                $model->category_curriculum=$request->curriculum;
+                $model->subject=$request->subject;
+                $model->topic=$request->topic;
 
 
                 $main_video_duration = "";
@@ -523,10 +526,6 @@ class CommonRepository {
                 $category = Category::find($request->category_id);
 
                 $model->category_name = $category->name;
-
-                $model->category_country = $category->country;
-
-                $model->category_curriculum = $category->curriculum;
 
                 $model->unique_id = $model->title;
 
@@ -612,7 +611,8 @@ class CommonRepository {
 
                         $FFmpeg
                             ->input($main_video_duration['baseUrl'])
-                            //removed variables
+                            ->constantVideoFrames($frames)
+                            ->customVideoFrames(1 / ($seconds/$frames))
                             ->output(public_path()."/uploads/images/{$model->channel_id}_{$img}_%03d.png")
                             ->ready();
 

@@ -1,7 +1,8 @@
 @if (!Auth::check()) 
 
 <style type="text/css">
-    
+
+
 .mobile-header li {
 
     width: 19% !important;
@@ -14,6 +15,8 @@
 .nav>li>a:focus, .nav>li>a:hover {
     background-color: #fff;
 }
+
+
 </style>
 
 
@@ -31,7 +34,7 @@
     <div class="clear-both"></div>
 </div>
 
-<div class="streamtube-nav" id="header-section">
+<div class="streamtube-nav trial_class" id="header-section" style="background-color: brown;">
     <!-- <div class="row" style=" text-align: center;">
         <small >
             <strong>Helpline:</strong> +256 772 888 444  or help
@@ -42,13 +45,13 @@
 
         <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6">
 
-            <a href="#" class="hidden-xs"><img src="{{asset('images/menu.png')}}" class="toggle-icon"></a>
+            <a href="#" class="hidden-xs"><img src="{{asset('images/menu.png')}}"  class="toggle-icon"  style="color: white"></a>
 
             <a href="{{route('user.dashboard')}}"> 
                 @if(Setting::get('site_logo'))
-                    <img src="{{Setting::get('site_logo')}}" class="logo-img">
+                    <img src="{{Setting::get('site_logo')}}" class="logo-img"> <span class="product_name">SOOMA</span>
                 @else
-                    <img src="{{asset('logo.png')}}" class="logo-img">SOOMA
+                    <img src="{{asset('logo.png')}}" class="logo-img"><span class="product_name">SOOMA</span>
                 @endif
             </a>
 
@@ -60,7 +63,8 @@
 
             <div id="custom-search-input" class="">
             @if(!Auth::check())
-            
+
+<!--            
     <div class="y-button">
         <a href="{{route('user.login.form')}}" ><i class='fas fa-stream' style='font-size:24px'></i>Live</a>
         &nbsp&nbsp&nbsp
@@ -68,14 +72,14 @@
         &nbsp&nbsp&nbsp
         
     </div>
-
+-->
     
 
 @endif
                 <form method="post" action="{{route('search-all')}}" id="userSearch">
                 <div class="input-group search-input">
                     
-                        <input type="text" id="auto_complete_search" name="key" class="search-query form-control" required placeholder="{{tr('search')}}" />
+                        <input type="text" id="auto_complete_search" name="key" class="search-query form-control" required placeholder="{{tr('search')}}" style="background-color: white;" />
                         <div class="input-group-btn">
                             <button class="btn btn-danger" type="submit">
                             <i class=" glyphicon glyphicon-search"></i>
@@ -94,10 +98,13 @@
 
             @if(Auth::check())
 
+            
+
                 <div class="y-button profile-button">
 
                    <div class="dropdown pull-right">
 
+                    
                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 
                             <img class="profile-image" src="{{Auth::user()->picture ?: asset('placeholder.png')}}">
@@ -177,6 +184,18 @@
                     </li>
                  
                 </ul>
+                <form action="/" method="get" style="margin-top: 1vh;">
+                   <select id="options" name="targeted_country" >
+                 <option value={{$country}}>{{$country}}</option>
+                 <option value="uganda">uganda</option>
+                 <option value="kenya">kenya</option>
+                 <option value="tanzania">tanzania</option>
+               
+                  </select> 
+
+
+                   </form>
+
                 @if(Setting::get('is_direct_upload_button') == YES)
 
                 <a href="{{userChannelId()}}" class="btn pull-right user-upload-btn" title="{{tr('upload_video')}}">
@@ -184,21 +203,38 @@
                     <i class="fa fa-upload fa-1x"></i>
                 </a>
 
+
                 @endif
 
             @else
-                <div class="y-button2">
+                <div class="y-button2 main_nav_btn">
+                   <form action="/" method="get" style="margin-top: 1vh;">
+                   <select id="options" name="targeted_country" >
+                 <option value={{$country}}>{{$country}}</option>
+                 <option value="uganda">uganda</option>
+                 <option value="kenya">kenya</option>
+                 <option value="tanzania">tanzania</option>
+               
+                  </select> 
+
+
+                  <a href="{{route('user.login.form')}}"><i class="fa fa-upload fa-1x" style="margin-left: 10px;"></i>Upload</a>
+              &nbsp&nbsp&nbsp
+        
+ 
+                    &nbsp&nbsp&nbsp
+                    <a href="{{route('user.login.form')}}">Login</a>
+                    &nbsp&nbsp&nbsp
                    
-                    &nbsp&nbsp&nbsp
-                    <a href="{{route('user.login.form')}}" >Enter</a>
-                    &nbsp&nbsp&nbsp
-                    <a href="{{route('user.register.form')}}" >Register</a>
-                    &nbsp&nbsp&nbsp
                 </div>
 
+                </form>
+
+
+              
                 @if(Setting::get('is_direct_upload_button') == YES)
 
-                    <a href="{{route('user.login.form')}}" class="btn pull-right user-upload-btn" title="{{tr('upload_video')}}"> 
+                    <a href="{{route('user.login.form')}}" class="btn pull-right" title="{{tr('upload_video')}}"> 
                         {{tr('upload')}} 
                         <i class="fa fa-upload fa-1x"></i>
                     </a>

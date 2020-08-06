@@ -6479,6 +6479,230 @@ class UserApiController extends Controller {
     }
 
 
+
+
+public function recently_added_by_country($request) {
+
+
+        $ip = '197.157.34.169';
+
+        $data = \Location::get($ip);
+
+       $country= strtolower($data->countryName);
+       
+       $targeted_country=$request->input('targeted_country');
+
+       if ($targeted_country=='uganda'|| $targeted_country=='kenya' || $targeted_country=='tanzania') {
+           $country=$targeted_country;
+       }
+
+
+        $base_query = VideoTape::where('video_tapes.is_approved' , 1)
+                            ->where('video_tapes.status' , 1)
+                            ->where('video_tapes.publish_status' , 1)
+                            ->where('video_tapes.category_country', $country)
+                            ->where('channels.status', 1)
+                            ->where('channels.is_approved', 1)
+                            ->leftJoin('channels' , 'video_tapes.channel_id' , '=' , 'channels.id')
+                            ->leftJoin('categories' , 'categories.id' , '=' , 'video_tapes.category_id') 
+                            ->orderby('video_tapes.created_at' , 'desc')
+                            ->where('categories.status', CATEGORY_APPROVE_STATUS)
+                            ->videoResponse();
+
+        if ($request->id) {
+
+            // Check any flagged videos are present
+
+            $flag_videos = flag_videos($request->id);
+
+            if($flag_videos) {
+
+                $base_query->whereNotIn('video_tapes.id',$flag_videos);
+
+            }
+
+            $base_query = $base_query->where('video_tapes.age_limit','<=', checkAge($request));
+
+        } else {
+
+            $base_query = $base_query->where('video_tapes.age_limit', '=' , 0);
+        }
+
+    
+        $videos = $base_query->paginate(16);
+
+        $items = [];
+
+        $pagination = 0;
+
+        if (count($videos)) {
+
+            foreach ($videos->items() as $key => $value) {
+                
+                $items[] = displayVideoDetails($value, $request->id);
+
+            }
+
+            $pagination  = (string) $videos->links();
+
+        }
+
+
+        return response()->json(['items'=>$items, 'pagination'=>$pagination]);
+    
+    }
+
+
+
+// trending country query
+
+
+
+public function trending_by_country($request) {
+
+        
+  
+        $ip = '197.157.34.169';
+
+        $data = \Location::get($ip);
+
+       $country= strtolower($data->countryName);
+       
+       $targeted_country=$request->input('targeted_country');
+
+       if ($targeted_country=='uganda'|| $targeted_country=='kenya' || $targeted_country=='tanzania') {
+           $country=$targeted_country;
+       }
+
+        $base_query = VideoTape::where('watch_count' , '>' , 0)
+                        ->leftJoin('channels' , 'video_tapes.channel_id' , '=' , 'channels.id')
+                        ->where('video_tapes.publish_status' , 1)
+                        ->where('video_tapes.status' , 1)
+                        ->where('video_tapes.is_approved' , 1)
+                        ->where('video_tapes.category_country', $country)
+                        ->where('channels.status', 1)
+                        ->where('channels.is_approved', 1)
+                        ->leftJoin('categories' , 'categories.id' , '=' , 'video_tapes.category_id') 
+                        ->where('categories.status', CATEGORY_APPROVE_STATUS)
+                        ->videoResponse()
+                        ->orderby('watch_count' , 'desc');
+
+        if ($request->id) {
+
+            // Check any flagged videos are present
+
+            $flag_videos = flag_videos($request->id);
+
+            if($flag_videos) {
+                
+                $base_query->whereNotIn('video_tapes.id',$flag_videos);
+            }
+
+            $base_query = $base_query->where('video_tapes.age_limit','<=', checkAge($request));
+
+        } else {
+
+            $base_query = $base_query->where('video_tapes.age_limit','=', 0);
+        }
+
+        $videos = $base_query->paginate(16);
+
+        $items = [];
+
+        $pagination = 0;
+
+        if (count($videos) > 0) {
+
+            foreach ($videos->items() as $key => $value) {
+                
+                $items[] = displayVideoDetails($value, $request->id);
+
+            }
+
+            $pagination = (string) $videos->links();
+
+        }
+
+        return response()->json(['items'=>$items, 'pagination'=>$pagination]);
+    
+    }
+
+
+
+
+    public function trending_by_country_single($request, $country_persistence) {
+
+        
+         $ip = '197.157.34.169';
+
+        $data = \Location::get($ip);
+
+       $country= strtolower($data->countryName);
+
+              
+       $targeted_country=$request->input('targeted_country');
+
+       if ($country_persistence=='uganda'|| $country_persistence=='kenya' || $country_persistence=='tanzania') {
+         $country = $country_persistence;
+       }
+
+        $base_query = VideoTape::where('watch_count' , '>' , 0)
+                        ->leftJoin('channels' , 'video_tapes.channel_id' , '=' , 'channels.id')
+                        ->where('video_tapes.publish_status' , 1)
+                        ->where('video_tapes.status' , 1)
+                        ->where('video_tapes.is_approved' , 1)
+                        ->where('video_tapes.category_country', $country)
+                        ->where('channels.status', 1)
+                        ->where('channels.is_approved', 1)
+                        ->leftJoin('categories' , 'categories.id' , '=' , 'video_tapes.category_id') 
+                        ->where('categories.status', CATEGORY_APPROVE_STATUS)
+                        ->videoResponse()
+                        ->orderby('watch_count' , 'desc');
+
+        if ($request->id) {
+
+            // Check any flagged videos are present
+
+            $flag_videos = flag_videos($request->id);
+
+            if($flag_videos) {
+                
+                $base_query->whereNotIn('video_tapes.id',$flag_videos);
+            }
+
+            $base_query = $base_query->where('video_tapes.age_limit','<=', checkAge($request));
+
+        } else {
+
+            $base_query = $base_query->where('video_tapes.age_limit','=', 0);
+        }
+
+        $videos = $base_query->paginate(16);
+
+        $items = [];
+
+        $pagination = 0;
+
+        if (count($videos) > 0) {
+
+            foreach ($videos->items() as $key => $value) {
+                
+                $items[] = displayVideoDetails($value, $request->id);
+
+            }
+
+            $pagination = (string) $videos->links();
+
+        }
+
+        return response()->json(['items'=>$items, 'pagination'=>$pagination]);
+    
+    }
+
+
+
+
+
     /**
      * @method trending_list()
      *
@@ -6491,6 +6715,9 @@ class UserApiController extends Controller {
      * @return Response of videos list
      */
     public function trending_list($request) {
+
+
+
 
         $base_query = VideoTape::where('watch_count' , '>' , 0)
                         ->leftJoin('channels' , 'video_tapes.channel_id' , '=' , 'channels.id')
@@ -6559,10 +6786,104 @@ class UserApiController extends Controller {
      */ 
     public function suggestion_videos($request) {
 
+        $ip = '197.157.34.169';
+
+        $data = \Location::get($ip);
+
+       $country= strtolower($data->countryName);
+       
+       $targeted_country=$request->input('targeted_country');
+
+       if ($targeted_country=='uganda'|| $targeted_country=='kenya' || $targeted_country=='tanzania') {
+           $country=$request->session()->pull('persisting_country');;
+       }
+
+
         $base_query = VideoTape::where('video_tapes.is_approved' , 1)   
                             ->leftJoin('channels' , 'video_tapes.channel_id' , '=' , 'channels.id')
                             ->leftJoin('categories' , 'categories.id' , '=' , 'video_tapes.category_id') 
                             ->where('video_tapes.status' , 1)
+                            ->where('video_tapes.publish_status' , 1)
+                            ->where('video_tapes.category_country', $country)
+                            ->orderby('video_tapes.created_at' , 'desc')
+                            ->videoResponse()
+                            ->where('channels.is_approved', 1)
+                            ->where('channels.status', 1)
+                            ->where('categories.status', CATEGORY_APPROVE_STATUS)
+                            ->orderByRaw('RAND()');
+
+        if($request->video_tape_id) {
+
+            $base_query->whereNotIn('video_tapes.id', [$request->video_tape_id]);
+        }
+
+        if ($request->id) {
+
+            // Check any flagged videos are present
+
+            $flag_videos = flag_videos($request->id);
+
+            if($flag_videos) {
+
+                $base_query->whereNotIn('video_tapes.id',$flag_videos);
+            }
+
+            $base_query = $base_query->where('video_tapes.age_limit','<=', checkAge($request));
+
+        } else {
+
+            $base_query = $base_query->where('video_tapes.age_limit','=', 0);
+        }
+
+    
+        $videos = $base_query->paginate(16);
+        
+        $items = [];
+
+        $pagination = 0;
+
+        if (count($videos) > 0) {
+
+            foreach ($videos->items() as $key => $value) {
+                
+                $items[] = displayVideoDetails($value, $request->id);
+
+            }
+
+            $pagination = (string) $videos->links();
+
+        }
+
+        return response()->json(['items'=>$items, 'pagination'=>$pagination]);
+    
+    }
+
+
+
+    //suggested videos catgorised according  to the countries 
+
+
+
+    public function suggestion_videos_by_country($request) {
+
+        
+        $ip = '197.157.34.169';
+
+        $data = \Location::get($ip);
+
+       $country= strtolower($data->countryName);
+       
+       $targeted_country=$request->input('targeted_country');
+
+       if ($targeted_country=='uganda'|| $targeted_country=='kenya' || $targeted_country=='tanzania') {
+           $country=$targeted_country;
+       }
+
+        $base_query = VideoTape::where('video_tapes.is_approved' , 1)   
+                            ->leftJoin('channels' , 'video_tapes.channel_id' , '=' , 'channels.id')
+                            ->leftJoin('categories' , 'categories.id' , '=' , 'video_tapes.category_id') 
+                            ->where('video_tapes.status' , 1)
+                            ->where('video_tapes.category_country', $country)
                             ->where('video_tapes.publish_status' , 1)
                             ->orderby('video_tapes.created_at' , 'desc')
                             ->videoResponse()
@@ -7279,7 +7600,6 @@ class UserApiController extends Controller {
             $video['category_unique_id'] = $category ? $category->unique_id : '';
 
             $video['category_name'] = $category ? $category->name : '';
-
 
             $response_array = [
                 'tags'=>$tags,

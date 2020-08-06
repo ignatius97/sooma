@@ -104,7 +104,7 @@ return array(
 	'default_card_add_message'=>'Click here to ',
 	'admin_not_ur_del'=>'User Rating has been deleted Successfully',
 
-	'enter_dob'=>'Enter DOB',
+	'enter_number'=>'Enter Phone Number',
 	'no_subscription_found'=>'No Subscription details found',
 	'uploaded_new_video'=>'Uploaded New Video',
 	'user_reviews'=>'User Reviews',
@@ -339,7 +339,7 @@ return array(
 	'menu' => 'Menu',
 
 	'register' => 'Register',
-	'signup' => 'Signup',
+	'signup' => 'Signup and start learning',
 	'login' => 'Login',
 	'logout' => 'Logout',
 	'sign_out' => 'Sign out',
@@ -445,7 +445,12 @@ return array(
 	// Form Elements
 
 	'id' => 'ID',
-	'name' => 'Name',
+	'name' => 'Full Name',
+	'country_name'=>'Country',
+	'curriculum'=>'Curriculum',
+	'class_name'=>'Class',
+	'subject_name'=>'Subject',
+	'topic_name'=>'Topic',
 	'username' => 'Username',
 	'email' => 'Email',
 	'password' => 'Password',
@@ -508,8 +513,10 @@ return array(
 	'new_here' => 'New Here ? ',
 	'new_account' => 'Create a new Account',
 	'login_via_fb' => 'Login Via Facebook',
+	'signup_fb'=>'signup Via Facebook',
 	'login_via_twitter' => 'Login Via Twitter',
 	'login_via_google' => 'Login Via Google',
+	'signup_google'=>'signup Via Google',
 	'login_via_social' => 'Login via Social Profile',
 	'signup_via_fb' => 'Login Via Facebook',
 	'signup_via_twitter' => 'Login Via Twitter',
@@ -526,10 +533,10 @@ return array(
 	// Home Page
 
 	'watch_lists' => 'Watch Lists',
-	'trending' => 'Trending',
-	'recent_videos' => 'Recent Videos',
+	'trending' => 'Trending Classes',
+	'recent_videos' => 'Recent Classes',
 	'browse_category' => 'Browse Videos By Category',
-	'trending_videos' => 'Trending Videos',
+	'trending_videos' => 'Trending Classes',
 	'all_videos' => 'All Videos',
 	'suggestions' => 'Suggestions',
 
@@ -986,7 +993,7 @@ return array(
 
 	'no_channel_description_found' => 'Channel Description Not Found',
 	'ago' => 'ago',
-	'my_channels' => 'My Channels',
+	'my_channels' => 'My Classes',
 	'create_channel' => 'Create Channel',
 	'reset' => 'Reset',
 	'add_cover_photo' => 'Add cover photo',

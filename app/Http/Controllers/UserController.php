@@ -1055,9 +1055,52 @@ class UserController extends Controller {
     public function index(Request $request) {
 
 
+        $ip = '197.157.34.169';
+
+        $data = \Location::get($ip);
+
+       $country= strtolower($data->countryName);
+
+        $trendings = $this->UserAPI->trending_list($request)->getData();
+        $recent_videos = $this->UserAPI->recently_added($request)->getData();
+
+        $suggestions  = $this->UserAPI->suggestion_videos($request)->getData();
+       
+       $targeted_country=$request->input('targeted_country');
+
+
+
+
+       if ($targeted_country=='uganda'|| $targeted_country=='kenya' || $targeted_country=='tanzania') {
+
+           $country=$targeted_country;
+
+           $trendings=$this->UserAPI->trending_by_country($request)->getData();
+
+           $recent_videos=$this->UserAPI->recently_added_by_country($request)->getData();
+
+           $suggestions=$this->UserAPI->suggestion_videos_by_country($request)->getData();
+
+       }
+
+       if ($country=='uganda'||$country=='kenya'||$country=='tanzania') {
+
+         $country=$country;
+        $trendings=$this->UserAPI->trending_by_country($request)->getData();
+
+           $recent_videos=$this->UserAPI->recently_added_by_country($request)->getData();
+
+           $suggestions=$this->UserAPI->suggestion_videos_by_country($request)->getData();
+
+       }
+
+
+
+
         Log::info("Timezone ".print_r(date('Y-m-d H:i:s'), true));
 
         Log::info("Convert Timezone ".print_r(convertTimeToUSERzone(date('Y-m-d H:i:s'), 'Europe/London', 'Y-m-d H:i:s'), true));
+        
 
 
         $database = config('database.connections.mysql.database');
@@ -1086,12 +1129,7 @@ class UserController extends Controller {
                 $watch_lists = $this->UserAPI->watch_list($request)->getData();  
             }
 
-            $recent_videos = $this->UserAPI->recently_added($request)->getData();
-
-            $trendings = $this->UserAPI->trending_list($request)->getData();
-
             
-            $suggestions  = $this->UserAPI->suggestion_videos($request)->getData();
 
             $channels = getChannels(WEB);
 
@@ -1117,6 +1155,8 @@ class UserController extends Controller {
 
             }
 
+            session(['persisting_country' => $country]);
+
             return view('user.index')
                         ->with('page' , 'home')
                         ->with('subPage' , 'home')
@@ -1127,7 +1167,7 @@ class UserController extends Controller {
                         ->with('suggestions' , $suggestions)
                         ->with('channels' , $channels)
                         ->with('banner_videos', $banner_videos)
-                       
+                       ->with('country', $country)
                         ->with('banner_ads', $banner_ads);
         } else {
 
@@ -1420,6 +1460,38 @@ class UserController extends Controller {
      */
     public function video_view(Request $request) {
 
+
+        $ip = '197.157.34.169';
+
+        $data = \Location::get($ip);
+
+       $country= strtolower($data->countryName);
+
+        $trendings = $this->UserAPI->trending_list($request)->getData();
+        
+       $targeted_country=$request->input('targeted_country');
+
+
+
+
+       if ($targeted_country=='uganda'|| $targeted_country=='kenya' || $targeted_country=='tanzania') {
+
+           $country = $request->session()->pull('persisting_country');
+
+           $trendings=$this->UserAPI->trending_by_country_single($request)->getData();
+
+           
+       }
+
+       if ($country=='uganda'||$country=='kenya'||$country=='tanzania') {
+
+        $country = $request->session()->pull('persisting_country');
+        $trendings=$this->UserAPI->trending_by_country_single($request, $country)->getData();
+
+       }
+
+
+
         $request->request->add([ 
             'video_tape_id' => $request->id,
         ]);
@@ -1497,7 +1569,8 @@ class UserController extends Controller {
                 $this->watch_count($request);
 
             }
-             $trendings = $this->UserAPI->trending_list($request)->getData();
+             
+            
             
             return view('user.single-video')
                         ->with('page' , '')
@@ -1527,7 +1600,9 @@ class UserController extends Controller {
                         ->with('embed_link', $response->embed_link)
                         ->with('tags', $response->tags)
                         ->with('trendings', $trendings)
+                        ->with('country', $country)
                         ->with('playlists', $playlists);
+
        
         } 
        
@@ -3345,6 +3420,7 @@ class UserController extends Controller {
      * @return json response details
      */
     public function invoice(Request $request) {
+         $trendings = $this->UserAPI->trending_list($request)->getData();
 
         $request->request->add([ 
             'u_id'=>Auth::check() ? \Auth::user()->id : '',
@@ -3366,6 +3442,7 @@ class UserController extends Controller {
 
 
         return view('user.invoice')->with('page', 'invoice')->with('subPage', 'invoice')->with('model', $model)->with('subscription',$subscription)
+            ->with('trendings', $trendings)
             ->with('model',$model);
     
     }
@@ -5236,5 +5313,44 @@ class UserController extends Controller {
                     ->with('user_referrer_details', $user_referrer_details);
 
     } 
+
+
+
+
+
+
+
+
+public function trial(Request $request){
+
+   $ip = '50.90.0.1';
+    $data = \Location::get($ip);
+    dd($data);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
