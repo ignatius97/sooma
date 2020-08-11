@@ -155,7 +155,8 @@
                     </div>
 
                     <div class="form-group">
-                        <!-- <select id="category_id" name="curriculum" class="form-control select2" required data-placeholder="{{tr('select_category')}}*" style="width: 100% !important">
+                        <select id="category_id" name="curriculum" class="form-control select2" required data-placeholder="{{tr('select_category')}}*" style="width: 100% !important">
+                            <option value="" hidden disabled>Select Curriculum</option>
                             @foreach($categories as $category)
                                     <option value="{{$category->category_curriculum}}">
                                     {{$category->category_curriculum}} 
@@ -163,9 +164,10 @@
                                                     
                                     </option>
                                 @endforeach
-                        </select> -->
+                        </select>
                         <input type="password" required name="password_confirmation" min="6" class="form-control" id="confirm_password" placeholder="{{tr('confirm_password')}}" value="{{old('confirm_password')}}" style="background-color: white;">
-                    </div>
+                    
+                        </div>
 
                     <input type="hidden" name="timezone" value="" id="userTimezone">
 

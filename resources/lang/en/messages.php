@@ -348,7 +348,7 @@ return array(
 	'profile' => 'Profile',
 	'account' =>  'Account',
 	'edit_profile' => 'Edit Profile',
-	'edit_infromation' => 'Please finish your your registration to upload video',
+	'edit_infromation' => 'Please complete your registration to upload video',
 	'update_profile' =>  'Update Profile',
 	'settings' => 'Settings',
 	'delete_account' => 'Delete Account',
@@ -2007,7 +2007,7 @@ return array(
 	
 	// Playlist
 
-	'playlists' => 'Playlists',
+	'class_playlists' => 'Class Playlists',
 
 	'playlist_not_found' => 'Playlist not found',
 	'playlist_not_associated_to_user' => "Unauthorized playlist",

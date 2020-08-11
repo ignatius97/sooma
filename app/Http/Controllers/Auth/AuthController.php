@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+
 use App\User;
+use App\Category;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
-
 use App\Helpers\Helper;
 
 use Setting;
@@ -39,7 +40,8 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+     protected $UserAPI;
+    protected $redirectTo = '/update/more_infromation';
 
     protected $redirectAfterLogout = '/';
 
@@ -57,7 +59,7 @@ class AuthController extends Controller
      * @var string
      */
 
-    protected $registerView = 'user.auth.register';
+    
 
 
     /**
@@ -67,6 +69,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
+       
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
     }
 
@@ -83,6 +86,7 @@ class AuthController extends Controller
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|regex:/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/|confirmed',
             'mobile'=>'required',
+            'curriculum'=>'required',
             'referral' => 'exists:user_referrers,referral_code,status,'.DEFAULT_TRUE
         ]);
     }
@@ -93,6 +97,18 @@ class AuthController extends Controller
      * @param  array  $data
      * @return User
      */
+
+
+   public function showRegistrationForm(){
+
+    $categories_list = Category::select('id as category_id', 'name as category_name', 'country as category_country', 'curriculum as category_curriculum')->where('status', CATEGORY_APPROVE_STATUS)->orderBy('created_at', 'desc')
+                ->get();
+
+   return view('user.auth.register')->with('categories', $categories_list);
+
+
+   }
+
     protected function create(array $data)
     {        
 
@@ -101,6 +117,7 @@ class AuthController extends Controller
             'email' => $data['email'],
             'mobile' => $data['phone'].$data['mobile'],
             'password' => \Hash::make($data['password']),
+            'curriculum' => $data['curriculum'],
             'timezone' => $data['timezone'],
             'picture' => asset('placeholder.png'),
             'chat_picture'=>asset('placeholder.png'),

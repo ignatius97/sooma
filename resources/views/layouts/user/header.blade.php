@@ -100,42 +100,7 @@
 
             
 
-                
-
-                <ul class="nav navbar-nav pull-right">
-
-                    <li  class="dropdown">
-                        <a class="nav-link text-light notification-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="return notificationsStatusUpdate();">
-                            <i class="fa fa-bell"></i>
-                        </a>
-
-                        <ul class="dropdown-menu-notification dropdown-menu">
-
-                            <li class="notification-head text-light bg-dark">
-                                <div class="row">
-                                    <div class="col-lg-12 col-sm-12 col-12">
-                                        <span>
-                                            {{tr('notifications')}} 
-                                            (<span id="global-notifications-count">0</span>)
-                                        </span>
-                                        <!-- <a href="" class="float-right text-light">Mark all as read</a> -->
-                                    </div>
-                                </div>
-                            </li>
-
-                            <span id="global-notifications-box"></span>
-
-                            <li class="notification-footer bg-dark text-center">
-                                <a href="{{route('user.bell_notifications.index')}}" class="text-light">
-                                    {{tr('view_all')}}
-                                </a>
-                            </li>
-                        
-                        </ul>
-
-                    </li>
-
-                    <div class="y-button profile-button">
+                <div class="y-button profile-button">
 
 
 
@@ -189,6 +154,39 @@
                     </div>
 
                 </div>
+
+                <ul class="nav navbar-nav pull-right">
+
+                    <li  class="dropdown">
+                        <a class="nav-link text-light notification-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="return notificationsStatusUpdate();">
+                            <i class="fa fa-bell"></i>
+                        </a>
+
+                        <ul class="dropdown-menu-notification dropdown-menu">
+
+                            <li class="notification-head text-light bg-dark">
+                                <div class="row">
+                                    <div class="col-lg-12 col-sm-12 col-12">
+                                        <span>
+                                            {{tr('notifications')}} 
+                                            (<span id="global-notifications-count">0</span>)
+                                        </span>
+                                        <!-- <a href="" class="float-right text-light">Mark all as read</a> -->
+                                    </div>
+                                </div>
+                            </li>
+
+                            <span id="global-notifications-box"></span>
+
+                            <li class="notification-footer bg-dark text-center">
+                                <a href="{{route('user.bell_notifications.index')}}" class="text-light">
+                                    {{tr('view_all')}}
+                                </a>
+                            </li>
+                        
+                        </ul>
+
+                    </li>
                  
                 </ul>
                  
@@ -196,13 +194,32 @@
 
             
                 <form action="/" method="get" style="margin-top: 1vh;">
-                   <select id="options" name="targeted_country" >
+                   <select id="options" name="targeted_country" style="width: auto;">
                  <option value={{$country}}>{{$country}}</option>
-                 <option value="uganda">uganda</option>
-                 <option value="kenya">kenya</option>
-                 <option value="tanzania">tanzania</option>
-               
-                  </select> 
+                 @if($country=='uganda')
+                 <option value="uganda" style="display: none;">Uganda</option>
+                   @else
+                  <option value="uganda">Uganda</option>
+                    @endif
+
+                    @if($country=='kenya')
+                 <option value="kenya" style="display: none;">Kenya</option>
+                   @else
+                  <option value="kenya">kenya</option>
+                    @endif
+
+                    @if($country=='tanzania')
+                 <option value="tanzania" style="display: none;">Tanzania</option>
+                   @else
+                  <option value="tanzania">Tanzania</option>
+                    @endif
+                 @if($country=='rwanda')
+                 <option value="rwanda" style="display: none;">Rwanda</option>
+                   @else
+                  <option value="rwanda">Rwanda</option>
+                    @endif
+
+                 </select> 
                    </form>
 
 
@@ -218,15 +235,6 @@
 
             @else
                 <div class="y-button2 main_nav_btn">
-                   <form action="/" method="get" style="margin-top: 1vh;">
-                   <select id="options" name="targeted_country" >
-                 <option value={{$country}}>{{$country}}</option>
-                 <option value="uganda">uganda</option>
-                 <option value="kenya">kenya</option>
-                 <option value="tanzania">tanzania</option>
-               
-                  </select> 
-
 
                   <a href="{{route('user.login.form')}}"><i class="fa fa-upload fa-1x" style="margin-left: 10px;"></i>Upload</a>
               &nbsp&nbsp&nbsp
@@ -237,6 +245,33 @@
                     &nbsp&nbsp&nbsp
                    
                 </div>
+
+                 <form action="/" method="get" style="margin-top: 1vh;">
+                   <select id="options" name="targeted_country" style="width: auto;">
+                 <option value={{$country}}>{{$country}}</option>
+                @if($country=='uganda')
+                 <option value="uganda" style="display: none;">Uganda</option>
+                   @else
+                  <option value="uganda">Uganda</option>
+                    @endif
+
+                    @if($country=='kenya')
+                 <option value="kenya" style="display: none;">Kenya</option>
+                   @else
+                  <option value="kenya">kenya</option>
+                    @endif
+
+                    @if($country=='tanzania')
+                 <option value="tanzania" style="display: none;">Tanzania</option>
+                   @else
+                  <option value="tanzania">Tanzania</option>
+                    @endif
+                 @if($country=='rwanda')
+                 <option value="rwanda" style="display: none;">Rwanda</option>
+                   @else
+                  <option value="rwanda">Rwanda</option>
+                    @endif
+                  </select> 
 
                 </form>
 

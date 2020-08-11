@@ -6494,7 +6494,7 @@ public function recently_added_by_country($request) {
        
        $targeted_country=$request->input('targeted_country');
 
-       if ($targeted_country=='uganda'|| $targeted_country=='kenya' || $targeted_country=='tanzania') {
+       if ($targeted_country=='uganda'|| $targeted_country=='kenya' || $targeted_country=='tanzania'||$targeted_country=='rwanda') {
            $country=$targeted_country;
        }
 
@@ -6572,7 +6572,7 @@ public function trending_by_country($request) {
        
        $targeted_country=$request->input('targeted_country');
 
-       if ($targeted_country=='uganda'|| $targeted_country=='kenya' || $targeted_country=='tanzania') {
+       if ($targeted_country=='uganda'|| $targeted_country=='kenya' || $targeted_country=='tanzania'||$targeted_country=='rwanda') {
            $country=$targeted_country;
        }
 
@@ -6644,7 +6644,7 @@ public function trending_by_country($request) {
               
        $targeted_country=$request->input('targeted_country');
 
-       if ($country_persistence=='uganda'|| $country_persistence=='kenya' || $country_persistence=='tanzania') {
+       if ($country_persistence=='uganda'|| $country_persistence=='kenya' || $country_persistence=='tanzania'||$country_persistence=='rwanda') {
          $country = $country_persistence;
        }
 
@@ -6796,7 +6796,7 @@ public function trending_by_country($request) {
        
        $targeted_country=$request->input('targeted_country');
 
-       if ($targeted_country=='uganda'|| $targeted_country=='kenya' || $targeted_country=='tanzania') {
+       if ($targeted_country=='uganda'|| $targeted_country=='kenya' || $targeted_country=='tanzania'||$targeted_country=='rwanda') {
            $country=$request->session()->pull('persisting_country');;
        }
 
@@ -6877,7 +6877,7 @@ public function trending_by_country($request) {
        
        $targeted_country=$request->input('targeted_country');
 
-       if ($targeted_country=='uganda'|| $targeted_country=='kenya' || $targeted_country=='tanzania') {
+       if ($targeted_country=='uganda'|| $targeted_country=='kenya' || $targeted_country=='tanzania'||$targeted_country=='rwanda') {
            $country=$targeted_country;
        }
 

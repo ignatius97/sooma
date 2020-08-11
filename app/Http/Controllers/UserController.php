@@ -1071,7 +1071,7 @@ class UserController extends Controller {
 
 
 
-       if ($targeted_country=='uganda'|| $targeted_country=='kenya' || $targeted_country=='tanzania') {
+       if ($targeted_country=='uganda'|| $targeted_country=='kenya' || $targeted_country=='tanzania'||$targeted_country=='rwanda') {
 
            $country=$targeted_country;
 
@@ -1083,7 +1083,7 @@ class UserController extends Controller {
 
        }
 
-       if ($country=='uganda'||$country=='kenya'||$country=='tanzania') {
+       if ($country=='uganda'||$country=='kenya'||$country=='tanzania'||$country=='rwanda') {
 
          $country=$country;
         $trendings=$this->UserAPI->trending_by_country($request)->getData();

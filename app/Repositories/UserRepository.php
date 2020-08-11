@@ -119,7 +119,8 @@ class UserRepository {
         $user->name = $request->has('name') ? $request->name : "";
 		$user->email = $request->has('email') ? $request->email : "";
 		$user->password = $request->has('password') ? \Hash::make($request->password) : "";
-        
+        $user->curriculum = $request->has('curriculum') ? $request->curriculum : "";
+
 		$user->gender = $request->has('gender') ? $request->gender : "male";
 		$user->mobile = $request->has('mobile') ? $request->mobile : "";
         $user->address = $request->has('address') ? $request->address : "";
