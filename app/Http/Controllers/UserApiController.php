@@ -1956,7 +1956,9 @@ class UserApiController extends Controller {
                 $user->mobile = $request->mobile ? $request->mobile : $user->mobile;
                 $user->gender = $request->gender ? $request->gender : $user->gender;
                 $user->address = $request->address ? $request->address : $user->address;
+                $user->study_role=$request->users_role?$request->users_role:$user->study_role;
                 $user->description = $request->description ? $request->description : $user->address;
+
 
 
                 if ($request->dob) {

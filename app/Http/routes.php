@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Redis;
 |
 */
 
+Route::get('ip', 'UserController@trial');
+
 
 Route::get('/clear-cache', function() {
 
@@ -703,6 +705,8 @@ Route::group(['as' => 'user.'], function(){
     Route::get('update/profile', 'UserController@update_profile')->name('update.profile');
 
     Route::post('update/profile', 'UserController@profile_save')->name('profile.save');
+    Route::get('update/more_infromation', 'UserController@more_details')->name('update.more_infromation');
+     Route::post('update/more_infromation', 'UserController@more_details_save')->name('update.more_infromation_save');
 
     Route::get('/profile/password', 'UserController@profile_change_password')->name('change.password');
 

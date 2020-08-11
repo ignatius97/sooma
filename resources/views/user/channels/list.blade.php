@@ -15,7 +15,7 @@
 
 		@include('layouts.user.nav')
 
-		<div class="page-inner col-sm-9 col-md-10">
+		<div class="page-inner col-sm-9 col-md-10 margin_left">
 
 			@include('notification.notify')
 
@@ -40,7 +40,7 @@
 
 					                    <div class="pull-right" style="margin-bottom: 10px;">
 
-					                    	<a class="st_video_upload_btn " href="{{route('user.create_channel')}}"><i class="fa fa-tv"></i>&nbsp;&nbsp;{{tr('create_channel')}}</a>
+					                    	<a class="st_video_upload_btn " href="{{route('user.create_channel')}}"><i class="fa fa-tv"></i>&nbsp;&nbsp;{{tr('create_class')}}</a>
 
 					                    	
 

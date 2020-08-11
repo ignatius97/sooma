@@ -3,6 +3,8 @@
 @section('styles')
 
 <link rel="stylesheet" href="{{asset('admin-css/plugins/datepicker/datepicker3.css')}}">
+ <link rel="stylesheet" href="intel/build/css/intlTelInput.css">
+    <link rel="stylesheet" href="intel/build/css/demo.css">
 
 @endsection
 
@@ -137,31 +139,32 @@
                     @endif
                     
                     <div class="form-group">
-                        <input type="text" required name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="{{tr('name')}}" title="{{tr('username_notes')}}" value="{{old('name')}}">
+                        <input type="text" required name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="{{tr('name')}}" title="{{tr('username_notes')}}" value="{{old('name')}}" style="background-color: white;">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" required name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="{{tr('email')}}" value="{{old('email')}}" style="background-color: white;"> 
                     </div>
 
                     <div class="form-group">
-                        <select name="mobile_code" id="" class="form-control" style="display: inline-block; width: 20%;">
-                            <option value="+256-">+256</option>
-                            <option value="+256-">+254</option>
-                            <option value="+256-">+253</option>
-                        </select>
-                        <input type="tel" name="mobile" class="form-control" style="display: inline-block; width: 79%;" placeholder="{{tr('enter_number')}}"  required autocomplete="off">
+                           <input type="hidden" id="phone2" name="phone"/>
+                         <input id="phone"  name="mobile" type="tel" style="width: 526px;">
                     </div>
 
                     <div class="form-group">
-                        <input type="email" required name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="{{tr('email')}}" value="{{old('email')}}"> 
-                    </div>
-
-                    
-
-                    <div class="form-group">
-                        <input type="password" required name="password" min="6" class="form-control" id="password" placeholder="{{tr('password')}}" value="{{old('password')}}">
+                        <input type="password" required name="password" min="6" class="form-control" id="password" placeholder="{{tr('password')}}" value="{{old('password')}}" style="background-color: white;">
                     </div>
 
                     <div class="form-group">
-
-                        <input type="password" required name="password_confirmation" min="6" class="form-control" id="confirm_password" placeholder="{{tr('confirm_password')}}" value="{{old('confirm_password')}}">
+                        <!-- <select id="category_id" name="curriculum" class="form-control select2" required data-placeholder="{{tr('select_category')}}*" style="width: 100% !important">
+                            @foreach($categories as $category)
+                                    <option value="{{$category->category_curriculum}}">
+                                    {{$category->category_curriculum}} 
+                                    ({{$category->category_country}})
+                                                    
+                                    </option>
+                                @endforeach
+                        </select> -->
+                        <input type="password" required name="password_confirmation" min="6" class="form-control" id="confirm_password" placeholder="{{tr('confirm_password')}}" value="{{old('confirm_password')}}" style="background-color: white;">
                     </div>
 
                     <input type="hidden" name="timezone" value="" id="userTimezone">
@@ -180,6 +183,7 @@
 
 
 @section('scripts')
+
 
 <script src="{{asset('assets/js/jstz.min.js')}}"></script>
 
@@ -206,5 +210,27 @@
     });
 
 </script>
+
+<script src="intel/build/js/intlTelInput.js"></script>
+<script src="intel/build/js/intlTelInput-jquery.min.js"></script>
+  <script>
+
+
+
+    $(document).ready(function () {
+        $("#phone").intlTelInput({
+            separateDialCode: true,
+            
+            
+        }).on('countrychange', function (e, countryData) {
+            $("#phone2").val(($("#phone").intlTelInput("getSelectedCountryData").dialCode));
+
+        });
+
+
+    });
+
+
+  </script>
 
 @endsection

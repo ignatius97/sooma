@@ -22,7 +22,7 @@
 
         @include('layouts.user.nav')
 
-        <div class="page-inner col-sm-9 col-md-10 profile-edit">
+        <div class="page-inner col-sm-9 col-md-10 profile-edit margin_left">
 
             <div class="profile-content slide-area1">
                
@@ -50,7 +50,7 @@
 
                                 <div class="editform-content"> 
                                     
-                                    <form  action="{{ route('user.profile.save') }}" method="POST" enctype="multipart/form-data">
+                                    <form  action="{{ route('user.update.more_infromation_save') }}" method="POST" enctype="multipart/form-data">
 
                                         <div class="form-group">
                                             <label for="exampleInputFile">{{tr('upload_image')}}</label>
@@ -78,6 +78,7 @@
                                             <input type="mobile" value="{{old('mobile') ?: Auth::user()->mobile}}" name="mobile" class="form-control" id="mobile" aria-describedby="emailHelp" placeholder="{{tr('enter_mobile')}}" maxlength="13">
                                             <p class="mobile-note"><small style="color:brown">{{tr('mobile_note')}}</small></p>
                                         </div>
+                                       
 
                                         <?php
 
@@ -96,6 +97,23 @@
                                             <label for="dob">{{tr('dob')}}</label>
                                             <input type="text" value="{{old('dob') ?: $dob }}" name="dob" class="form-control" placeholder="{{tr('enter_dob')}}" maxlength="13" id="dob" readonly>
                                         </div>
+
+                                        <div class="form-group">
+                                            <label for="users_role">{{tr('users_role')}}:  </label>
+                                            <select name="users_role"  style="margin-left: 2%; width: 30%;">
+                                                  <option value="{{Auth::user()->study_role}}">{{Auth::user()->study_role}}</option>
+                                                  <option value="Teacher">Teacher</option>
+                                                  <option value="Student">Student</option>  
+                                                </select>
+                                         </div>
+
+                                         <div class="form-group">
+                                            <label for="gender">Gender:  </label>
+                                            <select name="gender"  style="margin-left: 2%; width: 30%;">
+                                                  <option value="male">M</option>
+                                                  <option value="female">F</option>  
+                                                </select>
+                                         </div>
                                               
                                         <div class="form-group">
                                             <label for="about">{{tr('about_me')}}</label>

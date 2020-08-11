@@ -9,6 +9,8 @@
     <meta name="viewport" content="width=device-width,  initial-scale=1">
 
     <link href="video_audio_slider/video_audio_slider.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="intel/build/css/intlTelInput.css">
+    <link rel="stylesheet" href="intel/build/css/demo.css">
 
     @include('layouts.user.sub-layouts.head')
 </head>
@@ -37,7 +39,6 @@
 
 
 
-
     <script type="text/javascript">
 
     
@@ -45,6 +46,8 @@
         this.form.submit();
     });
    </script>
+
+   
 
 </body>
 

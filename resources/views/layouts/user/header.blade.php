@@ -100,15 +100,55 @@
 
             
 
-                <div class="y-button profile-button">
+                
+
+                <ul class="nav navbar-nav pull-right">
+
+                    <li  class="dropdown">
+                        <a class="nav-link text-light notification-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="return notificationsStatusUpdate();">
+                            <i class="fa fa-bell"></i>
+                        </a>
+
+                        <ul class="dropdown-menu-notification dropdown-menu">
+
+                            <li class="notification-head text-light bg-dark">
+                                <div class="row">
+                                    <div class="col-lg-12 col-sm-12 col-12">
+                                        <span>
+                                            {{tr('notifications')}} 
+                                            (<span id="global-notifications-count">0</span>)
+                                        </span>
+                                        <!-- <a href="" class="float-right text-light">Mark all as read</a> -->
+                                    </div>
+                                </div>
+                            </li>
+
+                            <span id="global-notifications-box"></span>
+
+                            <li class="notification-footer bg-dark text-center">
+                                <a href="{{route('user.bell_notifications.index')}}" class="text-light">
+                                    {{tr('view_all')}}
+                                </a>
+                            </li>
+                        
+                        </ul>
+
+                    </li>
+
+                    <div class="y-button profile-button">
+
+
 
                    <div class="dropdown pull-right">
-
+                       
+        
                     
                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 
                             <img class="profile-image" src="{{Auth::user()->picture ?: asset('placeholder.png')}}">
                         </button>
+
+
                         
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 
@@ -149,41 +189,12 @@
                     </div>
 
                 </div>
-
-                <ul class="nav navbar-nav pull-right">
-
-                    <li  class="dropdown">
-                        <a class="nav-link text-light notification-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="return notificationsStatusUpdate();">
-                            <i class="fa fa-bell"></i>
-                        </a>
-
-                        <ul class="dropdown-menu-notification dropdown-menu">
-
-                            <li class="notification-head text-light bg-dark">
-                                <div class="row">
-                                    <div class="col-lg-12 col-sm-12 col-12">
-                                        <span>
-                                            {{tr('notifications')}} 
-                                            (<span id="global-notifications-count">0</span>)
-                                        </span>
-                                        <!-- <a href="" class="float-right text-light">Mark all as read</a> -->
-                                    </div>
-                                </div>
-                            </li>
-
-                            <span id="global-notifications-box"></span>
-
-                            <li class="notification-footer bg-dark text-center">
-                                <a href="{{route('user.bell_notifications.index')}}" class="text-light">
-                                    {{tr('view_all')}}
-                                </a>
-                            </li>
-                        
-                        </ul>
-
-                    </li>
                  
                 </ul>
+                 
+                 <a class="nav navbar-nav pull-right" href="{{route('user.update.more_infromation')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-upload fa-1x nav navbar-nav pull-right" style="color: white;"></i>Upload</a>
+
+            
                 <form action="/" method="get" style="margin-top: 1vh;">
                    <select id="options" name="targeted_country" >
                  <option value={{$country}}>{{$country}}</option>
@@ -192,9 +203,8 @@
                  <option value="tanzania">tanzania</option>
                
                   </select> 
-
-
                    </form>
+
 
                 @if(Setting::get('is_direct_upload_button') == YES)
 

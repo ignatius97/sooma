@@ -81,7 +81,7 @@ class AuthController extends Controller
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'password' => 'required|min:6|regex:/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/|confirmed',
             'mobile'=>'required',
             'referral' => 'exists:user_referrers,referral_code,status,'.DEFAULT_TRUE
         ]);
@@ -99,7 +99,7 @@ class AuthController extends Controller
         $user_details = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'mobile' => $data['mobile_code'] . $data['mobile'] ,
+            'mobile' => $data['phone'].$data['mobile'],
             'password' => \Hash::make($data['password']),
             'timezone' => $data['timezone'],
             'picture' => asset('placeholder.png'),

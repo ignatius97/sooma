@@ -1770,6 +1770,30 @@ class UserController extends Controller {
     
     }
 
+
+    //method used for requiring more details
+
+
+    public function more_details(Request $request){
+
+        $request->request->add([ 
+            'id' => \Auth::user()->id,
+            'token' => \Auth::user()->token,
+            'device_token' => \Auth::user()->device_token,
+            'age'=>\Auth::user()->age_limit,
+        ]);
+
+        $wishlist = $this->UserAPI->wishlist_list($request)->getData();
+        $trendings = $this->UserAPI->trending_list($request)->getData();
+
+        return view('user.account.detail')->with('page' , 'profile')
+                    ->with('subPage' , 'user-update-profile')
+                    ->with('trendings', $trendings)
+                    ->with('wishlist', $wishlist);
+    
+    }
+
+
     /**
      * Function Name : update_profile() 
      *
@@ -1805,6 +1829,36 @@ class UserController extends Controller {
         }
     
     }
+    
+
+    // persisiting more details into the database 
+
+
+
+    public function more_details_save(Request $request) {
+
+        $request->request->add([ 
+            'id' => \Auth::user()->id,
+            'token' => \Auth::user()->token,
+            'device_token' => \Auth::user()->device_token,
+        ]);
+
+        $response = $this->UserAPI->update_profile($request)->getData();
+
+        if($response->success) {
+
+            return redirect(route('user.channel.mychannel'))->with('flash_success' , tr('profile_updated'));
+
+        } else {
+
+            $message = isset($response->error) ? $response->error : " "." ".$response->error_messages;
+
+            return back()->with('flash_error' , $message);
+        }
+    
+    }
+
+
 
     /**
      * Function Name : profile_save_password() 

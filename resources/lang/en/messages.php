@@ -103,6 +103,7 @@ return array(
 
 	'default_card_add_message'=>'Click here to ',
 	'admin_not_ur_del'=>'User Rating has been deleted Successfully',
+	'users_role'=>'my role',
 
 	'enter_number'=>'Enter Phone Number',
 	'no_subscription_found'=>'No Subscription details found',
@@ -347,6 +348,7 @@ return array(
 	'profile' => 'Profile',
 	'account' =>  'Account',
 	'edit_profile' => 'Edit Profile',
+	'edit_infromation' => 'Please finish your your registration to upload video',
 	'update_profile' =>  'Update Profile',
 	'settings' => 'Settings',
 	'delete_account' => 'Delete Account',
@@ -994,7 +996,7 @@ return array(
 	'no_channel_description_found' => 'Channel Description Not Found',
 	'ago' => 'ago',
 	'my_channels' => 'My Classes',
-	'create_channel' => 'Create Channel',
+	'create_class' => 'Create Class',
 	'reset' => 'Reset',
 	'add_cover_photo' => 'Add cover photo',
 
