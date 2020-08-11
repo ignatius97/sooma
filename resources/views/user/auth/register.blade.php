@@ -165,8 +165,7 @@
                                     </option>
                                 @endforeach
                         </select>
-                        <input type="password" required name="password_confirmation" min="6" class="form-control" id="confirm_password" placeholder="{{tr('confirm_password')}}" value="{{old('confirm_password')}}" style="background-color: white;">
-                    
+                        
                         </div>
 
                     <input type="hidden" name="timezone" value="" id="userTimezone">

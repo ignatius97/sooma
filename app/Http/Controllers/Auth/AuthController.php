@@ -84,7 +84,7 @@ class AuthController extends Controller
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|regex:/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/|confirmed',
+            'password' => 'required|min:6|regex:/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/',
             'mobile'=>'required',
             'curriculum'=>'required',
             'referral' => 'exists:user_referrers,referral_code,status,'.DEFAULT_TRUE
