@@ -12,6 +12,7 @@ use  Carbon\Carbon;
 @endsection
 
 <style type="text/css">
+  
   .center-card{
     	width: 30% !important;
 	}

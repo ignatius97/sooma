@@ -3,6 +3,7 @@
 @section('styles')
 
 <style type="text/css">
+
     
 .list-inline {
   text-align: center;
@@ -51,31 +52,55 @@
 
     <div class="y-content">
        
-        <div class="row content-row">
+        <div class="row content-ro">
 
         @include('layouts.user.nav')
 
-            <div class="page-inner col-xs-12 col-sm-12 col-md-10">
+            <div class="page-inner col-xs-12 col-sm-12 col-md-9">
                 <div class="row">
                 <div class="container">
   
     <!-- Wrapper for slides -->
+
+
     
-    <div id='video-slider'>
+    <div id='video-slider' style="margin-top: 1%;">
         <div class="slider-inner">
             <ul>
-            @foreach($recent_videos->items as $recent_video)
                 <li>
-                    <a href="{{$recent_video->url}}">  
-                        <img src="{{asset('streamtube/images/placeholder.gif')}}" data-src="{{$recent_video->video_image}}"class="slide-img1 placeholder"style="width:100%;"  />
-                        <div class="caption">{{$recent_video->title}}
-                            <br/>
-                            {{$recent_video->duration}}
-                            <br/>
-                            {{$recent_video->watch_count}} {{tr('views')}}
+                    <div class="video">
+                        <video autoplay controls width="70%">
+                            <source src="{{asset('streamtube/images/movie.mp4')}}" type="video/mp4" />
+                        </video>
+                        <div  class="caption">About Sooma
+                                <br/>
+                                1:30min
+                                
+                            </div>
+                    </div>
+                </li>  
+
+            @foreach($recent_videos->items as $recent_video)
+
+                <li>
+                    <a href="{{$recent_video->url}}"> 
+                        <div class="video">
+                            <video autoplay controls width="70%">
+                                <source src="{{$recent_video->video}}" type="video/mp4" />
+                                <source src="{{$recent_video->video}}" type="video/ogg" />
+                                <source src="{{$recent_video->video}}" type="video/flv" />
+                            </video>
+                            <div class="caption">{{$recent_video->title}}
+                                <br/>
+                                {{$recent_video->duration}}
+                                <br/>
+                                {{$recent_video->watch_count}} {{tr('views')}}
+                            </div>
+                            
                         </div>
                     </a>
                 </li>
+                
                 @endforeach
                 <!-- <li><img src="{{asset('streamtube/images/placeholder.gif')}}" data-src="{{$recent_video->video_image}}"class="slide-img1 placeholder"style="width:100%;"  />
                 <div class="caption">This video starts from 3:36</div>
@@ -193,64 +218,7 @@
                 <!-- wishlist end -->
 
 
-                @if(count($recent_videos->items) > 0)
-
-                <hr>
-                
-                    <div class="slide-area">
-                       
-                        <div class="box-head">
-                            <h3>{{tr('recent_videos')}}</h3>
-                        </div>
-
-                        <div class="box">
-
-                            @foreach($recent_videos->items as $recent_video)
-                            <div class="slide-box">
-                                <div class="slide-image">
-                                    <a href="{{$recent_video->url}}">
-                                        <!-- <img src="{{$recent_video->video_image}}" /> -->
-                                        <!-- <div style="background-image: url({{$recent_video->video_image}});" class="slide-img1"></div> -->
-                                        <img src="{{asset('streamtube/images/placeholder.gif')}}" data-src="{{$recent_video->video_image}}"class="slide-img1 placeholder" />
-                                    </a>
-                                    @if($recent_video->ppv_amount > 0)
-                                        @if(!$recent_video->ppv_status)
-                                            <div class="video_amount">
-
-                                            {{tr('pay')}} - {{Setting::get('currency')}}{{$recent_video->ppv_amount}}
-
-                                            </div>
-                                        @endif
-                                    @endif
-                                    <div class="video_mobile_views">
-                                        {{$recent_video->watch_count}} {{tr('views')}}
-                                    </div>
-                                    <div class="video_duration">
-                                        {{$recent_video->duration}}
-                                    </div>
-                                </div><!--end of slide-image-->
-
-                                <div class="video-details">
-                                    <div class="video-head">
-                                        <a href="{{$recent_video->url}}">{{$recent_video->title}}</a>
-                                    </div>
-
-                                    <span class="video_views">
-                                        <div><a href="{{route('user.channel',$recent_video->channel_id)}}">{{$recent_video->channel_name}}</a></div>
-                                        <div class="hidden-mobile"><i class="fa fa-eye"></i> {{$recent_video->watch_count}} {{tr('views')}} <b>.</b> 
-                                        {{common_date($recent_video->created_at) }}</div>
-                                    </span>
-                                </div><!--end of video-details-->
-                            </div><!--end of slide-box-->
-                            @endforeach
-                   
-                              
-                        </div><!--end of box--> 
-                   
-                    </div>
-                    <!--end of slide-area-->
-
-                @endif
+               
 
                 @if(count($trendings->items) > 0)
 
@@ -309,121 +277,7 @@
 
                 @endif
 
-                @if(count($suggestions->items) > 0)
 
-                <hr>
-
-                    <div class="slide-area">
-                        <div class="box-head">
-                            <h3>{{tr('suggestions')}}</h3>
-                        </div>
-
-                        <div class="box">
-
-                            @foreach($suggestions->items as $suggestion)
-                            <div class="slide-box">
-                                <div class="slide-image">
-                                    <a href="{{$suggestion->url}}">
-                                        <!-- <img src="{{$suggestion->video_image}}" /> -->
-                                       <!--  <div style="background-image: url({{$suggestion->video_image}});" class="slide-img1"></div> -->
-                                       <img src="{{asset('streamtube/images/placeholder.gif')}}" data-src="{{$suggestion->video_image}}" class="slide-img1 placeholder" />
-                                    </a>
-
-                                    @if($suggestion->ppv_amount > 0)
-                                        @if(!$suggestion->ppv_status)
-                                            <div class="video_amount">
-
-                                            {{tr('pay')}} - {{Setting::get('currency')}}{{$suggestion->ppv_amount}}
-
-                                            </div>
-                                        @endif
-                                    @endif
-                                    <div class="video_mobile_views">
-                                        {{$suggestion->watch_count}} {{tr('views')}}
-                                    </div>
-                                    <div class="video_duration">
-                                        {{$suggestion->duration}}
-                                    </div>
-                                </div><!--end of slide-image-->
-
-                                <div class="video-details">
-                                    <div class="video-head">
-                                        <a href="{{$suggestion->url}}">{{$suggestion->title}}</a>
-                                    </div>
-                                   
-                                    <span class="video_views">
-                                        <div><a href="{{route('user.channel',$suggestion->channel_id)}}">{{$suggestion->channel_name}}</a></div>
-                                        <div class="hidden-mobile"><i class="fa fa-eye"></i> {{$suggestion->watch_count}} {{tr('views')}} <b>.</b> 
-                                        {{ $suggestion->publish_time}}</div>
-                                    </span>
-                                </div><!--end of video-details-->
-                            </div><!--end of slide-box-->
-                            @endforeach
-                   
-                              
-                        </div><!--end of box--> 
-                    </div><!--end of slide-area-->
-
-                @endif
-
-                @if($watch_lists)
-
-                @if(count($watch_lists->items) > 0)
-
-                  <hr>
-
-                    <div class="slide-area">
-                        <div class="box-head">
-                            <h3>{{tr('watch_lists')}}</h3>
-                        </div>
-
-                        <div class="box">
-
-                            @foreach($watch_lists->items as $watch_list)
-
-                            <div class="slide-box">
-                                <div class="slide-image">
-                                    <a href="{{$watch_list->url}}">
-                                        <!-- <img src="{{$watch_list->video_image}}" /> -->
-                                        <img src="{{asset('streamtube/images/placeholder.gif')}}" data-src="{{$watch_list->video_image}}" class="slide-img1 placeholder" />
-                                    </a>
-                                    @if($watch_list->ppv_amount > 0)
-                                        @if(!$watch_list->ppv_status)
-                                            <div class="video_amount">
-
-                                            {{tr('pay')}} - {{Setting::get('currency')}}{{$watch_list->ppv_amount}}
-
-                                            </div>
-                                        @endif
-                                    @endif
-                                    <div class="video_mobile_views">
-                                        {{$watch_list->watch_count}} {{tr('views')}}
-                                    </div>
-                                    <div class="video_duration">
-                                        {{$watch_list->duration}}
-                                    </div>
-                                </div><!--end of slide-image-->
-
-                                <div class="video-details">
-                                    <div class="video-head">
-                                        <a href="{{$watch_list->url}}">{{$watch_list->title}}</a>
-                                    </div>
-                                    <span class="video_views">
-                                        <div><a href="{{route('user.channel',$watch_list->channel_id)}}">{{$watch_list->channel_name}}</a></div>
-                                        <div class="hidden-mobile"><i class="fa fa-eye"></i> {{ $watch_list->watch_count}} {{tr('views')}} <b>.</b> 
-                                        {{$watch_list->publish_time}}</div>
-                                    </span> 
-                                </div><!--end of video-details-->
-                            </div><!--end of slide-box-->
-                            @endforeach
-                   
-                              
-                        </div><!--end of box--> 
-                    </div><!--end of slide-area-->
-
-                @endif
-
-                @endif
              
                 <div class="sidebar-back"></div>  
             </div>
@@ -434,6 +288,7 @@
 @endsection
 
 @section('scripts')
+
 
 <script type="text/javascript">
 $('#myCarousel').carousel({

@@ -49,19 +49,27 @@
 
             <a href="{{route('user.dashboard')}}"> 
                 @if(Setting::get('site_logo'))
-                    <img src="{{Setting::get('site_logo')}}" class="logo-img"> <span class="product_name">SOOMA</span>
+                    <img src="{{asset('logo.png')}}" style="width: 40px;" class="logo-img"> <span class="product_name">SOOMA</span>
                 @else
                     <img src="{{asset('logo.png')}}" class="logo-img"><span class="product_name">SOOMA</span>
                 @endif
+
+
             </a>
+
+
 
         </div>
 
+    
+
         <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12 hidden-xs">
 
-            
+          
 
             <div id="custom-search-input" class="">
+
+                
             @if(!Auth::check())
 
 <!--            
@@ -141,7 +149,7 @@
                                 </div>
 
                                 <div class="col-xs-6">
-                                    <a href="{{route('user.logout')}}" onclick="return confirm(&quot;{{tr('logout_confirmation')}}&quot;)" class="menu-link">
+                                    <a href="{{route('user.logout')}}"  class="menu-link">
                                         <i class="fa fa-sign-out"></i>
                                         {{tr('logout')}}
                                     </a>
@@ -190,37 +198,24 @@
                  
                 </ul>
                  
-                 <a class="nav navbar-nav pull-right" href="{{route('user.update.more_infromation')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-upload fa-1x nav navbar-nav pull-right" style="color: white;"></i>Upload</a>
+                 @if(is_null(Auth::user()->study_role))
+                 <a class="nav navbar-nav pull-right" href="{{route('user.upload.information')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Teacher</a>
+                  @else
 
-            
-                <form action="/" method="get" style="margin-top: 1vh;">
+                   <a class="nav navbar-nav pull-right" href="{{url('mychannels/list')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Teacher</a>
+                   @endif
+                    <form action="/" method="get" style="margin-top: 1vh;">
                    <select id="options" name="targeted_country" style="width: auto;">
-                 <option value={{$country}}>{{$country}}</option>
-                 @if($country=='uganda')
-                 <option value="uganda" style="display: none;">Uganda</option>
-                   @else
-                  <option value="uganda">Uganda</option>
-                    @endif
+                 <option value="{{$country}}">{{$country}}</option>
 
-                    @if($country=='kenya')
-                 <option value="kenya" style="display: none;">Kenya</option>
-                   @else
-                  <option value="kenya">kenya</option>
-                    @endif
-
-                    @if($country=='tanzania')
-                 <option value="tanzania" style="display: none;">Tanzania</option>
-                   @else
-                  <option value="tanzania">Tanzania</option>
-                    @endif
-                 @if($country=='rwanda')
-                 <option value="rwanda" style="display: none;">Rwanda</option>
-                   @else
-                  <option value="rwanda">Rwanda</option>
-                    @endif
-
+                @foreach($countries as $country)   
+                  
+                    <option value="{{$country->country_name}}">{{$country->country_name}}</option>
+                  @endforeach
+               
                  </select> 
-                   </form>
+                </form>
+              
 
 
                 @if(Setting::get('is_direct_upload_button') == YES)
@@ -229,53 +224,31 @@
                      {{tr('upload')}} 
                     <i class="fa fa-upload fa-1x"></i>
                 </a>
-
+                  
 
                 @endif
 
             @else
                 <div class="y-button2 main_nav_btn">
 
-                  <a href="{{route('user.login.form')}}"><i class="fa fa-upload fa-1x" style="margin-left: 10px;"></i>Upload</a>
-              &nbsp&nbsp&nbsp
-        
- 
-                    &nbsp&nbsp&nbsp
-                    <a href="{{route('user.login.form')}}">Login</a>
-                    &nbsp&nbsp&nbsp
-                   
+                  <a href="{{route('user.login.form')}}">LogIn</a> <i style="color: white; font-weight: bold;">|</i>
+                    <a href="{{route('user.register.form')}}">SignUp</a>
                 </div>
 
-                 <form action="/" method="get" style="margin-top: 1vh;">
+                
+
+                 
+                <form action="/" method="get" style="margin-top: 1vh;">
                    <select id="options" name="targeted_country" style="width: auto;">
-                 <option value={{$country}}>{{$country}}</option>
-                @if($country=='uganda')
-                 <option value="uganda" style="display: none;">Uganda</option>
-                   @else
-                  <option value="uganda">Uganda</option>
-                    @endif
+                 <option value="{{$country}}">{{$country}}</option>
 
-                    @if($country=='kenya')
-                 <option value="kenya" style="display: none;">Kenya</option>
-                   @else
-                  <option value="kenya">kenya</option>
-                    @endif
-
-                    @if($country=='tanzania')
-                 <option value="tanzania" style="display: none;">Tanzania</option>
-                   @else
-                  <option value="tanzania">Tanzania</option>
-                    @endif
-                 @if($country=='rwanda')
-                 <option value="rwanda" style="display: none;">Rwanda</option>
-                   @else
-                  <option value="rwanda">Rwanda</option>
-                    @endif
-                  </select> 
-
+                @foreach($countries as $country)   
+                  
+                    <option value="{{$country->country_name}}">{{$country->country_name}}</option>
+                  @endforeach
+               
+                 </select> 
                 </form>
-
-
               
                 @if(Setting::get('is_direct_upload_button') == YES)
 

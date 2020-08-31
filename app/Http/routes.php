@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Redis;
 |
 */
 
-Route::get('ip', 'UserController@trial');
+Route::get('trial', 'UserController@trial');
 
 
 Route::get('/clear-cache', function() {
@@ -253,11 +253,36 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.'], function() {
 
     Route::get('/users/subscriptions/save', 'NewAdminController@users_subscription_save')->name('users.subscription.save');
 
-    // New Admin Channeles methods begins
+    // New Admin Channeles, classes  and country methods begins
+
+    Route::get('/classes', 'NewAdminController@classes_index')->name('classes.index');
+    Route::get('/classes/create', 'NewAdminController@classes_create')->name('classes.create');
+    Route::post('/classes/save', 'NewAdminController@classes_save')->name('classes.save'); 
+
+      Route::get('/classes/edit', 'NewAdminController@classes_edit')->name('classes.edit');
+
 
     Route::get('/channels', 'NewAdminController@channels_index')->name('channels.index');
 
+    Route::get('/countries', 'NewAdminController@country_index')->name('countries.index');
+
+    Route::get('/curriculum', 'NewAdminController@curriculum_index')->name('curriculum.index');
+
     Route::get('/channels/create', 'NewAdminController@channels_create')->name('channels.create');
+
+    Route::get('/curriculum/create', 'NewAdminController@curriculums_create')->name('curriculums.create');
+    Route::post('/curriculum/save', 'NewAdminController@curriculum_save')->name('curriculum.save'); 
+
+    Route::get('/curriculum/edit', 'NewAdminController@curriculum_edit')->name('curriculum.edit');
+    Route::get('/curriculum/delete', 'NewAdminController@curriculum_delete')->name('curriculum.delete');
+
+
+    Route::get('/country/create', 'NewAdminController@country_create')->name('country.create');
+    Route::post('/country/save', 'NewAdminController@country_save')->name('country.save');
+
+     Route::get('/country/edit', 'NewAdminController@country_edit')->name('country.edit');
+      Route::get('/country/delete', 'NewAdminController@country_delete')->name('country.delete');
+
 
     Route::get('/channels/edit', 'NewAdminController@channels_edit')->name('channels.edit');    
     Route::post('/channels/save', 'NewAdminController@channels_save')->name('channels.save');
@@ -628,6 +653,7 @@ Route::group(['as' => 'user.'], function(){
 
     Route::get('/trending', 'UserController@trending')->name('trending');
 
+
     Route::get('channels', 'UserController@channels')->name('channel.list');
     
     Route::get('playlists', 'UserController@playlists_index')->name('playlists.index');
@@ -706,7 +732,11 @@ Route::group(['as' => 'user.'], function(){
 
     Route::post('update/profile', 'UserController@profile_save')->name('profile.save');
     Route::get('update/more_infromation', 'UserController@more_details')->name('update.more_infromation');
-     Route::post('update/more_infromation', 'UserController@more_details_save')->name('update.more_infromation_save');
+    Route::post('update/more_infromation', 'UserController@more_details_save')->name('update.more_infromation_save');
+
+
+    Route::get('update/upload_details', 'UserController@upload_details')->name('upload.information');
+    Route::post('update/upload_details', 'UserController@upload_details_save')->name('upload.information.save');
 
     Route::get('/profile/password', 'UserController@profile_change_password')->name('change.password');
 
@@ -930,6 +960,18 @@ Route::group(['as' => 'user.'], function(){
     // Used for Ajax function
     Route::get('/channels_unsubscribe_subscribe', 'UserController@channels_unsubscribe_subscribe')->name('channels_unsubscribe_subscribe_ajax.channel');
     Route::get('/wishlist_operations', 'UserController@wishlist_operations')->name('wishlist_operations_ajax');
+
+    //Curriculum based route 
+
+    Route::get('/pre-primary', 'UserController@pre_primary')->name('pre-primary');
+    Route::get('/primary-leaving-exam', 'UserController@ple')->name('ple');
+    Route::get('/uce', 'UserController@uce')->name('uce');
+    Route::get('/uace', 'UserController@uace')->name('uace');
+
+    Route::get('/country-curriculum/selection', 'UserController@country_curriculum')->name('curriculum.selection');
+
+
+
 
 });
 

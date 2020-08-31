@@ -17,6 +17,7 @@ return array(
 	'user_ppv_commission' => 'User PPV Commission',
 
 	'payment_failed' => 'Don\'t worry, we got your back',
+	'channel_profile_photo'=>'upload profile photo',
 
 	'download_our_app' => 'Download Our App',
 
@@ -348,7 +349,7 @@ return array(
 	'profile' => 'Profile',
 	'account' =>  'Account',
 	'edit_profile' => 'Edit Profile',
-	'edit_infromation' => 'Please complete your registration to upload video',
+	'edit_infromation' => 'Fill-in for interactive learning',
 	'update_profile' =>  'Update Profile',
 	'settings' => 'Settings',
 	'delete_account' => 'Delete Account',
@@ -460,7 +461,7 @@ return array(
 	'picture' => 'Picture',
 	'first_name' => 'First Name',
 	'last_name' => 'Last Name',
-	'dob' => 'DOB',
+	'dob' => 'Date Of Birth',
 	'gender' => 'Gender',
 	'male' => 'Male',
 	'female' => 'Female',
@@ -575,6 +576,7 @@ return array(
 	'user_mobile' => 'User Mobile',
 
 	'profile_update' =>  'Profile Update',
+	'more_information'=>'Thanks for submitting your details, start learning',
 
 	'you_are' => 'You are',
 	'payment_details' => 'Payment Details',
@@ -731,6 +733,7 @@ return array(
 
 	//Admin Categories
 	'channel' => 'Channel',
+	'class'=>'Create a Class and upload',
 	'channels' => 'Channels',
 	'view_channels' => 'View Channels',
 	'add_channel' => 'Add Channel',

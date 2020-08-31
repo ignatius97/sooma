@@ -1,3 +1,4 @@
+
 @extends('layouts.user')
 @section('styles')
 <style type="text/css">
@@ -22,7 +23,7 @@
 
         @include('layouts.user.nav')
 
-        <div class="page-inner col-sm-9 col-md-10 profile-edit margin_left">
+        <div class="page-inner col-sm-9 col-md-10 profile-edit" style="margin-left: 35vw;">
 
             <div class="profile-content slide-area1">
                
@@ -32,7 +33,7 @@
 
                     <div class="col-sm-12 col-md-7 col-lg-6 profile-view">
                         
-                        <h4 class="mylist-head">{{tr('edit_infromation')}}</h4>
+                        <h2 class="mylist-head" style="text-align: center; font-size: 30px;">{{tr('edit_infromation')}}</h2>
                        
                         <div class="edit-profile profile-view">
                             
@@ -58,26 +59,10 @@
                                             <p class="help-block">{{tr('image_validate')}} {{tr('image_square')}}</p>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="username">{{tr('username')}} *</label>
-                                            <input required value="{{old('name') ?: Auth::user()->name}}" name="name" type="text" class="form-control" id="username" aria-describedby="emailHelp" placeholder="{{tr('enter_username')}}" >
-                                        </div>
-
                                         @if(Auth::user()->login_by == 'manual')
 
-                                            <div class="form-group">
-                                                <label for="email">{{tr('email')}} *</label>
-                                                <input type="email" value="{{old('email') ?: Auth::user()->email}}" name="email" disabled class="form-control" id="email" aria-describedby="emailHelp" placeholder="{{tr('enter_email')}}">
-                                            
-                                            </div>
 
                                         @endif
-
-                                        <div class="form-group">
-                                            <label for="mobile">{{tr('mobile')}}</label>
-                                            <input type="mobile" value="{{old('mobile') ?: Auth::user()->mobile}}" name="mobile" class="form-control" id="mobile" aria-describedby="emailHelp" placeholder="{{tr('enter_mobile')}}" maxlength="13">
-                                            <p class="mobile-note"><small style="color:brown">{{tr('mobile_note')}}</small></p>
-                                        </div>
                                        
 
                                         <?php
@@ -120,8 +105,9 @@
                                             <textarea name="description" class="form-control" id="about" rows="3">{{old('description') ?: Auth::user()->description}}</textarea>
                                         </div>
                                               
-                                        <div class="change-pwd save-pro-btn">
+                                        <div style="margin-left: 12vw; display: inline; width: 25px;">
                                             <button type="submit" class="btn btn-info">{{tr('submit')}}</button>
+                                            <button type="submit" class="btn btn-info" style="margin-left: 12vw;"><a style="color: white;" href="{{ url('/') }}"> skip </a></button>
                                         </div>                                              
 
                                     </form>

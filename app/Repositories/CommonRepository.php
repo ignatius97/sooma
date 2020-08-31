@@ -7,7 +7,10 @@ use App\Helpers\Helper;
 use Illuminate\Http\Request;
 use Validator;
 use App\User;
+use App\Country;
+use App\Curriculum;
 use Hash;
+use App\Classes;
 use Log;
 use DB;
 use App\Channel;
@@ -304,6 +307,290 @@ class CommonRepository {
         return response()->json($response_array, 200);    
 	}
 
+    
+
+
+    //Country save 
+
+
+    public static function country_save($request) {
+
+        try {  
+
+
+
+            $validator = Validator::make( $request->all(), [
+                    'country_name' => 'required|min:4|max:255',
+                    'description' => 'required|max:1000',
+                    'picture' => 'required|mimes:jpeg,jpg,bmp,png',
+                    
+                ]
+            );
+
+            if ($validator->fails()) {
+
+                $error = implode(',', $validator->messages()->all());
+
+                throw new Exception($error, 101);                    
+
+            }
+
+
+
+             
+                if ($request->channel_id != '') {
+
+                    $country = Country::find($request->channel_id);
+
+                    $message = tr('admin_channel_update_success');
+
+                } else {
+
+                     $country = new Country;
+
+                    $message = tr('admin_channel_create_success');
+                    //Add New User
+                   
+
+                }
+
+
+             
+
+                $country->country_name = $request->has('country_name') ? $request->country_name : '';
+
+                $country->description = $request->has('description') ? $request->description : '';
+
+                if($request->hasFile('picture') && $request->file('picture')->isValid()) {
+                    if($country->id)  {
+                        Helper::delete_picture($country->picture, "/uploads/channels/picture/");
+                    }
+                    
+                    $country->picture = Helper::normal_upload_picture($request->file('picture'), "/uploads/channels/picture/");
+                }
+
+
+                
+                
+
+
+                if ($country->save()) {
+
+                    // For response purpose
+
+                if ($country) {
+
+                    $response_array = ['success' => true, 'message' => $message, 'data' => $country];
+                } else {
+
+                    $response_array = ['success' => false, 'error_messages' => tr('something_error')]; 
+                }
+
+                }
+
+
+        } catch (Exception $e) {
+            
+            DB::rollBack();
+
+            $message = $e->getMessage();
+
+            $response_array = ['success' => false, 'error_messages' => $message, 'error_code' => $e->getCode()];
+        }    
+
+        return response()->json($response_array, 200);    
+    }
+
+
+
+// Curriculum save common Repo function
+
+
+    public static function curriculum_save($request) {
+
+        try {  
+
+
+
+            $validator = Validator::make( $request->all(), [
+
+                    'name' => 'required|min:4|max:255',
+                    'abbreviation' => 'required|max:255',
+                    'description' => 'required|max:1000',
+                    'picture' => 'required|mimes:jpeg,jpg,bmp,png',
+                    'country' => 'required|min:4|max:255',
+                    
+                ]
+            );
+
+            if ($validator->fails()) {
+
+                $error = implode(',', $validator->messages()->all());
+
+                throw new Exception($error, 101);                    
+
+            }
+
+
+
+             
+                if ($request->channel_id != '') {
+
+                    $curriculum = Curriculum::find($request->channel_id);
+
+                    $message = tr('admin_channel_update_success');
+
+                } else {
+
+                     $curriculum = new Curriculum;
+
+                    $message = tr('admin_channel_create_success');
+                    //Add New User
+                   
+
+                }
+
+
+             
+
+                $curriculum->name = $request->has('name') ? $request->name : '';
+                $curriculum->abbreviation = $request->has('abbreviation') ? $request->abbreviation : '';
+                $curriculum->country = $request->has('country') ? $request->country : '';
+
+                $curriculum->description = $request->has('description') ? $request->description : '';
+
+                if($request->hasFile('picture') && $request->file('picture')->isValid()) {
+                    if($curriculum->id)  {
+                        Helper::delete_picture($curriculum->picture, "/uploads/channels/picture/");
+                    }
+                    
+                    $curriculum->picture = Helper::normal_upload_picture($request->file('picture'), "/uploads/channels/picture/");
+                }
+
+
+                
+                
+
+
+                if ($curriculum->save()) {
+
+                    // For response purpose
+
+                if ($curriculum) {
+
+                    $response_array = ['success' => true, 'message' => $message, 'data' => $curriculum];
+                } else {
+
+                    $response_array = ['success' => false, 'error_messages' => tr('something_error')]; 
+                }
+
+                }
+
+
+        } catch (Exception $e) {
+            
+          
+
+            $message = $e->getMessage();
+
+            $response_array = ['success' => false, 'error_messages' => $message, 'error_code' => $e->getCode()];
+        }    
+
+        return response()->json($response_array, 200);    
+    }
+
+
+
+    //Class save function
+
+
+    public static function classes_save($request) {
+
+        try {  
+
+
+
+            $validator = Validator::make( $request->all(), [
+
+                    'name' => 'required|min:4|max:255',
+                    'curriculum' => 'required|max:255',
+                    'country' => 'required|min:4|max:255',
+                    'abbreviation'=>'required|max:255',
+                    
+                ]
+            );
+
+            if ($validator->fails()) {
+
+                $error = implode(',', $validator->messages()->all());
+
+                throw new Exception($error, 101);                    
+
+            }
+
+
+
+             
+                if ($request->channel_id != '') {
+
+                    $classes = Classes::find($request->channel_id);
+
+                    $message = tr('admin_channel_update_success');
+
+                } else {
+
+                     $classes = new Classes;
+
+                    $message = tr('admin_channel_create_success');
+                    //Add New User
+                   
+
+                }
+
+
+             
+
+                $classes->name = $request->has('name') ? $request->name : '';
+                $classes->curriculum = $request->has('curriculum') ? $request->curriculum : '';
+                $classes->country = $request->has('country') ? $request->country : '';
+                $classes->curriculum_short=$request->has('abbreviation') ? $request->abbreviation : '';
+
+                
+                
+
+
+                if ($classes->save()) {
+
+                    // For response purpose
+
+                if ($classes) {
+
+                    $response_array = ['success' => true, 'message' => $message, 'data' => $classes];
+                } else {
+
+                    $response_array = ['success' => false, 'error_messages' => tr('something_error')]; 
+                }
+
+                }
+
+
+        } catch (Exception $e) {
+            
+          
+
+            $message = $e->getMessage();
+
+            $response_array = ['success' => false, 'error_messages' => $message, 'error_code' => $e->getCode()];
+        }    
+
+        return response()->json($response_array, 200);    
+    }
+
+
+
+
+
+
 
     public static function video_save(Request $request) {
 
@@ -320,6 +607,7 @@ class CommonRepository {
                        // 'video'     => 'required|mimes:mkv,mp4,qt',
                         //'subtitle'=>'mimes:text/str',
                         'video_publish_type'=>'required',
+                        'video_upload_type'=>'required',
                         'video_type'=>'required|in:'.VIDEO_TYPE_UPLOAD.','.VIDEO_TYPE_YOUTUBE.','.VIDEO_TYPE_OTHERS
                         // 'age_limit'=>'required|numeric'
                         ));
@@ -493,6 +781,7 @@ class CommonRepository {
                 $model->category_curriculum=$request->curriculum;
                 $model->subject=$request->subject;
                 $model->topic=$request->topic;
+                $model->video_upload_type=$request->video_upload_type;
 
 
                 $main_video_duration = "";

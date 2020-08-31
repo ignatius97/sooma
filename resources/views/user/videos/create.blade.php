@@ -2,6 +2,17 @@
  
 @section('styles')
 <link rel="stylesheet" type="text/css" href="{{asset('streamtube/css/wizard.css')}}">
+<style type="text/css">
+  
+  input, button {
+    margin: 0;
+    padding: 6px 12px;
+    border-radius: 2px;
+    font-family: inherit;
+    font-size: 100%;
+    color: inherit;
+}
+</style>
 
 <link rel="stylesheet" href="{{asset('admin-css/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css')}}">
 @endsection
@@ -138,6 +149,17 @@
                                              <div>
                                               <input type="radio" onchange="checkPublishType(this.value)" name="video_publish_type" id="video_publish_type" value="{{PUBLISH_NOW}}" checked class='video_publish_type_class' required> {{tr('publish_now')}} &nbsp;
                                               <input type="radio" onchange="checkPublishType(this.value)" name="video_publish_type" id="video_publish_type" value="{{PUBLISH_LATER}}" class="video_publish_type_class" required /> {{tr('publish_later')}}
+                                             </div>
+                                       </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                      <div class="form-group">
+                                            <label for="name">upload type</label>&nbsp;&nbsp;
+                                             <div class="clearfix"></div>
+                                             <div>
+                                              <input type="radio" name="video_upload_type"  value="Public" checked  required> Public&nbsp;
+                                              <input type="radio" name="video_upload_type"  value="Private" required /> Private
                                              </div>
                                        </div>
                                     </div>

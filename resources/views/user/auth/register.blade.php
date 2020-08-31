@@ -150,13 +150,9 @@
                          <input id="phone"  name="mobile" type="tel" style="width: 526px;">
                     </div>
 
-                    <div class="form-group">
-                        <input type="password" required name="password" min="6" class="form-control" id="password" placeholder="{{tr('password')}}" value="{{old('password')}}" style="background-color: white;">
-                    </div>
-
-                    <div class="form-group">
+                     <div class="form-group">
                         <select id="category_id" name="curriculum" class="form-control select2" required data-placeholder="{{tr('select_category')}}*" style="width: 100% !important">
-                            <option value="" hidden disabled>Select Curriculum</option>
+                            <option value="">Select Curriculum</option>
                             @foreach($categories as $category)
                                     <option value="{{$category->category_curriculum}}">
                                     {{$category->category_curriculum}} 
@@ -167,6 +163,12 @@
                         </select>
                         
                         </div>
+
+                    <div class="form-group">
+                        <input type="password" required name="password" min="6" class="form-control" id="password" placeholder="{{tr('password')}}" value="{{old('password')}}" style="background-color: white;">
+                    </div>
+
+                   
 
                     <input type="hidden" name="timezone" value="" id="userTimezone">
 

@@ -68,6 +68,12 @@
         position: absolute;
         left: -100vw;
       }
+      .margin_lefty{
+          margin-left: 16% !important;
+          margin-right: 10% !important;
+         
+
+      }
 
 
    </style>
@@ -81,7 +87,7 @@
       
       @include('layouts.user.nav')
          
-         <div class="page-inner col-sm-9 col-md-10 profile-edit">
+         <div class="page-inner  col-xs-12 col-sm-12 col-md-8 profile-edit">
             
             <div class="profile-content mar-0">
             
@@ -986,7 +992,7 @@
        });
    
    
-       jQuery("#main-video-player").show();
+   
    
        // console.log(jwplayer().getPosition());
    

@@ -117,7 +117,7 @@ class AuthController extends Controller
             'email' => $data['email'],
             'mobile' => $data['phone'].$data['mobile'],
             'password' => \Hash::make($data['password']),
-            'curriculum' => $data['curriculum'],
+            'users_curriculum' => $data['curriculum'],
             'timezone' => $data['timezone'],
             'picture' => asset('placeholder.png'),
             'chat_picture'=>asset('placeholder.png'),
@@ -213,7 +213,7 @@ class AuthController extends Controller
                 $user->save();
             }   
         };
-       return redirect()->intended($this->redirectPath());
+       return redirect('/');
     }
 
 }

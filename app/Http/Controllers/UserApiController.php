@@ -2037,6 +2037,117 @@ class UserApiController extends Controller {
     
     }
 
+
+
+
+
+
+
+  public function more_info(Request $request) {
+        
+        $validator = Validator::make(
+            $request->all(),
+            array(
+                
+                'picture' => 'mimes:jpeg,bmp,png',
+                'device_token' => '',
+                'dob'=>'required',
+                'users_role'=>'required',
+                'gender'=>'required',
+                'description'=>'required',
+                
+            ));
+
+        if ($validator->fails()) {
+            // Error messages added in response for debugging
+            $error_messages = implode(',',$validator->messages()->all());
+            $response_array = array(
+                    'success' => false,
+                    'error' => Helper::get_error_message(101),
+                    'error_code' => 101,
+                    'error_messages' => $error_messages
+            );
+        } else {
+
+            $user = User::find($request->id);
+
+            if($user) {
+                
+
+               
+                $user->gender = $request->gender ? $request->gender : $user->gender;
+                $user->address = $request->address ? $request->address : $user->address;
+                $user->study_role=$request->users_role?$request->users_role:$user->study_role;
+                $user->description = $request->description ? $request->description : $user->address;
+
+
+
+                if ($request->dob) {
+
+                    $user->dob = date('Y-m-d', strtotime($request->dob));
+
+                }
+
+                if ($user->dob) {
+
+                    $from = new \DateTime($user->dob);
+                    $to   = new \DateTime('today');
+
+                    $user->age_limit = $from->diff($to)->y;
+
+                }
+
+
+                // Upload picture
+
+                if ($request->hasFile('picture') != "") {
+
+                    Helper::delete_picture($user->picture, "/uploads/images/"); // Delete the old pic
+
+                    $user->picture = Helper::normal_upload_picture($request->file('picture'), "/uploads/images/", $user);
+                }
+
+                $user->save();
+            }
+
+            $payment_mode_status = $user->payment_mode ? $user->payment_mode : "";
+
+            if (!empty($user->dob) && $user->dob != "0000-00-00") {
+
+                $user->dob = date('d-m-Y', strtotime($user->dob));
+
+            } else {
+
+                $user->dob = "";
+            }
+
+            $response_array = array(
+                'success' => true,
+                'message' => tr('more_information'),
+                'id' => $user->id,
+                'description' => $user->description,
+                'gender' => $user->gender,
+                'dob'=> $user->dob,
+                'age'=>$user->age_limit,
+                'picture' => $user->picture,
+                'chat_picture' => $user->picture,
+                'token' => $user->token,
+                'token_expiry' => $user->token_expiry,
+                'login_by' => $user->login_by,
+                'social_unique_id' => $user->social_unique_id,
+                'push_status' => $user->push_status,
+                
+            );
+
+            $response_array = Helper::null_safe($response_array);
+        
+        }
+
+        return response()->json($response_array, 200);
+    
+    }
+
+
     /**
      * @method change_password
      *
@@ -6429,6 +6540,7 @@ class UserApiController extends Controller {
         $base_query = VideoTape::where('video_tapes.is_approved' , 1)
                             ->where('video_tapes.status' , 1)
                             ->where('video_tapes.publish_status' , 1)
+                            ->where('video_tapes.video_upload_type', 'Public')
                             ->where('channels.status', 1)
                             ->where('channels.is_approved', 1)
                             ->leftJoin('channels' , 'video_tapes.channel_id' , '=' , 'channels.id')
@@ -6488,9 +6600,9 @@ public function recently_added_by_country($request) {
 
         $ip = '197.157.34.169';
 
-        $data = \Location::get($ip);
+        $data = 'uganda';
 
-       $country= strtolower($data->countryName);
+       $country= strtolower($data);
        
        $targeted_country=$request->input('targeted_country');
 
@@ -6502,6 +6614,7 @@ public function recently_added_by_country($request) {
         $base_query = VideoTape::where('video_tapes.is_approved' , 1)
                             ->where('video_tapes.status' , 1)
                             ->where('video_tapes.publish_status' , 1)
+                            ->where('video_tapes.video_upload_type', 'Public')
                             ->where('video_tapes.category_country', $country)
                             ->where('channels.status', 1)
                             ->where('channels.is_approved', 1)
@@ -6566,9 +6679,9 @@ public function trending_by_country($request) {
   
         $ip = '197.157.34.169';
 
-        $data = \Location::get($ip);
+        $data = 'uganda';
 
-       $country= strtolower($data->countryName);
+       $country= strtolower($data);
        
        $targeted_country=$request->input('targeted_country');
 
@@ -6581,6 +6694,7 @@ public function trending_by_country($request) {
                         ->where('video_tapes.publish_status' , 1)
                         ->where('video_tapes.status' , 1)
                         ->where('video_tapes.is_approved' , 1)
+                        ->where('video_tapes.video_upload_type', 'Public')
                         ->where('video_tapes.category_country', $country)
                         ->where('channels.status', 1)
                         ->where('channels.is_approved', 1)
@@ -6637,9 +6751,9 @@ public function trending_by_country($request) {
         
          $ip = '197.157.34.169';
 
-        $data = \Location::get($ip);
+        $data = 'uganda';
 
-       $country= strtolower($data->countryName);
+       $country= strtolower($data);
 
               
        $targeted_country=$request->input('targeted_country');
@@ -6653,6 +6767,7 @@ public function trending_by_country($request) {
                         ->where('video_tapes.publish_status' , 1)
                         ->where('video_tapes.status' , 1)
                         ->where('video_tapes.is_approved' , 1)
+                        ->where('video_tapes.video_upload_type', 'Public')
                         ->where('video_tapes.category_country', $country)
                         ->where('channels.status', 1)
                         ->where('channels.is_approved', 1)
@@ -6715,6 +6830,7 @@ public function trending_by_country($request) {
      * @param object $request - User Details
      *
      * @return Response of videos list
+
      */
     public function trending_list($request) {
 
@@ -6725,12 +6841,13 @@ public function trending_by_country($request) {
                         ->leftJoin('channels' , 'video_tapes.channel_id' , '=' , 'channels.id')
                         ->where('video_tapes.publish_status' , 1)
                         ->where('video_tapes.status' , 1)
+                        ->where('video_tapes.video_upload_type', 'Public')
                         ->where('video_tapes.is_approved' , 1)
                         ->where('channels.status', 1)
                         ->where('channels.is_approved', 1)
                         ->leftJoin('categories' , 'categories.id' , '=' , 'video_tapes.category_id') 
                         ->where('categories.status', CATEGORY_APPROVE_STATUS)
-                        ->videoResponse()
+                        
                         
                         ->orderby('watch_count' , 'desc');
 
@@ -6790,9 +6907,9 @@ public function trending_by_country($request) {
 
         $ip = '197.157.34.169';
 
-        $data = \Location::get($ip);
+        $data = 'uganda';
 
-       $country= strtolower($data->countryName);
+       $country= strtolower($data);
        
        $targeted_country=$request->input('targeted_country');
 
@@ -6806,6 +6923,7 @@ public function trending_by_country($request) {
                             ->leftJoin('categories' , 'categories.id' , '=' , 'video_tapes.category_id') 
                             ->where('video_tapes.status' , 1)
                             ->where('video_tapes.publish_status' , 1)
+                            ->where('video_tapes.video_upload_type', 'Public')
                             ->where('video_tapes.category_country', $country)
                             ->orderby('video_tapes.created_at' , 'desc')
                             ->videoResponse()
@@ -6871,9 +6989,9 @@ public function trending_by_country($request) {
         
         $ip = '197.157.34.169';
 
-        $data = \Location::get($ip);
+        $data = 'uganda';
 
-       $country= strtolower($data->countryName);
+       $country= strtolower($data);
        
        $targeted_country=$request->input('targeted_country');
 
@@ -6886,6 +7004,7 @@ public function trending_by_country($request) {
                             ->leftJoin('categories' , 'categories.id' , '=' , 'video_tapes.category_id') 
                             ->where('video_tapes.status' , 1)
                             ->where('video_tapes.category_country', $country)
+                            ->where('video_tapes.video_upload_type', 'Public')
                             ->where('video_tapes.publish_status' , 1)
                             ->orderby('video_tapes.created_at' , 'desc')
                             ->videoResponse()

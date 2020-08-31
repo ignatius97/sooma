@@ -1259,7 +1259,7 @@ function displayVideoDetails($data,$userId) {
 
             $ppv_status = true;
 
-            $url = route('user.single', $data->video_tape_id);
+            $url = $data->video_tape_id;
 
         } else {
 
@@ -1270,7 +1270,7 @@ function displayVideoDetails($data,$userId) {
                
                 if ($ppv_status) {
 
-                    $url = route('user.single', $data->video_tape_id);
+                    $url =  $data->video_tape_id;
 
 
                 } else {
@@ -1283,22 +1283,22 @@ function displayVideoDetails($data,$userId) {
 
                             if ($user->user_type) {        
 
-                                $url = route('user.subscription.ppv_invoice', $data->video_tape_id);
+                                $url = $data->video_tape_id;
 
                             } else {
 
-                                $url = route('user.subscription.pay_per_view', $data->video_tape_id);
+                                $url = $data->video_tape_id;
                             }
 
                         } else {
 
-                            $url = route('user.subscription.pay_per_view', $data->video_tape_id);
+                            $url = $data->video_tape_id;
 
                         } 
 
                     } else {
 
-                        $url = route('user.subscription.pay_per_view', $data->video_tape_id);
+                        $url = $data->video_tape_id;
                     }              
                 }
 
@@ -1306,7 +1306,7 @@ function displayVideoDetails($data,$userId) {
 
                 $ppv_status = true;
 
-                $url = route('user.single', $data->video_tape_id);
+                $url = $data->video_tape_id;
             }
         }
 
@@ -1361,6 +1361,7 @@ function displayVideoDetails($data,$userId) {
     $model = [
         'video_tape_id'=>$data->video_tape_id,
         'title'=>$data->title,
+        'video'=>$data->video,
         'video_image'=>$data->default_image,
         'watch_count'=>number_format_short($data->watch_count),
         'duration'=>$data->duration,
@@ -1374,7 +1375,8 @@ function displayVideoDetails($data,$userId) {
         'description'=>$data->description,
         'ratings'=>$data->ratings ? $data->ratings : 0,
         'amount'=>$data->amount,
-        'url'=>$url,
+        'class'=>$data->class,
+        'url'=>$data->video_tape_id,
         'type_of_user'=>$data->type_of_user,
         'type_of_subscription'=>$data->type_of_subscription,
         'user_ppv_amount' => $data->user_ppv_amount,

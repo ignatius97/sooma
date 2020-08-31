@@ -36,6 +36,8 @@
                 </ul>
             </li>
 
+
+
             <li class="treeview" id="sub-admins">
                 <a href="#">
                     <i class="fa fa-user-plus"></i> <span>{{tr('sub_admins')}}</span> <i class="fa fa-angle-left pull-right"></i>
@@ -50,8 +52,53 @@
                 </ul>    
             </li>
 
+            <li class="treeview" id="channels">
+                <a href="{{route('admin.channels.index')}}">
+                    <i class="fa fa-tv"></i> <span>Country</span> <i class="fa fa-angle-left pull-right"></i>
+                </a>
+
+                <ul class="treeview-menu">
+                    
+                    <li id="channels-create"><a href="{{route('admin.country.create')}}"><i class="fa fa-circle-o"></i>Add Country</a></li>
+                    
+                    <li id="channels-view"><a href="{{route('admin.countries.index')}}"><i class="fa fa-circle-o"></i>View Country</a></li>
+                
+                </ul>
+            </li>
+
+            <li class="treeview" id="channels">
+                <a href="{{route('admin.channels.index')}}">
+                    <i class="fa fa-tv"></i> <span>Curriculum</span> <i class="fa fa-angle-left pull-right"></i>
+                </a>
+
+                <ul class="treeview-menu">
+                    
+                    <li id="channels-create"><a href="{{route('admin.curriculums.create')}}"><i class="fa fa-circle-o"></i>Add Curriculum</a></li>
+                    
+                    <li id="channels-view"><a href="{{route('admin.curriculum.index')}}"><i class="fa fa-circle-o"></i>View Curriculum</a></li>
+                
+                </ul>
+            </li>
+               <li class="treeview" id="channels">
+                <a href="{{route('admin.channels.index')}}">
+                    <i class="fa fa-tv"></i> <span>Class</span> <i class="fa fa-angle-left pull-right"></i>
+                </a>
+
+                <ul class="treeview-menu">
+                    
+                    <li id="channels-create"><a href="{{route('admin.classes.create')}}"><i class="fa fa-circle-o"></i>Add Class</a></li>
+                    
+                    <li id="channels-view"><a href="{{route('admin.classes.index')}}"><i class="fa fa-circle-o"></i>View Class</a></li>
+                
+                </ul>
+            </li>
+
+             
+
             <li class="header text-uppercase sidebar-header">{{tr('videos_management')}}</li>
 
+
+        
             <li class="treeview" id="channels">
                 <a href="{{route('admin.channels.index')}}">
                     <i class="fa fa-tv"></i> <span>{{tr('channels')}}</span> <i class="fa fa-angle-left pull-right"></i>

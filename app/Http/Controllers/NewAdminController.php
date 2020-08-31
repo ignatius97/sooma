@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Classes;
 
 use App\Helpers\Helper;
 
@@ -23,6 +24,7 @@ use App\Repositories\AdminRepository as AdminRepo;
 use App\Repositories\VideoTapeRepository as VideoRepo;
 
 use Auth;
+use App\Country;
 
 use DB;
 
@@ -45,6 +47,7 @@ use App\UserRating;
 use App\Wishlist;
 
 use App\Channel;
+use App\Curriculum;
 
 use App\ChannelSubscription; 
 
@@ -1169,6 +1172,308 @@ class NewAdminController extends Controller {
                 ->with('users', $users)
                 ->with('channel_details', $channel_details);
     }
+  
+  // Class create function
+
+
+
+    public function classes_create() {
+
+        // Check the create channel option is enabled from admin settings
+        if(Setting::get('create_channel_by_user') == CREATE_CHANNEL_BY_USER_ENABLED) {
+
+            $users = User::where('is_verified', DEFAULT_TRUE)
+                        ->where('status', DEFAULT_TRUE)
+                        ->where('user_type', SUBSCRIBED_USER)
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+
+        } else {
+
+            // Load master user
+            $users = User::where('is_verified', DEFAULT_TRUE)
+                        ->where('is_master_user' , DEFAULT_TRUE)
+                        ->where('status', DEFAULT_TRUE)
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+        }
+
+         $class_details = new CLasses;
+         $country_details = Country::all();
+         $curriculum=Curriculum::all();
+         
+        return view('new_admin.classes.create')
+                ->with('country_details', $country_details)
+                ->with('page' ,'channels')
+                ->with('sub_page' ,'channels-create')
+                ->with('users', $users)
+                ->with('curriculum', $curriculum)
+                ->with('curriculum_details',$class_details );
+
+    }
+
+
+  //Class save function 
+
+
+    public function classes_save(Request $request) {
+
+        $response = CommonRepo::classes_save($request)->getData();
+       
+        if($response->success) {
+
+            return redirect()->route('admin.classes.index',['channel_id' => $response->data->id])->with('flash_success', 'Class added succesfully');
+
+        } else {
+            
+            return back()->with('flash_error', $response->error_messages);
+        }
+        
+    }
+
+  //Class index view function
+    public function classes_index(){
+
+        try{
+             $classes = CLasses::all();
+
+             if(!$classes){
+                throw new Exception(tr('admin_channel_not_found'), 101);
+              }
+           return view('new_admin.classes.index')->with('curriculum_details', $classes)->withPage('country')->with('sub_page','channels-view');
+                    
+        }
+
+        catch (Exception $e) {
+            
+            $error = $e->getMessage();
+
+            return redirect()->back()->with('flash_error',$error);
+        }
+    }
+
+
+
+
+    // Class Edit 
+
+
+
+
+     public function classes_edit(Request $request) {
+        
+        try {
+
+            
+         $curriculum_details = CLasses::find($request->channel_id);
+         $country_details = Country::all();
+
+            if(!$curriculum_details) {
+
+                throw new Exception(tr('admin_channel_not_found'), 101);
+            }
+
+            return view('new_admin.classes.create')
+                ->with('country_details', $country_details)
+                ->with('page' ,'channels')
+                ->with('sub_page' ,'channels-create')
+                ->with('curriculum_details', $curriculum_details);
+            
+        } catch (Exception $e) {
+            
+            $error = $e->getMessage();
+
+            return back()->with('flash_error',$error);
+        }
+   
+    }     
+
+
+    //create curriculum
+
+
+public function curriculums_create() {
+
+        // Check the create channel option is enabled from admin settings
+        if(Setting::get('create_channel_by_user') == CREATE_CHANNEL_BY_USER_ENABLED) {
+
+            $users = User::where('is_verified', DEFAULT_TRUE)
+                        ->where('status', DEFAULT_TRUE)
+                        ->where('user_type', SUBSCRIBED_USER)
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+
+        } else {
+
+            // Load master user
+            $users = User::where('is_verified', DEFAULT_TRUE)
+                        ->where('is_master_user' , DEFAULT_TRUE)
+                        ->where('status', DEFAULT_TRUE)
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+        }
+
+         $curriculum_details = new Curriculum;
+         $country_details = Country::all();
+         
+        return view('new_admin.curriculums.create')
+                ->with('country_details', $country_details)
+                ->with('page' ,'channels')
+                ->with('sub_page' ,'channels-create')
+                ->with('users', $users)
+                ->with('curriculum_details', $curriculum_details);
+    }
+
+
+
+
+    //Curriculum save
+
+ public function curriculum_save(Request $request) {
+
+        $response = CommonRepo::curriculum_save($request)->getData();
+       
+        if($response->success) {
+
+            return redirect()->route('admin.curriculum.index',['channel_id' => $response->data->id])->with('flash_success', 'Curriculum added succesfully');
+
+        } else {
+            
+            return back()->with('flash_error', $response->error_messages);
+        }
+        
+    }
+
+    //Curriculum delete controller function 
+    public function curriculum_delete(Request $request) {
+
+        try {
+            
+            DB::beginTransaction();
+
+            $curriculum = Curriculum::find($request->channel_id);
+            $country_details = Country::all();
+
+            if(!$curriculum) {
+
+                throw new Exception(tr('admin_channel_not_found'), 101);
+            }
+            
+            if ($curriculum->delete()) {  
+
+                DB::commit();
+                return redirect()->route('admin.curriculum.index')->with('flash_success','Curriculum deleted successfully');
+            
+            } 
+
+            throw new Exception(tr('admin_channel_delete_success'), 101);
+            
+        } catch (Exception $e) {
+            
+            DB::rollback();
+
+            $error = $e->getMessage();
+
+            return back()->with('flash_error',$error);
+        }    
+    }
+
+
+
+    //  Curriculum view index
+
+
+
+    public function curriculum_index(){
+
+        try{
+             $curriculum_details = Curriculum::all();
+
+             if(!$curriculum_details){
+                throw new Exception(tr('admin_channel_not_found'), 101);
+              }
+           return view('new_admin.curriculums.index')->with('curriculum_details', $curriculum_details)->withPage('country')->with('sub_page','channels-view');
+                    
+        }
+
+        catch (Exception $e) {
+            
+            $error = $e->getMessage();
+
+            return redirect()->back()->with('flash_error',$error);
+        }
+    }
+
+
+// Curriculum edit controller function 
+
+
+    public function curriculum_edit(Request $request) {
+        
+        try {
+
+            
+         $curriculum_details = Curriculum::find($request->channel_id);
+         $country_details = Country::all();
+
+            if(!$curriculum_details) {
+
+                throw new Exception(tr('admin_channel_not_found'), 101);
+            }
+
+            return view('new_admin.curriculums.create')
+                ->with('country_details', $country_details)
+                ->with('page' ,'channels')
+                ->with('sub_page' ,'channels-create')
+                ->with('curriculum_details', $curriculum_details);
+            
+        } catch (Exception $e) {
+            
+            $error = $e->getMessage();
+
+            return back()->with('flash_error',$error);
+        }
+   
+    }     
+   
+
+
+
+   //Country create controller function 
+
+
+    public function country_create() {
+
+        // Check the create channel option is enabled from admin settings
+        if(Setting::get('create_channel_by_user') == CREATE_CHANNEL_BY_USER_ENABLED) {
+
+            $users = User::where('is_verified', DEFAULT_TRUE)
+                        ->where('status', DEFAULT_TRUE)
+                        ->where('user_type', SUBSCRIBED_USER)
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+
+        } else {
+
+            // Load master user
+            $users = User::where('is_verified', DEFAULT_TRUE)
+                        ->where('is_master_user' , DEFAULT_TRUE)
+                        ->where('status', DEFAULT_TRUE)
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+        }
+
+        $channel_details = new Country;
+         
+        return view('new_admin.country.create')
+                ->with('page' ,'channels')
+                ->with('sub_page' ,'channels-create')
+                ->with('users', $users)
+                ->with('channel_details', $channel_details);
+    }
+
+
+
 
     /**
      * @method channels_edit
@@ -1244,6 +1549,96 @@ class NewAdminController extends Controller {
     }
 
 
+    
+
+
+// Country save
+
+
+     public function country_save(Request $request) {
+
+        $response = CommonRepo::country_save($request)->getData();
+        $country_details = Country::all();
+       
+        if($response->success) {
+
+            return redirect()->route('admin.countries.index')->with('flash_success', 'Country has been created successfully.')->with('country_details', $country_details)->with('page' ,'countries')->with('sub_page' ,'channels-view');
+
+        } else {
+            
+            return back()->with('flash_error', $response->error_messages);
+        }
+        
+        }
+
+
+   // Country Edit 
+   
+    public function country_edit(Request $request) {
+        
+        try {
+
+            $country_details = Country::find($request->channel_id);
+
+            if(!$country_details) {
+
+                throw new Exception(tr('admin_channel_not_found'), 101);
+            }
+
+            return view('new_admin.country.edit')
+                        ->with('page' ,'countries')
+                        ->with('sub_page' ,'channels-view')
+                        ->with('channel_details' , $country_details);
+            
+        } catch (Exception $e) {
+            
+            $error = $e->getMessage();
+
+            return back()->with('flash_error',$error);
+        }
+   
+    }     
+
+
+// Country Delete Controller 
+
+     public function country_delete(Request $request) {
+
+        try {
+            
+            DB::beginTransaction();
+
+            $country = Country::find($request->channel_id);
+            $country_details = Country::all();
+
+            if(!$country) {
+
+                throw new Exception(tr('admin_channel_not_found'), 101);
+            }
+            
+            if ($country->delete()) {  
+
+                DB::commit();
+                return redirect()->route('admin.countries.index')->with('flash_success','Country deleted successfully');
+            
+            } 
+
+            throw new Exception(tr('admin_channel_delete_success'), 101);
+            
+        } catch (Exception $e) {
+            
+            DB::rollback();
+
+            $error = $e->getMessage();
+
+            return back()->with('flash_error',$error);
+        }    
+    }
+
+
+
+
+
     /**
      * @method channels_view
      *
@@ -1309,6 +1704,28 @@ class NewAdminController extends Controller {
             return redirect()->back()->with('flash_error',$error);
         }
     
+    }
+
+   // country view page controller 
+
+    public function country_index(){
+
+        try{
+             $country_details = Country::all();
+
+             if(!$country_details){
+                throw new Exception(tr('admin_channel_not_found'), 101);
+              }
+           return view('new_admin.country.index')->with('country_details', $country_details)->withPage('country')->with('sub_page','channels-view');
+                    
+        }
+
+        catch (Exception $e) {
+            
+            $error = $e->getMessage();
+
+            return redirect()->back()->with('flash_error',$error);
+        }
     }
 
     /**

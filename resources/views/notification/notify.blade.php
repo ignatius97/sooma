@@ -9,7 +9,7 @@
 
 @if(Session::has('flash_message_ajax'))
 
-<div class="alert alert-success"  >
+<div class="alert alert-success"  style="margin-right: 20vw;">
     <button type="button" class="close" data-dismiss="alert">×</button>
     {{Session::get('flash_message_ajax')}}
 </div>

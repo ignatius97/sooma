@@ -1,3 +1,10 @@
+ <!--videoVideoPlugin.js is required only when the slider contains video or audio.-->
+ <script src="video_audio_slider/VideoPlugin.js"></script>
+<script src="video_audio_slider/video_audio_slider.js" type="text/javascript"></script>
+<script type="text/javascript">
+        //don't copy the script below into your page.
+        if (!document.domain) alert("The video will not work properly if opening the page by local path. Please test this page through HTTP on a web or localhost server");    
+    </script>
 
 <script src="{{asset('streamtube/js/jquery.min.js')}}"></script>
 
@@ -5,7 +12,6 @@
 
 <script src="{{asset('assets/bootstrap/js/jquery-ui.js')}}"></script>
 
-<script src="{{asset('admin-css/plugins/input-mask/jquery.inputmask.js')}}"></script>
 
 <script type="text/javascript" src="{{asset('streamtube/js/jquery-migrate-1.2.1.min.js')}}"></script>
 
@@ -21,7 +27,10 @@
 
 <script src="{{asset('admin-css/plugins/input-mask/jquery.inputmask.date.extensions.js')}}"></script>
 
-<script src="{{asset('admin-css/plugins/input-mask/jquery.inputmask.extensions.js')}}"></script>    
+<script src="{{asset('admin-css/plugins/input-mask/jquery.inputmask.extensions.js')}}"></script>  
+
+
+
 
 <script type="text/javascript">
 

@@ -1,29 +1,24 @@
-<div class="y-menu col-sm-2 col-md-2 scroll final_static" >
-    <div class="side_bar_style">
+<div class="y-menu col-sm-3 col-md-3" >
+    <div class="curriculum">
         <ul class="y-home menu1">
 
-        <li><h3 class="popular_title" style="color: black; font-weight: bold; font-style: italic; font-size: 17px"> Popular classes</h3></li>
+        <li><h3 class="popular_title" style="color: black; font-weight: bold; text-align: center; font-style: italic; font-size: 17px">Curriculum Based </br> Learning </h3></li>
 
-
-        @if(count($trendings->items) > 0)
 
         <div>
-        @foreach($trendings->items as $video)
-        <li id="hom" >
-            <a href="{{$video->url}}" > <img id="img" src="{{asset('streamtube/images/placeholder.gif')}}" data-src="{{$video->video_image}}" class="slide-img1 placeholder" /> <h6 style="display: inline-grid; vertical-align: bottom;" > {{$video->title}} <br/> <span class="view_to_end"> <i class="fa fa-eye"></i> {{$video->watch_count}} {{tr('views')}}</span></h6></a>
+       @foreach($curriculum as $curriculum) 
+       @if($curriculum->country=='Kenya')
+        <li id="hom" title="{{$curriculum->name}}">
+            <a  href="{{ route('user.curriculum.selection' , ['curriculum' => $curriculum->abbreviation, 'country'=>$curriculum->country] ) }}" > <img   class="slide-img1 placeholder" id="img" src="{{ URL::to('/')}}/images/heart.png"  /> <h6 style="display: inline-grid; vertical-align: bottom; color: black; font-size: 15px;" >{{$curriculum->abbreviation}}</h6></a>
         </li>
-
-        @endforeach
-        </div>
-        @else
-
-            <li> {{tr('no_trending_videos')}} </li>
         @endif
-
-
-
+     
+       @endforeach
+     
+        </div>
+      
         </ul>
-    </div>
+    
               
 
 
@@ -56,16 +51,7 @@
                     <span>{{tr('wishlist')}}</span>
                 </a>
             </li>
-            @if(Setting::get('create_channel_by_user') == CREATE_CHANNEL_BY_USER_ENABLED || Auth::user()->is_master_user == 1)
-                <li id="my_channel">
-                    <a href="{{route('user.channel.mychannel')}}">
-                        <img src="{{asset('images/sidebar/channel-grey.png')}}" class="grey-img">
-                        <img src="{{asset('images/sidebar/channel-red.png')}}" class="red-img">
-                        <span>{{tr('my_channels')}}</span>
-                    </a>
-                </li>
 
-            @endif
 
             <li id="playlists">
                 <a href="{{route('user.playlists.index')}}">
@@ -186,14 +172,15 @@
         @endif
 
     @else
-        <div class="sign_up_slogan">
-        <div class="menu4 top nav-space my_bg_color">
-            <h3 class="sooma_header" >Join the <span class="sooma_color">sooma</span> community</h3>
-            <p>Teach and learn from anywhere at any time</p>
+        <div class="about_us">
+        <div class="menu4 top nav-space my_bg_color" >
+            <h3 class="sooma_header" style="padding-top: 15%;">For more information about <span class="sooma_color">sooma</span> Please click the button below</h3>
+            
             <form method="get" action="{{route('user.register.form')}}">
-                <button type="submit" class="sign_up_btn" style="background-color: brown;">sign up</button>
+                <button type="submit" class="sign_up_btn" style="background-color: brown;">About us</button>
             </form>
         </div> 
         </div>  
     @endif             
+</div>
 </div>

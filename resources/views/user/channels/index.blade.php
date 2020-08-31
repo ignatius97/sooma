@@ -89,13 +89,13 @@
 
 @section('content')
 
-    <div class="y-content">
+    <div class="y-content" style="">
 
         <div class="row content-row">
 
             @include('layouts.user.nav')
 
-            <div class="page-inner col-sm-9 col-md-10">
+            <div class="page-inner col-sm-9 col-md-10 margin_left">
 
                 <div class="slide-area1">
 
@@ -143,20 +143,18 @@
 
                                             @if($channel->user_id == Auth::user()->id) 
 
-                                                @if(Auth::user()->user_type)
+                                                
 
                                                     <a class="st_video_upload_btn" href="{{route('user.video_upload', ['id'=>$channel->id])}}"><i class="fa fa-upload"></i> {{tr('upload')}}</a> 
 
-                                                    @if(Setting::get('broadcast_by_user') == YES || Auth::user()->is_master_user == YES)
 
-                                                        <button class="st_video_upload_btn text-uppercase" data-toggle="modal" data-target="#start_broadcast">
+                                                        <button class="st_video_upload_btn text-uppercase" data-toggle="modal" data-target="#start_broadcast" disabled="true">
                                                             <i class="fa fa-video-camera"></i> 
-                                                            {{tr('go_live')}}
+                                                           {{ trans('messages.go_live') }}
                                                         </button>
 
-                                                    @endif
+                                                  
 
-                                                @endif
 
                                                 <a style="display: none;" class="st_video_upload_btn" href="{{route('user.video_upload', ['id'=>$channel->id])}}"><i class="fa fa-download"></i> {{tr('download_from_youtube')}}</a>
 
