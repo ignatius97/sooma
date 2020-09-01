@@ -58,7 +58,7 @@
 
             <div class="page-inner col-xs-12 col-sm-12 col-md-9">
                 <div class="row">
-                <div class="container">
+                <div >
   
     <!-- Wrapper for slides -->
 

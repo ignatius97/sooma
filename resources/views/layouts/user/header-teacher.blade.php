@@ -199,22 +199,12 @@
                 </ul>
                  
                  @if(is_null(Auth::user()->study_role))
-                 <a class="nav navbar-nav pull-right" href="{{route('user.upload.information')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-upload fa-1x nav navbar-nav pull-right" style="color: white;"></i>Upload</a>
+                 <a class="nav navbar-nav pull-right" href="{{route('user.upload.information')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Student</a>
                   @else
 
-                   <a class="nav navbar-nav pull-right" href="{{url('mychannels/list')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-upload fa-1x nav navbar-nav pull-right" style="color: white;"></i>Upload</a>
+                   <a class="nav navbar-nav pull-right" href="{{url('/')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Student</a>
                    @endif
-                    <form action="/" method="get" style="margin-top: 1vh;">
-                   <select id="options" name="targeted_country" style="width: auto;">
-                 <option value="{{$country}}">{{$country}}</option>
-
-                @foreach($countries as $country)   
-                  
-                    <option value="{{$country->country_name}}">{{$country->country_name}}</option>
-                  @endforeach
-               
-                 </select> 
-                </form>
+                   
               
 
 
@@ -238,17 +228,7 @@
                 
 
                  
-                <form action="/" method="get" style="margin-top: 1vh;">
-                   <select id="options" name="targeted_country" style="width: auto;">
-                 <option value="{{$country}}">{{$country}}</option>
-
-                @foreach($countries as $country)   
-                  
-                    <option value="{{$country->country_name}}">{{$country->country_name}}</option>
-                  @endforeach
                
-                 </select> 
-                </form>
               
                 @if(Setting::get('is_direct_upload_button') == YES)
 

@@ -1245,7 +1245,6 @@ class UserController extends Controller {
 
         }
 
-
         $response = $this->UserAPI->channel_list($request)->getData();
          $trendings = $this->UserAPI->trending_list($request)->getData();
 

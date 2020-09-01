@@ -3,9 +3,9 @@
 
 <div class="row content-row">
 
-	@include('layouts.user.nav')
+	@include('layouts.user.nav_teacher')
 
-	<div class="page-inner col-sm-9 col-md-10 col-lg-9" style="margin-left: 18%;">
+	<div class="page-inner col-sm-9 col-md-8 col-lg-9" style="margin-left: 18%;">
 
 		@include('notification.notify')
 

@@ -1,4 +1,4 @@
-@extends('layouts.user')
+@extends('layouts.user_teacher')
 
 @section('styles')
 
@@ -24,9 +24,9 @@ thead>tr>th {
     
         <div class="row content-row">
 
-            @include('layouts.user.nav')
+            @include('layouts.user.nav_teacher')
 
-            <div class="history-content page-inner col-sm-9 col-md-10">
+            <div class="history-content page-inner col-sm-9 col-md-8">
 
                 @include('notification.notify')
 
