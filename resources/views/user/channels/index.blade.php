@@ -791,17 +791,50 @@
                                         <div style="display: inline-block;">
                                             <img class="profile-image" src="{{Auth::user()->picture ?: asset('placeholder.png')}}">
                                         </div>
-                                        <div class="form-group" style="display: inline-block; width: 85%;">
-                                            <input type="text" value="{{Auth::user()->name}}" style="background-color: white; display:none;" >
-                                            <input type="text" value="{{Auth::user()->email}}" style="background-color: white; display:none;">
-                                            <input type="text" value="date" style=" display:none;" >
-                                            <!-- We need to upload the profile photo to -->
-                                            <input type="text" required name="comment" class="form-control" id="comment" placeholder="Add comment to this post"  style="background-color: white;">
-                                        </div>
-                                        <div style="display: inline-block;">
-                                            <button class="btn btn-primary">Send</button>
-                                        </div>
+                                        <form class="comment-form" role="form" method="POST" action="{{ url('/comment') }}" enctype="multipart/form-data" style="display:inline;>
+                                            <div class="form-group" style="display: inline-block; width: 85%;">
+                                                <input type="text" value="{{Auth::user()->name}}" style="background-color: white; display:none;" >
+                                                <input type="text" value="{{Auth::user()->email}}" style="background-color: white; display:none;">
+                                                <input type="text" value="date" style=" display:none;" >
+                                                <!-- We need to upload the profile photo to -->
+                                                <input type="text" required name="comment" class="form-control" id="comment" placeholder="Add comment to this post"  style="background-color: white;">
+                                            </div>
+                                            <div style="display: inline-block;">
+                                                <button class="btn btn-primary">Send</button>
+                                            </div>
+                                        </form>
                                     </div>
+
+                                    <!-- repeating the comment -->
+                                    <div style="border:1px solid black; padding: 10px; margin-bottom:5px;">
+                                        <div style="display: inline-block;">
+                                            <img class="profile-image" src="">
+                                        </div>
+                                        <div style="display: inline-block; color:black; vertical-align: middle;">
+                                            <P>Name of Person posting <br/> <small>Date when posted</small></P>
+                                        </div>
+                                        <div style="border:1px solid black; padding: 10px; margin-bottom:10px; color:black;">
+                                            The post the teacher or student has sent <br/>.
+                                        </div>
+                                        <!-- commenting on a post -->
+                                        <div style="display: inline-block;">
+                                            <img class="profile-image" src="{{Auth::user()->picture ?: asset('placeholder.png')}}">
+                                        </div>
+                                        <form class="comment-form" role="form" method="POST" action="{{ url('/comment') }}" enctype="multipart/form-data" style="display:inline;>
+                                            <div class="form-group" style="display: inline-block; width: 85%;">
+                                                <input type="text" value="{{Auth::user()->name}}" style="background-color: white; display:none;" >
+                                                <input type="text" value="{{Auth::user()->email}}" style="background-color: white; display:none;">
+                                                <input type="text" value="date" style=" display:none;" >
+                                                <!-- We need to upload the profile photo to -->
+                                                <input type="text" required name="comment" class="form-control" id="comment" placeholder="Add comment to this post"  style="background-color: white;">
+                                            </div>
+                                            <div style="display: inline-block;">
+                                                <button class="btn btn-primary">Send</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <!-- repeating the comment -->
                                     <div style="border:1px solid black; padding: 10px; margin-bottom:5px;">
                                         <div style="display: inline-block;">
                                             <img class="profile-image" src="">
@@ -817,42 +850,18 @@
                                         <div style="display: inline-block;">
                                             <img class="profile-image" src="{{Auth::user()->picture ?: asset('placeholder.png')}}">
                                         </div>
-                                        <div class="form-group" style="display: inline-block; width: 85%;">
-                                            <input type="text" value="{{Auth::user()->name}}" style="background-color: white; display:none;" >
-                                            <input type="text" value="{{Auth::user()->email}}" style="background-color: white; display:none;">
-                                            <input type="text" value="date" style=" display:none;" >
-                                            <!-- We need to upload the profile photo to -->
-                                            <input type="text" required name="comment" class="form-control" id="comment" placeholder="Add comment to this post"  style="background-color: white;">
-                                        </div>
-                                        <div style="display: inline-block;">
-                                            <button class="btn btn-primary">Send</button>
-                                        </div>
-                                    </div>
-                                    <div style="border:1px solid black; padding: 10px; margin-bottom:5px;">
-                                        <div style="display: inline-block;">
-                                            <img class="profile-image" src="">
-                                        </div>
-                                        <div style="display: inline-block; color:black; vertical-align: middle;">
-                                            <P>Name of Person posting <br/> <small>Date when posted</small></P>
-                                        </div>
-
-                                        <div style="border:1px solid black; padding: 10px; margin-bottom:10px; color:black;">
-                                            The post the teacher or student has sent <br/>.
-                                        </div>
-                                        <!-- commenting on a post -->
-                                        <div style="display: inline-block;">
-                                            <img class="profile-image" src="{{Auth::user()->picture ?: asset('placeholder.png')}}">
-                                        </div>
-                                        <div class="form-group" style="display: inline-block; width: 85%;">
-                                            <input type="text" value="{{Auth::user()->name}}" style="background-color: white; display:none;" >
-                                            <input type="text" value="{{Auth::user()->email}}" style="background-color: white; display:none;">
-                                            <input type="text" value="date" style=" display:none;" >
-                                            <!-- We need to upload the profile photo to -->
-                                            <input type="text" required name="comment" class="form-control" id="comment" placeholder="Add comment to this post"  style="background-color: white;">
-                                        </div>
-                                        <div style="display: inline-block;">
-                                            <button class="btn btn-primary">Send</button>
-                                        </div>
+                                        <form class="comment-form" role="form" method="POST" action="{{ url('/comment') }}" enctype="multipart/form-data" style="display:inline;>
+                                            <div class="form-group" style="display: inline-block; width: 85%;">
+                                                <input type="text" value="{{Auth::user()->name}}" style="background-color: white; display:none;" >
+                                                <input type="text" value="{{Auth::user()->email}}" style="background-color: white; display:none;">
+                                                <input type="text" value="date" style=" display:none;" >
+                                                <!-- We need to upload the profile photo to -->
+                                                <input type="text" required name="comment" class="form-control" id="comment" placeholder="Add comment to this post"  style="background-color: white;">
+                                            </div>
+                                            <div style="display: inline-block;">
+                                                <button class="btn btn-primary">Send</button>
+                                            </div>
+                                        </form>
                                     </div>
                                     @endif
                                 </div>
@@ -887,17 +896,17 @@
                             <div class="recom-area abt-sec">
                                 <div class="abt-sec-head">
                                     <h5>Assignments</h5>
-                                    <a href="" >
+                                    <a href="{{route('user.channel.assignment')}}" >
                                         <div style="border:1px solid black; padding: 10px; margin-bottom:10px; color:black;">
                                             <P>Assignment Name <br/> <small>Date when posted</small></P>
                                         </div>
                                     </a>
-                                    <a href="">
+                                    <a href="{{route('user.channel.assignment')}}">
                                         <div style="border:1px solid black; padding: 10px; margin-bottom:10px; color:black;">
                                             <P>Assignment Name <br/> <small>Date when posted</small></P>
                                         </div>
                                     </a>
-                                    <a href="">
+                                    <a href="{{route('user.channel.assignment')}}">
                                         <div style="border:1px solid black; padding: 10px; margin-bottom:10px; color:black;">
                                             <P>Assignment Name <br/> <small>Date when posted</small></P>
                                         </div>

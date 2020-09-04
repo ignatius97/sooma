@@ -195,6 +195,37 @@
                         </ul>
 
                     </li>
+
+                    <li  class="dropdown">
+                        <a class="nav-link text-light notification-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="return notificationsStatusUpdate();">
+                            <img src="{{asset('assignment.png')}}" style="width: 2rem;" alt="">
+                        </a>
+
+                        <ul class="dropdown-menu-notification dropdown-menu">
+
+                            <li class="notification-head text-light bg-dark">
+                                <div class="row">
+                                    <div class="col-lg-12 col-sm-12 col-12">
+                                        <span>
+                                            {{tr('notifications')}} 
+                                            (<span id="global-notifications-count">0</span>)
+                                        </span>
+                                        <!-- <a href="" class="float-right text-light">Mark all as read</a> -->
+                                    </div>
+                                </div>
+                            </li>
+
+                            <span id="global-notifications-box"></span>
+
+                            <li class="notification-footer bg-dark text-center">
+                                <a href="{{route('user.students_assignments')}}" class="text-light">
+                                    {{tr('view_all')}}
+                                </a>
+                            </li>
+                        
+                        </ul>
+
+                    </li>
                  
                 </ul>
                  
@@ -208,8 +239,7 @@
                    <select id="options" name="targeted_country" style="width: auto;">
                  <option value="{{$country}}">{{$country}}</option>
 
-                @foreach($countries as $country)   
-                  
+                @foreach($countries as $country)  
                     <option value="{{$country->country_name}}">{{$country->country_name}}</option>
                   @endforeach
                

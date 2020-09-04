@@ -651,6 +651,10 @@ Route::group(['as' => 'user.'], function(){
 
     Route::get('/', 'UserController@index')->name('dashboard');
 
+    Route::get('/students_assignments', 'UserController@students_assignments')->name('students_assignments');
+
+    Route::get('/students_single_assignment', 'UserController@students_single_assignment')->name('students_single_assignment');
+
     Route::get('/trending', 'UserController@trending')->name('trending');
 
 
@@ -664,6 +668,8 @@ Route::group(['as' => 'user.'], function(){
     Route::get('wishlist', 'UserController@wishlist')->name('wishlist');
 
     Route::get('channel/{id}', 'UserController@channel_view')->name('channel');
+
+    Route::get('channels/assignment', 'UserController@channel_assignment')->name('channel.assignment');
 
     Route::get('video/{id}', 'UserController@video_view')->name('single');
 

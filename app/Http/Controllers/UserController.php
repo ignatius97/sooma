@@ -1184,6 +1184,260 @@ class UserController extends Controller {
         
     }
 
+
+
+    public function students_assignments(Request $request) {
+
+
+        $ip = '197.157.34.169';
+
+        $data = 'uganda';
+
+       $country= strtolower($data);
+
+        $trendings = $this->UserAPI->trending_list($request)->getData();
+        $recent_videos = $this->UserAPI->recently_added($request)->getData();
+
+        $suggestions  = $this->UserAPI->suggestion_videos($request)->getData();
+       
+       $targeted_country=$request->input('targeted_country');
+
+
+
+
+       if ($targeted_country=='uganda'|| $targeted_country=='kenya' || $targeted_country=='tanzania'||$targeted_country=='rwanda') {
+
+           $country=$targeted_country;
+
+           $trendings=$this->UserAPI->trending_by_country($request)->getData();
+
+           $recent_videos=$this->UserAPI->recently_added_by_country($request)->getData();
+
+           $suggestions=$this->UserAPI->suggestion_videos_by_country($request)->getData();
+
+       }
+
+       if ($country=='uganda'||$country=='kenya'||$country=='tanzania'||$country=='rwanda') {
+
+         $country=$country;
+        $trendings=$this->UserAPI->trending_by_country($request)->getData();
+
+           $recent_videos=$this->UserAPI->recently_added_by_country($request)->getData();
+
+           $suggestions=$this->UserAPI->suggestion_videos_by_country($request)->getData();
+
+       }
+
+
+
+
+        Log::info("Timezone ".print_r(date('Y-m-d H:i:s'), true));
+
+        Log::info("Convert Timezone ".print_r(convertTimeToUSERzone(date('Y-m-d H:i:s'), 'Europe/London', 'Y-m-d H:i:s'), true));
+        
+
+
+        $database = config('database.connections.mysql.database');
+        
+        $username = config('database.connections.mysql.username');
+       
+
+        if($database && $username && Setting::get('installation_process') == 2) {
+
+            counter('home');
+
+            $watch_lists = $wishlists = array();
+
+            if (Auth::check()) {
+                
+                $request->request->add([ 
+                    'id'=>\Auth::user()->id,
+                    'age' => \Auth::user()->age_limit,
+                ]);   
+            }
+
+            if($request->has('id')){
+
+                $wishlists = $this->UserAPI->wishlist_list($request)->getData();
+
+                $watch_lists = $this->UserAPI->watch_list($request)->getData();  
+            }
+
+            
+
+            $channels = getChannels(WEB);
+
+            $banner_videos = [];
+
+            if (Setting::get('is_banner_video')) {
+
+                $banner_videos = VideoTape::select('id as video_tape_id', 'banner_image as image', 'title as video_title', 'description as content')
+                                ->where('video_tapes.is_banner' , 1 )
+                                ->where('video_tapes.status', DEFAULT_TRUE)
+                                ->orderBy('video_tapes.created_at' , 'desc')
+                                ->get();
+            }
+
+            $banner_ads = [];
+
+            if(Setting::get('is_banner_ad')) {
+
+                $banner_ads = BannerAd::select('id as banner_id', 'file as image', 'title as video_title', 'description as content', 'link')
+                            ->where('banner_ads.status', DEFAULT_TRUE)
+                            ->orderBy('banner_ads.created_at' , 'desc')
+                            ->get();
+
+            }
+
+            session(['persisting_country' => $country]);
+
+            return view('user.students_assignments')
+                        ->with('page' , 'home')
+                        ->with('subPage' , 'home')
+                        ->with('wishlists' , $wishlists)
+                        ->with('recent_videos' , $recent_videos)
+                        ->with('trendings' , $trendings)
+                        ->with('watch_lists' , $watch_lists)
+                        ->with('suggestions' , $suggestions)
+                        ->with('channels' , $channels)
+                        ->with('banner_videos', $banner_videos)
+                       ->with('country', $country)
+                        ->with('banner_ads', $banner_ads);
+        } else {
+
+            return redirect()->route('installTheme');
+
+        }
+        
+    }
+
+    public function students_single_assignment(Request $request) {
+
+
+        $ip = '197.157.34.169';
+
+        $data = 'uganda';
+
+       $country= strtolower($data);
+
+        $trendings = $this->UserAPI->trending_list($request)->getData();
+        $recent_videos = $this->UserAPI->recently_added($request)->getData();
+
+        $suggestions  = $this->UserAPI->suggestion_videos($request)->getData();
+       
+       $targeted_country=$request->input('targeted_country');
+
+
+
+
+       if ($targeted_country=='uganda'|| $targeted_country=='kenya' || $targeted_country=='tanzania'||$targeted_country=='rwanda') {
+
+           $country=$targeted_country;
+
+           $trendings=$this->UserAPI->trending_by_country($request)->getData();
+
+           $recent_videos=$this->UserAPI->recently_added_by_country($request)->getData();
+
+           $suggestions=$this->UserAPI->suggestion_videos_by_country($request)->getData();
+
+       }
+
+       if ($country=='uganda'||$country=='kenya'||$country=='tanzania'||$country=='rwanda') {
+
+         $country=$country;
+        $trendings=$this->UserAPI->trending_by_country($request)->getData();
+
+           $recent_videos=$this->UserAPI->recently_added_by_country($request)->getData();
+
+           $suggestions=$this->UserAPI->suggestion_videos_by_country($request)->getData();
+
+       }
+
+
+
+
+        Log::info("Timezone ".print_r(date('Y-m-d H:i:s'), true));
+
+        Log::info("Convert Timezone ".print_r(convertTimeToUSERzone(date('Y-m-d H:i:s'), 'Europe/London', 'Y-m-d H:i:s'), true));
+        
+
+
+        $database = config('database.connections.mysql.database');
+        
+        $username = config('database.connections.mysql.username');
+       
+
+        if($database && $username && Setting::get('installation_process') == 2) {
+
+            counter('home');
+
+            $watch_lists = $wishlists = array();
+
+            if (Auth::check()) {
+                
+                $request->request->add([ 
+                    'id'=>\Auth::user()->id,
+                    'age' => \Auth::user()->age_limit,
+                ]);   
+            }
+
+            if($request->has('id')){
+
+                $wishlists = $this->UserAPI->wishlist_list($request)->getData();
+
+                $watch_lists = $this->UserAPI->watch_list($request)->getData();  
+            }
+
+            
+
+            $channels = getChannels(WEB);
+
+            $banner_videos = [];
+
+            if (Setting::get('is_banner_video')) {
+
+                $banner_videos = VideoTape::select('id as video_tape_id', 'banner_image as image', 'title as video_title', 'description as content')
+                                ->where('video_tapes.is_banner' , 1 )
+                                ->where('video_tapes.status', DEFAULT_TRUE)
+                                ->orderBy('video_tapes.created_at' , 'desc')
+                                ->get();
+            }
+
+            $banner_ads = [];
+
+            if(Setting::get('is_banner_ad')) {
+
+                $banner_ads = BannerAd::select('id as banner_id', 'file as image', 'title as video_title', 'description as content', 'link')
+                            ->where('banner_ads.status', DEFAULT_TRUE)
+                            ->orderBy('banner_ads.created_at' , 'desc')
+                            ->get();
+
+            }
+
+            session(['persisting_country' => $country]);
+
+            return view('user.students_single_assignment')
+                        ->with('page' , 'home')
+                        ->with('subPage' , 'home')
+                        ->with('wishlists' , $wishlists)
+                        ->with('recent_videos' , $recent_videos)
+                        ->with('trendings' , $trendings)
+                        ->with('watch_lists' , $watch_lists)
+                        ->with('suggestions' , $suggestions)
+                        ->with('channels' , $channels)
+                        ->with('banner_videos', $banner_videos)
+                       ->with('country', $country)
+                        ->with('banner_ads', $banner_ads);
+        } else {
+
+            return redirect()->route('installTheme');
+
+        }
+        
+    }
+
+
+
     /**
      * Function Name : trending()
      *
@@ -1197,6 +1451,8 @@ class UserController extends Controller {
      *
      * @return video details
      */
+    
+
     public function trending(Request $request) {
 
         if (Auth::check()) {
@@ -1255,6 +1511,30 @@ class UserController extends Controller {
                 ->with('response', $response);
 
     }    
+
+    public function channel_assignment(Request $request){
+
+        if(Auth::check()) {
+
+            $request->request->add([ 
+                'id' => \Auth::user()->id,
+                'token' => \Auth::user()->token,
+                'device_token' => \Auth::user()->device_token,
+                'age'=>\Auth::user()->age_limit,
+            ]);
+
+        }
+
+        $response = $this->UserAPI->channel_list($request)->getData();
+         $trendings = $this->UserAPI->trending_list($request)->getData();
+
+
+        return view('user.channels.assignment')->with('page', 'channels')
+                ->with('subPage', 'channel_list')
+                ->with('trendings', $trendings)
+                ->with('response', $response);
+
+    }
 
     /**
      * Function Name : playlists_index()
