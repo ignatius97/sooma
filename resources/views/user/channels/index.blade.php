@@ -210,6 +210,7 @@
                                                 <span class="visible-xs"><i class="fa fa-video-camera channel-tab-icon"></i></span>
                                             </a>
                                         </li>
+                                        
                                         @if(Setting::get('broadcast_by_user') == 1 || (Auth::check() ? Auth::user()->is_master_user == 1 : 0))
 
                                             <li role="presentation">
@@ -221,6 +222,25 @@
                                             </li>
 
                                         @endif
+                                        <li role="presentation">
+                                            <a href="#class-post" class="yt-uix-button spf-link  yt-uix-sessionlink yt-uix-button-epic-nav-item yt-uix-button-size-default" aria-controls="about" role="tab" data-toggle="tab">
+                                                <span class="yt-uix-button-content hidden-xs">Class Post</span>
+                                                <span class="visible-xs"><i class="fa fa-info channel-tab-icon"></i></span>
+                                            </a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a href="#create-assignments" class="yt-uix-button spf-link  yt-uix-sessionlink yt-uix-button-epic-nav-item yt-uix-button-size-default" aria-controls="about" role="tab" data-toggle="tab">
+                                                <span class="yt-uix-button-content hidden-xs">Create Assignments</span>
+                                                <span class="visible-xs"><i class="fa fa-info channel-tab-icon"></i></span>
+                                            </a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a href="#assignments" class="yt-uix-button spf-link  yt-uix-sessionlink yt-uix-button-epic-nav-item yt-uix-button-size-default" aria-controls="about" role="tab" data-toggle="tab">
+                                                <span class="yt-uix-button-content hidden-xs">Assignments</span>
+                                                <span class="visible-xs"><i class="fa fa-info channel-tab-icon"></i></span>
+                                            </a>
+                                        </li>
+
                                         <li role="presentation">
                                             <a href="#about" class="yt-uix-button spf-link  yt-uix-sessionlink yt-uix-button-epic-nav-item yt-uix-button-size-default" aria-controls="about" role="tab" data-toggle="tab">
                                                 <span class="yt-uix-button-content hidden-xs">{{tr('about_video')}}</span>
@@ -235,7 +255,7 @@
                                             </a>
                                         </li>
 
-                                        @if(Auth::check()) 
+                                        <!-- @if(Auth::check()) 
 
                                             @if($channel->user_id == Auth::user()->id)
 
@@ -255,7 +275,7 @@
                                                 </a>
                                             </li>
 
-                                        @endif
+                                        @endif -->
                                  
                                     </ul>
                                
@@ -717,6 +737,176 @@
 
                         </li>
 
+                        <li role="tabpanel" class="tab-pane" id="class-post">
+
+                            <div class="recom-area abt-sec">
+                                <div class="abt-sec-head">
+                                    <h5>Class Post</h5>
+                                    @if(Auth::check())
+                                   
+                                    <form class="teacher-post-form" role="form" method="POST" action="{{ url('/teacher_post') }}" enctype="multipart/form-data">
+                                        <div style="display: inline-block;">
+                                            <img class="profile-image" src="{{Auth::user()->picture ?: asset('placeholder.png')}}">
+                                        </div>
+                                        <div class="form-group" style="display: inline-block; width: 85%;">
+                                            <input type="text" value="{{Auth::user()->name}}" style="background-color: white; display:none;" >
+                                            <input type="text" value="{{Auth::user()->email}}" style="background-color: white; display:none;">
+                                            <input type="text" value="date" style=" display:none;" >
+                                            <!-- We need to upload the profile photo to -->
+                                            
+                                            <input type="text" required name="teacher-post" class="form-control" id="teacher-post" placeholder="Share With the Class"  style="background-color: white;">
+                                        </div>
+                                        <div style="display: inline-block;">
+                                            <button class="btn btn-primary">Post</button>
+                                        </div>
+                                    </form>
+                                    <div style="border:1px solid black; padding: 10px; margin-bottom:5px;">
+                                        <div style="display: inline-block;">
+                                            <img class="profile-image" src="">
+                                        </div>
+                                        <div style="display: inline-block; color:black; vertical-align: middle;">
+                                            <P>Name of Person posting <br/> <small>Date when posted</small></P>
+                                        </div>
+
+                                        <div style="border:1px solid black; padding: 10px; margin-bottom:10px; color:black;">
+                                            The post the teacher or student has sent <br/>.
+                                        </div>
+                                        <!-- comments on the post -->
+                                        <div style="display: inline-block;">
+                                            <img class="profile-image" src="">
+                                        </div>
+                                        <div style="display: inline-block; color:black; ">
+                                            <P>From Name of Person commenting &nbsp&nbsp&nbsp&nbsp <small>Date when posted</small></P>
+                                        </div>
+                                        <div style="color:black; margin:0 0 2rem 5rem">the comment here...</div>
+                                        <!-- comments on the post -->
+                                        <div style="display: inline-block;">
+                                            <img class="profile-image" src="">
+                                        </div>
+                                        <div style="display: inline-block; color:black; ">
+                                            <P>From Name of Person commenting &nbsp&nbsp&nbsp&nbsp <small>Date when posted</small></P>
+                                        </div>
+                                        <div style="color:black; margin:0 0 2rem 5rem">the comment here...</div>
+                                        <!--adding commenting on a post -->
+                                        <div style="display: inline-block;">
+                                            <img class="profile-image" src="{{Auth::user()->picture ?: asset('placeholder.png')}}">
+                                        </div>
+                                        <div class="form-group" style="display: inline-block; width: 85%;">
+                                            <input type="text" value="{{Auth::user()->name}}" style="background-color: white; display:none;" >
+                                            <input type="text" value="{{Auth::user()->email}}" style="background-color: white; display:none;">
+                                            <input type="text" value="date" style=" display:none;" >
+                                            <!-- We need to upload the profile photo to -->
+                                            <input type="text" required name="comment" class="form-control" id="comment" placeholder="Add comment to this post"  style="background-color: white;">
+                                        </div>
+                                        <div style="display: inline-block;">
+                                            <button class="btn btn-primary">Send</button>
+                                        </div>
+                                    </div>
+                                    <div style="border:1px solid black; padding: 10px; margin-bottom:5px;">
+                                        <div style="display: inline-block;">
+                                            <img class="profile-image" src="">
+                                        </div>
+                                        <div style="display: inline-block; color:black; vertical-align: middle;">
+                                            <P>Name of Person posting <br/> <small>Date when posted</small></P>
+                                        </div>
+
+                                        <div style="border:1px solid black; padding: 10px; margin-bottom:10px; color:black;">
+                                            The post the teacher or student has sent <br/>.
+                                        </div>
+                                        <!-- commenting on a post -->
+                                        <div style="display: inline-block;">
+                                            <img class="profile-image" src="{{Auth::user()->picture ?: asset('placeholder.png')}}">
+                                        </div>
+                                        <div class="form-group" style="display: inline-block; width: 85%;">
+                                            <input type="text" value="{{Auth::user()->name}}" style="background-color: white; display:none;" >
+                                            <input type="text" value="{{Auth::user()->email}}" style="background-color: white; display:none;">
+                                            <input type="text" value="date" style=" display:none;" >
+                                            <!-- We need to upload the profile photo to -->
+                                            <input type="text" required name="comment" class="form-control" id="comment" placeholder="Add comment to this post"  style="background-color: white;">
+                                        </div>
+                                        <div style="display: inline-block;">
+                                            <button class="btn btn-primary">Send</button>
+                                        </div>
+                                    </div>
+                                    <div style="border:1px solid black; padding: 10px; margin-bottom:5px;">
+                                        <div style="display: inline-block;">
+                                            <img class="profile-image" src="">
+                                        </div>
+                                        <div style="display: inline-block; color:black; vertical-align: middle;">
+                                            <P>Name of Person posting <br/> <small>Date when posted</small></P>
+                                        </div>
+
+                                        <div style="border:1px solid black; padding: 10px; margin-bottom:10px; color:black;">
+                                            The post the teacher or student has sent <br/>.
+                                        </div>
+                                        <!-- commenting on a post -->
+                                        <div style="display: inline-block;">
+                                            <img class="profile-image" src="{{Auth::user()->picture ?: asset('placeholder.png')}}">
+                                        </div>
+                                        <div class="form-group" style="display: inline-block; width: 85%;">
+                                            <input type="text" value="{{Auth::user()->name}}" style="background-color: white; display:none;" >
+                                            <input type="text" value="{{Auth::user()->email}}" style="background-color: white; display:none;">
+                                            <input type="text" value="date" style=" display:none;" >
+                                            <!-- We need to upload the profile photo to -->
+                                            <input type="text" required name="comment" class="form-control" id="comment" placeholder="Add comment to this post"  style="background-color: white;">
+                                        </div>
+                                        <div style="display: inline-block;">
+                                            <button class="btn btn-primary">Send</button>
+                                        </div>
+                                    </div>
+                                    @endif
+                                </div>
+                            </div>
+
+                        </li>
+
+                        <li role="tabpanel" class="tab-pane" id="create-assignments">
+
+                            <div class="recom-area abt-sec">
+                                <div class="abt-sec-head">
+                                    <h5>Create Assignments</h5>
+                                    <form class="create-assignment-form" role="form" method="POST" action="{{ url('/create_assignent') }}" enctype="multipart/form-data">
+                                        
+                                        <div class="form-group" >
+                                            <input type="text" required name="assignment-title" class="form-control" id="assignment-title" placeholder="Assignmnent Title"  style="background-color: white;">
+                                        </div>
+                                        <div>
+                                            <textarea name="assignment-instructions" placeholder="Assignmnent Instructions here..." id=""  rows="8" style="background-color: white; color:black; width:100%;"  ></textarea>
+                                        </div>
+                                        <div >
+                                            <button class="btn btn-primary">Create +</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </li>
+
+                        <li role="tabpanel" class="tab-pane" id="assignments">
+
+                            <div class="recom-area abt-sec">
+                                <div class="abt-sec-head">
+                                    <h5>Assignments</h5>
+                                    <a href="" >
+                                        <div style="border:1px solid black; padding: 10px; margin-bottom:10px; color:black;">
+                                            <P>Assignment Name <br/> <small>Date when posted</small></P>
+                                        </div>
+                                    </a>
+                                    <a href="">
+                                        <div style="border:1px solid black; padding: 10px; margin-bottom:10px; color:black;">
+                                            <P>Assignment Name <br/> <small>Date when posted</small></P>
+                                        </div>
+                                    </a>
+                                    <a href="">
+                                        <div style="border:1px solid black; padding: 10px; margin-bottom:10px; color:black;">
+                                            <P>Assignment Name <br/> <small>Date when posted</small></P>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </li>
+
                         <li role="tabpanel" class="tab-pane" id="about">
 
                             <div class="recom-area abt-sec">
@@ -726,6 +916,8 @@
                             </div>
 
                         </li>
+
+
 
                         <li role="tabpanel" class="tab-pane" id="playlist">
 
