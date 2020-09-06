@@ -8,6 +8,7 @@
 	.wizard-container{
 		margin:10px 5px;
 	}
+	
 	.bottom{
 		height: 95px;
 	}
@@ -929,7 +930,7 @@
 		margin-bottom: 0px;
 		width: 64%;
 		margin-left: 18%;
-		height: 40%;
+		height: 30vh;
 		text-align: center;
 		margin-top: 10%;
 	}
@@ -937,8 +938,8 @@
 	.curriculum{
 		border-right: 1px solid #f1f1f1;
 		background-color: #f1f1f1;
-		height: 100%;
-		width: 80%;
+		height: 84vh;
+		width: 76%;
 	}
 	.bottom{
 		height: 60px;

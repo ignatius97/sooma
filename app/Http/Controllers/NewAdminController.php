@@ -7949,4 +7949,10 @@ public function curriculums_create() {
     
     }
 
+    public function curriculum_select_data($id){
+        $curriculum=Curriculum::where('country' , $id)->get();
+      
+        return $curriculum;
+      }
+
 }

@@ -27,7 +27,7 @@
 
     <div class="page-inner">
         <!--      Wizard container        -->
-          <div class="col-sm-10 margin_left" >
+          <div class="col-xs-12 col-sm-12 col-md-12" >
                 <div class="wizard-container">
                     <div class="card wizard-card" data-color="red" id="wizard">
                         <form action="{{Setting::get('admin_delete_control') ? '' : route('user.video_save')}}" method="post" id="video_form" enctype="multipart/form-data">
@@ -186,25 +186,25 @@
                                     </div>
                                        
                                     
-
                                     <div class="clearfix"></div>
 
                                     <div class="form-data">
 
                                       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                          
-                                          <label for="video" class="control-label">{{tr('class_name')}}  * </label>
+                                          <label for="video" class="control-label">{{tr('country_name')}}  * </label>
                                           <div>
 
-                                            <select id="category_id" name="category_id" class="form-control select2" required data-placeholder="{{tr('select_category')}}*" style="width: 100% !important">
-                                                @foreach($categories as $category)
-                                                      <option value="{{$category->category_id}}">{{$category->category_name}}</option>
+                                            <select id="category_id" name="country" class="form-control select2 category_country" required data-placeholder="{{tr('select_category')}}*" style="width: 100% !important">
+                                                @foreach($con as $country)
+                                                      <option value="{{$country->country_name}}">{{$country->country_name}}</option>
                                                     @endforeach
                                             </select>
 
                                           </div>
                                        
                                       </div>
+                                    
 
                                       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                          
@@ -223,18 +223,33 @@
                                       </div>       
                                     </div>
 
+
+                                    <div class="clearfix"></div>
+
+                          
+                                         
+  
+                                          <div style="display: none;">
+
+                                            <input type="number" name="category_id", value="1">
+
+
+                                          </div>
+                                       
+                                    
+
                                     <div class="clearfix"></div>
 
                                     <div class="form-data">
 
                                       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                          
-                                          <label for="video" class="control-label">{{tr('country_name')}}  * </label>
+                                          <label for="video" class="control-label">{{tr('class_name')}}  * </label>
                                           <div>
 
-                                            <select id="category_id" name="country" class="form-control select2" required data-placeholder="{{tr('select_category')}}*" style="width: 100% !important">
-                                                @foreach($categories as $category)
-                                                      <option value="{{$category->category_country}}">{{$category->category_country}}</option>
+                                            <select id="category_i" name="category_class" class="form-control select2 class" required style="width: 100% !important">
+                                                @foreach($classes as $category)
+                                                      <option value="{{$category->name}}">{{$category->name}}</option>
                                                     @endforeach
                                             </select>
 
@@ -242,15 +257,17 @@
                                        
                                       </div>
 
+                                   
+
                                       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                          
                                       <label for="video" class="control-label">{{tr('curriculum')}}  * </label>
                                           <div>
 
-                                            <select id="category_id" name="curriculum" class="form-control select2" required data-placeholder="{{tr('select_category')}}*" style="width: 100% !important">
-                                                @foreach($categories as $category)
-                                                      <option value="{{$category->category_curriculum}}">
-                                                        {{$category->category_curriculum}}</option>
+                                            <select id="category_id" name="curriculum" class="form-control select2 curricula" required data-placeholder="{{tr('select_category')}}*" style="width: 100% !important">
+                                                @foreach($curriculum as $curriculum)
+                                                      <option value="{{$curriculum->name}}">
+                                                        {{$curriculum->name}}</option>
                                                     @endforeach
                                             </select>
 
@@ -940,6 +957,127 @@ $("#first_btn").hide();
 }, 1000);
 
 
+
 </script>
+
+
+
+
+
+
+
+<script type="text/javascript">
+        
+        $('.category_country').on('change', function (e){
+
+            var country=e.target.value;
+           $.ajax(
+             {
+                url: 'curriculum_select_data/'+country,
+                type: 'get',
+                dataType: 'json',
+
+                success: function(data){
+                    console.log(data);
+
+                     var len = 0;
+
+
+
+
+                if(data != null){
+               len = data.length;
+             }
+
+
+             console.log(len);
+
+             if(len > 0){
+
+               $('.class').children('option').remove();
+
+                for(var i=0; i<len; i++){
+
+                 
+                 var name = data[i].name;
+                 
+
+                 var option = "<option value='"+name+"'>"+name+"</option>"; 
+
+                 $(".class").append(option); 
+               }
+
+
+             }
+
+                }
+             }
+            )
+        })
+    </script>
+
+
+    <script type="text/javascript">
+
+
+      $('#category_i').on('change', function (e){
+
+        var sub=e.target.value;
+
+        console.log(sub);
+
+
+      })
+
+    </script>
+
+    <script type="text/javascript">
+        
+        $('.category_country').on('change', function (e){
+
+            var country=e.target.value;
+           $.ajax(
+             {
+                url: 'curriculum_select_dataa/'+country,
+                type: 'get',
+                dataType: 'json',
+
+                success: function(data){
+                    console.log(data);
+
+                     var len = 0;
+
+                if(data != null){
+               len = data.length;
+             }
+
+
+             console.log(len);
+
+             if(len > 0){
+
+               $('.curricula').children('option').remove();
+
+                for(var i=0; i<len; i++){
+
+                 
+                 var name = data[i].name;
+                 var abb = data[i].abbreviation;
+                 
+
+                 var option = "<option value='"+abb+"'>"+name+"</option>"; 
+
+                 $(".curricula").append(option); 
+               }
+
+
+             }
+
+                }
+             }
+            )
+        })
+    </script>
+
 
 @endsection

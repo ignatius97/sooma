@@ -34,7 +34,7 @@
     <div class="clear-both"></div>
 </div>
 
-<div class="streamtube-nav trial_class" id="header-section" style="background-color: brown;">
+<div class="streamtube-nav trial_class" id="header-section" style="background-color: #3AAF44;">
     <!-- <div class="row" style=" text-align: center;">
         <small >
             <strong>Helpline:</strong> +256 772 888 444  or help
@@ -235,11 +235,17 @@
 
                    <a class="nav navbar-nav pull-right" href="{{url('mychannels/list')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Teacher</a>
                    @endif
-                    <form action="/" method="get" style="margin-top: 1vh;">
+                   <form action="/" method="get" style="margin-top: 1vh;">
                    <select id="options" name="targeted_country" style="width: auto;">
-                 <option value="{{$country}}">{{$country}}</option>
 
-                @foreach($countries as $country)  
+                 @if($country_with_ip=='')
+                 <option value="{{$country_ip}}">{{$country_ip}}</option>
+                 @else
+                 <option value="{{$country_with_ip}}">{{$country_with_ip}}</option>
+                 @endif
+
+                @foreach($countries as $country)   
+                  
                     <option value="{{$country->country_name}}">{{$country->country_name}}</option>
                   @endforeach
                
@@ -261,7 +267,7 @@
             @else
                 <div class="y-button2 main_nav_btn">
 
-                  <a href="{{route('user.login.form')}}">LogIn</a> <i style="color: white; font-weight: bold;">|</i>
+                <a href="{{route('user.login.form')}}">SignIn</a> <i style="color: white; font-weight: bold;">|</i>
                     <a href="{{route('user.register.form')}}">SignUp</a>
                 </div>
 
@@ -270,7 +276,11 @@
                  
                 <form action="/" method="get" style="margin-top: 1vh;">
                    <select id="options" name="targeted_country" style="width: auto;">
-                 <option value="{{$country}}">{{$country}}</option>
+                   @if($country_with_ip=='')
+                 <option value="{{$country_ip}}">{{$country_ip}}</option>
+                 @else
+                 <option value="{{$country_with_ip}}">{{$country_with_ip}}</option>
+                 @endif
 
                 @foreach($countries as $country)   
                   

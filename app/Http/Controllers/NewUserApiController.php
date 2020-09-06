@@ -3603,9 +3603,8 @@ class NewUserApiController extends Controller
 
                 $notification_data['notification_type'] = BELL_NOTIFICATION_NEW_SUBSCRIBER;
 
-                dispatch(new BellNotificationJob(json_decode(json_encode($notification_data))));
-
-                $message = CommonHelper::success_message(221); $code = 221;
+                $message = CommonHelper::success_message(221); 
+                $code = 221;
 
                 $is_user_subscribed_the_channel = YES;
 

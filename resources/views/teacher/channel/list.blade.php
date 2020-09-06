@@ -1,4 +1,4 @@
-@extends( 'layouts.user_teacher' )
+@extends( 'layouts.teacher.user_teacher' )
 
 
 @section( 'styles' )
@@ -13,9 +13,9 @@
 
 	<div class="row content-row">
 
-		@include('layouts.user.nav_teacher')
+		@include('layouts.teacher.nav_teacher')
 
-		<div class="page-inner col-xs-12 col-sm-12 col-md-8">
+		<div class="page-inner col-sm-9 col-md-8">
 
 			@include('notification.notify')
 

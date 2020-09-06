@@ -604,6 +604,7 @@ class CommonRepository {
                         'tag_id'=>"",
                         'description'   => 'required',
                         'channel_id'   => 'required|integer|exists:channels,id',
+                        'category_class'   => 'required',
                        // 'video'     => 'required|mimes:mkv,mp4,qt',
                         //'subtitle'=>'mimes:text/str',
                         'video_publish_type'=>'required',
@@ -777,11 +778,12 @@ class CommonRepository {
                  */
 
                 $model->video_type = $request->video_type;
-                $model->category_country=strtolower($request->country);
+                $model->category_country=$request->country;
                 $model->category_curriculum=$request->curriculum;
                 $model->subject=$request->subject;
                 $model->topic=$request->topic;
                 $model->video_upload_type=$request->video_upload_type;
+                 $model->class=$request->category_class;
 
 
                 $main_video_duration = "";

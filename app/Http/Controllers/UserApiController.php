@@ -6834,12 +6834,14 @@ public function trending_by_country($request) {
      */
     public function trending_list($request) {
 
-
+        $country=$request->has('targeted_country')?$request->input('targeted_country'): "Uganda";
 
 
         $base_query = VideoTape::where('watch_count' , '>' , 0)
                         ->leftJoin('channels' , 'video_tapes.channel_id' , '=' , 'channels.id')
                         ->where('video_tapes.publish_status' , 1)
+                        ->where('video_tapes.category_country', $request->country)
+                        ->where('category_curriculum', $request->curriculum)
                         ->where('video_tapes.status' , 1)
                         ->where('video_tapes.video_upload_type', 'Public')
                         ->where('video_tapes.is_approved' , 1)
@@ -6848,7 +6850,7 @@ public function trending_by_country($request) {
                         ->leftJoin('categories' , 'categories.id' , '=' , 'video_tapes.category_id') 
                         ->where('categories.status', CATEGORY_APPROVE_STATUS)
                         
-                        
+                        ->videoResponse()
                         ->orderby('watch_count' , 'desc');
 
         if ($request->id) {
@@ -6891,6 +6893,30 @@ public function trending_by_country($request) {
     
     }
 
+       // Checking video availabilty
+/*
+    Public Function trending_check($curriculum, $country){
+         $base_query = VideoTape::where('video_tapes.is_approved' , 1)   
+                            ->leftJoin('channels' , 'video_tapes.channel_id' , '=' , 'channels.id')
+                            ->leftJoin('categories' , 'categories.id' , '=' , 'video_tapes.category_id') 
+                            ->where('video_tapes.status' , 1)
+                            ->where('video_tapes.publish_status' , 1)
+                            ->where('video_tapes.video_upload_type', 'Public')
+                            ->where('video_tapes.category_country', 'Uganda')
+                            ->where('video_tapes.category_curriculum', 'UACE')
+                            ->orderby('video_tapes.created_at' , 'desc')
+                            ->videoResponse()
+                            ->where('channels.is_approved', 1)
+                            ->where('channels.status', 1)
+                            ->where('categories.status', CATEGORY_APPROVE_STATUS)
+                            ->orderByRaw('RAND()');
+        if (count($base_query) == 1) {
+            return 'True';
+        }
+        else 
+            return "False";
+    }
+*/
 
     /**
      * @method suggestion_videos()

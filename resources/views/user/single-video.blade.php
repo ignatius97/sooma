@@ -1209,7 +1209,10 @@
            data : {id : user_id, channel_id : channel_id},
            type: "get",
 
+           
            success: function(data) {
+
+            console.log(data);
                
                if(data.is_user_subscribed_the_channel) {
                   $(".subscription").addClass("subscription_button");
@@ -1225,6 +1228,7 @@
            },
    
            error : function(data) {
+
            },
        })
    }

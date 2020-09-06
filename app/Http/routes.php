@@ -257,6 +257,7 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.'], function() {
 
     Route::get('/classes', 'NewAdminController@classes_index')->name('classes.index');
     Route::get('/classes/create', 'NewAdminController@classes_create')->name('classes.create');
+    Route::get('/classes/curriculum_select_data/{id}', 'NewAdminController@curriculum_select_data');
     Route::post('/classes/save', 'NewAdminController@classes_save')->name('classes.save'); 
 
       Route::get('/classes/edit', 'NewAdminController@classes_edit')->name('classes.edit');
@@ -650,6 +651,9 @@ Route::group(['middleware' => ['SubAdminMiddleware', 'admin'], 'prefix' => 'suba
 Route::group(['as' => 'user.'], function(){
 
     Route::get('/', 'UserController@index')->name('dashboard');
+
+    Route::get('/curriculum_select_data/{id}', 'UserController@curriculum_class_select_data');
+    Route::get('/curriculum_select_dataa/{id}', 'UserController@curriculum_class_select_dataa');
 
     Route::get('/students_assignments', 'UserController@students_assignments')->name('students_assignments');
 

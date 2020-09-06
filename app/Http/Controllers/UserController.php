@@ -42,6 +42,8 @@ use App\ChatMessage;
 
 use Log;
 
+use App\Country;
+
 use App\PayPerView;
 
 use App\Card;
@@ -1062,45 +1064,14 @@ class UserController extends Controller {
     public function index(Request $request) {
 
 
-        $ip = '197.157.34.169';
-
-        $data = 'uganda';
-
-       $country= strtolower($data);
+ 
 
         $trendings = $this->UserAPI->trending_list($request)->getData();
         $recent_videos = $this->UserAPI->recently_added($request)->getData();
 
         $suggestions  = $this->UserAPI->suggestion_videos($request)->getData();
        
-       $targeted_country=$request->input('targeted_country');
-
-
-
-
-       if ($targeted_country=='uganda'|| $targeted_country=='kenya' || $targeted_country=='tanzania'||$targeted_country=='rwanda') {
-
-           $country=$targeted_country;
-
-           $trendings=$this->UserAPI->trending_by_country($request)->getData();
-
-           $recent_videos=$this->UserAPI->recently_added_by_country($request)->getData();
-
-           $suggestions=$this->UserAPI->suggestion_videos_by_country($request)->getData();
-
-       }
-
-       if ($country=='uganda'||$country=='kenya'||$country=='tanzania'||$country=='rwanda') {
-
-         $country=$country;
-        $trendings=$this->UserAPI->trending_by_country($request)->getData();
-
-           $recent_videos=$this->UserAPI->recently_added_by_country($request)->getData();
-
-           $suggestions=$this->UserAPI->suggestion_videos_by_country($request)->getData();
-
-       }
-
+        $country_with_ip=$request->has('targeted_country')?$request->input('targeted_country'):'';
 
 
 
@@ -1162,7 +1133,7 @@ class UserController extends Controller {
 
             }
 
-            session(['persisting_country' => $country]);
+            
 
             return view('user.index')
                         ->with('page' , 'home')
@@ -1174,7 +1145,7 @@ class UserController extends Controller {
                         ->with('suggestions' , $suggestions)
                         ->with('channels' , $channels)
                         ->with('banner_videos', $banner_videos)
-                       ->with('country', $country)
+                        ->with('country_with_ip', $country_with_ip)
                         ->with('banner_ads', $banner_ads);
         } else {
 
@@ -1189,44 +1160,13 @@ class UserController extends Controller {
     public function students_assignments(Request $request) {
 
 
-        $ip = '197.157.34.169';
-
-        $data = 'uganda';
-
-       $country= strtolower($data);
 
         $trendings = $this->UserAPI->trending_list($request)->getData();
         $recent_videos = $this->UserAPI->recently_added($request)->getData();
 
         $suggestions  = $this->UserAPI->suggestion_videos($request)->getData();
        
-       $targeted_country=$request->input('targeted_country');
-
-
-
-
-       if ($targeted_country=='uganda'|| $targeted_country=='kenya' || $targeted_country=='tanzania'||$targeted_country=='rwanda') {
-
-           $country=$targeted_country;
-
-           $trendings=$this->UserAPI->trending_by_country($request)->getData();
-
-           $recent_videos=$this->UserAPI->recently_added_by_country($request)->getData();
-
-           $suggestions=$this->UserAPI->suggestion_videos_by_country($request)->getData();
-
-       }
-
-       if ($country=='uganda'||$country=='kenya'||$country=='tanzania'||$country=='rwanda') {
-
-         $country=$country;
-        $trendings=$this->UserAPI->trending_by_country($request)->getData();
-
-           $recent_videos=$this->UserAPI->recently_added_by_country($request)->getData();
-
-           $suggestions=$this->UserAPI->suggestion_videos_by_country($request)->getData();
-
-       }
+        $country_with_ip=$request->has('targeted_country')?$request->input('targeted_country'):'';
 
 
 
@@ -1289,7 +1229,6 @@ class UserController extends Controller {
 
             }
 
-            session(['persisting_country' => $country]);
 
             return view('user.students_assignments')
                         ->with('page' , 'home')
@@ -1301,7 +1240,7 @@ class UserController extends Controller {
                         ->with('suggestions' , $suggestions)
                         ->with('channels' , $channels)
                         ->with('banner_videos', $banner_videos)
-                       ->with('country', $country)
+                        ->with('country_with_ip', $country_with_ip)
                         ->with('banner_ads', $banner_ads);
         } else {
 
@@ -1314,45 +1253,14 @@ class UserController extends Controller {
     public function students_single_assignment(Request $request) {
 
 
-        $ip = '197.157.34.169';
-
-        $data = 'uganda';
-
-       $country= strtolower($data);
+       
 
         $trendings = $this->UserAPI->trending_list($request)->getData();
         $recent_videos = $this->UserAPI->recently_added($request)->getData();
 
         $suggestions  = $this->UserAPI->suggestion_videos($request)->getData();
        
-       $targeted_country=$request->input('targeted_country');
-
-
-
-
-       if ($targeted_country=='uganda'|| $targeted_country=='kenya' || $targeted_country=='tanzania'||$targeted_country=='rwanda') {
-
-           $country=$targeted_country;
-
-           $trendings=$this->UserAPI->trending_by_country($request)->getData();
-
-           $recent_videos=$this->UserAPI->recently_added_by_country($request)->getData();
-
-           $suggestions=$this->UserAPI->suggestion_videos_by_country($request)->getData();
-
-       }
-
-       if ($country=='uganda'||$country=='kenya'||$country=='tanzania'||$country=='rwanda') {
-
-         $country=$country;
-        $trendings=$this->UserAPI->trending_by_country($request)->getData();
-
-           $recent_videos=$this->UserAPI->recently_added_by_country($request)->getData();
-
-           $suggestions=$this->UserAPI->suggestion_videos_by_country($request)->getData();
-
-       }
-
+        $country_with_ip=$request->has('targeted_country')?$request->input('targeted_country'):'';
 
 
 
@@ -1414,7 +1322,6 @@ class UserController extends Controller {
 
             }
 
-            session(['persisting_country' => $country]);
 
             return view('user.students_single_assignment')
                         ->with('page' , 'home')
@@ -1426,7 +1333,7 @@ class UserController extends Controller {
                         ->with('suggestions' , $suggestions)
                         ->with('channels' , $channels)
                         ->with('banner_videos', $banner_videos)
-                       ->with('country', $country)
+                        ->with('country_with_ip', $country_with_ip)
                         ->with('banner_ads', $banner_ads);
         } else {
 
@@ -2957,9 +2864,12 @@ class UserController extends Controller {
 
         $id = $request->id;
         $categories_list = $this->UserAPI->categories_list($request)->getData();
+        $categories_class = Classes::all();
          $trendings = $this->UserAPI->trending_list($request)->getData();
 
         $tags = $this->UserAPI->tags_list($request)->getData()->data;
+        $curriculum=Curriculum::all();
+        $con=Country::all();
 
         $channel = '';
 
@@ -2973,6 +2883,9 @@ class UserController extends Controller {
             ->with('subPage', 'upload_video')->with('id', $id)
             ->with('trendings', $trendings)
             ->with('categories', $categories_list)
+            ->with('classes', $categories_class)
+            ->with('curriculum', $curriculum)
+            ->with('con', $con)
             ->with('tags', $tags);
             }
             
@@ -2989,6 +2902,9 @@ class UserController extends Controller {
             ->with('subPage', 'upload_video')->with('id', $id)
             ->with('trendings', $trendings)
             ->with('categories', $categories_list)
+            ->with('curriculum', $curriculum)
+            ->with('con', $con)
+            ->with('classes', $categories_class)
             ->with('tags', $tags);
     
     }
@@ -6319,16 +6235,12 @@ public function country_curriculum(Request $request){
 
             }
 
-            session(['persisting_country' => $country]);
 
              $curriculum=Curriculum::all();
 
-       foreach ($curriculum as $curriculum) {
-
-          if ($request->curriculum==$curriculum->abbreviation && $request->country==$curriculum->country) {
 
            $class=Classes::where('country', $request->country)->where('curriculum_short', $request->curriculum)->get();
-          $trendings = $this->UserAPI->trending_list($request)->getData();
+           $trendings = $this->UserAPI->trending_list($request)->getData();
            
           return view('user.curriculum.index')->with('page' , 'home')
                         ->with('subPage' , 'home')
@@ -6337,15 +6249,14 @@ public function country_curriculum(Request $request){
                         ->with('trendings' , $trendings)
                         ->with('watch_lists' , $watch_lists)
                         ->with('request_curriculum', $request->curriculum)
-                        ->with('country_request', $request->country)
+                        ->with('country_with_ip', $request->country)
                         ->with('class', $class)
                         ->with('suggestions' , $suggestions)
                         ->with('channels' , $channels)
                         ->with('banner_videos', $banner_videos)
                         ->with('country', $country)
                         ->with('banner_ads', $banner_ads);
-          }
-           }
+         
 
                         
         } 
@@ -6366,20 +6277,26 @@ public function country_curriculum(Request $request){
 
 
 
+public function curriculum_class_select_data($id){
 
-public function trial(Request $request){
 
-   
-$trendings = $this->UserAPI->trending_list($request);
+    $class=Classes::where('country' , $id)->get();
 
-    foreach ($trendings as $value) {
-                echo($value);
-            }        
+
+    return $class;
+
+}
+
+
+public function curriculum_class_select_dataa($id){
+
+   $curriculum=Curriculum::where('country' , $id)->get();
+
+   return $curriculum;
 
 
 
 }
-
 
 
 

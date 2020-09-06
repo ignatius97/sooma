@@ -71,7 +71,7 @@
 
                 @if(count($banner_videos) > 0)
 
-                <div class="row" id="slider">
+                <div class="row" id="slider" >
                     <div class="col-md-12 banner-slider">
                         <div id="myCarousel" class="carousel slide">
                             <div class="carousel-inner">
@@ -157,7 +157,7 @@
 
                
 
-                @if(count($trendings->items) > 0)
+               
 
                 <hr>
                    @foreach($class as $class)
@@ -171,7 +171,10 @@
 
                             @foreach($trendings->items as $trending)
 
+
                             @if($trending->class==$class->name)
+
+                             
 
                             <div class="slide-box">
                                 <div class="slide-image">
@@ -180,8 +183,11 @@
                                         <!-- <div style="background-image: url({{$trending->video_image}});" class="slide-img1"></div> -->
                                         <img src="{{asset('streamtube/images/placeholder.gif')}}" data-src="{{$trending->video_image}}" class="slide-img1 placeholder" />
                                     </a>
+
                                     @if($trending->ppv_amount > 0)
+
                                         @if(!$trending->ppv_status)
+
                                             <div class="video_amount">
 
                                             {{tr('pay')}} - {{Setting::get('currency')}}{{$trending->ppv_amount}}
@@ -199,7 +205,7 @@
 
                                 <div class="video-details">
                                     <div class="video-head">
-                                        <a href="{{$trending->url}}">{{$trending->title}}</a>
+                                        <a href="{{ route('user.single' , ['id' => $trending->url, 'dd'=>$trending->url] ) }}">{{$trending->title}}</a>
                                     </div>
                                     
                                     <span class="video_views">
@@ -207,23 +213,30 @@
                                         <div class="hidden-mobile"><i class="fa fa-eye"></i> {{$trending->watch_count}} {{tr('views')}} <b>.</b> 
                                         {{$trending->publish_time}}</div>
                                     </span>
+
                                 </div><!--end of video-details-->
                             </div><!--end of slide-box-->
-
+                            
+                             
                             @endif
+
+                
+                         
+                            
+
                             @endforeach
-                   
-                              
+
+
+                            <img id="demo"  src="{{asset('images/no-result.jpg')}}" class="img-responsive auto-margin">
+                             
+                         
                         </div><!--end of box--> 
                     </div><!--end of slide-area-->
 
                     @endforeach
 
-                @endif
-
-
-
-
+               
+                 
              
                 <div class="sidebar-back"></div>  
             </div>
@@ -240,6 +253,8 @@
 $('#myCarousel').carousel({
     interval: 3500
 });
+
+ 
 
 // This event fires immediately when the slide instance method is invoked.
 $('#myCarousel').on('slide.bs.carousel', function (e) {

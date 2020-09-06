@@ -39,12 +39,18 @@ class AppServiceProvider extends ServiceProvider
         */
 
         $countries = Country::all();
-       View::share('countries', $countries);
+        View::share('countries', $countries);
          $curriculum=Curriculum::all();
          View::share('curriculum', $curriculum);
 
+
+          $country_with_ip="Uganda";
+          View::share('country_ip', $country_with_ip);
+          $country_with_ip="Uganda";
+          View::share('country_with_ip', $country_with_ip);
+
         
-         
+    
 
 
     }

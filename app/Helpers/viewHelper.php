@@ -1376,6 +1376,7 @@ function displayVideoDetails($data,$userId) {
         'ratings'=>$data->ratings ? $data->ratings : 0,
         'amount'=>$data->amount,
         'class'=>$data->class,
+        'country_category'=>$data->category_country,
         'url'=>$data->video_tape_id,
         'type_of_user'=>$data->type_of_user,
         'type_of_subscription'=>$data->type_of_subscription,

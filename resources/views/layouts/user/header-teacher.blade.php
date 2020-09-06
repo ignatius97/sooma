@@ -34,7 +34,7 @@
     <div class="clear-both"></div>
 </div>
 
-<div class="streamtube-nav trial_class" id="header-section" style="background-color: brown;">
+<div class="streamtube-nav trial_class" id="header-section" style="background-color: #3AAF44;">
     <!-- <div class="row" style=" text-align: center;">
         <small >
             <strong>Helpline:</strong> +256 772 888 444  or help

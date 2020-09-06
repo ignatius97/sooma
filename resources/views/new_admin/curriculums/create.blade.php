@@ -24,7 +24,7 @@
                 <a href="{{ route('admin.channels.index') }}" class="btn btn-default pull-right">Curriculum</a>
             </div>
 
-			@include('new_admin.curriculums._form')
+            @include('new_admin.curriculums._form')
 
         </div>
 

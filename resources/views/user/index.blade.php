@@ -217,7 +217,64 @@
 
                 <!-- wishlist end -->
 
+                @if(count($recent_videos->items) > 0)
 
+                <hr>
+
+                    <div class="slide-area">
+                    
+                        <div class="box-head">
+                            <h3>{{tr('recent_videos')}}</h3>
+                        </div>
+
+                        <div class="box">
+
+                            @foreach($recent_videos->items as $recent_video)
+                            <div class="slide-box">
+                                <div class="slide-image">
+                                    <a href="{{ route('user.single' , ['id' => $recent_video->url] ) }}">
+                                        <!-- <img src="{{$recent_video->video_image}}" /> -->
+                                        <!-- <div style="background-image: url({{$recent_video->video_image}});" class="slide-img1"></div> -->
+                                        <img src="{{asset('streamtube/images/placeholder.gif')}}" data-src="{{$recent_video->video_image}}"class="slide-img1 placeholder" />
+                                    </a>
+                                    @if($recent_video->ppv_amount > 0)
+                                        @if(!$recent_video->ppv_status)
+                                            <div class="video_amount">
+
+                                            {{tr('pay')}} - {{Setting::get('currency')}}{{$recent_video->ppv_amount}}
+
+                                            </div>
+                                        @endif
+                                    @endif
+                                    <div class="video_mobile_views">
+                                        {{$recent_video->watch_count}} {{tr('views')}}
+                                    </div>
+                                    <div class="video_duration">
+                                        {{$recent_video->duration}}
+                                    </div>
+                                </div><!--end of slide-image-->
+
+                                <div class="video-details">
+                                    <div class="video-head">
+                                        <a href="{{$recent_video->url}}">{{$recent_video->title}}</a>
+                                    </div>
+
+                                    <span class="video_views">
+                                        <div><a href="{{route('user.channel',$recent_video->channel_id)}}">{{$recent_video->channel_name}}</a></div>
+                                        <div class="hidden-mobile"><i class="fa fa-eye"></i> {{$recent_video->watch_count}} {{tr('views')}} <b>.</b> 
+                                        {{common_date($recent_video->created_at) }}</div>
+                                    </span>
+                                </div><!--end of video-details-->
+                            </div><!--end of slide-box-->
+                            @endforeach
+                
+                            
+                        </div><!--end of box--> 
+                
+                    </div>
+                    <!--end of slide-area-->
+
+                @endif
                
 
                 @if(count($trendings->items) > 0)
@@ -235,7 +292,7 @@
 
                             <div class="slide-box">
                                 <div class="slide-image">
-                                    <a href="{{$trending->url}}">
+                                <a href="{{ route('user.single' , ['id' => $trending->url, 'dd'=>$trending->url] ) }}">
                                         <!-- <img src="{{$trending->video_image}}" /> -->
                                         <!-- <div style="background-image: url({{$trending->video_image}});" class="slide-img1"></div> -->
                                         <img src="{{asset('streamtube/images/placeholder.gif')}}" data-src="{{$trending->video_image}}" class="slide-img1 placeholder" />
