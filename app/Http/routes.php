@@ -662,7 +662,7 @@ Route::group(['as' => 'user.'], function(){
     Route::get('/trending', 'UserController@trending')->name('trending');
 
 
-    Route::get('channels', 'UserController@channels')->name('channel.list');
+    Route::get('channels', 'TeacherController@channels')->name('channel.list');
     
     Route::get('playlists', 'UserController@playlists_index')->name('playlists.index');
 
@@ -671,9 +671,9 @@ Route::group(['as' => 'user.'], function(){
 
     Route::get('wishlist', 'UserController@wishlist')->name('wishlist');
 
-    Route::get('channel/{id}', 'UserController@channel_view')->name('channel');
+    Route::get('channel/{id}', 'TeacherController@channel_view')->name('channel');
 
-    Route::get('channels/assignment', 'UserController@channel_assignment')->name('channel.assignment');
+    Route::get('channels/assignment', 'TeacherController@channel_assignment')->name('channel.assignment');
 
     Route::get('video/{id}', 'UserController@video_view')->name('single');
 
@@ -731,7 +731,7 @@ Route::group(['as' => 'user.'], function(){
     Route::get('/unsubscribe_channel', 'UserController@unsubscribe_channel')->name('unsubscribe.channel');
     
 
-    Route::get('/subscribers', 'UserController@channel_subscribers')->name('channel.subscribers');
+    Route::get('/subscribers', 'TeacherController@channel_subscribers')->name('channel.subscribers');
 
     Route::post('take_snapshot/{rid}', 'UserController@setCaptureImage')->name('setCaptureImage');
     
@@ -761,13 +761,13 @@ Route::group(['as' => 'user.'], function(){
 
     // Channels
 
-    Route::get('channel_create', 'UserController@channel_create')->name('create_channel');
+    Route::get('channel_create', 'TeacherController@channel_create')->name('create_channel');
 
-    Route::post('save_channel', 'UserController@save_channel')->name('save_channel');
+    Route::post('save_channel', 'TeacherController@save_channel')->name('save_channel');
 
-    Route::get('channel_edit/{id}', 'UserController@channel_edit')->name('channel_edit');
+    Route::get('channel_edit/{id}', 'TeacherController@channel_edit')->name('channel_edit');
 
-    Route::get('delete_channel', 'UserController@channel_delete')->name('delete.channel');
+    Route::get('delete_channel', 'TeacherController@channel_delete')->name('delete.channel');
 
 
 
@@ -851,7 +851,7 @@ Route::group(['as' => 'user.'], function(){
 
     Route::get('/ppv-stripe-payment', 'UserController@ppv_stripe_payment')->name('card.ppv-stripe-payment');
 
-    Route::get('/subscribed-channels', 'UserController@subscribed_channels')->name('channels.subscribed');
+    Route::get('/subscribed-channels', 'TeacherController@subscribed_channels')->name('channels.subscribed');
 
 
     // Live videos
@@ -887,7 +887,7 @@ Route::group(['as' => 'user.'], function(){
 
     Route::get('video-success/{id}', 'UserController@video_success')->name('video.success');
 
-    Route::get('mychannels/list', 'UserController@my_channels')->name('channel.mychannel');
+    Route::get('mychannels/list', 'TeacherController@my_channels')->name('channel.mychannel');
 
     Route::post('/forgot/password', 'UserController@forgot_password')->name('forgot.password');
 
@@ -963,7 +963,7 @@ Route::group(['as' => 'user.'], function(){
 
     Route::post('/playlist/save/video_add', 'UserController@playlist_save_video_add')->name('playlist.save.video_add');
     
-    Route::any('/channel/playlists/save', 'UserController@channel_playlists_save')->name('channel.playlists.save');
+    Route::any('/channel/playlists/save', 'TeacherController@channel_playlists_save')->name('channel.playlists.save');
 
     Route::any('/playlists/delete', 'UserController@playlists_delete')->name('playlists.delete');
 

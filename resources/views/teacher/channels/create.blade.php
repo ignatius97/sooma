@@ -19,7 +19,7 @@
 
 @section('content')
 
-@include('user.channels._form')
+@include('teacher.channels._form')
 
 @endsection
 

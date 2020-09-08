@@ -39,6 +39,7 @@
         <small >
             <strong>Helpline:</strong> +256 772 888 444  or help
             <a href="mailto:#">@sooma.org</a> or Chat
+             style="background-color: #3AAF44;"
         </small>
     </div> -->
     <div class="row">
@@ -49,7 +50,7 @@
 
             <a href="{{route('user.dashboard')}}"> 
                 @if(Setting::get('site_logo'))
-                    <img src="{{asset('logo.png')}}" style="width: 40px;" class="logo-img"> <span class="product_name">SOOMA</span>
+                    <img src="{{Setting::get('site_logo')}}" class="logo-img"> <span class="product_name">SOOMA</span>
                 @else
                     <img src="{{asset('logo.png')}}" class="logo-img"><span class="product_name">SOOMA</span>
                 @endif
@@ -63,7 +64,7 @@
 
     
 
-        <div class="col-lg-7 col-md-5 col-sm-6 col-xs-12 hidden-xs">
+        <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12 hidden-xs">
 
           
 
@@ -102,7 +103,7 @@
 
         <!-- ========RESPONSIVE  HEADER VISIBLE IN MOBAILE VIEW====== -->
         
-        <div class="col-lg-3 col-md-4 col-sm-3 col-xs-12 hidden-xs visible-sm visible-md visible-lg">
+        <div class="col-lg-3 col-md-2 col-sm-3 col-xs-12 hidden-xs visible-sm visible-md visible-lg">
 
             @if(Auth::check())
 
@@ -195,62 +196,16 @@
                         </ul>
 
                     </li>
-
-                    <li  class="dropdown">
-                        <a class="nav-link text-light notification-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="return notificationsStatusUpdate();">
-                            <img src="{{asset('assignment.png')}}" style="width: 2rem;" alt="">
-                        </a>
-
-                        <ul class="dropdown-menu-notification dropdown-menu">
-
-                            <li class="notification-head text-light bg-dark">
-                                <div class="row">
-                                    <div class="col-lg-12 col-sm-12 col-12">
-                                        <span>
-                                            {{tr('notifications')}} 
-                                            (<span id="global-notifications-count">0</span>)
-                                        </span>
-                                        <!-- <a href="" class="float-right text-light">Mark all as read</a> -->
-                                    </div>
-                                </div>
-                            </li>
-
-                            <span id="global-notifications-box"></span>
-
-                            <li class="notification-footer bg-dark text-center">
-                                <a href="{{route('user.students_assignments')}}" class="text-light">
-                                    {{tr('view_all')}}
-                                </a>
-                            </li>
-                        
-                        </ul>
-
-                    </li>
                  
                 </ul>
                  
                  @if(is_null(Auth::user()->study_role))
-                 <a class="nav navbar-nav pull-right" href="{{route('user.upload.information')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Teacher</a>
+                 <a class="nav navbar-nav pull-right" href="{{route('user.upload.information')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Student</a>
                   @else
 
-                   <a class="nav navbar-nav pull-right" href="{{url('mychannels/list')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Teacher</a>
+                   <a class="nav navbar-nav pull-right" href="{{url('/')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Student</a>
                    @endif
-                   <form action="/" method="get" style="margin-top: 1vh;">
-                   <select id="options" name="targeted_country" style="width: auto;">
-
-                 @if($country_with_ip=='')
-                 <option value="{{$country_ip}}">{{$country_ip}}</option>
-                 @else
-                 <option value="{{$country_with_ip}}">{{$country_with_ip}}</option>
-                 @endif
-
-                @foreach($countries as $country)   
-                  
-                    <option value="{{$country->country_name}}">{{$country->country_name}}</option>
-                  @endforeach
-               
-                 </select> 
-                </form>
+                   
               
 
 
@@ -267,28 +222,14 @@
             @else
                 <div class="y-button2 main_nav_btn">
 
-                <a href="{{route('user.login.form')}}">SignIn</a> <i style="color: white; font-weight: bold;">|</i>
+                  <a href="{{route('user.login.form')}}">LogIn</a> <i style="color: white; font-weight: bold;">|</i>
                     <a href="{{route('user.register.form')}}">SignUp</a>
                 </div>
 
                 
 
                  
-                <form action="/" method="get" style="margin-top: 1vh;">
-                   <select id="options" name="targeted_country" style="width: auto;">
-                   @if($country_with_ip=='')
-                 <option value="{{$country_ip}}">{{$country_ip}}</option>
-                 @else
-                 <option value="{{$country_with_ip}}">{{$country_with_ip}}</option>
-                 @endif
-
-                @foreach($countries as $country)   
-                  
-                    <option value="{{$country->country_name}}">{{$country->country_name}}</option>
-                  @endforeach
                
-                 </select> 
-                </form>
               
                 @if(Setting::get('is_direct_upload_button') == YES)
 

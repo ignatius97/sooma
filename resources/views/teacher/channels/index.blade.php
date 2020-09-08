@@ -791,7 +791,7 @@
                                         <div style="display: inline-block;">
                                             <img class="profile-image" src="{{Auth::user()->picture ?: asset('placeholder.png')}}">
                                         </div>
-                                        <form class="comment-form" role="form" method="POST" action="{{ url('/comment') }}" enctype="multipart/form-data" style="display:inline;>
+                                        <form class="comment-form" role="form" method="POST" action="{{ url('/comment') }}" enctype="multipart/form-data" style="display:inline;">
                                             <div class="form-group" style="display: inline-block; width: 85%;">
                                                 <input type="text" value="{{Auth::user()->name}}" style="background-color: white; display:none;" >
                                                 <input type="text" value="{{Auth::user()->email}}" style="background-color: white; display:none;">
@@ -820,7 +820,7 @@
                                         <div style="display: inline-block;">
                                             <img class="profile-image" src="{{Auth::user()->picture ?: asset('placeholder.png')}}">
                                         </div>
-                                        <form class="comment-form" role="form" method="POST" action="{{ url('/comment') }}" enctype="multipart/form-data" style="display:inline;>
+                                        <form class="comment-form" role="form" method="POST" action="{{ url('/comment') }}" enctype="multipart/form-data" style="display:inline;">
                                             <div class="form-group" style="display: inline-block; width: 85%;">
                                                 <input type="text" value="{{Auth::user()->name}}" style="background-color: white; display:none;" >
                                                 <input type="text" value="{{Auth::user()->email}}" style="background-color: white; display:none;">
@@ -850,7 +850,7 @@
                                         <div style="display: inline-block;">
                                             <img class="profile-image" src="{{Auth::user()->picture ?: asset('placeholder.png')}}">
                                         </div>
-                                        <form class="comment-form" role="form" method="POST" action="{{ url('/comment') }}" enctype="multipart/form-data" style="display:inline;>
+                                        <form class="comment-form" role="form" method="POST" action="{{ url('/comment') }}" enctype="multipart/form-data" style="display:inline;">
                                             <div class="form-group" style="display: inline-block; width: 85%;">
                                                 <input type="text" value="{{Auth::user()->name}}" style="background-color: white; display:none;" >
                                                 <input type="text" value="{{Auth::user()->email}}" style="background-color: white; display:none;">
@@ -1218,7 +1218,7 @@
 
                         <!-- DONT REMOVE THIS. LIVE VIDEO LISTS -->
 
-                        @include('user.channels._live_taps') 
+                        @include('teacher.channels._live_taps') 
 
                     </ul>
 
@@ -1339,7 +1339,7 @@
 
     <!-- PLAYLIST POPUPEND -->
 
-    @include('user.channels._go_live_form')
+    @include('teacher.channels._go_live_form')
 
 @endsection 
 

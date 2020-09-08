@@ -33,6 +33,6 @@ screen and (min-resolution: 1.5dppx) {
 
 @section('content')
 
-@include('user.channels._form')
+@include('teacher.channels._form')
 
 @endsection

@@ -1382,100 +1382,9 @@ class UserController extends Controller {
     
     }
 
-    /**
-     * Function Name : channels()
-     *
-     * @uses To list out channels which is created by all the users
-     *
-     * @created Vithya R
-     *
-     * @updated 
-     *
-     * @param object $request - User Details
-     *
-     * @return channel details details
-     */
-    public function channels(Request $request){
-
-        if(Auth::check()) {
-
-            $request->request->add([ 
-                'id' => \Auth::user()->id,
-                'token' => \Auth::user()->token,
-                'device_token' => \Auth::user()->device_token,
-                'age'=>\Auth::user()->age_limit,
-            ]);
-
-        }
-
-        $response = $this->UserAPI->channel_list($request)->getData();
-         $trendings = $this->UserAPI->trending_list($request)->getData();
 
 
-        return view('user.channels.list')->with('page', 'channels')
-                ->with('subPage', 'channel_list')
-                ->with('trendings', $trendings)
-                ->with('response', $response);
 
-    }    
-
-    public function channel_assignment(Request $request){
-
-        if(Auth::check()) {
-
-            $request->request->add([ 
-                'id' => \Auth::user()->id,
-                'token' => \Auth::user()->token,
-                'device_token' => \Auth::user()->device_token,
-                'age'=>\Auth::user()->age_limit,
-            ]);
-
-        }
-
-        $response = $this->UserAPI->channel_list($request)->getData();
-         $trendings = $this->UserAPI->trending_list($request)->getData();
-
-
-        return view('user.channels.assignment')->with('page', 'channels')
-                ->with('subPage', 'channel_list')
-                ->with('trendings', $trendings)
-                ->with('response', $response);
-
-    }
-
-    /**
-     * Function Name : playlists_index()
-     *
-     * @uses To list out playlists which is created by the users
-     *
-     * @created 
-     *
-     * @updated 
-     *
-     * @param object $request - User Details
-     *
-     * @return channel details details
-     */
-    public function playlists_index(Request $request){
-
-        if(Auth::check()) {
-            
-            $request->request->add([ 
-                'id' => \Auth::user()->id,
-                'token' => \Auth::user()->token,
-                'device_token' => \Auth::user()->device_token,
-                'age'=>\Auth::user()->age_limit,
-            ]);
-        }
-
-        $response = $this->UserAPI->playlists($request)->getData();
-        // $response = $this->UserAPI->playlists_index($request)->getData();
-
-        return view('user.playlist.list')->with('page', 'channels')
-                ->with('subPage', 'channel_list')
-                ->with('response', $response);
-
-    }
 
     /**
      * Function Name : history()
@@ -1544,99 +1453,7 @@ class UserController extends Controller {
     
     }
 
-    /**
-     * Function Name : channel_view()
-     *
-     * @uses Based on the channel id , channel related videos will display
-     *
-     * @created Vithya R
-     *
-     * @updated 
-     *
-     * @param integer $id : Channel Id
-     *
-     * @return channel videos list
-     */
-    public function channel_view($id , Request $request) {
 
-        $channel = Channel::where('id', $id)->first();
-
-        if ($channel) {
-
-            $request->request->add([ 
-                'age' => \Auth::check() ? \Auth::user()->age_limit : "",
-                'id'=> \Auth::check() ? \Auth::user()->id : "",
-                'channel_id'=> $id,
-                'view_type' => \Auth::check() ? \Auth::user()->id == $channel->user_id ? VIEW_TYPE_OWNER : VIEW_TYPE_VIEWER : VIEW_TYPE_VIEWER 
-            ]);
-            
-            if ($request->id != $channel->user_id || !Auth::check()) {
-
-                if ($channel->status == USER_CHANNEL_DECLINED || $channel->is_approved == ADMIN_CHANNEL_DECLINED) {
-
-                    return redirect()->to('/')->with('flash_error', tr('channel_declined'));
-                }
- 
-            }
-
-            $videos = $this->UserAPI->channel_videos($id, 0 , $request)->getData();
-
-            $channel_owner_id = Auth::check() ? ($channel->user_id == Auth::user()->id ? $channel->user_id : "") : "";
-
-            $trending_videos = $this->UserAPI->channel_trending($id, 4 , $channel_owner_id , $request)->getData();
-            
-            $channel_playlists = $this->UserAPI->playlists($request)->getData();
-
-            $channel_playlists = $channel_playlists->data;
-            
-            $payment_videos = $this->UserAPI->payment_videos($id, 0)->getData();
-
-            $live_videos = VideoRepo::live_videos_list($id, WEB, null);
-             $trendings = $this->UserAPI->trending_list($request)->getData();
-
-            $subscribe_status = false;
-
-            if ($request->id) {
-
-                $subscribe_status = check_channel_status($request->id, $id);
-            }
-
-            $subscriberscnt = subscriberscnt($channel->id);
-
-            $live_video_history = [];
-
-            if (Auth::check()) {
-
-                $request->request->add([
-                    'skip'=>0,
-                    'channel_id'=>$id,
-                    'id'=>Auth::user()->id,
-
-                ]);
-
-                $live_video_history = $this->UserAPI->live_video_revenue($request)->getData();
-
-            }
-
-            return view('user.channels.index')
-                        ->with('page' , 'channels_'.$id)
-                        ->with('subPage' , 'channels')
-                        ->with('channel' , $channel)
-                        ->with('live_videos', $live_videos)
-                        ->with('videos' , $videos)
-                        ->with('trending_videos', $trending_videos)
-                        ->with('channel_playlists', $channel_playlists)
-                        ->with('payment_videos', $payment_videos)
-                        ->with('subscribe_status', $subscribe_status)
-                        ->with('trendings', $trendings)
-                        ->with('subscriberscnt', $subscriberscnt)
-                        ->with('live_video_history', $live_video_history);
-        } else {
-
-            return back()->with('flash_error', tr('channel_not_found'));
-
-        }
-    }
 
     /**
      * Function Name : video_view()
@@ -2482,44 +2299,7 @@ class UserController extends Controller {
                     ->with('videos' , $videos);
     }
 
-    /**
-     * Function Name : channel_create()
-     *
-     * @uses To create a channel based on logged in user id  (Form Rendering)
-     *
-     * @created Vithya R
-     *
-     * @updated w
-     *
-     * @return respnse with flash message
-     */
-    public function channel_create(Request $request) {
-        
-        $model = new Channel;
 
-        $channels = getChannels(Auth::user()->id);
-         $trendings = $this->UserAPI->trending_list($request)->getData();
-
-        if((count($channels) == 0 || Setting::get('multi_channel_status'))) {
-
-            if (Auth::user()->user_type) {
-
-                return view('user.channels.create')->with('page', 'channels')
-                    ->with('subPage', 'create_channel')->with('model', $model)->with('trendings', $trendings);
-
-            } else {
-
-                return view('user.channels.create')->with('page', 'channels')
-                    ->with('subPage', 'create_channel')->with('model', $model)->with('trendings', $trendings);
-
-            }
-
-        } else {
-
-            return redirect(route('user.dashboard'))->with('flash_error', tr('channel_create_error'));
-        }
-
-    }
 
     /**
      * Function Name : save_channel()
@@ -2556,43 +2336,7 @@ class UserController extends Controller {
 
     }
 
-    /**
-     * Function Name : channel_edit()
-     *
-     * @uses To edit a channel based on logged in user id (Form Rendering)
-     *
-     * @created Vithya R
-     *
-     * @updated 
-     *
-     * @param integer $id - Channel Id
-     *
-     * @return respnse with Html Page
-     */
-    public function channel_edit(Request $request, $id) {
 
-        $model = Channel::find($id);
-        $trendings = $this->UserAPI->trending_list($request)->getData();
-
-        if (Auth::check()) {
-
-            if ($model) {
-
-                if (Auth::user()->id != $model->user_id) {
-
-                    return redirect(route('user.channel.mychannel'))->with('flash_error', tr('unauthroized_person'));
-
-                }
-
-            }
-
-        }
-
-        return view('user.channels.edit')->with('page', 'channels')
-                    ->with('trendings', $trendings)
-                    ->with('subPage', 'edit_channel')->with('model', $model);
-
-    }
 
     /**
      * Function Name : channel_delete()
@@ -3342,45 +3086,7 @@ class UserController extends Controller {
 
     }
 
-    public function channel_subscribers(Request $request) {
-
-        $list = [];
-
-        $channel_id = $request->channel_id ? $request->channel_id : '';
-
-        $channel = null;
-
-        if ($channel_id) {
-
-            $list[] = $request->channel_id;
-
-            $channel = Channel::find($channel_id);
-
-        } else {
-
-            $channels = getChannels(Auth::user()->id);
-
-            foreach ($channels as $key => $value) {
-                $list[] = $value->id;
-            }
-        }
-
-        $subscribers = ChannelSubscription::whereIn('channel_subscriptions.channel_id', $list)
-                        ->select('channel_subscriptions.channel_id as channel_id',
-                                'channels.name as channel_name',
-                                'users.id as user_id',
-                                'users.name as user_name',
-                                'users.picture as user_image',
-                                'channel_subscriptions.id as subscriber_id',
-                                'channel_subscriptions.created_at as created_at')
-                        ->leftJoin('channels', 'channels.id', '=', 'channel_subscriptions.channel_id')
-                        ->leftJoin('users', 'users.id', '=', 'channel_subscriptions.user_id')
-                        ->orderBy('created_at', 'desc')
-                        ->paginate();
-
-        return view('user.channels.subscribers')->with('page', 'channels')->with('subPage', 'subscribers')->with('subscribers', $subscribers)->with('channel_id', $channel_id)->with('channel', $channel);
-
-    }
+    
 
     public function card_details(Request $request) {
 
@@ -3615,45 +3321,7 @@ class UserController extends Controller {
 
     }
 
-    /**
-     * Function Name : subscribed_channels()
-     *
-     * @uses To list otu  subscribed channels based on logged in users
-     *
-     * @created Vithya R
-     *
-     * @updated 
-     *
-     * @param object $request - user details
-     *
-     * @return json response details
-     */
-    public function subscribed_channels(Request $request) {
 
-        $request->request->add([ 
-            'id' => \Auth::user()->id,
-        ]);     
-        $trendings = $this->UserAPI->trending_list($request)->getData();   
-
-        if ($request->id) {
-
-            $channel_id = ChannelSubscription::where('user_id', $request->id)->pluck('channel_id')->toArray();
-
-            $request->request->add([ 
-                'channel_id' => $channel_id,
-            ]);        
-        }
-
-        $response = $this->UserAPI->channel_list($request)->getData();
-
-        // dd($response);
-
-        return view('user.channels.list')->with('page', 'channels')
-                ->with('subPage', 'channel_list')
-                ->with('trendings', $trendings)
-                ->with('response', $response);
-
-    }
 
 
     /**
@@ -4061,34 +3729,7 @@ class UserController extends Controller {
     
     }
 
-    /**
-     * Function Name : my_channels()
-     *
-     * @uses To list out channels based on logged in users
-     *
-     * @created Vithya R
-     *
-     * @updated 
-     *
-     * @param Object $request - User Details
-     *
-     * @return json response details
-     */
-    public function my_channels(Request $request) {
 
-        $request->request->add([
-            'id'=>Auth::user()->id,
-        ]);
-
-        $response = $this->UserAPI->user_channel_list($request)->getData();
-         $trendings = $this->UserAPI->trending_list($request)->getData();
-
-
-        return view('user.channels.list')->with('page', 'my_channel')
-                ->with('subPage', 'channel_list')
-                ->with('trendings', $trendings)
-                ->with('response', $response);
-    }
 
 
     /**
@@ -4875,7 +4516,7 @@ class UserController extends Controller {
 
                     $response->data->picture = $first_video_from_playlist ? $first_video_from_playlist->picture : asset('images/playlist.png');
 
-                    $new_playlist_content = view('user.channels.playlist_append')->with('channel_playlist_details', $response->data)->render();
+                    $new_playlist_content = view('teacher.channels.playlist_append')->with('channel_playlist_details', $response->data)->render();
 
                     $response->new_playlist_content = $new_playlist_content;
 
