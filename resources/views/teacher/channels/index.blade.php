@@ -224,7 +224,7 @@
                                         @endif
                                         <li role="presentation">
                                             <a href="#class-post" class="yt-uix-button spf-link  yt-uix-sessionlink yt-uix-button-epic-nav-item yt-uix-button-size-default" aria-controls="about" role="tab" data-toggle="tab">
-                                                <span class="yt-uix-button-content hidden-xs">Class Post</span>
+                                                <span class="yt-uix-button-content hidden-xs">Discussions</span>
                                                 <span class="visible-xs"><i class="fa fa-info channel-tab-icon"></i></span>
                                             </a>
                                         </li>

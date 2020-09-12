@@ -90,7 +90,7 @@
                                 <source src="{{$recent_video->video}}" type="video/ogg" />
                                 <source src="{{$recent_video->video}}" type="video/flv" />
                             </video>
-                            <div class="caption">{{$recent_video->title}}
+                            <div class="caption" >{{$recent_video->title}}
                                 <br/>
                                 {{$recent_video->duration}}
                                 <br/>
