@@ -2,29 +2,32 @@
     <div class="curriculum">
         <ul class="y-home menu1">
 
+           
+
         <li>
              @foreach($countries as $country)
              @if($country_with_ip=='') 
              @if($country->country_name==$country_ip)
-            <h3 class="popular_title" style="color: black; text-align: center; font-weight: bold;  font-style: italic; font-size: 16px">Curriculum Based Learning <span style="text-align: center;"> <img   class="slide-img1 placeholder" id="img" src="{{$country->picture}}"  /> </span>
+            <h3 class="popular_title" style="color: black; margin-left: 20px; font-weight: bold;  font-style: italic; font-size: 16px"> <span style="text-align: center;"> <img   class="slide-img1 placeholder" id="img" src="{{$country->picture}}"  /> </span>Curriculum Based Learning 
             </h3>
               @endif
               @else
 
               @if($country->country_name==$country_with_ip)
-                <h3 class="popular_title" style="color: black;text-align: center; margin-left: 8px; font-weight: bold;  font-style: italic; font-size: 16px">Curriculum Based Learning<span> <img   class="slide-img1 placeholder" id="img" src="{{$country->picture}}"  /> </span>
+                <h3 class="popular_title" style="color: black; margin-left: 20px; font-weight: bold;  font-style: italic; font-size: 16px"> <span> <img   class="slide-img1 placeholder" id="img" src="{{$country->picture}}"  /> </span> Curriculum Based Learning
             </h3>
               @endif
              @endif
              @endforeach
            </li>
 
+
         <div>
-        @foreach($curriculum as $curriculum) 
+       @foreach($curriculum as $curriculum) 
        @if($country_with_ip=='')
        @if($curriculum->country==$country_ip)
         <li id="hom" title="{{$curriculum->name}}" style="margin-left: 20px;">
-            <a  href="{{ route('user.curriculum.selection' , ['curriculum' => $curriculum->abbreviation, 'country'=>$curriculum->country] ) }}" > <img   class="slide-img1 placeholder" id="img" src="{{$curriculum->picture}}"  /> <h6 style="display: inline-grid; vertical-align: bottom; color: black; font-size: 15px;" >{{$curriculum->name}}</h6></a>
+            <a  href="{{ route('user.curriculum.selection' , ['curriculum_id' => $curriculum->id, 'country'=>$country_ip] ) }}" > <img   class="slide-img1 placeholder" id="img" src="{{$curriculum->picture}}"  /> <h6 style="display: inline-grid; vertical-align: bottom; color: black; font-size: 15px;" >{{$curriculum->name}}</h6></a>
         </li>
         @endif
 
@@ -33,7 +36,7 @@
 
         @if($curriculum->country==$country_with_ip)
         <li id="hom" title="{{$curriculum->name}}" style="margin-left: 20px;">
-            <a  href="{{ route('user.curriculum.selection' , ['curriculum' => $curriculum->abbreviation, 'country'=>$curriculum->country] ) }}" > <img   class="slide-img1 placeholder" id="img" src="{{$curriculum->picture}}"  /> <h6 style="display: inline-grid; vertical-align: bottom; color: black; font-size: 15px;" >{{$curriculum->name}}</h6></a>
+            <a  href="{{ route('user.curriculum.selection' , ['curriculum_id' => $curriculum->id, 'country'=>$country_with_ip] ) }}" > <img   class="slide-img1 placeholder" id="img" src="{{$curriculum->picture}}"  /> <h6 style="display: inline-grid; vertical-align: bottom; color: black; font-size: 15px;" >{{$curriculum->name}}</h6></a>
         </li>
         @endif
 
@@ -77,7 +80,16 @@
                     <span>{{tr('wishlist')}}</span>
                 </a>
             </li>
+            @if(Setting::get('create_channel_by_user') == CREATE_CHANNEL_BY_USER_ENABLED || Auth::user()->is_master_user == 1)
+                <li id="my_channel">
+                    <a href="{{route('user.channel.mychannel')}}">
+                        <img src="{{asset('images/sidebar/channel-grey.png')}}" class="grey-img">
+                        <img src="{{asset('images/sidebar/channel-red.png')}}" class="red-img">
+                        <span>{{tr('my_channels')}}</span>
+                    </a>
+                </li>
 
+            @endif
 
             <li id="playlists">
                 <a href="{{route('user.playlists.index')}}">
@@ -200,11 +212,12 @@
     @else
         <div class="about_us">
         <div class="menu4 top nav-space my_bg_color" >
-           
+
             <form method="get" action="{{route('user.register.form')}}">
                 <button type="submit" class="sign_up_btn" style="background-color: brown;">About us</button>
             </form>
             <h3 class="sooma_header">For more information about <span class="sooma_color">sooma</span> Please click the button below</h3>
+            
             
         </div> 
         </div>  

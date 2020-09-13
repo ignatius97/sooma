@@ -29,6 +29,7 @@ class VideoTape extends Model
             'video_tapes.id as video_tape_id' ,
             'channels.id as channel_id' ,
             'channels.user_id as channel_created_by',
+           
             'channels.name as channel_name',
             'channels.picture as channel_picture',
             'channels.status as channel_status',
@@ -36,7 +37,7 @@ class VideoTape extends Model
             'channels.status as channel_status',
             'video_tapes.title',
             'video_tapes.description',
-
+             'video_tapes.class_id',
             'video_tapes.default_image',
             'video_tapes.created_at',
             'video_tapes.video',
@@ -70,8 +71,6 @@ class VideoTape extends Model
             'video_tapes.category_id',
             'video_tapes.category_name',
             'video_tapes.is_pay_per_view',
-            'video_tapes.class',
-            'video_tapes.category_country',
             'video_tapes.video_type',
             \DB::raw('DATE_FORMAT(video_tapes.created_at , "%e %b %y") as video_date'),
             \DB::raw('(CASE WHEN (user_ratings = 0) THEN ratings ELSE user_ratings END) as ratings')
@@ -98,6 +97,7 @@ class VideoTape extends Model
 
         return $query
             ->leftJoin('channels' , 'video_tapes.channel_id' , '=' , 'channels.id')
+            ->join('classes', 'video_tapes.class_id', '=', 'classes.id')
             ->where('video_tapes.status' , USER_VIDEO_APPROVED_STATUS)
             ->where('video_tapes.publish_status' , VIDEO_PUBLISHED)
             ->where('video_tapes.is_approved' , ADMIN_VIDEO_APPROVED_STATUS)
@@ -111,6 +111,7 @@ class VideoTape extends Model
                 'video_tapes.duration',
                 'channels.id as channel_id' ,
                 'channels.name as channel_name',
+                'classes.class_name as class_name', 
                 'channels.status as channel_status',
                 'channels.picture as channel_image',
                 'video_tapes.category_id',
@@ -143,6 +144,7 @@ class VideoTape extends Model
 
         return $query
             ->leftJoin('channels' , 'video_tapes.channel_id' , '=' , 'channels.id')
+            ->leftJoin('classes', 'video_tapes.class_id', '=', 'classes.id')
             // ->where('video_tapes.status' , USER_VIDEO_APPROVED_STATUS)
             // ->where('video_tapes.publish_status' , VIDEO_PUBLISHED)
             // ->where('video_tapes.is_approved' , ADMIN_VIDEO_APPROVED_STATUS)
@@ -154,6 +156,7 @@ class VideoTape extends Model
                 'video_tapes.default_image as video_image',
                 'video_tapes.watch_count',
                 'video_tapes.duration',
+                'classes.class_name as class_name',
                 'channels.id as channel_id' ,
                 'channels.name as channel_name',
                 'channels.status as channel_status',
@@ -222,6 +225,7 @@ class VideoTape extends Model
 
     }
 
+    
     public function getChannel() {
 
          return $this->hasOne('App\Channel', 'id', 'channel_id');

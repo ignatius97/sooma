@@ -5880,7 +5880,14 @@ public function country_curriculum(Request $request){
              $curriculum=Curriculum::all();
 
 
-           $class=Classes::where('country', $request->country)->where('curriculum_short', $request->curriculum)->get();
+             $class= DB::table('classes')
+             ->join('countries', 'classes.country_id', '=', 'countries.id')
+             ->join('curricula', 'classes.curricula_id', '=', 'curricula.id')
+             ->select('classes.*', 'classes.id', 'classes.class_name', 'countries.country_name', 'curricula.id AS curriculum_id' )
+             ->where('country_name', 'Uganda')
+             ->where('curricula.id', $request->curriculum_id)
+             ->get();
+             
            $trendings = $this->UserAPI->trending_list($request)->getData();
            
           return view('user.curriculum.index')->with('page' , 'home')

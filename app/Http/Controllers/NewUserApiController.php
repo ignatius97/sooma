@@ -3579,7 +3579,8 @@ class NewUserApiController extends Controller
 
                 $channel_subscription_details->delete();
 
-                $message = CommonHelper::success_message(222); $code = 222;
+                $message = CommonHelper::success_message(222); 
+                $code = 222;
 
             } else {
 

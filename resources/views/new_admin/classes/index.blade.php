@@ -17,6 +17,7 @@
 	<li class="active"><i class="fa fa-suitcase"></i>Curriculums</li>
 @endsection 
 
+
 @section('content')
 
 <div class="row">
@@ -56,11 +57,11 @@
 
 	                        <tr>
 	                            <td>{{ $i+1 }}</td>
-                                <td><a target="_blank" href="">{{ $channel_details->name }}</a></td>
+                                <td><a target="_blank" href="">{{ $channel_details->class_name }}</a></td>
 
-	                            <td><a target="_blank" href="">{{ $channel_details->country }}</a></td>
+	                            <td><a target="_blank" href="">{{ $channel_details->country_name }}</a></td>
 
-                                 <td><a target="_blank" href="">{{ $channel_details->curriculum }}</a></td>
+                                 <td><a target="_blank" href="">{{ $channel_details->name }}</a></td>
                                 <td><a target="_blank" href="">{{ $channel_details->created_at }}</a></td>
 
 	                            <td>

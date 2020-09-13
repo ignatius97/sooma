@@ -164,16 +164,17 @@
 
                     <div class="slide-area">
                         <div class="box-head">
-                            <h3>{{$class->name}}</h3>
+                            <h3>{{$class->class_name}}</h3>
                         </div>
 
                         <div class="box">
 
+                             @if(count($trendings->items) > 0)
+
                             @foreach($trendings->items as $trending)
 
 
-                            @if($trending->class==$class->name)
-
+                           @if($trending->class_name==$class->class_name)
                              
 
                             <div class="slide-box">
@@ -216,24 +217,23 @@
 
                                 </div><!--end of video-details-->
                             </div><!--end of slide-box-->
+                            @else
                             
+                            <img id="demo"  src="{{asset('images/no-result.jpg')}}" class="img-responsive auto-margin">
                              
                             @endif
 
-                
-                         
-                            
 
                             @endforeach
-
-
-                            <img id="demo"  src="{{asset('images/no-result.jpg')}}" class="img-responsive auto-margin">
-                             
+                            @else
+                              <img id="demo"  src="{{asset('images/no-result.jpg')}}" class="img-responsive auto-margin">
+                              @endif
                          
                         </div><!--end of box--> 
                     </div><!--end of slide-area-->
 
                     @endforeach
+
 
                
                  

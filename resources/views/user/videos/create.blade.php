@@ -29,7 +29,7 @@
  
      <div class="page-inner">
          <!--      Wizard container        -->
-         <div class="page-inner col-sm-9 col-md-8">
+         <div class="page-inner col-sm-9 col-md-12">
                  <div class="wizard-container">
                      <div class="card wizard-card" data-color="red" id="wizard">
                          <form action="{{Setting::get('admin_delete_control') ? '' : route('user.video_save')}}" method="post" id="video_form" enctype="multipart/form-data">
@@ -187,27 +187,27 @@
                                          </div>
                                      </div>
                                         
-                                     
- 
-                                     <div class="clearfix"></div>
+                                         <div class="clearfix"></div>
  
                                      <div class="form-data">
  
                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                           
-                                           <label for="video" class="control-label">{{tr('class_name')}}  * </label>
+                                           <label for="video" class="control-label">{{tr('country_name')}}  * </label>
                                            <div>
  
-                                             <select id="category_id" name="category_id" class="form-control select2" required data-placeholder="{{tr('select_category')}}*" style="width: 100% !important">
-                                                 @foreach($categories as $category)
-                                                       <option value="{{$category->category_id}}">{{$category->category_name}}</option>
+                                             <select id="category_id" name="country" class="form-control select2" required data-placeholder="{{tr('select_category')}}*" style="width: 100% !important">
+                                                 @foreach($con as $country)
+                                                       <option value="{{$country->id}}">{{$country->country_name}}</option>
                                                      @endforeach
                                              </select>
  
                                            </div>
                                         
                                        </div>
+                                     
  
+                                     
                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                           
                                            <label for="video" class="control-label">{{tr('tags')}}</label>
@@ -224,19 +224,18 @@
                                         
                                        </div>       
                                      </div>
- 
-                                     <div class="clearfix"></div>
+                                       <div class="clearfix"></div>
  
                                      <div class="form-data">
  
                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                           
-                                           <label for="video" class="control-label">{{tr('country_name')}}  * </label>
+                                           <label for="video" class="control-label">{{tr('class_name')}}  * </label>
                                            <div>
  
-                                             <select id="category_id" name="country" class="form-control select2" required data-placeholder="{{tr('select_category')}}*" style="width: 100% !important">
-                                                 @foreach($categories as $category)
-                                                       <option value="{{$category->category_country}}">{{$category->category_country}}</option>
+                                             <select id="category_id" name="class" class="form-control select2" required data-placeholder="{{tr('select_category')}}*" style="width: 100% !important">
+                                                 @foreach($classes as $class)
+                                                       <option value="{{$class->id}}">{{$class->class_name}}</option>
                                                      @endforeach
                                              </select>
  
@@ -244,16 +243,18 @@
                                         
                                        </div>
  
+                                    
+ 
                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                           
                                        <label for="video" class="control-label">{{tr('curriculum')}}  * </label>
                                            <div>
  
                                              <select id="category_id" name="curriculum" class="form-control select2" required data-placeholder="{{tr('select_category')}}*" style="width: 100% !important">
-                                                 @foreach($categories as $category)
-                                                       <option value="{{$category->category_curriculum}}">
-                                                         {{$category->category_curriculum}}</option>
-                                                     @endforeach
+                                                 @foreach($curriculum as $curriculum)
+                                                       <option value="{{$curriculum->id}}">
+                                                         {{$curriculum->name}}</option>
+                                                 @endforeach
                                              </select>
  
                                            </div>

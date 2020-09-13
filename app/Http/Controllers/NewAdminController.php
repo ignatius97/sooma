@@ -1235,7 +1235,13 @@ class NewAdminController extends Controller {
     public function classes_index(){
 
         try{
-             $classes = CLasses::all();
+             $classes = DB::table('classes')
+            ->join('curricula', 'classes.curricula_id', '=', 'curricula.id')
+            ->join('countries', 'classes.country_id', '=', 'countries.id')
+            ->select('classes.*', 'classes.id', 'classes.class_name', 'curricula.name', 'countries.country_name')
+            ->get();
+
+
 
              if(!$classes){
                 throw new Exception(tr('admin_channel_not_found'), 101);
@@ -1471,7 +1477,6 @@ public function curriculums_create() {
                 ->with('users', $users)
                 ->with('channel_details', $channel_details);
     }
-
 
 
 
@@ -7949,10 +7954,51 @@ public function curriculums_create() {
     
     }
 
-    public function curriculum_select_data($id){
-        $curriculum=Curriculum::where('country' , $id)->get();
-      
-        return $curriculum;
-      }
+
+
+
+
+
+
+
+public function curriculum_select_data($id){
+  $curriculum=Curriculum::where('country' , $id)->get();
+
+  return $curriculum;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

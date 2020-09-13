@@ -31,12 +31,7 @@
         </div>
     </div>
 
-    <div class="col-sm-6">
-        <div class="form-group">
-            <label for="name" class="control-label">Curriculum Short Form*</label>
-            <input type="text" required class="form-control" id="name" name="abbreviation" placeholder="Curriculum Abbreviation" title="Min length must be an 6 character" value="">
-        </div>
-    </div>
+   
 
     <div class="col-sm-12">
         <div class="form-group">                        

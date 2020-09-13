@@ -415,7 +415,7 @@ class CommonRepository {
             $validator = Validator::make( $request->all(), [
 
                     'name' => 'required|min:4|max:255',
-                    'abbreviation' => 'required|max:255',
+                    
                     'description' => 'required|max:1000',
                     'picture' => 'required|mimes:jpeg,jpg,bmp,png',
                     'country' => 'required|min:4|max:255',
@@ -454,7 +454,7 @@ class CommonRepository {
              
 
                 $curriculum->name = $request->has('name') ? $request->name : '';
-                $curriculum->abbreviation = $request->has('abbreviation') ? $request->abbreviation : '';
+               
                 $curriculum->country = $request->has('country') ? $request->country : '';
 
                 $curriculum->description = $request->has('description') ? $request->description : '';
@@ -514,8 +514,8 @@ class CommonRepository {
 
                     'name' => 'required|min:4|max:255',
                     'curriculum' => 'required|max:255',
-                    'country' => 'required|min:4|max:255',
-                    'abbreviation'=>'required|max:255',
+                    'country' => 'required|max:255',
+                
                     
                 ]
             );
@@ -550,10 +550,10 @@ class CommonRepository {
 
              
 
-                $classes->name = $request->has('name') ? $request->name : '';
-                $classes->curriculum = $request->has('curriculum') ? $request->curriculum : '';
-                $classes->country = $request->has('country') ? $request->country : '';
-                $classes->curriculum_short=$request->has('abbreviation') ? $request->abbreviation : '';
+                $classes->class_name = $request->has('name') ? $request->name : '';
+                $classes->curricula_id = $request->has('curriculum') ? $request->curriculum : '';
+                $classes->country_id = $request->has('country') ? $request->country : '';
+              
 
                 
                 
@@ -599,12 +599,16 @@ class CommonRepository {
             DB::beginTransaction();
 
             $validator = Validator::make( $request->all(), array(
-                        'title'         => 'required|max:255',
-                        'category_id'=>'required|exists:categories,id,status,'.CATEGORY_APPROVE_STATUS,
+                        'title' => 'required|max:255',
+                        'class'=>'required',
+                        'curriculum'=>'required',
+                        'country'=>'required',
+                        
                         'tag_id'=>"",
+
                         'description'   => 'required',
                         'channel_id'   => 'required|integer|exists:channels,id',
-                        'category_class'   => 'required',
+                        
                        // 'video'     => 'required|mimes:mkv,mp4,qt',
                         //'subtitle'=>'mimes:text/str',
                         'video_publish_type'=>'required',
@@ -778,12 +782,15 @@ class CommonRepository {
                  */
 
                 $model->video_type = $request->video_type;
-                $model->category_country=$request->country;
-                $model->category_curriculum=$request->curriculum;
+               
+              
                 $model->subject=$request->subject;
                 $model->topic=$request->topic;
                 $model->video_upload_type=$request->video_upload_type;
-                 $model->class=$request->category_class;
+                $model->class_id=$request->class;
+                $model->curricula_id=$request->curriculum;
+                $model->country_id=$request->country;
+                
 
 
                 $main_video_duration = "";
@@ -795,6 +802,7 @@ class CommonRepository {
                 $model->is_banner = $request->has('is_banner') ? $request->is_banner : DEFAULT_FALSE;
 
                 // Save Category
+                /*
 
                 $new_category = 1;
 
@@ -819,6 +827,8 @@ class CommonRepository {
                 $model->category_name = $category->name;
 
                 $model->unique_id = $model->title;
+
+                */
 
                 if(in_array($request->video_type , [ VIDEO_TYPE_YOUTUBE , VIDEO_TYPE_OTHERS] )) {
 
@@ -986,7 +996,7 @@ class CommonRepository {
                         }
 
                     }
-
+                   /*
 
                     if ($new_category) {
 
@@ -1003,7 +1013,7 @@ class CommonRepository {
                         }
                         
                     }
-
+                    */
                     $video_path = [];
 
 
@@ -1376,6 +1386,7 @@ class CommonRepository {
                 }
 
                  // Save Category
+                /*
 
                 $new_category = 1;
 
@@ -1398,10 +1409,12 @@ class CommonRepository {
                 $category = Category::find($request->category_id);
 
                 $video->category_name = $category->name;
+                */
 
                 $video->status = DEFAULT_TRUE;
 
                /* $video->tags = $request->tags ? (is_array($request->tags) ? implode(',', $request->tags) : $request->tags) : '';*/
+
 
                 $video->save();
 
@@ -1458,6 +1471,8 @@ class CommonRepository {
 
                 }
 
+                /*
+
                 if ($new_category) {
 
                     $category->no_of_uploads += 1;
@@ -1473,6 +1488,7 @@ class CommonRepository {
                     }
                     
                 }
+                */
 
                 if ($request->banner_image)  {
 

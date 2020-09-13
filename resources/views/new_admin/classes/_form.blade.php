@@ -23,7 +23,7 @@
                 <select id="user_id" name="country" class="form-control select" required data-placeholder="{{$curriculum_details->country?$curriculum_details->country:'Select Country'}}">
                     <option value="{{$curriculum_details->country_name?$curriculum_details->country_name:''}}"></option>
                     @foreach($country_details as $user)
-                        <option value="{{ $user->country_name }}">{{ $user->country_name }}</option>
+                        <option value="{{ $user->id }}">{{ $user->country_name }}</option>
                     @endforeach
                 </select>   
 
@@ -42,7 +42,7 @@
                 <select id="main_cur" name="curriculum" class="form-control select2" required data-placeholder="{{$curriculum_details->curriculum?$curriculum_details->curriculum:'Select Curriculum'}}">
                     <option value=""></option>
                     @foreach($curriculum as $user)
-                        <option value="{{ $user->name }}">{{ $user->name}}</option>
+                        <option value="{{ $user->id }}">{{ $user->name}}</option>
                     @endforeach
                 </select>   
 
@@ -50,24 +50,6 @@
 
     </div>
 
-
-     <div class="col-sm-6">
-
-        <div class="form-group"> 
-
-            <label for="name" class="control-label ">Curriculum Abbreviation *</label>
-
-            
-                <select id="short_cur" name="abbreviation" class="form-control select2" required data-placeholder="{{$curriculum_details->curriculum_short?$curriculum_details->curriculum_short:'Select Curriculum Abrreviation'}}">
-                    <option value=""></option>
-                    @foreach($curriculum as $user)
-                        <option value="{{ $user->abbreviation}}">{{ $user->abbreviation}}</option>
-                    @endforeach
-                </select>   
-
-        </div>
-
-    </div>
 
 
 

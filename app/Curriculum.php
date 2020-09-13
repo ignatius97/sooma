@@ -13,8 +13,13 @@ class Curriculum extends Model
 
 
 
-     public function abbreviation()
+     public function video()
     {
-        return $this->hasOne('App\Classes');
+        return $this->hasMany('App\VideoTape');
+    }
+
+     public function curriculum()
+    {
+        return $this->hasMany('App\Classes');
     }
 }
