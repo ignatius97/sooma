@@ -1,4 +1,4 @@
-<div class="y-menu col-sm-4 col-md-4" style="margin-right: 0px;" >
+<div class="y-menu col-sm-4 col-md-4" style="margin-right: 0px; height: auto; background-color: rgb(241, 241, 241);" >
     <div class="curriculum">
         <ul class="y-home menu1">
 
@@ -82,10 +82,10 @@
             </li>
             @if(Setting::get('create_channel_by_user') == CREATE_CHANNEL_BY_USER_ENABLED || Auth::user()->is_master_user == 1)
                 <li id="my_channel">
-                    <a href="{{route('user.channel.mychannel')}}">
+                    <a href="{{route('user.channel.mychannels')}}">
                         <img src="{{asset('images/sidebar/channel-grey.png')}}" class="grey-img">
                         <img src="{{asset('images/sidebar/channel-red.png')}}" class="red-img">
-                        <span>{{tr('my_channels')}}</span>
+                        <span>My Class</span>
                     </a>
                 </li>
 

@@ -68,12 +68,6 @@
         position: absolute;
         left: -100vw;
       }
-      .margin_lefty{
-          margin-left: 16% !important;
-          margin-right: 10% !important;
-         
-
-      }
 
 
    </style>
@@ -87,7 +81,7 @@
       
       @include('layouts.user.nav')
          
-         <div class="page-inner  col-xs-12 col-sm-12 col-md-8 profile-edit">
+         <div class="page-inner col-sm-9 col-md-10 profile-edit">
             
             <div class="profile-content mar-0">
             
@@ -145,7 +139,8 @@
                                              
                                                 <input type="hidden" value="{{$video->video_tape_id}}" name="video_tape_id">
                                                 
-                                                @if(count($wishlist_status) == 1 && $wishlist_status)                                                
+                                                @if(count($wishlist_status) == 1 && $wishlist_status)
+                                                
                                                 <input type="hidden" id="status" value="0" name="status">
                                                 
                                                 <input type="hidden" id="wishlist_id" value="{{$wishlist_status->id}}" name="wishlist_id">
@@ -205,7 +200,7 @@
                                           <div class="col-xs-12 col-md-7 col-sm-7 col-lg-7">
                                            
                                             <div class="username">
-                                                <a href="{{route('user.channels',$video->channel_id)}}">
+                                                <a href="{{route('user.channel',$video->channel_id)}}">
                                                     {{$video->channel_name}}
                                                 </a>
                                             </div>
@@ -249,10 +244,10 @@
                                              <div class="pull-right">
                                                 
                                                 @if(Auth::check())
-                                                  
+                                                   
                                                    @if($video->get_channel->user_id != Auth::user()->id)
                                                       <a id="subscription" class="btn btn-sm bottom-space btn-info text-uppercase subscription @if($subscribe_status) subscription_button @endif" onclick="channels_unsubscribe_subscribe({{Auth::user()->id}},{{$video->channel_id}})"><span id="subscription_text">
-                                                      @if($subscribe_status) Un Enrole @else Enrole @endif &nbsp; </span><span id="subscriberscnt">{{$subscriberscnt}}</span></a>
+                                                      @if($subscribe_status) {{tr('un_subscribe')}} @else {{tr('subscribe')}} @endif &nbsp; </span><span id="subscriberscnt">{{$subscriberscnt}}</span></a>
                                                       
                                                       <!-- @if(!$subscribe_status)
                                                          
@@ -387,7 +382,38 @@
                   
                   <div class="col-sm-12 col-md-4 side-video custom-side">
 
-                     @include('user.videos._suggestions')
+                     <div class="up-next pt-0">
+
+                        <h4 class="sugg-head1">{{tr('playlists')}}</h4>
+
+                        <ul class="video-sugg">
+                        
+                          @if(count($play_all->video_tapes) > 0)
+
+                              @include('user.videos._playlist')
+
+                              <span id="playlists_videos"></span>
+
+                              <div class="clearfix"></div>
+
+                              <div class="row" style="margin-top: 20px">
+
+                              <div id="playlist_video_content_loader" style="display: none;">
+
+                              <h1 class="text-center"><i class="fa fa-spinner fa-spin" style="color:#ff0000"></i></h1>
+
+                                  </div>
+
+                                  <div class="clearfix"></div>
+
+                                  <button class="pull-right btn btn-info mb-15" onclick="getPlaylistsList()" style="color: #fff">{{tr('view_more')}}</button>
+
+                                  <div class="clearfix"></div>
+
+                             </div>
+                          @endif
+                        </ul>
+                     </div>
                       
                   </div>
 
@@ -742,13 +768,12 @@
            "controlbar.idlehide" : false,
            controlBarMode:'floating',
            "controls": {
-              "enableFullscreen": true,
-              "enablePlay": true,
-              "enablePause": true,
-              "enableMute": true,
-              "enableVolume": true
+           "enableFullscreen": false,
+           "enablePlay": false,
+           "enablePause": false,
+           "enableMute": true,
+           "enableVolume": true
            },
-           autoplay : true,
            autostart : true,
            "sharing": {
             "sites": ["facebook","twitter"]
@@ -861,6 +886,12 @@
                                        window.location.reload(true);
    
                                    }
+
+                                    var url = "{{route('user.playlists.play_all' , ['playlist_id'=>$play_all->playlist_id,'playlist_type'=>$play_all->playlist_type,'play_next' => $play_next])}}";
+
+                                    var urlString = url.replace(/&amp;/g, '&');
+                 
+                                    window.location.assign(urlString);
    
                                } else {
                                       
@@ -992,7 +1023,7 @@
        });
    
    
-   
+       jQuery("#main-video-player").show();
    
        // console.log(jwplayer().getPosition());
    
@@ -1175,7 +1206,7 @@
 
                      alert(data.message);
 
-                     var labal = '<br><label class="playlist-container">'+data.title+'<input type="checkbox" onclick="playlist_video_update('+video_tape_id+ ', '+data.playlist_id+ ',this)" id="playlist_'+data.playlist_id+'" checked><span class="playlist-checkmark"></span></label>';
+                     var labal = '<label class="playlist-container">'+data.title+'<input type="checkbox" onclick="playlist_video_update('+video_tape_id+ ', '+data.playlist_id+ ',this)" id="playlist_'+data.playlist_id+'" checked><span class="playlist-checkmark"></span></label>';
 
                      $('#user_playlists').append(labal);
 
@@ -1209,26 +1240,22 @@
            data : {id : user_id, channel_id : channel_id},
            type: "get",
 
-           
            success: function(data) {
-
-            console.log(data);
                
                if(data.is_user_subscribed_the_channel) {
                   $(".subscription").addClass("subscription_button");
-                  $("#subscription_text").html('Un Enrole&nbsp;');
+                  $("#subscription_text").html('Un Subscribe&nbsp;');
                   $("#subscriberscnt").html(data.subscription_count);
                   
                } else {
                   $(".subscription").removeClass("subscription_button");
-                  $("#subscription_text").html('Enrole&nbsp;');
+                  $("#subscription_text").html('Subscribe&nbsp;');
                   $("#subscriberscnt").html(data.subscription_count);
 
                }
            },
    
            error : function(data) {
-
            },
        })
    }
@@ -1269,9 +1296,9 @@
    }
 
    /**
-     * @function dislikeVideo() 
+     * @function likeVideo() 
      *
-     * @uses Videos disLike and count based on the disLikes
+     * @uses Videos Like and count based on the Likes
      *
      * @created Bhawya
      *
@@ -1314,17 +1341,17 @@
        })
    }
    
-   /**
-     * @function likeVideo() 
+    /**
+     * @function dislikeVideo() 
      *
-     * @uses Videos Like and count based on the Likes
+     * @uses Videos disLike and count based on the disLikes
      *
      * @created Bhawya
      *
      * @updated Bhawya
      *
-     */
-   function dislikeVideo(video_id) {
+     */   
+     function dislikeVideo(video_id) {
       $(".like").removeClass("like_color");
        $.ajax({
            url : "{{route('user.video.disLike')}}",
@@ -1372,5 +1399,71 @@
        });
    }
 
+
+   var stopPageScroll = false;
+
+   var searchDataLength = "{{count($play_all->video_tapes)}}";
+
+   function getPlaylistsList() {
+
+     if (searchDataLength > 0) {
+
+         playlists_videos(searchDataLength);
+
+     }
+
+   }
+
+   function playlists_videos(cnt) {
+
+        $.ajax({
+
+            type: "post",
+            async: false,
+            url: "{{route('user.playlists.play_all')}}",
+            data: {
+                skip: cnt,
+                playlist_id: "{{$play_all->playlist_id}}",
+                playlist_type: "{{$play_all->playlist_type}}",
+                play_next: "{{$play_next}}",
+                is_json: 1
+            },
+            
+            beforeSend: function() {
+
+                $("#playlist_video_content_loader").fadeIn();
+            },
+
+            success: function(response) {
+               
+               $('#playlists_videos').append(response.view);
+
+                if (response.count == 0) {
+
+                    stopPageScroll = true;
+
+                } else {
+
+                    stopPageScroll = false;
+
+                    searchDataLength = parseInt(searchDataLength) + response.count;
+
+                }
+
+            },
+
+            complete: function() {
+               console.log('complete');
+                $("#playlist_video_content_loader").fadeOut();
+
+            },
+
+            error: function(data) {
+
+            },
+
+        });
+
+    }
 </script>
 @endsection

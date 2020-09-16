@@ -1,4 +1,4 @@
-@extends('layouts.teacher.user_teacher')
+@extends('layouts.user')
 
 @section('styles')
 
@@ -33,6 +33,6 @@ screen and (min-resolution: 1.5dppx) {
 
 @section('content')
 
-@include('teacher.channels._form')
+@include('user.channels._form')
 
 @endsection

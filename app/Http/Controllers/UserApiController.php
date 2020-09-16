@@ -24,6 +24,8 @@ use App\Jobs\BellNotificationJob;
 
 use Log;
 
+use App\Class_Discusion;
+
 use Hash;
 
 use Validator;
@@ -2506,6 +2508,25 @@ class UserApiController extends Controller {
      *
      * @return response of success/failure message
      */
+
+    public function class_add_comment($request){
+
+     $data=new Class_Discusion();
+     $data->user_id=$request->users_id;
+     $data->channel_id=$request->channel_id;
+     $data->comment=$request->class_comments;
+     $data->save();
+
+     $response_array = array('success' => true , 'comment' => $data->toArray() , 'date' => $data->created_at->diffForHumans(),'message' => tr('comment_success') );
+
+     $response = response()->json($response_array, 200);
+      return $response;
+
+
+    }
+
+
+
     public function user_rating(Request $request) {
 
         $validator = Validator::make(

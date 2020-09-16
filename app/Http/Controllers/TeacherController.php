@@ -22,6 +22,8 @@ use App\Wishlist;
 
 use App\Page;
 
+use App\Class_Discusion;
+
 use App\Flag;
 
 use App\Admin;
@@ -148,6 +150,32 @@ class TeacherController extends Controller {
 
     }
 
+    // channel save 
+
+
+    public function save_channel(Request $request) {
+
+        $request->request->add([ 
+            'id' => \Auth::user()->id,
+            'token' => \Auth::user()->token,
+            'channel_id' =>$request->id,
+            'device_type'=>DEVICE_WEB,
+        ]);
+       
+        $response = CommonRepo::channel_save($request)->getData();
+
+        if($response->success) {
+            // $response->message = Helper::get_message(118);
+            return redirect(route('user.channel', ['id'=>$response->data->id]))
+                ->with('flash_success', $response->message);
+        } else {
+            
+            return back()->with('flash_error', $response->error_messages);
+        }
+
+    }
+
+
         /**
      * Function Name : channels()
      *
@@ -187,17 +215,7 @@ class TeacherController extends Controller {
 
     public function channel_assignment(Request $request){
 
-        if(Auth::check()) {
-
-            $request->request->add([ 
-                'id' => \Auth::user()->id,
-                'token' => \Auth::user()->token,
-                'device_token' => \Auth::user()->device_token,
-                'age'=>\Auth::user()->age_limit,
-            ]);
-
-        }
-
+        
         $response = $this->UserAPI->channel_list($request)->getData();
          $trendings = $this->UserAPI->trending_list($request)->getData();
 
@@ -315,13 +333,16 @@ class TeacherController extends Controller {
 
                 $live_video_history = $this->UserAPI->live_video_revenue($request)->getData();
 
-            }
 
+            }
+             $comment=Class_Discusion::join('users', 'class__discusions.user_id', '=', 'users.id')->where('class__discusions.channel_id', $id)->get();
             return view('teacher.channels.index')
                         ->with('page' , 'channels_'.$id)
                         ->with('subPage' , 'channels')
+                        ->with('comments', $comment)
                         ->with('channel' , $channel)
                         ->with('live_videos', $live_videos)
+                        ->with('channel_id', $id)
                         ->with('videos' , $videos)
                         ->with('trending_videos', $trending_videos)
                         ->with('channel_playlists', $channel_playlists)
@@ -355,7 +376,7 @@ class TeacherController extends Controller {
         $channels = getChannels(Auth::user()->id);
          $trendings = $this->UserAPI->trending_list($request)->getData();
 
-        if((count($channels) == 0 || Setting::get('multi_channel_status'))) {
+        if((count($channels) == 0 || count($channels) > 0))  {
 
             if (Auth::user()->user_type) {
 
@@ -636,5 +657,385 @@ class TeacherController extends Controller {
 
 
 
+ /**
+     * Function Name : channel_delete()
+     *
+     * @uses To delete a channel based on logged in user id & channel id (Form Rendering)
+     *
+     * @created Vithya R
+     *
+     * @updated 
+     *
+     * @param integer $request - Channel Id
+     *
+     * @return response with flash message
+     */
+    public function channel_delete(Request $request) {
+
+        $channel = Channel::where('id' , $request->id)->first();
+
+        if($channel) {  
+
+            if (Auth::check()) {
+
+                if (Auth::user()->id != $channel->user_id) {
+
+                    return redirect(route('user.channel.mychannel'))->with('flash_error', tr('unauthroized_person'));
+
+                }
+                
+            }     
+
+            $channel->delete();
+
+            return redirect(route('user.channel.mychannel'))->with('flash_success',tr('channel_delete_success'));
+
+        } else {
+
+            return back()->with('flash_error',tr('something_error'));
+
+        }
+
+    }
+
+    //Video upload form
+
+
+     public function video_upload(Request $request) {
+
+        $model = new VideoTape;
+
+        $id = $request->id;
+
+        $categories_list = $this->UserAPI->categories_list($request)->getData();
+        $categories_class = Classes::all();
+         $trendings = $this->UserAPI->trending_list($request)->getData();
+
+        $tags = $this->UserAPI->tags_list($request)->getData()->data;
+         $curriculum=Curriculum::all();
+         $con=Country::all();
+
+        $channel = '';
+
+        if (Auth::check()) {
+
+            $channel = Channel::where('user_id', Auth::user()->id)->where('id', $id)->first();
+
+            if(!Auth::user()->user_type) {
+
+                return view('teacher.videos.create')->with('model', $model)->with('page', 'videos')
+            ->with('subPage', 'upload_video')->with('id', $id)
+            ->with('trendings', $trendings)
+            ->with('categories', $categories_list)
+            ->with('classes', $categories_class)
+            ->with('curriculum', $curriculum)
+            ->with('con', $con)
+            ->with('tags', $tags);
+            }
+            
+        }
+
+        if (!$channel) {
+
+            return redirect(route('user.channel.mychannel'))->with('flash_error', tr('unauthroized_person'));
+        }
+
+        
+
+        return view('teacher.videos.create')->with('model', $model)->with('page', 'videos')
+            ->with('subPage', 'upload_video')->with('id', $id)
+            ->with('trendings', $trendings)
+            ->with('categories', $categories_list)
+             ->with('curriculum', $curriculum)
+            ->with('con', $con)
+            ->with('classes', $categories_class)
+            ->with('tags', $tags);
+    
+    }
+
+    //video save 
+    public function video_save(Request $request) {
+
+        $response = CommonRepo::video_save($request)->getData();
+
+        if ($response->success) {
+
+            $view = '';
+
+            if ($response->data->video_type == VIDEO_TYPE_UPLOAD) {
+
+                $tape_images = VideoTapeImage::where('video_tape_id', $response->data->id)->get();
+
+                $view = \View::make('user.videos.select_image')
+                        ->with('model', $response)
+                        ->with('tape_images', $tape_images)
+                        ->render();
+
+            }
+
+            $message = tr('user_video_upload_success');
+
+            // Check the video status 
+
+            if($response->data->is_approved == DEFAULT_FALSE) {
+
+                $message = tr('user_video_upload_waiting_for_admin_approval');
+
+            }
+
+            \Session::set('flash_message_ajax' , $message);
+
+            return response()->json(['success'=>true, 'path'=>$view, 'data'=>$response->data , 'message' => 'Successfull uploaded'], 200);
+
+        } else {
+
+            return response()->json($response);
+
+        }
+
+    }  
+
+    // save default image 
+
+     public function save_default_img(Request $request) {
+
+        $response = CommonRepo::set_default_image($request)->getData();
+
+        return response()->json($response);
+
+    }
+
+
+
+    public function user_subscription_save($s_id, $u_id) {
+
+        $response = CommonRepo::save_subscription($s_id, $u_id)->getData();
+
+        if($response->success) {
+
+            return redirect()->route('user.subscriptions')->with('flash_success', $response->message);
+
+        } else {
+
+            return back()->with('flash_error', $response->message);
+
+        }
+
+    } 
+
+
+
+    public function upload_video_image(Request $request) {
+
+        $response = CommonRepo::upload_video_image($request)->getData();
+
+        return response()->json($response);
+    }
+
+
+ public function ad_request(Request $request) {
+
+        if($data = VideoTape::find($request->id)) {
+
+            $data->ad_status  = $data->ad_status ? 0 : 1;
+
+            if($data->save()) {
+
+                if($data->getVideoAds) {
+
+                    $data->getVideoAds->status = $data->ad_status;
+
+                    $data->getVideoAds->save();
+                }
+            }
+
+            return response()->json(['status'=>$data->ad_status, 'success'=>true], 200);
+
+        } else {
+
+            return response()->json(['success'=>false], 200);
+            
+        }
+    
+    }
+
+
+public function video_delete($id) {
+
+        if($video = VideoTape::where('id' , $id)->first())  {
+
+            if (Auth::check()) {
+
+                if (Auth::user()->id != $video->user_id) {
+
+                    return redirect(route('user.channel.mychannel'))->with('flash_error', tr('unauthroized_person'));
+
+                }
+                
+            }    
+
+            Helper::delete_picture($video->video, "/uploads/videos/");
+
+            Helper::delete_picture($video->subtitle, "/uploads/subtitles/"); 
+
+            if ($video->banner_image) {
+
+                Helper::delete_picture($video->banner_image, "/uploads/images/");
+            }
+
+            Helper::delete_picture($video->default_image, "/uploads/images/");
+
+            if ($video->video_path) {
+
+                $explode = explode(',', $video->video_path);
+
+                if (count($explode) > 0) {
+
+
+                    foreach ($explode as $key => $exp) {
+
+
+                        Helper::delete_picture($exp, "/uploads/videos/");
+
+                    }
+
+                }
+
+                
+
+            }
+
+            $video->delete();
+        }
+
+        return back()->with('flash_success', tr('video_delete_success'));
+
+    
+    }
+
+
+ public function video_edit(Request $request) {
+
+        $model = VideoTape::find($request->id);
+
+        if($model) {
+
+            if (Auth::check()) {
+
+                if (Auth::user()->id != $model->user_id) {
+
+                    return redirect(route('user.channel.mychannel'))->with('flash_error', tr('unauthroized_person'));
+
+                }
+                
+            }    
+
+            $model->publish_time = $model->publish_time ? (($model->publish_time != '0000-00-00 00:00:00') ? date('d-m-Y H:i:s', strtotime($model->publish_time)) : null) : null;
+
+            $categories_list = $this->UserAPI->categories_list($request)->getData();
+
+            $tags = $this->UserAPI->tags_list($request)->getData()->data;
+
+            $model->tag_id = VideoTapeTag::where('video_tape_id', $request->id)->where('status', TAG_APPROVE_STATUS)->get()->pluck('tag_id')->toArray();
+
+            return view('user.videos.edit')->with('model', $model)->with('page', 'videos')
+                ->with('subPage', 'upload_video')
+                ->with('categories', $categories_list)
+                ->with('tags', $tags);
+
+        } else {
+
+            return back()->with('flash_error', tr('video_not_found'));
+
+        }
+   
+    }
+
+
+
+ public function get_images($id) {
+
+        $response = CommonRepo::get_video_tape_images($id)->getData();
+
+        $tape_images = VideoTapeImage::where('video_tape_id', $id)->get();
+
+        $view = \View::make('user.videos.select_image')->with('model', $response)
+            ->with('tape_images', $tape_images)->render();
+
+        return response()->json(['path'=>$view, 'data'=>$response->data]);
+
+    }  
+
+
+ public function likeVideo(Request $request)  {
+        $request->request->add([
+            'id' => Auth::user()->id,
+            'token'=>Auth::user()->token
+        ]);
+
+        $response = $this->UserAPI->likevideo($request)->getData();
+
+        // dd($response);
+        return response()->json($response);
+
+    }
+
+    public function disLikeVideo(Request $request) {
+
+        $request->request->add([ 
+            'id' => Auth::user()->id,
+            'token'=>Auth::user()->token
+        ]);
+
+        $response = $this->UserAPI->dislikevideo($request)->getData();
+
+        return response()->json($response);
+
+    }
+
+
+
+public function curriculum_class_select_data($id){
+
+      $curriculum=Classes::join('curricula', 'classes.curricula_id', '=', 'curricula.id')->where('classes.id', $id)->get();
+
+      return $curriculum;
+
+    
+
+}
+
+
+public function curriculum_class_select_dataa($id){
+
+  $class=Classes::where('country_id' , $id)->get();
+
+    return $class;
+
+}
+
+//Discussion comments 
+
+
+
+
+ public function class_add_comment(Request $request) {
+
+     $response = $this->UserAPI->class_add_comment($request)->getData();
+      if($response->success) {
+
+            $response->message = Helper::get_message(118);
+
+        } else {
+
+            $response->success = false;
+
+            $response->message = tr('something_error');
+        }
+
+        return response()->json($response);
+
+    
+    }
 
 }

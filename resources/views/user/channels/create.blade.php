@@ -1,4 +1,4 @@
-@extends('layouts.teacher.user_teacher')
+@extends('layouts.user')
 
 @section('styles')
 
@@ -19,7 +19,7 @@
 
 @section('content')
 
-@include('teacher.channels._form')
+@include('user.channels._form')
 
 @endsection
 

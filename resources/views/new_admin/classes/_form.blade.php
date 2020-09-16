@@ -20,7 +20,7 @@
             <label for="name" class="control-label ">Country *</label>
 
             
-                <select id="user_id" name="country" class="form-control select" required data-placeholder="{{$curriculum_details->country?$curriculum_details->country:'Select Country'}}">
+                <select id="user_id" name="country" class="form-control" required data-placeholder="{{$curriculum_details->country?$curriculum_details->country:'Select Country'}}">
                     <option value="{{$curriculum_details->country_name?$curriculum_details->country_name:''}}"></option>
                     @foreach($country_details as $user)
                         <option value="{{ $user->id }}">{{ $user->country_name }}</option>
@@ -39,7 +39,7 @@
 
             
             
-                <select id="main_cur" name="curriculum" class="form-control select2" required data-placeholder="{{$curriculum_details->curriculum?$curriculum_details->curriculum:'Select Curriculum'}}">
+                <select id="main_cur" name="curriculum" class="form-control curriculum" required data-placeholder="{{$curriculum_details->curriculum?$curriculum_details->curriculum:'Select Curriculum'}}">
                     <option value=""></option>
                     @foreach($curriculum as $user)
                         <option value="{{ $user->id }}">{{ $user->name}}</option>

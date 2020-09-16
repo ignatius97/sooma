@@ -1,6 +1,6 @@
 
 
-@extends('layouts.user')
+@extends('layouts.teacher.user_teacher')
  
  @section('styles')
  <link rel="stylesheet" type="text/css" href="{{asset('streamtube/css/wizard.css')}}">
@@ -25,7 +25,7 @@
  
    <div class="row content-row">
  
-     @include('layouts.user.nav')
+         @include('layouts.teacher.nav_teacher')
  
      <div class="page-inner">
          <!--      Wizard container        -->

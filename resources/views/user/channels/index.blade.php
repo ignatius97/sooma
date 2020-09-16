@@ -1,5 +1,4 @@
-@extends( 'layouts.teacher.user_teacher' ) 
-
+@extends( 'layouts.user' ) 
 @section( 'styles' )
 
     <link rel="stylesheet" type="text/css" href="{{asset('streamtube/css/custom-style.css')}}">
@@ -93,7 +92,8 @@
 
         <div class="row content-row">
 
-            @include('layouts.teacher.nav_teacher')
+            @include('layouts.user.nav')
+
 
             <div class="page-inner col-xs-12 col-sm-12 col-md-8">
 
@@ -103,22 +103,7 @@
 
                         <div class="branded-page-v2-header channel-header yt-card">
 
-                            <div id="gh-banner">
-
-                                <div id="c4-header-bg-container" class="c4-visible-on-hover-container has-custom-banner">
-
-                                    <div class="hd-banner">
-                                        <div class="hd-banner-image"></div>
-                                    </div>
-
-                                    <!-- <a class="channel-header-profile-image spf-link" href="">
-                                    <img class="channel-header-profile-image" src="{{$channel->picture}}" title="{{$channel->name}}" alt="{{$channel->name}}">
-                                    </a> -->
-
-                                </div>
-
-                            </div>
-
+                            
                             @include('notification.notify')
 
                             <div class="channel-content-spacing display-inline">
@@ -133,8 +118,7 @@
 
                                     <div class="pull-left width-40">
                                         <h1 class="st_channel_heading text-uppercase">{{$channel->name}}</h1>
-                                        <p class="subscriber-count">{{$subscriberscnt}} Subscribers</p>
-                                        <?php /*<p class="subscriber-count">{{$subscriberscnt}} Subscribers</p> */?>
+                                        
                                     </div>
 
                                     <div class="pull-right upload_a btn-space width-60 text-right">
@@ -168,20 +152,17 @@
 
                                                 @if (!$subscribe_status)
 
-                                                    <a class="st_video_upload_btn subscribe_btn" href="{{route('user.subscribe.channel', array('user_id'=>Auth::user()->id, 'channel_id'=>$channel->id))}}" style="color: #fff !important">{{tr('subscribe')}} &nbsp; {{$subscriberscnt}} </a> 
-
+                                                    
                                                 @else
 
-                                                    <a class="st_video_upload_btn" href="{{route('user.unsubscribe.channel', array('subscribe_id'=>$subscribe_status))}}" onclick="return confirm(&quot;{{ $channel->name }} -  {{tr('user_channel_unsubscribe_confirm') }}&quot;)">{{tr('un_subscribe')}} &nbsp; {{$subscriberscnt}}</a> 
-
+                                                    
                                                 @endif 
 
                                             @else 
 
                                                 @if($subscriberscnt > 0)
 
-                                                    <a class="st_video_upload_btn subscribe_btn" href="{{route('user.channel.subscribers', array('channel_id'=>$channel->id))}}" style="color: #fff !important"><i class="fa fa-users"></i>&nbsp;{{tr('subscribers')}} &nbsp; {{$subscriberscnt}}</a> 
-
+                                                  
                                                 @endif 
 
                                             @endif 
@@ -235,12 +216,7 @@
                                                 <span class="visible-xs"><i class="fa fa-info channel-tab-icon"></i></span>
                                             </a>
                                         </li>
-                                        <li role="presentation">
-                                            <a href="#create-assignments" class="yt-uix-button spf-link  yt-uix-sessionlink yt-uix-button-epic-nav-item yt-uix-button-size-default" aria-controls="about" role="tab" data-toggle="tab">
-                                                <span class="yt-uix-button-content hidden-xs">Create Assignments</span>
-                                                <span class="visible-xs"><i class="fa fa-info channel-tab-icon"></i></span>
-                                            </a>
-                                        </li>
+                                        
                                         <li role="presentation">
                                             <a href="#assignments" class="yt-uix-button spf-link  yt-uix-sessionlink yt-uix-button-epic-nav-item yt-uix-button-size-default" aria-controls="about" role="tab" data-toggle="tab">
                                                 <span class="yt-uix-button-content hidden-xs">Assignments</span>
@@ -505,7 +481,7 @@
 
                                                                     @endif
 
-                                                                    <a href="{{$video->url}}">{{$video->title}}</a>
+                                                                    <a href="{{ route('user.single' , ['id' => $video->url] ) }}">{{$video->title}}</a>
                                                                 </h5>
 
                                                                 <span class="video_views">
@@ -736,7 +712,6 @@
 
                         <li role="tabpanel" class="tab-pane" id="class-post">
 
-                           
                             <div class="v-comments">
   
          <div class="comment-box1">
@@ -746,7 +721,7 @@
             <!--end od com-image-->
             <div id="comment_form" style="color: black;">
                <div>
-                  <form method="post" id="class_comment_sent" name="class_comment_sent" action="{{route('user.class.add.comments')}}">
+                  <form method="post" id="class_comment_sent" name="class_comment_sent" action="{{route('user.class.add.comment')}}">
                      <input type="hidden" value="{{$channel_id}}" name="channel_id">
                      <input type="hidden" value="{{Auth::user()->id}}" name="users_id">
                      <textarea rows="10" id="class_comment" name="class_comments" placeholder="Add a CLass Comment"></textarea>
@@ -765,7 +740,8 @@
             <div class="class_feed-comment">
              <span id="class_new-comment"></span>
 
-              @if(count($comments) > 0)
+
+       @if(count($comments) > 0)
         <div class="feed-comment">
          <span id="new-comment"></span>
          @foreach($comments as $c =>  $comment)
@@ -798,36 +774,16 @@
       <!-- <p>{{tr('no_comments')}}</p> -->
       @endif
             </div>
+    
                         </li>
 
-                        <li role="tabpanel" class="tab-pane" id="create-assignments">
-
-                            <div class="recom-area abt-sec">
-                                <div class="abt-sec-head">
-                                    <h5>Create Assignments</h5>
-                                    <form class="create-assignment-form" role="form" method="POST" action="{{ url('/create_assignent') }}" enctype="multipart/form-data">
-                                        
-                                        <div class="form-group" >
-                                            <input type="text" required name="assignment-title" class="form-control" id="assignment-title" placeholder="Assignmnent Title"  style="background-color: white;">
-                                        </div>
-                                        <div>
-                                            <textarea name="assignment-instructions" placeholder="Assignmnent Instructions here..." id=""  rows="8" style="background-color: white; color:black; width:100%;"  ></textarea>
-                                        </div>
-                                        <div >
-                                            <button class="btn btn-primary">Create +</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-
-                        </li>
-
+                      
                         <li role="tabpanel" class="tab-pane" id="assignments">
 
                             <div class="recom-area abt-sec">
                                 <div class="abt-sec-head">
                                     <h5>Assignments</h5>
-                                    <a href="{{route('user.channel.assignment')}}" >
+                                    <a href="{{route('user.channel.assignments')}}" >
                                         <div style="border:1px solid black; padding: 10px; margin-bottom:10px; color:black;">
                                             <P>Assignment Name <br/> <small>Date when posted</small></P>
                                         </div>

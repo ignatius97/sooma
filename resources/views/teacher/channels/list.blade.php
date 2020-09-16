@@ -79,7 +79,7 @@
 				                                            <h5 class="payment_class mb-3" style="padding: 0px;"><a href="{{route('user.channel',$channel->channel_id)}}">{{$channel->title}}</a></h5>
 				                                            
 				                                            <span class="video_views">
-				                                            	 <i class="fa fa-eye"></i> {{$channel->no_of_subscribers}} {{tr('subscribers')}} <b>.</b> 
+				                                            	 <i class="fa fa-eye"></i> {{$channel->no_of_subscribers}} Enroled <b>.</b> 
 						                                        {{ common_date($channel->created_at) }}
 						                                    </span>
 				                                        </div> 
@@ -107,7 +107,11 @@
 					                                        <div class="pull-right upload_a">
 																@if($channel->no_of_subscribers > 0)
 
-																<a class="st_video_upload_btn subscribe_btn " href="{{route('user.channel.subscribers', array('channel_id'=>$channel->channel_id))}}" style="color: #fff !important;text-decoration: none"><i class="fa fa-users"></i>&nbsp;{{tr('subscribers')}} &nbsp; {{$channel->no_of_subscribers}} </a>
+																<a class="st_video_upload_btn subscribe_btn " href="{{route('user.channel.subscribers', array('channel_id'=>$channel->channel_id))}}" style="color: #fff !important;text-decoration: none"><i class="fa fa-users"></i>&nbsp;Enroled &nbsp; {{$channel->no_of_subscribers}} </a>
+
+																@else
+
+																<a class="st_video_upload_btn subscribe_btn " href="{{route('user.channel.subscribers', array('channel_id'=>$channel->channel_id))}}" style="color: #fff !important;text-decoration: none"><i class="fa fa-users"></i>&nbsp;Enroled &nbsp; 0 </a>
 
 																@endif
 															</div>

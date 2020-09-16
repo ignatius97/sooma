@@ -12,6 +12,7 @@
     display: inline;
     padding: 0px 0px;
 }
+
 .nav>li>a:focus, .nav>li>a:hover {
     background-color: #fff;
 }
@@ -49,7 +50,7 @@
 
             <a href="{{route('user.dashboard')}}"> 
                 @if(Setting::get('site_logo'))
-                    <img src="{{asset('logo.png')}}" style="width: 40px;" class="logo-img"> <span class="product_name">SOOMA</span>
+                    <img src="{{Setting::get('site_logo')}}" class="logo-img"> <span class="product_name">SOOMA</span>
                 @else
                     <img src="{{asset('logo.png')}}" class="logo-img"><span class="product_name">SOOMA</span>
                 @endif
@@ -63,7 +64,7 @@
 
     
 
-        <div class="col-lg-7 col-md-5 col-sm-6 col-xs-12 hidden-xs">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 hidden-xs">
 
           
 
@@ -102,7 +103,7 @@
 
         <!-- ========RESPONSIVE  HEADER VISIBLE IN MOBAILE VIEW====== -->
         
-        <div class="col-lg-3 col-md-4 col-sm-3 col-xs-12 hidden-xs visible-sm visible-md visible-lg">
+        <div class="col-lg-4 col-md-4 col-sm-3 col-xs-12 hidden-xs visible-sm visible-md visible-lg">
 
             @if(Auth::check())
 
@@ -196,6 +197,7 @@
 
                     </li>
 
+
                     <li  class="dropdown">
                         <a class="nav-link text-light notification-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="return notificationsStatusUpdate();">
                             <img src="{{asset('assignment.png')}}" style="width: 2rem;" alt="">
@@ -218,7 +220,7 @@
                             <span id="global-notifications-box"></span>
 
                             <li class="notification-footer bg-dark text-center">
-                                <a href="{{route('user.students_assignments')}}" class="text-light">
+                                <a href="" class="text-light">
                                     {{tr('view_all')}}
                                 </a>
                             </li>
@@ -229,11 +231,11 @@
                  
                 </ul>
                  
-                 @if(is_null(Auth::user()->study_role))
-                 <a class="nav navbar-nav pull-right" href="{{route('user.upload.information')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Teacher</a>
+                 @if(0==0)
+                  <a class="nav navbar-nav pull-right" href="{{route('user.upload.information')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Become a Teacher</a>
+            
                   @else
-
-                   <a class="nav navbar-nav pull-right" href="{{url('mychannels/list')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Teacher</a>
+            <a class="nav navbar-nav pull-right" href="{{url('mychannels/list')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Teacher</a>
                    @endif
                    <form action="/" method="get" style="margin-top: 1vh;">
                    <select id="options" name="targeted_country" style="width: auto;">
@@ -267,7 +269,7 @@
             @else
                 <div class="y-button2 main_nav_btn">
 
-                <a href="{{route('user.login.form')}}">SignIn</a> <i style="color: white; font-weight: bold;">|</i>
+                  <a href="{{route('user.login.form')}}">SignIn</a> <i style="color: white; font-weight: bold;">|</i>
                     <a href="{{route('user.register.form')}}">SignUp</a>
                 </div>
 
@@ -276,7 +278,8 @@
                  
                 <form action="/" method="get" style="margin-top: 1vh;">
                    <select id="options" name="targeted_country" style="width: auto;">
-                   @if($country_with_ip=='')
+
+                 @if($country_with_ip=='')
                  <option value="{{$country_ip}}">{{$country_ip}}</option>
                  @else
                  <option value="{{$country_with_ip}}">{{$country_with_ip}}</option>

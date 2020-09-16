@@ -35,7 +35,14 @@ class Channel extends Model
 
     public function videoTape() {
         return $this->hasMany('App\VideoTape')->leftJoin('channels' , 'video_tapes.channel_id' , '=' , 'channels.id')->videoResponse();
+
     }
+
+
+   public function Class_Discusion(){
+    return $this->hasMany('App\Class_Discusion', 'id', 'channel_id');
+
+   }
 
     /**
      * Get the video record associated with the flag.

@@ -938,8 +938,8 @@
 	.curriculum{
 		border-right: 1px solid #f1f1f1;
 		background-color: #f1f1f1;
-		height: 84vh;
-		width: 76%;
+		height: auto;
+		width: 100%;
 	}
 	.bottom{
 		height: 60px;

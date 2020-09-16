@@ -7962,7 +7962,8 @@ public function curriculums_create() {
 
 
 public function curriculum_select_data($id){
-  $curriculum=Curriculum::where('country' , $id)->get();
+
+  $curriculum=Curriculum::join('countries', 'curricula.country', '=', 'countries.country_name')->select('curricula.id as curriculum_id', 'curricula.name as name')->where('countries.id', $id)->get();
 
   return $curriculum;
 }

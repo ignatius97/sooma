@@ -1,4 +1,4 @@
-@extends( 'layouts.teacher.user_teacher' ) 
+@extends('layouts.user')
 
 @section( 'styles' )
 
@@ -80,7 +80,7 @@
 
         <div class="row content-row">
 
-            @include('layouts.teacher.nav_teacher')
+          @include('layouts.user.nav')
 
             <div class="page-inner col-sm-9 col-md-8 ">
                 <div style=" margin-bottom:10px; margin-top:3%; color:black; display:inline-block; ">
@@ -103,48 +103,7 @@
                 <br/>
                 <hr>
                 
-                <div style="border:1px solid black; padding: 10px; margin-bottom:10px; color:black;">
-                    <div style="display: inline-block;">
-                        <img class="profile-image" src=" ">
-                    </div>
-                    <div class="form-group" style="display: inline-block; ">
-                        <p>Student's Name</p>
-                    </div>
-                    <div style="border:1px solid black; color:black; margin:-1rem 0 2rem 3rem; height:5.5rem;padding:1rem 4rem;">
-                        File Name 
-                        &nbsp&nbsp&nbsp&nbsp
-                        <button class="btn">download</button>
-                    </div>
-                </div>
-
-                <div style="border:1px solid black; padding: 10px; margin-bottom:10px; color:black;">
-                    <div style="display: inline-block;">
-                        <img class="profile-image" src=" ">
-                    </div>
-                    <div class="form-group" style="display: inline-block; ">
-                        <p>Student's Name</p>
-                    </div>
-                    <div style="border:1px solid black; color:black; margin:-1rem 0 2rem 3rem; height:5.5rem;padding:1rem 4rem;">
-                        File Name 
-                        &nbsp&nbsp&nbsp&nbsp
-                        <button class="btn">download</button>
-                    </div>
-                </div>
-
-                <div style="border:1px solid black; padding: 10px; margin-bottom:10px; color:black;">
-                    <div style="display: inline-block;">
-                        <img class="profile-image" src=" ">
-                    </div>
-                    <div class="form-group" style="display: inline-block; ">
-                        <p>Student's Name</p>
-                    </div>
-                    <div style="border:1px solid black; color:black; margin:-1rem 0 2rem 3rem; height:5.5rem;padding:1rem 4rem;">
-                        File Name 
-                        &nbsp&nbsp&nbsp&nbsp
-                        <button class="btn">download</button>
-                    </div>
-                </div>
-
+                
 
 
             </div>
