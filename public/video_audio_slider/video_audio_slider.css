@@ -273,12 +273,12 @@
     
     #video-slider-prev {
         left: 0px;
-        z-index: 999;
+        z-index: 99;
     }
 
     #video-slider-next {
         right: 0px;
-        z-index: 999;
+        z-index: 99;
     }
 
     #video-slider .caption {

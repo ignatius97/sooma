@@ -22,7 +22,7 @@
 
         @include('layouts.user.nav')
 
-        <div class="page-inner col-sm-9 col-md-8 profile-edit" >
+        <div class="page-inner col-sm-8 col-md-8 profile-edit" >
 
             <div class="profile-content slide-area1">
                
@@ -30,7 +30,7 @@
 
                     @include('notification.notify')
 
-                    <div class="col-sm-12 col-md-7 col-lg-10 profile-view">
+                    <div class="col-sm-8 col-md-7 col-lg-10 profile-view">
                         
                         <h2 class="mylist-head" style="text-align: center; font-size: 30px;">{{tr('edit_infromation')}}</h2>
                        

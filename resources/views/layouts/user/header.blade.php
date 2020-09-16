@@ -44,7 +44,7 @@
     </div> -->
     <div class="row">
 
-        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6">
+        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4">
 
             <a href="#" class="hidden-xs"><img src="{{asset('images/menu.png')}}"  class="toggle-icon"  style="color: white"></a>
 
@@ -64,7 +64,7 @@
 
     
 
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 hidden-xs">
+        <div class="col-lg-6 col-md-5 col-sm-5 col-xs-12 hidden-xs">
 
           
 
@@ -103,7 +103,7 @@
 
         <!-- ========RESPONSIVE  HEADER VISIBLE IN MOBAILE VIEW====== -->
         
-        <div class="col-lg-4 col-md-4 col-sm-3 col-xs-12 hidden-xs visible-sm visible-md visible-lg">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 hidden-xs visible-sm visible-md visible-lg">
 
             @if(Auth::check())
 
