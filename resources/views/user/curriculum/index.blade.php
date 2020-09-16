@@ -66,114 +66,26 @@
 </div>
                 </div>
 
-                @if(Setting::get('is_banner_video'))
-
-
-                @if(count($banner_videos) > 0)
-
-                <div class="row" id="slider" >
-                    <div class="col-md-12 banner-slider">
-                        <div id="myCarousel" class="carousel slide">
-                            <div class="carousel-inner">
-                                @foreach($banner_videos as $key => $banner_video)
-                                <div class="{{$key == 0 ? 'active item' : 'item'}}" data-slide-number="{{$key}}">
-                                    <a href="{{route('user.single' , $banner_video->video_tape_id)}}"><img src="{{$banner_video->image}}" style="height:250px;width: 100%;">
-                                    
-                                    </a>
-                                </div>
-                                @endforeach
-                            </div>
-
-                            <!-- Controls-->
-                           <!--  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                <span class="sr-only">{{tr('previous')}}</span>
-                            </a>
-                            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                                <span class="sr-only">{{tr('next')}}</span>
-                            </a> -->
-
-                        </div>
-                    </div>
-                </div>
-
-                @endif
-
-                @endif
-
-                @if(Setting::get('is_banner_ad'))
-
-                @if(count($banner_ads) > 0)
-
-                <div class="row" id="slider">
-                    <div class="col-md-12 banner-slider">
-                        <div id="myCarousel" class="carousel slide">
-                            <div class="carousel-inner">
-                                @foreach($banner_ads as $key => $banner_ad)
-
-                                <div class="{{$key == 0 ? 'active item' : 'item'}}" data-slide-number="{{$key}}" style="background-image: url({{$banner_ad->image}});">
-                                    <a href="{{$banner_ad->link}}" target="_blank">
-
-                                        <div class="carousel-caption">
-
-                                            <h3>{{$banner_ad->video_title}}</h3>
-
-                                            <div class="clearfix"></div>
-
-                                            <p class="hidden-xs">@if($banner_ad->content) <?= strlen($banner_ad->content) > 200 ? substr($banner_ad->content , 0 , 200).'...' :  substr($banner_ad->content , 0 , 200)?> @endif</p>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                @endforeach
-                            </div>
-
-                            <!-- Controls-->
-                            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                <span class="sr-only">{{tr('previous')}}</span>
-                            </a>
-                            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                                <span class="sr-only">{{tr('next')}}</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                @endif
-
-                @endif
-
-                @include('notification.notify')
-
-                <!-- wishlist start -->
-
-                @include('user.home._wishlist')
-
-                <!-- wishlist end -->
-
-
                
-
                
 
                 <hr>
+                  @if(count($class) > 0)
                    @foreach($class as $class)
 
                     <div class="slide-area">
                         <div class="box-head">
-                            <h3>{{$class->name}}</h3>
+                            <h3>{{$class->class_name}}</h3>
                         </div>
 
                         <div class="box">
 
+                             @if(count($trendings->items) > 0)
+
                             @foreach($trendings->items as $trending)
 
 
-                            @if($trending->class==$class->name)
-
+                           @if($trending->class_name==$class->class_name)
                              
 
                             <div class="slide-box">
@@ -216,27 +128,28 @@
 
                                 </div><!--end of video-details-->
                             </div><!--end of slide-box-->
+                            @else
                             
+                            <img id="demo"  src="{{asset('images/no-result.jpg')}}" class="img-responsive auto-margin">
                              
                             @endif
 
-                
-                         
-                            
 
                             @endforeach
-
-
-                            <img id="demo"  src="{{asset('images/no-result.jpg')}}" class="img-responsive auto-margin">
-                             
+                            @else
+                              <img id="demo"  src="{{asset('images/no-result.jpg')}}" class="img-responsive auto-margin">
+                              @endif
                          
                         </div><!--end of box--> 
                     </div><!--end of slide-area-->
 
                     @endforeach
 
+                    @else
+
+                     <img id="demo"  src="{{asset('images/no-result.jpg')}}" class="img-responsive auto-margin">
                
-                 
+                     @endif
              
                 <div class="sidebar-back"></div>  
             </div>

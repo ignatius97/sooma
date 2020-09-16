@@ -53,11 +53,15 @@
         CKEDITOR.replace( 'description' );
     </script>
 
+   
+
     <script type="text/javascript">
         
         $('#user_id').on('change', function (e){
 
             var country=e.target.value;
+
+            console.log(country);
            $.ajax(
              {
                 url: 'curriculum_select_data/'+country,
@@ -81,17 +85,18 @@
 
              if(len > 0){
 
-               $('#main_cur').children('option').remove();
+               $('.curriculum').children('option').remove();
 
                 for(var i=0; i<len; i++){
 
                  
                  var name = data[i].name;
-                 
+                 var curr_id=data[i].curriculum_id;
 
-                 var option = "<option value='"+name+"'>"+name+"</option>"; 
 
-                 $("#main_cur").append(option); 
+                 var option = "<option value='"+curr_id+"'>"+name+"</option>"; 
+
+                 $(".curriculum").append(option); 
                }
 
 
@@ -103,53 +108,16 @@
         })
     </script>
 
+
+
     <script type="text/javascript">
         
-        $('#user_id').on('change', function (e){
+        $('.curriculum').on('change', function (e){
 
             var country=e.target.value;
-           $.ajax(
-             {
-                url: 'curriculum_select_data/'+country,
-                type: 'get',
-                dataType: 'json',
 
-                success: function(data){
-                    console.log(data);
-
-                     var len = 0;
-
-
-
-
-                if(data != null){
-               len = data.length;
-             }
-
-
-             console.log(len);
-
-             if(len > 0){
-
-               $('#short_cur').children('option').remove();
-
-                for(var i=0; i<len; i++){
-
-                 
-                 var name = data[i].abbreviation;
-                 
-
-                 var option = "<option value='"+name+"'>"+name+"</option>"; 
-
-                 $("#short_cur").append(option); 
-               }
-
-
-             }
-
-                }
-             }
-            )
+            console.log(country);
+          
         })
     </script>
 @endsection

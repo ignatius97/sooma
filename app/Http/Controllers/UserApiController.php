@@ -24,6 +24,8 @@ use App\Jobs\BellNotificationJob;
 
 use Log;
 
+use App\Class_Discusion;
+
 use Hash;
 
 use Validator;
@@ -2506,6 +2508,25 @@ class UserApiController extends Controller {
      *
      * @return response of success/failure message
      */
+
+    public function class_add_comment($request){
+
+     $data=new Class_Discusion();
+     $data->user_id=$request->users_id;
+     $data->channel_id=$request->channel_id;
+     $data->comment=$request->class_comments;
+     $data->save();
+
+     $response_array = array('success' => true , 'comment' => $data->toArray() , 'date' => $data->created_at->diffForHumans(),'message' => tr('comment_success') );
+
+     $response = response()->json($response_array, 200);
+      return $response;
+
+
+    }
+
+
+
     public function user_rating(Request $request) {
 
         $validator = Validator::make(
@@ -6544,6 +6565,7 @@ class UserApiController extends Controller {
                             ->where('channels.status', 1)
                             ->where('channels.is_approved', 1)
                             ->leftJoin('channels' , 'video_tapes.channel_id' , '=' , 'channels.id')
+                            ->leftJoin('classes' , 'video_tapes.class_id' , '=' , 'classes.id')
                             ->leftJoin('categories' , 'categories.id' , '=' , 'video_tapes.category_id') 
                             ->orderby('video_tapes.created_at' , 'desc')
                             ->where('categories.status', CATEGORY_APPROVE_STATUS)
@@ -6695,7 +6717,7 @@ public function trending_by_country($request) {
                         ->where('video_tapes.status' , 1)
                         ->where('video_tapes.is_approved' , 1)
                         ->where('video_tapes.video_upload_type', 'Public')
-                        ->where('video_tapes.category_country', $country)
+                     
                         ->where('channels.status', 1)
                         ->where('channels.is_approved', 1)
                         ->leftJoin('categories' , 'categories.id' , '=' , 'video_tapes.category_id') 
@@ -6768,7 +6790,7 @@ public function trending_by_country($request) {
                         ->where('video_tapes.status' , 1)
                         ->where('video_tapes.is_approved' , 1)
                         ->where('video_tapes.video_upload_type', 'Public')
-                        ->where('video_tapes.category_country', $country)
+                        
                         ->where('channels.status', 1)
                         ->where('channels.is_approved', 1)
                         ->leftJoin('categories' , 'categories.id' , '=' , 'video_tapes.category_id') 
@@ -6830,27 +6852,86 @@ public function trending_by_country($request) {
      * @param object $request - User Details
      *
      * @return Response of videos list
-
      */
     public function trending_list($request) {
 
-        $country=$request->has('targeted_country')?$request->input('targeted_country'): "Uganda";
 
+       $country=$request->has('targeted_country')?$request->input('targeted_country'): "Uganda";
 
-        $base_query = VideoTape::where('watch_count' , '>' , 0)
+    $base_query = VideoTape::where('watch_count' , '>' , -1)
+                        ->Join('curricula', 'video_tapes.curricula_id' , '=' , 'curricula.id' )
+                        ->where('curricula.id' , $request->curriculum_id)
+                        ->Join('countries', 'video_tapes.country_id' , '=' , 'countries.id' )
+                        ->where('countries.country_name' , $request->country)
+
+                        ->leftJoin('classes', 'video_tapes.class_id' , '=' , 'classes.id' )
+                         ->where('video_tapes.publish_status' , 1)
+                        
+
                         ->leftJoin('channels' , 'video_tapes.channel_id' , '=' , 'channels.id')
                         ->where('video_tapes.publish_status' , 1)
-                        ->where('video_tapes.category_country', $request->country)
-                        ->where('category_curriculum', $request->curriculum)
+
+
+                        
                         ->where('video_tapes.status' , 1)
                         ->where('video_tapes.video_upload_type', 'Public')
                         ->where('video_tapes.is_approved' , 1)
                         ->where('channels.status', 1)
                         ->where('channels.is_approved', 1)
-                        ->leftJoin('categories' , 'categories.id' , '=' , 'video_tapes.category_id') 
-                        ->where('categories.status', CATEGORY_APPROVE_STATUS)
+                        ->leftJoin('categories' , 'categories.id' , '=' , 'video_tapes.category_id')
+                        ->where('channels.is_approved', 1)
+                         
+                        ->select(
+            'video_tapes.id as video_tape_id' ,
+            'channels.id as channel_id' ,
+            'channels.user_id as channel_created_by',
+            'classes.class_name as class_name',
+            'channels.name as channel_name',
+            'channels.picture as channel_picture',
+            'channels.status as channel_status',
+            'channels.is_approved as channel_approved_status',
+            'channels.status as channel_status',
+            'video_tapes.title',
+            'video_tapes.description',
+             'video_tapes.class_id',
+            'video_tapes.default_image',
+            'video_tapes.created_at',
+            'video_tapes.video',
+            'video_tapes.is_approved',
+            'video_tapes.status',
+            'video_tapes.watch_count',
+            'video_tapes.unique_id',
+            'video_tapes.duration',
+            'video_tapes.video_publish_type',
+            'video_tapes.publish_status',
+            'video_tapes.publish_time',
+            'video_tapes.compress_status',
+            'video_tapes.ad_status',
+            'video_tapes.reviews',
+            'video_tapes.amount',
+            'video_tapes.is_banner',
+            'video_tapes.banner_image',
+            'video_tapes.redeem_count',
+            'video_tapes.video_resolutions',
+            'video_tapes.video_path',
+            'video_tapes.created_at as video_created_time',
+            'video_tapes.subtitle',
+            'video_tapes.age_limit',
+            'video_tapes.user_ratings',
+            'video_tapes.video_type',
+            'video_tapes.type_of_user',
+            'video_tapes.type_of_subscription',
+            'video_tapes.ppv_amount',
+            'video_tapes.admin_ppv_amount',
+            'video_tapes.user_ppv_amount',
+            'video_tapes.category_id',
+            'video_tapes.category_name',
+            'video_tapes.is_pay_per_view',
+            'video_tapes.video_type',
+            \DB::raw('DATE_FORMAT(video_tapes.created_at , "%e %b %y") as video_date'),
+            \DB::raw('(CASE WHEN (user_ratings = 0) THEN ratings ELSE user_ratings END) as ratings')
+        )
                         
-                        ->videoResponse()
                         ->orderby('watch_count' , 'desc');
 
         if ($request->id) {
@@ -6893,9 +6974,16 @@ public function trending_by_country($request) {
     
     }
 
-       // Checking video availabilty
+
+
+
+   // Checking video availabilty
 /*
+
     Public Function trending_check($curriculum, $country){
+
+
+
          $base_query = VideoTape::where('video_tapes.is_approved' , 1)   
                             ->leftJoin('channels' , 'video_tapes.channel_id' , '=' , 'channels.id')
                             ->leftJoin('categories' , 'categories.id' , '=' , 'video_tapes.category_id') 
@@ -6910,11 +6998,17 @@ public function trending_by_country($request) {
                             ->where('channels.status', 1)
                             ->where('categories.status', CATEGORY_APPROVE_STATUS)
                             ->orderByRaw('RAND()');
+
         if (count($base_query) == 1) {
             return 'True';
         }
+
         else 
             return "False";
+
+
+
+
     }
 */
 
@@ -6950,7 +7044,6 @@ public function trending_by_country($request) {
                             ->where('video_tapes.status' , 1)
                             ->where('video_tapes.publish_status' , 1)
                             ->where('video_tapes.video_upload_type', 'Public')
-                            ->where('video_tapes.category_country', $country)
                             ->orderby('video_tapes.created_at' , 'desc')
                             ->videoResponse()
                             ->where('channels.is_approved', 1)

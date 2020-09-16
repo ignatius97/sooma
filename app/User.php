@@ -81,6 +81,13 @@ class User extends Authenticatable
         return $this->hasMany('App\Wishlist');
     }
 
+
+
+   public function Class_Discusion(){
+    return $this->hasMany('App\Class_Discusion', 'id', 'user_id');
+
+   }
+
     public function userPayment()
     {
         return $this->hasMany('App\UserPayment');
