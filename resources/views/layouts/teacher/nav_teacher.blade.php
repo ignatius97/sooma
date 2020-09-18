@@ -1,31 +1,73 @@
+<style>
+    .sidebarItems:hover{
+        background-color: #e1e1e1;
+    }
+</style>
 <div class="y-menu col-sm-3 col-md-3" >
     <div class="curriculum">
-        <ul class="y-home menu1">
-
-        <li><h3 class="popular_title" style="color: black; font-weight: bold; text-align: center; font-style: italic; font-size: 17px">My Classes </h3></li>
+        <h3 class="popular_title" style="color: black; font-weight: bold; text-align: center; font-style: italic; font-size: 17px">My Classes </h3>
 
 
-        <div>
+
      
 
-        <li id="hom" title="">
-            <a  href="" > <img   class="slide-img1 placeholder" id="img" src="{{ URL::to('/')}}/images/heart.png"  /> <h6 style="display: inline-grid; vertical-align: bottom; color: black; font-size: 15px;" >Seniour One</h6></a>
-        </li>
-        <li id="hom" title="">
-            <a  href="" > <img   class="slide-img1 placeholder" id="img" src="{{ URL::to('/')}}/images/heart.png"  /> <h6 style="display: inline-grid; vertical-align: bottom; color: black; font-size: 15px;" >Seniour One</h6></a>
-        </li>
-        <li id="hom" title="">
-            <a  href="" > <img   class="slide-img1 placeholder" id="img" src="{{ URL::to('/')}}/images/heart.png"  /> <h6 style="display: inline-grid; vertical-align: bottom; color: black; font-size: 15px;" >Seniour One</h6></a>
-        </li>
-        <li id="hom" title="">
-            <a  href="" > <img   class="slide-img1 placeholder" id="img" src="{{ URL::to('/')}}/images/heart.png"  /> <h6 style="display: inline-grid; vertical-align: bottom; color: black; font-size: 15px;" >Seniour One</h6></a>
-        </li>
+            @if(count($response->channels) > 0)
+
+<ul class="history-list ">
+
+    @foreach($response->channels as $i => $channel)
+
+
+    <li class="sub-list row sidebarItems" >
+    <a href="{{route('user.channel',$channel->channel_id)}}">
+        <div class="main-history" style="padding: 15px 10px;" >
+             <div class="history-image" style="height:50px; width: 50px;" >
+                
+                    <!-- <img src="{{$channel->picture}}"> -->
+                    <img src="{{asset('streamtube/images/placeholder.gif')}}" data-src="{{$channel->picture}}" class="slide-img1 placeholder" />
+                
+                                        
+            </div><!--history-image-->
+
+            <div class="history-title" style="width: calc(60% + 4em);">
+                <div class="history-head row">
+                    <div class="cross-title">
+                        <h5 class="payment_class mb-3" style="padding: 0px;">{{$channel->title}}</h5>
+                        
+                        <span class="video_views">
+                             <i class="fa fa-eye"></i> {{$channel->no_of_subscribers}} Enroled <b>.</b> 
+                            {{ common_date($channel->created_at) }}
+                        </span>
+                    </div> 
+                
+                    <!--end of cross-mark-->                       
+                </div> <!--end of history-head--> 
+
+                <div class="description hidden-xs">
+                </div><!--end of description--> 
+
+                                                                     
+            </div><!--end of history-title--> 
+            
+        </div><!--end of main-history-->
+
+        <div class="clearfix"></div>
+    
+    
+        </a>
+        </li>    
+
+    @endforeach
+   
+</ul>
+
+@else
+@endif
+
       
 
      
-        </div>
-      
-        </ul>
+       
     
               
 
