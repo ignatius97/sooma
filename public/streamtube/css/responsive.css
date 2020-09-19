@@ -1438,10 +1438,19 @@
 			font-size: 13px !important;
 		}
 		.history-title{
-			width: 100% !important;
+			width: 60% !important;
 		}
 		.history-image{
-			width: 80% !important;
+			width: 30% !important;
+		}
+		.history-title-mobile{
+			display: inline-block;
+			width: 70% !important;
+		}
+		.history-image-mobile{
+			display: inline-block;
+			vertical-align: top;
+			width: 20% !important;
 		}
 	}
 	@media screen and (max-width: 350px){

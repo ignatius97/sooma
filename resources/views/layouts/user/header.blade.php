@@ -232,7 +232,7 @@
                  
                 </ul>
                  
-                 @if(0==0)
+                 @if(is_null(Auth::user()->study_role))
                   <a class="nav navbar-nav pull-right" href="{{route('user.upload.information')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Become a Teacher</a>
             
                   @else
@@ -336,7 +336,7 @@
 
         <!-- ======== RESPONSIVE HEADER VISIBLE IN MOBAILE VIEW====== -->
 
-        @include('layouts.user.header-mobile')
+    
 
         <!-- ======== RESPONSIVE HEADER VISIBLE IN MOBAILE VIEW====== -->
 

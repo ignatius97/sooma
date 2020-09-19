@@ -83,6 +83,8 @@
                                             <input type="text" value="{{old('dob') ?: $dob }}" name="dob" class="form-control" placeholder="{{tr('enter_dob')}}" maxlength="13" id="dob" readonly>
                                         </div>
 
+                                        <input type="text" name="users_role" value="Teacher" hidden>
+
                                         <div class="form-group">
                                             <label for="users_role">{{tr('users_role')}}:  </label>
                                             <select name="users_role"  style="margin-left: 2%; width: 30%;">
