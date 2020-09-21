@@ -139,9 +139,11 @@ body {
             <a href="{{route('user.register.form')}}" class="y-signin" style="margin-left: 0px;" title="{tr('login')}}"><i class="fa fa-sign-in"></i></a>
         </div><!--y-button end-->
         <div style="float: unset;margin-top: 1rem; ">
-    <span class="search-cls pull-right" id="search-btn"><i class="fa fa-search "></i></span>
-    <span class="search-cls pull-right" id="search-btn"><i class="fa fa-globe" aria-hidden="true"></i><span class="caret"></span></span>
-
+        
+        <span class="search-cls pull-right" id="search-btn"><i class="fa fa-search "></i></span>
+        <span class="search-cls pull-right" style="cursor:pointer" onclick="openNav()">&#9776;</span>    
+    
+    
     </div>
         @if(Setting::get('is_direct_upload_button') == YES)
             
@@ -162,8 +164,8 @@ body {
 <div class="col-xs-12 visible-xs">
     <ul class="mobile-header">
     @if(Auth::check())
-        <li>
-        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
+        <li style="vertical-align: top;">
+        <span style="font-size:30px;cursor:pointer;vertical-align: top;" onclick="openNav()">&#9776; </span>
             
        </li>
         
@@ -173,10 +175,10 @@ body {
         <li>
             <i class="fa fa-bell"></i>
         </li>
-        <li><a href="{{route('user.channel.list')}}" class="mobile-menu">
+        <li><a href="{{url('/')}}" class="mobile-menu">
             <img style="width: 2rem;" src="{{asset('prototype_icons/assignment.png')}}" alt="" srcset="">
         </a></li>
-        <li><a href="{{route('user.live_videos')}}" class="mobile-menu">
+        <li><a href="{{route('user.channel.list')}}" class="mobile-menu">
             <img style="width: 2rem;" src="{{asset('prototype_icons/teacher-icon-png-15.png')}}" alt="" srcset="">
         </a></li>
         <li>
@@ -191,6 +193,13 @@ body {
 </div>
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  @if(!Auth::check())
+  <div style="text-align:center;">
+
+                  <a href="{{route('user.login.form')}}" style="display: inline-block; padding:0;">SignIn</a> <i style="color: white; font-weight: bold;">|</i>
+                    <a href="{{route('user.register.form')}}" style="display: inline-block; padding:0;">SignUp</a>
+                </div>
+  @endif
     <div class="curriculum">
         <form action="/" method="get" style="margin-top: 1vh; text-align: center;">
             <select id="options" name="targeted_country" style="width: auto;">

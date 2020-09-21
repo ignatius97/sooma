@@ -336,7 +336,7 @@
 
         <!-- ======== RESPONSIVE HEADER VISIBLE IN MOBAILE VIEW====== -->
 
-    
+        @include('layouts.user.header-mobile')
 
         <!-- ======== RESPONSIVE HEADER VISIBLE IN MOBAILE VIEW====== -->
 

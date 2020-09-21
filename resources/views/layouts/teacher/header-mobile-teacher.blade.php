@@ -167,21 +167,18 @@ body {
             
        </li>
         
-        <li>
+        <li style="float: right;">
             <span class="search-cls pull-right" id="search-btn"><i class="fa fa-search "></i></span>
         </li>
-        <li>
+        <li style="float: right;margin-top: 6px;" >
             <i class="fa fa-bell"></i>
-        </li>
-        <li><a href="{{route('user.channel.list')}}" class="mobile-menu">
-            <img style="width: 2rem;" src="{{asset('prototype_icons/assignment.png')}}" alt="" srcset="">
-        </a></li>
-        <li><a href="{{route('user.live_videos')}}" class="mobile-menu">
+        </li >
+        
+        <li style="float: right;margin-top: 7px;"><a href="{{url('/')}}" class="mobile-menu">
             <img style="width: 2rem;" src="{{asset('prototype_icons/teacher-icon-png-15.png')}}" alt="" srcset="">
-        </a></li>
-        <li>
-            <span class="search-cls pull-right" id="search-btn"><i class="fa fa-globe" aria-hidden="true"></i><span class="caret"></span></span>
+        </a>
         </li>
+        
         
 
            
