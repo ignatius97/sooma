@@ -9,6 +9,9 @@ use App\Country;
 use App\Curriculum;
 use View;
 
+use Auth;
+use App\NotificationTreck;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -37,9 +40,9 @@ class AppServiceProvider extends ServiceProvider
         view()->share('country',  $country);
 
         */
-
-        $countries = Country::all();
-        View::share('countries', $countries);
+          
+         $countries = Country::all();
+         View::share('countries', $countries);
          $curriculum=Curriculum::all();
          View::share('curriculum', $curriculum);
 
@@ -49,6 +52,15 @@ class AppServiceProvider extends ServiceProvider
           $country_with_ip="Uganda";
           View::share('country_with_ip', $country_with_ip);
 
+
+          View::share('number', 0);
+          view::share('notifications', []);
+
+
+          //Notification time treck and data collect
+          
+
+         
         
     
 

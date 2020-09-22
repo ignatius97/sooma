@@ -18,6 +18,8 @@ use App\Class_Discusion;
 use App\User;
 use App\Curriculum;
 use App\Classes;
+use App\NotificationTreck;
+use App\Assignment;
 
 use App\Wishlist;
 
@@ -1067,6 +1069,8 @@ class UserController extends Controller {
 
         
 
+        $num=0;
+        $users=[];
 
        
 
@@ -1140,8 +1144,28 @@ class UserController extends Controller {
                             ->get();
 
             }
+               if(Auth::user()){
+               $users = NotificationTreck::join('class__discusions', 'notification_trecks.comment_id', '=', 'class__discusions.id')
+              ->join('channels', 'channels.id', '=', 'class__discusions.channel_id')
+              ->join('users', 'class__discusions.user_id', '=', 'users.id')->where('notification_trecks.recipient_id', Auth::user()->id)->where('notification_trecks.is_read', 0)->select('class__discusions.comment as comment', 'notification_trecks.is_read as status', 'users.name as username', 'channels.name as channel_name')->get();
 
-            
+
+              if (count($users)>0) {
+                $num=1;
+
+                foreach ($users as $key => $value) {
+                    $num+=$key;
+                }
+                
+               }
+              else
+              {
+                 $num=0;
+               }
+               }
+
+
+
 
             return view('user.index')
                         ->with('page' , 'home')
@@ -1149,11 +1173,14 @@ class UserController extends Controller {
                         ->with('wishlists' , $wishlists)
                         ->with('recent_videos' , $recent_videos)
                         ->with('trendings' , $trendings)
+                        ->with('number', $num)
+                        ->with('notifications', $users)
+                        ->with('channel_id', $request->channel_id)
                         ->with('watch_lists' , $watch_lists)
                         ->with('suggestions' , $suggestions)
                         ->with('channels' , $channels)
                         ->with('banner_videos', $banner_videos)
-                       ->with('country_with_ip', $country_with_ip)
+                        ->with('country_with_ip', $country_with_ip)
                         ->with('banner_ads', $banner_ads);
         } else {
 
@@ -1413,11 +1440,28 @@ class UserController extends Controller {
 
             $comment=Class_Discusion::join('users', 'class__discusions.user_id', '=', 'users.id')->where('class__discusions.channel_id', $id)->get();
 
+
+            // Read Status logic 
+
+              $notification_data = NotificationTreck::where('recipient_class_id', $id)->where('recipient_id', Auth::user()->id)->where('is_read',0)->get();
+              if (count($notification_data)>0) {
+   
+              foreach ($notification_data as $key => $value) {
+               $data= NotificationTreck::where('recipient_id', Auth::user()->id)->update(['is_read'=>1]);
+
+                 }
+                }
+
+          // Assignment student view 
+
+               $assignment=Assignment::join('channels', 'assignments.channel_id', '=', 'channels.id')->select('assignments.id as id', 'assignments.title as title', 'assignments.created_at as created_at')->get();
+
             return view('user.channels.index')
                         ->with('page' , 'channels_'.$id)
                         ->with('subPage' , 'channels')
                         ->with('channel' , $channel)
                         ->with('comments', $comment)
+                        ->with('assignment', $assignment)
                         ->with('channel_id', $id)
                         ->with('live_videos', $live_videos)
                         ->with('videos' , $videos)
@@ -1448,16 +1492,13 @@ class UserController extends Controller {
      *
      * @return based on video displayed all the details'
      */
-    public function video_view(Request $request) {
+    public function video_view(Request $request) {      
 
+       $data = 'uganda';
 
-        $ip = '197.157.34.169';
+       $country= 'Uganda';
 
-        $data = \Location::get($ip);
-
-       $country= strtolower($data->countryName);
-
-        $trendings = $this->UserAPI->trending_list($request)->getData();
+       $trendings = $this->UserAPI->trending_list($request)->getData();
         
        $targeted_country=$request->input('targeted_country');
 
@@ -6137,11 +6178,13 @@ public function channel_assignment(Request $request){
 
         
         $response = $this->UserAPI->channel_list($request)->getData();
-         $trendings = $this->UserAPI->trending_list($request)->getData();
+        $trendings = $this->UserAPI->trending_list($request)->getData();
+        $assignment=Assignment::where('assignments.id', $request->assignment_id)->get();
 
 
         return view('user.channels.assignment')->with('page', 'channels')
                 ->with('subPage', 'channel_list')
+                ->with('assignment', $assignment)
                 ->with('trendings', $trendings)
                 ->with('response', $response);
 

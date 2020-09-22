@@ -44,7 +44,7 @@
     </div> -->
     <div class="row">
 
-        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4">
+        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6">
 
             <a href="#" class="hidden-xs"><img src="{{asset('images/menu.png')}}"  class="toggle-icon"  style="color: white"></a>
 
@@ -64,7 +64,7 @@
 
     
 
-        <div class="col-lg-6 col-md-5 col-sm-5 col-xs-12 hidden-xs">
+        <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12 hidden-xs">
 
           
 
@@ -96,7 +96,6 @@
                         </div>
                     
                 </div>
-                
                 </form>
             </div><!--custom-search-input end-->
 
@@ -104,7 +103,7 @@
 
         <!-- ========RESPONSIVE  HEADER VISIBLE IN MOBAILE VIEW====== -->
         
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 hidden-xs visible-sm visible-md visible-lg">
+        <div class="col-lg-3 col-md-2 col-sm-3 col-xs-12 hidden-xs visible-sm visible-md visible-lg">
 
             @if(Auth::check())
 
@@ -179,8 +178,15 @@
                                     <div class="col-lg-12 col-sm-12 col-12">
                                         <span>
                                             {{tr('notifications')}} 
-                                            (<span id="global-notifications-count">0</span>)
+                                            (<span>{{$number}}</span>)<br>
                                         </span>
+                                        @if(count($notifications)>0)
+                                        @foreach($notifications as $key=>$not)
+                                        @if($key<2)
+                                        <a href="" style="color: black;"> <span>{{$not->username}} posted in {{$not->channel_name}}</span> </a><br>
+                                        @endif
+                                        @endforeach
+                                        @endif
                                         <!-- <a href="" class="float-right text-light">Mark all as read</a> -->
                                     </div>
                                 </div>
@@ -189,7 +195,7 @@
                             <span id="global-notifications-box"></span>
 
                             <li class="notification-footer bg-dark text-center">
-                                <a href="{{route('user.bell_notifications.index')}}" class="text-light">
+                                <a href="{{route('user.channels',['id'=>1])}}" class="text-light">
                                     {{tr('view_all')}}
                                 </a>
                             </li>
@@ -233,7 +239,7 @@
                 </ul>
                  
                  @if(is_null(Auth::user()->study_role))
-                  <a class="nav navbar-nav pull-right" href="{{route('user.upload.information')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Become a Teacher</a>
+                  <a class="nav navbar-nav pull-right" href="{{route('user.upload.information')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Teacher</a>
             
                   @else
             <a class="nav navbar-nav pull-right" href="{{url('mychannels/list')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Teacher</a>

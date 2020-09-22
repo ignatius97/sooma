@@ -18,6 +18,8 @@ use App\User;
 use App\Curriculum;
 use App\Classes;
 
+use App\Assignment;
+
 use App\Wishlist;
 
 use App\Page;
@@ -218,11 +220,13 @@ class TeacherController extends Controller {
         
         $response = $this->UserAPI->channel_list($request)->getData();
          $trendings = $this->UserAPI->trending_list($request)->getData();
+         $assignment=Assignment::where('id', $request->assignment_id)->get();
 
 
         return view('teacher.channels.assignment')->with('page', 'channels')
                 ->with('subPage', 'channel_list')
                 ->with('trendings', $trendings)
+                ->with('assignment', $assignment)
                 ->with('response', $response);
 
     }
@@ -336,6 +340,10 @@ class TeacherController extends Controller {
 
             }
              $comment=Class_Discusion::join('users', 'class__discusions.user_id', '=', 'users.id')->where('class__discusions.channel_id', $id)->get();
+
+
+              $assignment=Assignment::where('channel_id', $id)->get();
+
             return view('teacher.channels.index')
                         ->with('page' , 'channels_'.$id)
                         ->with('subPage' , 'channels')
@@ -344,6 +352,7 @@ class TeacherController extends Controller {
                         ->with('live_videos', $live_videos)
                         ->with('channel_id', $id)
                         ->with('videos' , $videos)
+                        ->with('assignment', $assignment)
                         ->with('trending_videos', $trending_videos)
                         ->with('channel_playlists', $channel_playlists)
                         ->with('payment_videos', $payment_videos)
@@ -1036,6 +1045,17 @@ public function curriculum_class_select_dataa($id){
         return response()->json($response);
 
     
+    }
+
+
+
+//Assignment Post 
+
+
+    public function class_add_assignment(Request $request)
+    {
+        $response=$this->UserAPI->class_add_assignment($request);
+        return 1;
     }
 
 }

@@ -1784,6 +1784,11 @@ changes
 .common-streamtube {
 	min-height: 700px;
 }
+@media only screen and (max-width : 991px) {
+	.common-streamtube {
+		margin-top: 45px;
+	}
+}
 .right-zero{
 	margin-right:0 !important;
 }

@@ -22,9 +22,12 @@ use App\Jobs\sendPushNotification;
 
 use App\Jobs\BellNotificationJob;
 
+use App\Assignment;
+
 use Log;
 
 use App\Class_Discusion;
+use App\NotificationTreck;
 
 use Hash;
 
@@ -2511,11 +2514,33 @@ class UserApiController extends Controller {
 
     public function class_add_comment($request){
 
+     $comment_id=0;
+
      $data=new Class_Discusion();
      $data->user_id=$request->users_id;
      $data->channel_id=$request->channel_id;
      $data->comment=$request->class_comments;
      $data->save();
+     $comment_id=$data->id;
+    
+
+
+ $users = ChannelSubscription::where('channel_subscriptions.channel_id', $request->channel_id)->select('user_id as recipient_id')->get();
+
+    if (count($users)>0) {
+      foreach ($users as  $key=>$value) {
+   
+        $notification=new NotificationTreck();
+        $notification->recipient_id=$value->recipient_id;
+        $notification->recipient_class_id=$request->channel_id;
+        $notification->comment_id=$comment_id;
+        $notification->is_read=0;
+        $notification->save();
+      
+       }
+
+    }
+   
 
      $response_array = array('success' => true , 'comment' => $data->toArray() , 'date' => $data->created_at->diffForHumans(),'message' => tr('comment_success') );
 
@@ -10655,7 +10680,8 @@ public function trending_by_country($request) {
 
         try {
 
-            $skip = $this->skip ?: 0; $take = $this->take ?: TAKE_COUNT;
+            $skip = $this->skip ?: 0;
+             $take = $this->take ?: TAKE_COUNT;
 
             $bell_notifications = BellNotification::where('to_user_id', $request->id)
                                         ->select('notification_type', 'channel_id', 'video_tape_id', 'message', 'status as notification_status', 'from_user_id', 'to_user_id', 'created_at')
@@ -11318,6 +11344,40 @@ public function trending_by_country($request) {
 
         }
     
+    }
+
+
+    //Adding Assignment by the teacher
+
+
+
+    public function  class_add_assignment($request){
+
+
+           
+
+          $assignment=new Assignment();
+
+        $assignment->title=$request->assignment_title;
+
+         $assignment->text=$request->class_assignment;
+         $assignment->channel_id=$request->channel_id;
+
+          if($request->hasFile('picture')){
+           $assignment->file= Helper::normal_upload_picture($request->file('picture'), "/uploads/channels/assignment/");
+
+           }
+           else
+           {
+             $assignment->file= 'No';
+           }
+
+
+         $assignment->save();
+
+
+
+
     }
 
     /**

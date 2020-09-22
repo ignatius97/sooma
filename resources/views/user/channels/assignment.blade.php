@@ -83,8 +83,9 @@
           @include('layouts.user.nav')
 
             <div class="page-inner col-sm-9 col-md-8 ">
+                @foreach($assignment as $assignment)
                 <div style=" margin-bottom:10px; margin-top:3%; color:black; display:inline-block; ">
-                    <P>Assignment Name <br/> <small>Date when posted</small></P>
+                    <P>{{$assignment->title}}<br/> <small>{{$assignment->created_at}}</small></P>
                 </div>
                 <a href="">
                     <div style=" margin-bottom:10px; margin-top:3%; float:right; color:black; display:inline-block;">
@@ -94,7 +95,7 @@
                     </div>
                 </a>
                 <hr>
-                <p>The instruction to the assignmnt here..............</p>
+                <p>{{$assignment->text}}</p>
                 <br/>
                 <br/>
                 <br/>
@@ -102,6 +103,8 @@
                 <br/>
                 <br/>
                 <hr>
+
+                @endforeach
                 
                 
 

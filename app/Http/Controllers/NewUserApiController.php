@@ -23,7 +23,7 @@ use App\Repositories\V5Repository as V5Repo;
 use App\Jobs\sendPushNotification;
 
 use App\Jobs\BellNotificationJob;
-
+use App\BellNotificationTemplate;
 
 use App\User, App\Card, App\Wishlist;
 
@@ -3603,6 +3603,68 @@ class NewUserApiController extends Controller
                 $notification_data['channel_id'] = $channel_details->id;
 
                 $notification_data['notification_type'] = BELL_NOTIFICATION_NEW_SUBSCRIBER;
+
+
+
+
+       $template_details = BellNotificationTemplate::where('type', BELL_NOTIFICATION_NEW_SUBSCRIBER)->first();
+
+        $message = "new notification";
+
+        if($template_details) {
+
+            Log::info("BellNotification - template_details");
+
+            $channel_details = $channel_details->id ? Channel::find($channel_details->id): [];
+            $video_tape_details = isset($channel_details->video_tape_id) ? VideoTape::find($channel_details->video_tape_id) : [];
+
+            $user_details = User::find($request->id);
+
+            $channel_name = $channel_details ? $channel_details->name : "";
+
+            $video_title = $video_tape_details ? $video_tape_details->title : "";
+
+            $username = $user_details ? $user_details->name : "";
+
+            $replacers = [
+                '{username}' => $username,
+                '{channel_name}' => $channel_name,
+                '{video_title}' => $video_title
+            ];
+
+            $message = strtr($template_details->message, $replacers);
+
+             }
+
+
+            $user_ids = ChannelSubscription::where('channel_id', $channel_details->id)->pluck('user_id');
+
+       
+
+            foreach ($user_ids as $key => $to_user_id) {
+            
+            $bell_notification = New BellNotification;
+
+            $bell_notification->from_user_id = $request->id;
+
+            $bell_notification->to_user_id =$channel_details->user_id;
+
+            $bell_notification->notification_type ='BELL_NOTIFICATION_NEW_SUBSCRIBER';
+
+            $bell_notification->message = $message;
+
+            $bell_notification->channel_id = $channel_details->id;
+
+            $bell_notification->video_tape_id =0;
+
+            $bell_notification->status = BELL_NOTIFICATION_STATUS_UNREAD;
+
+            $bell_notification->save();
+              }
+
+
+
+              Log::info("BellNotification - END");
 
                 $message = CommonHelper::success_message(221); 
                 $code = 221;

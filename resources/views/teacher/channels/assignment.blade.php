@@ -81,10 +81,10 @@
         <div class="row content-row">
 
             @include('layouts.teacher.nav_teacher')
-
+            @foreach($assignment as $assignment)
             <div class="page-inner col-sm-9 col-md-8 ">
                 <div style=" margin-bottom:10px; margin-top:3%; color:black; display:inline-block; ">
-                    <P>Assignment Name <br/> <small>Date when posted</small></P>
+                    <P>{{$assignment->title}} <br/> <small>{{$assignment->created_at}}</small></P>
                 </div>
                 <a href="">
                     <div style=" margin-bottom:10px; margin-top:3%; float:right; color:black; display:inline-block;">
@@ -94,7 +94,7 @@
                     </div>
                 </a>
                 <hr>
-                <p>The instruction to the assignmnt here..............</p>
+                <p>{{$assignment->text}}</p>
                 <br/>
                 <br/>
                 <br/>
@@ -102,20 +102,10 @@
                 <br/>
                 <br/>
                 <hr>
+
+                @endforeach
                 
-                <div style="border:1px solid black; padding: 10px; margin-bottom:10px; color:black;">
-                    <div style="display: inline-block;">
-                        <img class="profile-image" src=" ">
-                    </div>
-                    <div class="form-group" style="display: inline-block; ">
-                        <p>Student's Name</p>
-                    </div>
-                    <div style="border:1px solid black; color:black; margin:-1rem 0 2rem 3rem; height:5.5rem;padding:1rem 4rem;">
-                        File Name 
-                        &nbsp&nbsp&nbsp&nbsp
-                        <button class="btn">download</button>
-                    </div>
-                </div>
+               
 
                 <div style="border:1px solid black; padding: 10px; margin-bottom:10px; color:black;">
                     <div style="display: inline-block;">

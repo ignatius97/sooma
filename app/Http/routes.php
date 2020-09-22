@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Facades\Redis;
 use App\Class_Discusion;
+use App\ChannelSubscription;
+
+use App\NotificationTreck;
+use App\BellNotificationTemplate;
+use App\Assignment;
 
 
 /*
@@ -15,7 +20,23 @@ use App\Class_Discusion;
 |
 */
 
+Route::get('trialss', function (){
 
+  
+$assignment=new Assignment();
+
+        $assignment->title='Mundruku';
+
+         $assignment->text='Instruction';
+         $assignment->channel_id=1;
+
+
+
+
+         $assignment->save();
+         
+
+});
 
 
 Route::get('/clear-cache', function() {
@@ -684,7 +705,7 @@ Route::group(['as' => 'user.'], function(){
     Route::post('addComment', 'UserController@add_comment')->name('add.comment');
 
 
-      Route::post('addCommentClass_Comment', 'UserController@class_add_comment')->name('class.add.comment');
+    Route::post('addCommentClass_Comment', 'UserController@class_add_comment')->name('class.add.comment');
     Route::get('deleteHistory', 'UserController@delete_history')->name('delete.history');
 
     Route::post('addHistory', 'UserController@add_history')->name('add.history');
@@ -1553,6 +1574,7 @@ Route::group(['as' => 'user.'], function(){
 
     //Comments 
      Route::post('addCommentClass_Comment_Teacher', 'TeacherController@class_add_comment')->name('class.add.comments');
+     Route::post('add-assignment-teacher', 'TeacherController@class_add_assignment')->name('class.add.assignments');
 
 
         // User Playlists

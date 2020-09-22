@@ -1,4 +1,4 @@
-<div class="y-menu col-sm-4 col-md-4" style="margin-right: 0px; height: auto; background-color: rgb(241, 241, 241);" >
+<div class="y-menu col-sm-4 col-md-4" style="margin-right: 0px;" >
     <div class="curriculum">
         <ul class="y-home menu1">
 
@@ -81,13 +81,24 @@
                 </a>
             </li>
             @if(Setting::get('create_channel_by_user') == CREATE_CHANNEL_BY_USER_ENABLED || Auth::user()->is_master_user == 1)
+            @if($number!=0)
                 <li id="my_channel">
+                    <a href="{{route('user.channel.mychannels')}}">
+                        <img src="{{asset('images/sidebar/channel-grey.png')}}" class="grey-img">
+                        <img src="{{asset('images/sidebar/channel-red.png')}}" class="red-img">
+                        <span>My Class ({{$number}})</span>
+                    </a>
+                </li>
+            @else
+            <li id="my_channel">
                     <a href="{{route('user.channel.mychannels')}}">
                         <img src="{{asset('images/sidebar/channel-grey.png')}}" class="grey-img">
                         <img src="{{asset('images/sidebar/channel-red.png')}}" class="red-img">
                         <span>My Class</span>
                     </a>
                 </li>
+
+            @endif
 
             @endif
 
@@ -199,15 +210,7 @@
     
     @if(Auth::check())
 
-        @if(!Auth::user()->user_type)
-
-            <div class="menu4 top nav-space">
-                <p>{{tr('subscribe_note')}}</p>
-                <a href="{{route('user.subscriptions')}}" class="btn btn-sm btn-primary">{{tr('subscribe')}}</a>
-            </div> 
-
-
-        @endif
+        
 
     @else
         <div class="about_us">
