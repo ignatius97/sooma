@@ -83,6 +83,7 @@
             @include('layouts.teacher.nav_teacher')
             @foreach($assignment as $assignment)
             <div class="page-inner col-sm-9 col-md-8 ">
+            <h3 style="text-align:center;">ASSIGNMENT </h3>
                 <div style=" margin-bottom:10px; margin-top:3%; color:black; display:inline-block; ">
                     <P>{{$assignment->title}} <br/> <small>{{$assignment->created_at}}</small></P>
                 </div>
@@ -96,7 +97,7 @@
                 <hr>
 
                 @endforeach
-                <div style="text-align: center; margin-bottom: 6px;">      
+                <div style="text-align: right; margin-bottom: 6px;">      
 
 
                   <a href="{{ route('user.assignment.edit', ['assignment_id'=>$assignment_id]) }}">

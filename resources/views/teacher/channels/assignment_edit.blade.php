@@ -43,7 +43,7 @@
                                          <input type="file" id="picture" name="picture">
                    
                                        </div>
-                                        <div style="text-align: center;">
+                                        <div style="text-align: right;">
                                             <button class="btn btn-primary" type="submit"  id="class_assignment_edit_btn">Submit</button>
                                         </div>
                                     </form>

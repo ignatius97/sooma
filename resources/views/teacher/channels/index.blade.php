@@ -200,21 +200,18 @@
 
                                         <li role="presentation" class="active">
                                             <a href="#home1" class="yt-uix-button  spf-link  yt-uix-sessionlink yt-uix-button-epic-nav-item yt-uix-button-size-default" aria-controls="home" role="tab" data-toggle="tab">
-                                                <span class="yt-uix-button-content hidden-xs">{{tr('home')}}</span>
-                                                <span class="visible-xs"><i class="fa fa-home channel-tab-icon"></i></span>
+                                                <span class="yt-uix-button-content ">{{tr('home')}}</span>
                                             </a>
                                         </li>
 
                                         <li role="presentation">
                                             <a href="#about" class="yt-uix-button spf-link  yt-uix-sessionlink yt-uix-button-epic-nav-item yt-uix-button-size-default" aria-controls="about" role="tab" data-toggle="tab">
-                                                <span class="yt-uix-button-content hidden-xs">About Class</span>
-                                                <span class="visible-xs"><i class="fa fa-info channel-tab-icon"></i></span>
+                                                <span class="yt-uix-button-content ">About Class</span>
                                             </a>
                                         </li>
                                         <li role="presentation" id="videos_sec">
                                             <a href="#videos" class="yt-uix-button  spf-link  yt-uix-sessionlink yt-uix-button-epic-nav-item yt-uix-button-size-default" aria-controls="videos" role="tab" data-toggle="tab">
-                                                <span class="yt-uix-button-content hidden-xs">{{tr('videos')}}</span>
-                                                <span class="visible-xs"><i class="fa fa-video-camera channel-tab-icon"></i></span>
+                                                <span class="yt-uix-button-content ">{{tr('videos')}}</span>
                                             </a>
                                         </li>
                                         
@@ -231,20 +228,17 @@
                                         @endif
                                         <li role="presentation">
                                             <a href="#class-post" class="yt-uix-button spf-link  yt-uix-sessionlink yt-uix-button-epic-nav-item yt-uix-button-size-default" aria-controls="about" role="tab" data-toggle="tab">
-                                                <span class="yt-uix-button-content hidden-xs">Discussion</span>
-                                                <span class="visible-xs"><i class="fa fa-info channel-tab-icon"></i></span>
+                                                <span class="yt-uix-button-content ">Discussion</span>
                                             </a>
                                         </li>
                                         <li role="presentation">
                                             <a href="#create-assignments" class="yt-uix-button spf-link  yt-uix-sessionlink yt-uix-button-epic-nav-item yt-uix-button-size-default" aria-controls="about" role="tab" data-toggle="tab">
-                                                <span class="yt-uix-button-content hidden-xs">Create Assignments</span>
-                                                <span class="visible-xs"><i class="fa fa-info channel-tab-icon"></i></span>
+                                                <span class="yt-uix-button-content ">Create Assignments</span>
                                             </a>
                                         </li>
                                         <li role="presentation">
                                             <a href="#assignments" class="yt-uix-button spf-link  yt-uix-sessionlink yt-uix-button-epic-nav-item yt-uix-button-size-default" aria-controls="about" role="tab" data-toggle="tab">
-                                                <span class="yt-uix-button-content hidden-xs">Assignments</span>
-                                                <span class="visible-xs"><i class="fa fa-info channel-tab-icon"></i></span>
+                                                <span class="yt-uix-button-content ">Assignments</span>
                                             </a>
                                         </li>
 
