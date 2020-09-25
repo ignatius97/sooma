@@ -997,6 +997,12 @@ Route::group(['as' => 'user.'], function(){
 
     Route::get('/country-curriculum/selection', 'UserController@country_curriculum')->name('curriculum.selection');
 
+    //Assignment
+
+    Route::get('/file-upload/download', 'UserController@assignment_upload')->name('assignment.download'); 
+    Route::post('/assignment_answer_upload/save', 'UserController@assignment_answer_upload')->name('assignment_answer_upload.save'); 
+    
+
 
 
 
@@ -1575,6 +1581,11 @@ Route::group(['as' => 'user.'], function(){
     //Comments 
      Route::post('addCommentClass_Comment_Teacher', 'TeacherController@class_add_comment')->name('class.add.comments');
      Route::post('add-assignment-teacher', 'TeacherController@class_add_assignment')->name('class.add.assignments');
+
+     //Assignment Edit and delete
+     Route::get('assignment/edit', 'TeacherController@assignment_edit')->name('assignment.edit');
+     Route::get('assignment/delete', 'TeacherController@assignment_delete')->name('assignment.delete');
+      Route::post('/assignment_edit/save', 'TeacherController@assignment_edit_save')->name('assignment_edit.save');
 
 
         // User Playlists

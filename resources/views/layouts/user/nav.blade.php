@@ -23,6 +23,8 @@
 
 
         <div>
+
+       @if(count($curriculum)>0)     
        @foreach($curriculum as $curriculum) 
        @if($country_with_ip=='')
        @if($curriculum->country==$country_ip)
@@ -43,6 +45,12 @@
         @endif
      
        @endforeach
+
+       @else
+
+       <h5>No Result Found</h5>
+
+       @endif
      
         </div>
       
@@ -213,13 +221,20 @@
         
 
     @else
-        <div class="about_us">
+        <div style="
+    background-color: white;
+    margin-bottom: 0px;
+    width: 64%;
+    margin-left: 18%;
+    height: 30vh;
+    text-align: center;
+    margin-top: 10%;">
         <div class="menu4 top nav-space my_bg_color" >
 
             <form method="get" action="{{route('user.register.form')}}">
                 <button type="submit" class="sign_up_btn" style="background-color: brown;">About us</button>
             </form>
-            <h3 class="sooma_header">For more information about <span class="sooma_color">sooma</span> Please click the button below</h3>
+            <h3 class="sooma_heade">For more information about <span class="sooma_colo">sooma</span> Please click the button below</h3>
             
             
         </div> 

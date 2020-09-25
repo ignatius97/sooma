@@ -9,6 +9,7 @@ use App\Repositories\VideoTapeRepository as VideoRepo;
 use App\Jobs\BellNotificationJob;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Storage;
 
 use App\Helpers\Helper;
 
@@ -20,6 +21,7 @@ use App\Curriculum;
 use App\Classes;
 use App\NotificationTreck;
 use App\Assignment;
+use App\Answer;
 
 use App\Wishlist;
 
@@ -6181,14 +6183,50 @@ public function channel_assignment(Request $request){
         $trendings = $this->UserAPI->trending_list($request)->getData();
         $assignment=Assignment::where('assignments.id', $request->assignment_id)->get();
 
+        $answer=Answer::all();
+
 
         return view('user.channels.assignment')->with('page', 'channels')
                 ->with('subPage', 'channel_list')
                 ->with('assignment', $assignment)
                 ->with('trendings', $trendings)
+                ->with('answer', $answer)
                 ->with('response', $response);
 
     }
+
+
+public function assignment_upload(Request $request){
+
+   return response()->download(storage_path("app/".$request->file));
+
+}
+
+
+public function assignment_answer_upload(Request $request){
+
+   $answer=new Answer();
+
+   $answer->assignment_id=$request->assignment_id;
+
+   $answer->user_id=Auth::user()->id;
+
+   $file = $request->file('assignment_answer');
+
+    $newFilename= $file->getClientOriginalName();
+
+    Storage::disk('local')->put($newFilename, file_get_contents($file));
+
+    $answer->file=$newFilename;
+
+
+    $answer->save();
+
+    return 1;
+
+}
+
+
 
 
 

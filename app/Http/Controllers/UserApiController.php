@@ -15,6 +15,7 @@ use App\Repositories\PaymentRepository as PaymentRepo;
 use App\Repositories\UserRepository as UserRepo;
 
 use App\Repositories\V5Repository as V5Repo;
+use Illuminate\Support\Facades\Storage;
 
 use App\Helpers\AppJwt;
 
@@ -11347,7 +11348,7 @@ public function trending_by_country($request) {
     }
 
 
-    //Adding Assignment by the teacher
+    //Adding Assignment, saving by the teacher
 
 
 
@@ -11364,7 +11365,15 @@ public function trending_by_country($request) {
          $assignment->channel_id=$request->channel_id;
 
           if($request->hasFile('picture')){
-           $assignment->file= Helper::normal_upload_picture($request->file('picture'), "/uploads/channels/assignment/");
+
+
+             $file = $request->file('picture');
+
+             $newFilename= $file->getClientOriginalName();
+
+             Storage::disk('local')->put($newFilename, file_get_contents($file));
+
+            $assignment->file=$newFilename;
 
            }
            else
@@ -11376,6 +11385,30 @@ public function trending_by_country($request) {
          $assignment->save();
 
 
+
+
+    }
+
+    public function assignment_edit_save($request){
+
+       
+
+        
+
+                if ($assignment->save()) {
+
+                    // For response purpos
+
+                    $response_array = 1;
+            
+                }
+                 else {
+
+                    $response_array = 0; 
+                }
+
+
+                return  $response_array;
 
 
     }

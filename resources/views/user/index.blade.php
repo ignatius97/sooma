@@ -44,6 +44,24 @@
     padding: 0px;
 
 }
+0785656504
+
+.main_video{
+
+    margin-right: 35px;
+}
+
+
+@media only screen and (max-width : 1200px) {
+
+   .main_video{
+
+    width: 80%;
+    margin-right: 2px;
+    margin-left: 35px;
+   }
+
+    }
 </style>
 @endsection
 
@@ -56,13 +74,12 @@
 
         @include('layouts.user.nav')
 
-            <div class="page-inner col-xs-12 col-sm-8 col-md-8">
+             <div class="page-inner col-xs-12 col-sm-8 col-md-8">
                 <div class="row">
-                <div >
+                <div class="main_video">
   
     <!-- Wrapper for slides -->
-
-
+    
     
     <div id='video-slider' style="margin-top: 1%;">
         <div class="slider-inner">
@@ -72,56 +89,10 @@
                         <video autoplay controls width="70%">
                             <source src="{{asset('streamtube/images/movie.mp4')}}" type="video/mp4" />
                         </video>
-                        <div  class="caption">About Sooma
-                                <br/>
-                                1:30min
-                                
-                            </div>
-                    </div>
                 </li>  
-
-            @foreach($recent_videos->items as $recent_video)
-
-                <li>
-                    <a href="{{$recent_video->url}}"> 
-                        <div class="video">
-                            <video autoplay controls width="70%">
-                                <source src="{{$recent_video->video}}" type="video/mp4" />
-                                <source src="{{$recent_video->video}}" type="video/ogg" />
-                                <source src="{{$recent_video->video}}" type="video/flv" />
-                            </video>
-                            <div class="caption" >{{$recent_video->title}}
-                                <br/>
-                                {{$recent_video->duration}}
-                                <br/>
-                                {{$recent_video->watch_count}} {{tr('views')}}
-                            </div>
-                            
-                        </div>
-                    </a>
-                </li>
-                
-                @endforeach
-                <!-- <li><img src="{{asset('streamtube/images/placeholder.gif')}}" data-src="{{$recent_video->video_image}}"class="slide-img1 placeholder"style="width:100%;"  />
-                <div class="caption">This video starts from 3:36</div>
-                    <div class="video-playbutton-layer"></div>
-                </li>
-                <li><img src="{{asset('streamtube/images/placeholder.gif')}}" data-src="{{$recent_video->video_image}}"class="slide-img1 placeholder"style="width:100%;"  />
-                <div class="caption">This video starts from 3:36</div>
-                    <div class="video-playbutton-layer"></div>
-                </li> -->
-                <!-- <li>
-                    <div class="video">
-                        <video controls width="100%">
-                            <source src="img/sabaiko-nepali-11-12.webm" type="video/mp4" />
-                        </video>
-                    </div>
-                </li> -->
             </ul>
         </div>
     </div>
-
-
    
     
 
@@ -220,9 +191,9 @@
                 @if(count($recent_videos->items) > 0)
 
                 <hr>
-
+                
                     <div class="slide-area">
-                    
+                       
                         <div class="box-head">
                             <h3>{{tr('recent_videos')}}</h3>
                         </div>
@@ -267,14 +238,16 @@
                                 </div><!--end of video-details-->
                             </div><!--end of slide-box-->
                             @endforeach
-                
-                            
+                   
+                              
                         </div><!--end of box--> 
-                
+                   
                     </div>
                     <!--end of slide-area-->
 
                 @endif
+
+
                
 
                 @if(count($trendings->items) > 0)
@@ -292,7 +265,7 @@
 
                             <div class="slide-box">
                                 <div class="slide-image">
-                                <a href="{{ route('user.single' , ['id' => $trending->url, 'dd'=>$trending->url] ) }}">
+                                    <a href="{{ route('user.single' , ['id' => $trending->url, 'dd'=>$trending->url] ) }}">
                                         <!-- <img src="{{$trending->video_image}}" /> -->
                                         <!-- <div style="background-image: url({{$trending->video_image}});" class="slide-img1"></div> -->
                                         <img src="{{asset('streamtube/images/placeholder.gif')}}" data-src="{{$trending->video_image}}" class="slide-img1 placeholder" />

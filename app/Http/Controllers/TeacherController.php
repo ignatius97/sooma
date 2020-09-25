@@ -17,6 +17,7 @@ use App\Settings;
 use App\User;
 use App\Curriculum;
 use App\Classes;
+use App\Answer;
 
 use App\Assignment;
 
@@ -219,13 +220,18 @@ class TeacherController extends Controller {
 
         
         $response = $this->UserAPI->channel_list($request)->getData();
-         $trendings = $this->UserAPI->trending_list($request)->getData();
-         $assignment=Assignment::where('id', $request->assignment_id)->get();
+        $trendings = $this->UserAPI->trending_list($request)->getData();
+        $assignment=Assignment::where('id', $request->assignment_id)->get();
+
+        $answers=Answer::join('users', 'answers.user_id', '=', 'users.id')->where('answers.assignment_id', $request->assignment_id)->get();
 
 
         return view('teacher.channels.assignment')->with('page', 'channels')
                 ->with('subPage', 'channel_list')
                 ->with('trendings', $trendings)
+                ->with('answers', $answers)
+                ->with('channel_id', $request->channel_id)
+                ->with('assignment_id', $request->assignment_id)
                 ->with('assignment', $assignment)
                 ->with('response', $response);
 
@@ -1057,5 +1063,94 @@ public function curriculum_class_select_dataa($id){
         $response=$this->UserAPI->class_add_assignment($request);
         return 1;
     }
+
+//Assignment Edit, save, delete
+
+
+    public function assignment_edit(Request $request){
+
+
+
+        $assignment=Assignment::find($request->assignment_id);
+
+
+        return view('teacher.channels.assignment_edit')->with('assignment', $assignment);
+    }
+
+
+
+public function assignment_edit_save(Request $request){
+
+
+          $assignment=Assignment::find($request->assignment_unique_id);
+           if ($assignment) {
+
+            $assignment->title= $request->has('assignment_name') ? $request->assignment_name: '';
+            $assignment->text= $request->has('assignment_text') ? $request->assignment_text: '';
+        }
+
+        if($request->hasFile('picture')) {
+                    if($assignment->id)  {
+                        Helper::delete_picture($assignment->file, "/uploads/channels/assignment/");
+                    }
+                    
+                    $assignment->file = Helper::normal_upload_picture($request->file('picture'), "/uploads/channels/assignment/");
+            }
+
+
+        $assignment->save();
+
+
+        if ($assignment->save()) {
+          return 1;
+      }
+        else
+        {
+           return 0;
+        }
+
+    }
+
+
+public function assignment_delete(Request $request){
+
+
+    try {
+            
+            DB::beginTransaction();
+
+            $assignment = Assignment::find($request->assignment_id);
+          
+
+            if(!$assignment) {
+
+                throw new Exception(tr('assignment not found'), 101);
+            }
+            
+            if ($assignment->delete()) {  
+
+                DB::commit();
+              
+                return redirect()->route('user.channel', $request->channel_id)->with('flash_success','Assignment deleted successfully');
+            
+            } 
+
+            throw new Exception(tr('assignment not found'), 101);
+            
+        } catch (Exception $e) {
+            
+            DB::rollback();
+
+            $error = $e->getMessage();
+
+            return back()->with('flash_error',$error);
+        }    
+}
+
+
+
+
+
+
 
 }

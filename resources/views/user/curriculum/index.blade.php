@@ -3,11 +3,15 @@
 @section('styles')
 
 <style type="text/css">
-@media only screen and (max-width : 910px) {
+
+
+  @media only screen and (max-width : 910px) {
     #demo{
         height: 180px;
     }
 }
+    
+
     
 .list-inline {
   text-align: center;

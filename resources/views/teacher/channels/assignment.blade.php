@@ -86,57 +86,95 @@
                 <div style=" margin-bottom:10px; margin-top:3%; color:black; display:inline-block; ">
                     <P>{{$assignment->title}} <br/> <small>{{$assignment->created_at}}</small></P>
                 </div>
-                <a href="">
-                    <div style=" margin-bottom:10px; margin-top:3%; float:right; color:black; display:inline-block;">
-                        <button class="btn btn-primary">
-                            All Assignments
-                        </button>
-                    </div>
-                </a>
+               
                 <hr>
                 <p>{{$assignment->text}}</p>
                 <br/>
                 <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
+                
+               
                 <hr>
 
                 @endforeach
-                
+                <div style="text-align: center; margin-bottom: 6px;">      
+
+
+                  <a href="{{ route('user.assignment.edit', ['assignment_id'=>$assignment_id]) }}">
+                  
+                        <button class="btn btn-primary">
+                            Edit
+                        </button>
+                 
+                   </a>
+
+                 <a href="{{ route('user.assignment.delete', ['assignment_id'=>$assignment_id, 'channel_id'=>$channel_id])}}"  style="margin-left: 50px;">
+                 
+                        <button class="btn btn-primary">
+                            Delete
+                        </button>
+            
+                  </a>
+                </div>
                
 
+               <div>
+                   
+                   <h4>Answers Uploaded</h4>
+
+               </div>
+                @if(count($answers)>0)
+                @foreach($answers as $answer)
                 <div style="border:1px solid black; padding: 10px; margin-bottom:10px; color:black;">
                     <div style="display: inline-block;">
-                        <img class="profile-image" src=" ">
+                        <img class="profile-image" src="{{$answer->chat_picture}} ">
                     </div>
                     <div class="form-group" style="display: inline-block; ">
-                        <p>Student's Name</p>
+                        <p>{{$answer->name}}</p>
                     </div>
                     <div style="border:1px solid black; color:black; margin:-1rem 0 2rem 3rem; height:5.5rem;padding:1rem 4rem;">
-                        File Name 
+                        {{$answer->file}}
                         &nbsp&nbsp&nbsp&nbsp
+                        <a href="{{ route('user.assignment.download', ['file'=>$answer->file]) }}">
                         <button class="btn">download</button>
+                        </a>
                     </div>
+
+
+                </div>
+                @endforeach
+
+                @else
+                 <div style="padding: 10px; margin-bottom:10px; color:black;">
+
+                    <h3>No answers  uploaded for the assignment</h3>
+
+                 </div>
+                 @endif
+
+                <hr>
+                <div style="text-align: center;">
+                    <button class="btn btn-primary">View All Answers</button>
                 </div>
 
-                <div style="border:1px solid black; padding: 10px; margin-bottom:10px; color:black;">
-                    <div style="display: inline-block;">
-                        <img class="profile-image" src=" ">
-                    </div>
-                    <div class="form-group" style="display: inline-block; ">
-                        <p>Student's Name</p>
-                    </div>
-                    <div style="border:1px solid black; color:black; margin:-1rem 0 2rem 3rem; height:5.5rem;padding:1rem 4rem;">
-                        File Name 
-                        &nbsp&nbsp&nbsp&nbsp
-                        <button class="btn">download</button>
-                    </div>
                 </div>
-
 
 
             </div>
+
+
         </div>
     </div>        
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
