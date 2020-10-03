@@ -13,12 +13,13 @@ $(document).ready(function(){
       $('.toggle-icon').click(function () {
           $('.y-menu').toggleClass('hidden');
           $('.y-menu').toggleClass('overlay1');
+          
       });
 
       $( ".toggle-icon" ).click(function() {
           $( ".page-inner").toggleClass('col-sm-12');
-          $( ".page-inner").toggleClass('col-sm-9');
-          $( ".page-inner").toggleClass('col-md-10');
+          $( ".page-inner").toggleClass('col-sm-12');
+          $( ".page-inner").toggleClass('col-md-12');
           $( ".page-inner").toggleClass('col-md-12');
 
           // if ($(window).width() <= 767){  

@@ -64,7 +64,7 @@
 
     
 
-        <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12 hidden-xs">
+        <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12 hidden-xs">
 
           
 
@@ -103,7 +103,7 @@
 
         <!-- ========RESPONSIVE  HEADER VISIBLE IN MOBAILE VIEW====== -->
         
-        <div class="col-lg-3 col-md-2 col-sm-3 col-xs-12 hidden-xs visible-sm visible-md visible-lg">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 hidden-xs visible-sm visible-md visible-lg">
 
             @if(Auth::check())
 

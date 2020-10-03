@@ -87,6 +87,8 @@
 
     .product_name{
         color: white;
+        font-size: 18px;
+        vertical-align: bottom;
     }
 
     .main_nav_btn a{

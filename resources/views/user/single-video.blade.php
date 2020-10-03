@@ -87,7 +87,7 @@
       
       @include('layouts.user.nav')
          
-         <div class="page-inner  col-xs-12 col-sm-12 col-md-8 profile-edit">
+         <div class="page-inner   profile-edit">
             
             <div class="profile-content mar-0">
             

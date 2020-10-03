@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Repositories\VideoTapeRepository as VideoRepo;
 
+use Illuminate\Support\Facades\Storage;
+
 use App\Jobs\BellNotificationJob;
 
 use App\Http\Requests;
@@ -34,6 +36,7 @@ use App\Admin;
 use Auth;
 
 use DB;
+use File;
 
 use Validator;
 
@@ -1090,12 +1093,28 @@ public function assignment_edit_save(Request $request){
         }
 
         if($request->hasFile('picture')) {
-                    if($assignment->id)  {
-                        Helper::delete_picture($assignment->file, "/uploads/channels/assignment/");
+                if($assignment->id)  {
+
+                      if (file_exists(storage_path("app/".$assignment->file))){
+
+                      File::delete(storage_path("app/".$assignment->file));
                     }
+                }
                     
-                    $assignment->file = Helper::normal_upload_picture($request->file('picture'), "/uploads/channels/assignment/");
-            }
+                   $file = $request->file('picture');
+
+             $newFilename= $file->getClientOriginalName();
+
+             Storage::disk('local')->put($newFilename, file_get_contents($file));
+
+            $assignment->file=$newFilename;
+
+           }
+           else
+           {
+             $assignment->file= 'No';
+           }
+
 
 
         $assignment->save();
@@ -1126,6 +1145,8 @@ public function assignment_delete(Request $request){
 
                 throw new Exception(tr('assignment not found'), 101);
             }
+
+            File::delete(storage_path("app/".$assignment->file));
             
             if ($assignment->delete()) {  
 

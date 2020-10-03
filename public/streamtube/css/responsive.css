@@ -46,7 +46,7 @@
 	.streamtube-nav{
 		padding:10px 0px;
 		border-bottom:0;
-		background-color:#e61b1b;
+		background-color:#3AAF44;
 		position: fixed;
 		z-index:999;
 		width: 100%;
@@ -412,7 +412,7 @@
 	.streamtube-nav{
 		padding:10px 0px;
 		border-bottom: 0;
-		background-color:#e61b1b;
+		background-color:#3AAF44;
 		position: fixed;
 		z-index: 100;
 		width: 100%;
@@ -420,7 +420,7 @@
 		top:0;
 	}
 	.logo-img{
-		width: 120px;
+		width: 38px;
 		height: 35px;
 		vertical-align: middle;
 	}
@@ -594,7 +594,7 @@
 	.streamtube-nav{
 		padding:10px 20px;
 		border-bottom: 1px solid #e8e8e8;
-		background-color: #fff;
+		background-color: #3AAF44;
 		position: fixed;
 		z-index: 100;
 		width: 100%;
@@ -607,7 +607,7 @@
 		overflow-x: hidden;
 	}
 	.logo-img{
-		width: 117px;
+		width: 32px;
 		height: 27px;
 		vertical-align: middle;
 		margin-top: 5px;
@@ -674,8 +674,8 @@
 		margin-top: -25px;
 	}
 	#custom-search-input{
-		  width: 100%;
-		  float: left;
+		  width: 50%;
+		  float: right;
 		  margin-top: 1px;
 	}
 	.modal-top1{
@@ -767,7 +767,7 @@
 	.streamtube-nav{
 		padding:10px 20px;
 		border-bottom: 1px solid #e8e8e8;
-		background-color: #fff;
+		background-color: #3AAF44;
 		position: fixed;
 		z-index: 100;
 		width: 100%;
@@ -775,7 +775,7 @@
 		top:0;
 	}
 	.logo-img{
-		width: 128px;
+		width: 35px;
 		height: 30px;
 		vertical-align: middle;
 		margin-top: 4px;
@@ -839,8 +839,8 @@
 		margin-top: -25px;
 	}
 	#custom-search-input{
-		  width: 100%;
-		  float: left;
+		  width: 50%;
+		  float: right;
 		  margin-top: 1px;
 	}
 	.modal-top1{
@@ -946,7 +946,7 @@
 	.streamtube-nav{
 		padding:10px;
 		border-bottom: 1px solid #e8e8e8;
-		background-color: #fff;
+		background-color: #3AAF44;
 		position: fixed;
 		z-index:100;
 		width: 100%;
@@ -1019,8 +1019,8 @@
 		margin-top: -25px;
 	}
 	#custom-search-input{
-		  width: 100%;
-		  float: left;
+		  width: 50%;
+		  float: right;
 		  margin-top: 1px;
 	}
 	.modal-top1{

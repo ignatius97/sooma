@@ -1,14 +1,34 @@
+<style>
+    .nav > li > a:focus, .nav > li > a:hover{
+        background-color:#3AAF44;
+    }
+    .product_name {
+    color: white;
+    font-size: 18px;
+    vertical-align: bottom;
+    }
+    .test img {
+    margin-right: 15px;
+    }
+    .nav > li {
+    float: left;
+    margin-right: 5px;
+margin-left: 5px;
+}
+    
+</style>
+
 <div class="streamtube-nav signup-nav">
     <div class="row">
         <div class="test col-xs-12">
             <a href="{{route('user.dashboard')}}" class="">
                 @if(Setting::get('site_logo'))
-                    <img src="{{Setting::get('site_logo')}}">
+                    <img src="{{Setting::get('site_logo')}}" class="logo-img"><span class="product_name">SOOMA</span>
                 @else
-                    <img src="{{asset('logo.png')}}">
+                    <img src="{{asset('logo.png')}}" class="logo-img"><span class="product_name">SOOMA</span>
                 @endif
             </a>
-
+            
             <ul class="nav navbar-nav pull-right">
 
                 @if(Setting::get('admin_language_control'))
@@ -33,6 +53,11 @@
                 
                 @endif
 
+                <li ><a href="" style="color:white;" class="hidden-xs">Home</a></li>
+                <li ><a href="" style="color:white;" class="visible-xs"><i class="fa fa-home"></i></a></li>
+                <li ><a href="" style="color:white;" class="hidden-xs">About Us</a></li>
+                <li ><a href="" style="color:white;" class="visible-xs"><i class="fa fa-info-circle"></i></a></li>
+
             </ul>
 
             <div class="pull-right">
@@ -49,7 +74,6 @@
             </div>
         </div><!--test end-->
 
-        
 
     </div><!--end of row-->
 </div><!--end of streamtube-nav-->

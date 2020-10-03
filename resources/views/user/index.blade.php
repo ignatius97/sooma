@@ -44,7 +44,6 @@
     padding: 0px;
 
 }
-0785656504
 
 .main_video{
 
@@ -74,7 +73,7 @@
 
         @include('layouts.user.nav')
 
-             <div class="page-inner col-xs-12 col-sm-8 col-md-8">
+             <div class="page-inner ">
                 <div class="row">
                 <div class="main_video">
   

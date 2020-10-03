@@ -70,6 +70,49 @@
         .slider.round::before {
             border-radius: 50%;
         }
+        .bg-modal{
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.6);
+        position: absolute;
+        top:0;
+        display: flex;
+        justify-content: center;
+        z-index: 999;
+
+        display: none;
+        }
+
+        .modal-content{
+        width: 35vw;
+        height: 55vh;
+        background: url('images/t1.jpg');
+        border-radius: 5px;
+        background-color:white;
+        padding: 20px;
+        margin: 145px auto;
+        position: relative;
+        }
+        .contents{
+        text-align: center;
+        }
+        
+        .close{
+        background-color: rgba(9,9,9,0.4);
+        position: absolute;
+        top: 0;
+        right: 14px;
+        font-size: 30px;
+        font-weight: bold;
+        cursor: pointer;
+        padding: 0px 10px;
+        border-radius: 20px;
+        color: #fff;
+        }
+        .close:hover{
+        border-radius: 20px;
+        padding: 0px 10px;
+        }
     </style>
 
 @endsection 
@@ -123,6 +166,39 @@
                    <h4>Answers Uploaded</h4>
 
                </div>
+
+               <div style="border:1px solid black; padding: 10px; margin-bottom:10px; color:black;">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div style="display: inline-block;">
+                                <img class="profile-image" src="">
+                            </div>
+                            <div class="form-group" style="display: inline-block; vertical-align:top; ">
+                                <p> Student Name <br/> answer name <br/> answer file </p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-primary">
+                                Open
+                            </button>
+                            <br/>
+                            <br/>
+                            <button class="btn btn-primary" onclick="log()">
+                                Mark
+                            </button>
+                            &nbsp&nbsp&nbsp&nbsp&nbsp
+                            <a href="">
+                            <button class="btn">download</button>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    
+                        
+                    
+
+
+                </div>
                 @if(count($answers)>0)
                 @foreach($answers as $answer)
                 <div style="border:1px solid black; padding: 10px; margin-bottom:10px; color:black;">
@@ -167,8 +243,30 @@
     </div>        
 
    
+    <div class="bg-modal" id="bg-modal">
+	    <div class="modal-content">
+		    <div class="contents">
+		        <div class="close" id="cls" onclick="cls()"> &times; </div>
+                    <h2>Assignment Details</h2>
+                    <p>Marks : <input type="text"> /100</p>
+                    <p>Comment :</p>
+                    <textarea name="" id="" cols="30" rows="10"></textarea>
+	
+            </div>
+            <button class="btn btn-primary" style="float: right; ">
+                Send
+            </button>
+        </div>
+    </div>
 
-
+<script type="text/javascript">
+    function log(){
+        document.getElementById('bg-modal').style.display ="block";
+        }
+    function cls(){
+        document.getElementById('bg-modal').style.display ="none";
+        }	
+</script>
 
 
 

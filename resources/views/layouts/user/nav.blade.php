@@ -1,5 +1,23 @@
+<style>
+.content {
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-area: content;
+  width:100%;
+  height: 80vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+</style>
+
+
+
+<div>
 <div class="y-menu col-sm-4 col-md-4" style="margin-right: 0px;" >
-    <div class="curriculum">
+
+    <div class="curriculum" style="position: fixed; width: 32%;">
+    <div class="content">
         <ul class="y-home menu1">
 
            
@@ -8,13 +26,13 @@
              @foreach($countries as $country)
              @if($country_with_ip=='') 
              @if($country->country_name==$country_ip)
-            <h3 class="popular_title" style="color: black; margin-left: 20px; font-weight: bold;  font-style: italic; font-size: 16px"> <span style="text-align: center;"> <img   class="slide-img1 placeholder" id="img" src="{{$country->picture}}"  /> </span>Curriculum Based Learning 
+            <h3 style="color: black; margin-left: 20px; font-weight: bold; font-size: 16px"> <span style="text-align: center;"> <img   class="slide-img1 placeholder" id="img" src="{{$country->picture}}"  /> </span>Curriculum Based Learning 
             </h3>
               @endif
               @else
 
               @if($country->country_name==$country_with_ip)
-                <h3 class="popular_title" style="color: black; margin-left: 20px; font-weight: bold;  font-style: italic; font-size: 16px"> <span> <img   class="slide-img1 placeholder" id="img" src="{{$country->picture}}"  /> </span> Curriculum Based Learning
+                <h3 style="color: black; margin-left: 20px; font-weight: bold; font-size: 16px"> <span> <img   class="slide-img1 placeholder" id="img" src="{{$country->picture}}"  /> </span> Curriculum Based Learning
             </h3>
               @endif
              @endif
@@ -240,5 +258,9 @@
         </div> 
         </div>  
     @endif             
+</div>
+</div>
+
+
 </div>
 </div>

@@ -1,3 +1,15 @@
+<style>
+    .content {
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-area: content;
+  width:100%;
+  height: 80vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+</style>
+<div class="content" style="position: fixed; width: 22%;">
 <div class="up-next pt-0">
 
     <h4 class="sugg-head1">{{tr('suggestions')}}</h4>
@@ -71,5 +83,6 @@
             @endforeach
         @endif
     </ul>
+</div>
 </div>
 <!--end of up-next-->

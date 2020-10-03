@@ -6592,9 +6592,8 @@ class UserApiController extends Controller {
                             ->where('channels.is_approved', 1)
                             ->leftJoin('channels' , 'video_tapes.channel_id' , '=' , 'channels.id')
                             ->leftJoin('classes' , 'video_tapes.class_id' , '=' , 'classes.id')
-                            ->leftJoin('categories' , 'categories.id' , '=' , 'video_tapes.category_id') 
                             ->orderby('video_tapes.created_at' , 'desc')
-                            ->where('categories.status', CATEGORY_APPROVE_STATUS)
+                           
                             ->videoResponse();
 
         if ($request->id) {
@@ -7359,7 +7358,6 @@ public function trending_by_country($request) {
     public function channel_videos($channel_id, $skip , $request = null) {
 
         $videos_query = VideoTape::leftJoin('channels' , 'video_tapes.channel_id' , '=' , 'channels.id')
-                    ->leftJoin('categories' , 'categories.id' , '=' , 'video_tapes.category_id')
                     ->where('video_tapes.channel_id' , $channel_id)
                     ->videoResponse()
                     ->orderby('video_tapes.created_at' , 'desc');
@@ -7384,8 +7382,7 @@ public function trending_by_country($request) {
                     ->where('video_tapes.is_approved', ADMIN_VIDEO_APPROVED_STATUS)
                         ->where('video_tapes.publish_status' , 1)   
                         ->where('channels.status', 1)
-                        ->where('channels.is_approved', 1)
-                        ->where('categories.status', CATEGORY_APPROVE_STATUS);
+                        ->where('channels.is_approved', 1);
 
             }
 
