@@ -762,6 +762,8 @@ Route::group(['as' => 'user.'], function(){
     Route::post('update/more_infromation', 'UserController@more_details_save')->name('update.more_infromation_save');
 
 
+    Route::get('update/become_a_teacher', 'UserController@become_a_teacher')->name('upload.become_a_teacher');
+
     Route::get('update/upload_details', 'UserController@upload_details')->name('upload.information');
     Route::post('update/upload_details', 'UserController@upload_details_save')->name('upload.information.save');
 

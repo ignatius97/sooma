@@ -207,7 +207,8 @@
 
                     <li  class="dropdown">
                         <a class="nav-link text-light notification-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="return notificationsStatusUpdate();">
-                            <img src="{{asset('assignment.png')}}" style="width: 2rem;" alt="">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+
                         </a>
 
                         <ul class="dropdown-menu-notification dropdown-menu">
@@ -239,7 +240,7 @@
                 </ul>
                  
                  @if(is_null(Auth::user()->study_role))
-                  <a class="nav navbar-nav pull-right" href="{{route('user.upload.information')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Teacher</a>
+                  <a class="nav navbar-nav pull-right" href="{{route('user.upload.become_a_teacher')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Become a Teacher</a>
             
                   @else
             <a class="nav navbar-nav pull-right" href="{{url('mychannels/list')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Teacher</a>

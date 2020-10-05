@@ -1917,6 +1917,12 @@ class UserController extends Controller {
      }
 
 
+     public function become_a_teacher(Request $request){
+
+        return view('user.account.become_a_teacher');
+
+     }
+
 
      public function upload_details_save(Request $request){
 
