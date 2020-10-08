@@ -81,8 +81,8 @@
     <!-- Wrapper for slides -->
     
     
-    <div class="main_v" style="margin-top: 1%;">
-        <div >
+    <div id='video-slider' style="margin-top: 1%;">
+        <div class="slider-inner">
             <ul>
                 <li>
                     <div class="video">
@@ -191,6 +191,16 @@
                 @if(count($recent_videos->items) > 0)
 
                 <hr>
+
+                <style>
+          @media only screen and (min-width : 760px) {
+            
+            .box-head h3 {
+                font-size: 1.3vw;
+            }
+           
+        }
+          </style> 
                 
                     <div class="slide-area">
                        
