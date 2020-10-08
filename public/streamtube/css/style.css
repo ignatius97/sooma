@@ -2772,7 +2772,9 @@ changes
 	margin: 0 auto;
 }
 .menu4{
-	margin-bottom: 15px;
+	padding: 2vw;
+    margin-bottom: 15px;
+    background-color: white;
 }
 .bg-img{
 	background-repeat: no-repeat;

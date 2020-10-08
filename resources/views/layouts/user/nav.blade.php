@@ -20,19 +20,32 @@
     <div class="content">
         <ul class="y-home menu1">
 
-           
+          <style>
+          @media only screen and (min-width : 760px) {
+            
+            .y-home h3 {
+                font-size: 1.3vw;
+            }
+            .curriculum_name{
+                font-size:1.05vw;
+            }
+            .sooma_heade{
+                font-size:1.35vh;
+            }
+        }
+          </style> 
 
         <li>
              @foreach($countries as $country)
              @if($country_with_ip=='') 
              @if($country->country_name==$country_ip)
-            <h3 style="color: black; margin-left: 20px; font-weight: bold; font-size: 16px"> <span style="text-align: center;"> <img   class="slide-img1 placeholder" id="img" src="{{$country->picture}}"  /> </span>Curriculum Based Learning 
+            <h3 style="color: black; margin-left: 20px; font-weight: bold; "> <span style="text-align: center;"> <img   class="slide-img1 placeholder" id="img" src="{{$country->picture}}"  /> </span>Curriculum Based Learning 
             </h3>
               @endif
               @else
 
               @if($country->country_name==$country_with_ip)
-                <h3 style="color: black; margin-left: 20px; font-weight: bold; font-size: 16px"> <span> <img   class="slide-img1 placeholder" id="img" src="{{$country->picture}}"  /> </span> Curriculum Based Learning
+                <h3 style="color: black; margin-left: 20px; font-weight: bold; "> <span> <img   class="slide-img1 placeholder" id="img" src="{{$country->picture}}"  /> </span> Curriculum Based Learning
             </h3>
               @endif
              @endif
@@ -47,7 +60,7 @@
        @if($country_with_ip=='')
        @if($curriculum->country==$country_ip)
         <li id="hom" title="{{$curriculum->name}}" style="margin-left: 20px;">
-            <a  href="{{ route('user.curriculum.selection' , ['curriculum_id' => $curriculum->id, 'country'=>$country_ip] ) }}" > <img   class="slide-img1 placeholder" id="img" src="{{$curriculum->picture}}"  /> <h6 style="display: inline-grid; vertical-align: bottom; color: black; font-size: 15px;" >{{$curriculum->name}}</h6></a>
+            <a  href="{{ route('user.curriculum.selection' , ['curriculum_id' => $curriculum->id, 'country'=>$country_ip] ) }}" > <img   class="slide-img1 placeholder" id="img" src="{{$curriculum->picture}}"  /> <h6 style="display: inline-grid; vertical-align: bottom; color: black;" class="curriculum_name" >{{$curriculum->name}}</h6></a>
         </li>
         @endif
 
@@ -56,7 +69,7 @@
 
         @if($curriculum->country==$country_with_ip)
         <li id="hom" title="{{$curriculum->name}}" style="margin-left: 20px;">
-            <a  href="{{ route('user.curriculum.selection' , ['curriculum_id' => $curriculum->id, 'country'=>$country_with_ip] ) }}" > <img   class="slide-img1 placeholder" id="img" src="{{$curriculum->picture}}"  /> <h6 style="display: inline-grid; vertical-align: bottom; color: black; font-size: 15px;" >{{$curriculum->name}}</h6></a>
+            <a  href="{{ route('user.curriculum.selection' , ['curriculum_id' => $curriculum->id, 'country'=>$country_with_ip] ) }}" > <img   class="slide-img1 placeholder" id="img" src="{{$curriculum->picture}}"  /> <h6 style="display: inline-grid; vertical-align: bottom; color: black; " class="curriculum_name"  >{{$curriculum->name}}</h6></a>
         </li>
         @endif
 
