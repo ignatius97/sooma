@@ -22,6 +22,7 @@ use App\Classes;
 use App\NotificationTreck;
 use App\Assignment;
 use App\Answer;
+use App\BellNotification;
 
 use App\Wishlist;
 
@@ -114,6 +115,7 @@ class UserController extends Controller {
                 'single_video',
                 'contact',
                 'uace',
+                'about_sooma',
                 'uce',
                 'pre_primary',
                 'country_curriculum',
@@ -1917,12 +1919,6 @@ class UserController extends Controller {
      }
 
 
-     public function become_a_teacher(Request $request){
-
-        return view('user.account.become_a_teacher');
-
-     }
-
 
      public function upload_details_save(Request $request){
 
@@ -1937,7 +1933,7 @@ class UserController extends Controller {
 
         if($response->success) {
 
-            return redirect(url('/mychannels/list'))->with('flash_success' , 'details successfully submitted');
+            return redirect(url('/mychannels/list'))->with('flash_success' , 'You have successully registered as a teacher, create class and start teaching students');
 
         } else {
 
@@ -2318,9 +2314,15 @@ class UserController extends Controller {
     }
 
 
+
+
     public function class_add_comment(Request $request) {
 
-     $response = $this->UserAPI->class_add_comment($request)->getData();
+        
+
+     //$response = $this->UserAPI->class_add_comment($request)->getData();
+
+     $response = $this->NewUserAPI-> notification_classpost_assignment($request)->getData();
       if($response->success) {
 
             $response->message = Helper::get_message(118);
@@ -4545,11 +4547,13 @@ class UserController extends Controller {
 
             foreach ($notifications as $key => $notification_details) {
 
-                $notification_redirect_url = route('user.single', $notification_details->video_tape_id);
+               
 
-                if($notification_details->notification_type == BELL_NOTIFICATION_NEW_SUBSCRIBER) {
+                $notification_redirect_url = route('user.single', ['id'=>$notification_details->video_tape_id] );
+
+                if($notification_details->notification_type == 'BELL_NOTIFICATION_NEW_SUBSCRIBER') {
                     
-                    $notification_redirect_url = route('user.channel', $notification_details->channel_id);
+                    $notification_redirect_url = route('user.channel', ['id'=>$notification_details->channel_id]);
 
                 }
 
@@ -4576,6 +4580,10 @@ class UserController extends Controller {
 
     } 
 
+
+
+
+
     /**
      * Function Name : bell_notifications_update()
      *
@@ -4591,6 +4599,27 @@ class UserController extends Controller {
      */
 
     public function bell_notifications_update(Request $request) {
+
+
+         $notification_data=BellNotification::where('to_user_id', Auth::user()->id)->where('status',1)->get();
+
+
+
+        if(count($notification_data)>0){
+
+          
+        foreach ($notification_data as $key => $value) {
+
+
+               $data= BellNotification::where('to_user_id', Auth::user()->id)->update(['status'=>0]);
+
+                 }
+
+
+           }
+
+
+
 
     }  
 
@@ -4617,6 +4646,43 @@ class UserController extends Controller {
             ]);
 
             $response = $this->UserAPI->bell_notifications_count($request)->getData();
+
+            if($response->success == false) {
+
+                throw new Exception($response->error_messages, $response->error_code);
+            }
+
+            return response()->json($response, 200);
+
+        } catch(Exception $e) {
+
+            $error_messages = $e->getMessage(); $error_code = $e->getCode();
+
+            $response_array = ['success' => false, 'error_messages' => $error_messages, 'error_code' => $error_code];
+
+            return response()->json($response_array);
+
+            // return redirect()->to('/')->with('flash_error' , $error_messages);
+
+        }
+
+    }  
+
+    //class specific notification count 
+
+
+
+
+    public function bell_notifications_class(Request $request) {
+
+        try {
+
+            $request->request->add([
+                'id'=> Auth::user()->id,
+                'token'=> Auth::user()->token
+            ]);
+
+            $response = $this->UserAPI->bell_notifications_class($request)->getData();
 
             if($response->success == false) {
 
@@ -6197,6 +6263,7 @@ public function channel_assignment(Request $request){
                 ->with('assignment', $assignment)
                 ->with('trendings', $trendings)
                 ->with('answer', $answer)
+                ->with('channel_id', $request->channel_id)
                 ->with('response', $response);
 
     }
@@ -6210,6 +6277,7 @@ public function assignment_upload(Request $request){
 
 
 public function assignment_answer_upload(Request $request){
+   $this->NewUserAPI->notification_classpost_assignment($request)->getData();
 
    $answer=new Answer();
 
@@ -6234,6 +6302,11 @@ public function assignment_answer_upload(Request $request){
 
 
 
+public function about_sooma(){
+
+  return view('user.about_sooma');
+
+}
 
 
 

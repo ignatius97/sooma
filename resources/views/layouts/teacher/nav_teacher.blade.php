@@ -1,22 +1,32 @@
-<style>
-    .sidebarItems:hover{
-        background-color: #e1e1e1;
-    }
-</style>
 <div class="y-menu col-sm-3 col-md-3" >
     <div class="curriculum">
-        <h3 class="popular_title" style="color: black; font-weight: bold; text-align: center; font-style: italic; font-size: 17px">My Classes </h3>
+        <ul class="y-home menu1">
+
+        <li><h3 class="popular_title" style="color: black; font-weight: bold; text-align: center; font-style: italic; font-size: 17px">My Classes </h3></li>
 
 
-
-     
-
-
-
-      
-
-     
        
+     
+        @if(count($nav_bar)>0)
+
+        @foreach($nav_bar as $nav)
+    
+        <li id="hom" title="">
+            <a  href="{{ route('user.channel', ['id'=>$nav->id]) }}" > <img   class="slide-img1 placeholder" id="img" src="{{$nav->picture}}"  /> <h6 style="display: inline-grid; vertical-align: bottom; color: black; font-size: 15px;" >{{$nav->name}}</h6></a>
+        </li>
+
+
+        @endforeach
+
+        @else
+        <div style="display: inline-grid; vertical-align: bottom; color: black; font-size: 15px; margin-left: 20px;">
+    <h6  >No class Created</h6>
+          </div>
+        @endif
+    
+      
+      
+        </ul>
     
               
 
@@ -122,8 +132,8 @@
         @if(!Auth::user()->user_type)
 
             <div class="menu4 top nav-space">
-                <p>{{tr('subscribe_note')}}</p>
-                <a href="{{route('user.subscriptions')}}" class="btn btn-sm btn-primary">{{tr('subscribe')}}</a>
+                <p>Create class to start Uploading Videos</p>
+                <a href="/channel_create" class="btn btn-sm btn-primary">Create class</a>
             </div> 
 
 

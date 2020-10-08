@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\UserApiController;
 use App\Country;
 use App\Curriculum;
+use App\Channel;
 use View;
 
 use Auth;
@@ -57,8 +58,20 @@ class AppServiceProvider extends ServiceProvider
           view::share('notifications', []);
 
 
-          //Notification time treck and data collect
+          //Teacher Nav
+           view()->composer('*', function ($view) 
+        {
+           if (Auth::check()) {
+             $nav=Channel::where('user_id', Auth::user()->id)->get();
+        //...with this variable
+              $view->with('nav_bar', $nav );  
+              $view->with('user', Auth::user()->id); 
+           }
+            
+          }); 
+
           
+  
 
          
         

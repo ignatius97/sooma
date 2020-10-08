@@ -22,7 +22,7 @@
 
         @include('layouts.user.nav')
 
-        <div class="page-inner col-sm-9 col-md-10 profile-edit margin_left">
+        <div class="page-inner col-sm-9 col-md-8 profile-edit ">
 
             <div class="profile-content slide-area1">
                
@@ -98,14 +98,7 @@
                                             <input type="text" value="{{old('dob') ?: $dob }}" name="dob" class="form-control" placeholder="{{tr('enter_dob')}}" maxlength="13" id="dob" readonly>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="users_role">{{tr('users_role')}}:  </label>
-                                            <select name="users_role"  style="margin-left: 2%; width: 30%;">
-                                                  <option value="{{Auth::user()->study_role}}">{{Auth::user()->study_role}}</option>
-                                                  <option value="Teacher">Teacher</option>
-                                                  <option value="Student">Student</option>  
-                                                </select>
-                                         </div>
+                                    
 
                                          <div class="form-group">
                                             <label for="gender">Gender:  </label>

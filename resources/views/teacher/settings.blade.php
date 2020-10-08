@@ -1,4 +1,7 @@
-@extends( 'layouts.user' )
+
+@extends( 'layouts.teacher.user_teacher' ) 
+
+@section( 'styles' )
 
 @section('content')
 
@@ -6,7 +9,7 @@
 
 	<div class="row content-row">
 
-		@include('layouts.user.nav')
+	  @include('layouts.teacher.nav_teacher')
 
 		<div class="page-inner col-xs-12 col-sm-8 col-md-8">
 

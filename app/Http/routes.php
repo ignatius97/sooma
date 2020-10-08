@@ -679,6 +679,8 @@ Route::group(['as' => 'user.'], function(){
     
     Route::get('/trending', 'UserController@trending')->name('trending');
 
+     Route::get('/about_us', 'UserController@about_sooma')->name('about_sooma');
+   
 
     Route::get('channels', 'UserController@channels')->name('channel.list');
     
@@ -761,8 +763,6 @@ Route::group(['as' => 'user.'], function(){
     Route::get('update/more_infromation', 'UserController@more_details')->name('update.more_infromation');
     Route::post('update/more_infromation', 'UserController@more_details_save')->name('update.more_infromation_save');
 
-
-    Route::get('update/become_a_teacher', 'UserController@become_a_teacher')->name('upload.become_a_teacher');
 
     Route::get('update/upload_details', 'UserController@upload_details')->name('upload.information');
     Route::post('update/upload_details', 'UserController@upload_details_save')->name('upload.information.save');
@@ -955,6 +955,7 @@ Route::group(['as' => 'user.'], function(){
     Route::any('notifications/update', 'UserController@bell_notifications_update')->name('bell_notifications.update');
 
     Route::any('notifications/count', 'UserController@bell_notifications_count')->name('bell_notifications.count');
+    Route::any('notifications/class', 'UserController@bell_notifications_class')->name('bell_notifications.count.class');
 
     // User Playlists
 
@@ -1595,6 +1596,11 @@ Route::group(['as' => 'user.'], function(){
         // =============== v5.0 ==================
 
     Route::any('/channel/playlists/save', 'TeacherController@channel_playlists_save')->name('channel.playlists.save');
+
+    //settings route for the teacher 
+    Route::get('teacher-settings', 'TeacherController@settings');
+
+
 
 
 });

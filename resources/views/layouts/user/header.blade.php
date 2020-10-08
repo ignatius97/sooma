@@ -44,7 +44,7 @@
     </div> -->
     <div class="row">
 
-        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4">
+         <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4">
 
             <a href="#" class="hidden-xs"><img src="{{asset('images/menu.png')}}"  class="toggle-icon"  style="color: white"></a>
 
@@ -64,7 +64,8 @@
 
     
 
-        <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12 hidden-xs">
+        
+             <div class="col-lg-6 col-md-5 col-sm-5 col-xs-12 hidden-xs">
 
           
 
@@ -102,8 +103,8 @@
         </div>
 
         <!-- ========RESPONSIVE  HEADER VISIBLE IN MOBAILE VIEW====== -->
-        
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 hidden-xs visible-sm visible-md visible-lg">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 hidden-xs visible-sm visible-md visible-lg">
+       
 
             @if(Auth::check())
 
@@ -164,11 +165,11 @@
 
                 </div>
 
-                <ul class="nav navbar-nav pull-right">
+                 <ul class="nav navbar-nav pull-right">
 
                     <li  class="dropdown">
                         <a class="nav-link text-light notification-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="return notificationsStatusUpdate();">
-                            <i class="fa fa-bell"></i>
+                            <i class="fa fa-bell"></i><span id="global-notifications-student"></span>
                         </a>
 
                         <ul class="dropdown-menu-notification dropdown-menu">
@@ -178,46 +179,7 @@
                                     <div class="col-lg-12 col-sm-12 col-12">
                                         <span>
                                             {{tr('notifications')}} 
-                                            (<span>{{$number}}</span>)<br>
-                                        </span>
-                                        @if(count($notifications)>0)
-                                        @foreach($notifications as $key=>$not)
-                                        @if($key<2)
-                                        <a href="" style="color: black;"> <span>{{$not->username}} posted in {{$not->channel_name}}</span> </a><br>
-                                        @endif
-                                        @endforeach
-                                        @endif
-                                        <!-- <a href="" class="float-right text-light">Mark all as read</a> -->
-                                    </div>
-                                </div>
-                            </li>
-
-                            <span id="global-notifications-box"></span>
-
-                            <li class="notification-footer bg-dark text-center">
-                                <a href="{{route('user.channels',['id'=>1])}}" class="text-light">
-                                    {{tr('view_all')}}
-                                </a>
-                            </li>
-                        
-                        </ul>
-
-                    </li>
-
-
-                    <li  class="dropdown">
-                        <a class="nav-link text-light notification-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="return notificationsStatusUpdate();">
-                        <i class="fa fa-envelope" aria-hidden="true"></i>
-
-                        </a>
-
-                        <ul class="dropdown-menu-notification dropdown-menu">
-
-                            <li class="notification-head text-light bg-dark">
-                                <div class="row">
-                                    <div class="col-lg-12 col-sm-12 col-12">
-                                        <span>
-                                            {{tr('notifications')}} 
+                                            
                                             (<span id="global-notifications-count">0</span>)
                                         </span>
                                         <!-- <a href="" class="float-right text-light">Mark all as read</a> -->
@@ -228,7 +190,7 @@
                             <span id="global-notifications-box"></span>
 
                             <li class="notification-footer bg-dark text-center">
-                                <a href="" class="text-light">
+                                <a href="{{route('user.bell_notifications.index')}}" class="text-light">
                                     {{tr('view_all')}}
                                 </a>
                             </li>
@@ -239,13 +201,13 @@
                  
                 </ul>
                  
-                 @if(is_null(Auth::user()->study_role))
-                  <a class="nav navbar-nav pull-right" href="{{route('user.upload.become_a_teacher')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Become a Teacher</a>
+                 @if(Auth::user()->study_role==0)
+                  <a class="nav navbar-nav pull-right" href="{{route('user.upload.information')}}"  style="color: white; padding-top: 2%;">Become A Teacher</a>
             
                   @else
-            <a class="nav navbar-nav pull-right" href="{{url('mychannels/list')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Teacher</a>
-                   @endif
-                   <form action="/" method="get" style="margin-top: 1vh;">
+                   <a class="nav navbar-nav pull-right" href="{{url('mychannels/list')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Switch To Teacher</a>
+                @endif
+                     <form action="/" method="get" style="margin-top: 1vh;">
                    <select id="options" name="targeted_country" style="width: auto;">
 
                  @if($country_with_ip=='')

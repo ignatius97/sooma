@@ -28,7 +28,7 @@ use App\BellNotificationTemplate;
 use App\User, App\Card, App\Wishlist;
 
 use App\BellNotification;
-
+use App\Class_Discusion;
 use App\Category, App\SubCategory;
 
 use App\Page;
@@ -3540,7 +3540,7 @@ class NewUserApiController extends Controller
      *
      * @return json repsonse
      */ 
-    public function channels_unsubscribe_subscribe(Request $request) {
+ public function channels_unsubscribe_subscribe(Request $request) {
 
         try {
 
@@ -3632,12 +3632,12 @@ class NewUserApiController extends Controller
                 '{video_title}' => $video_title
             ];
 
-            $message = strtr($template_details->message, $replacers);
+            $message = $username. " has enroled to ". $channel_name . " class";
 
              }
 
 
-            $user_ids = ChannelSubscription::where('channel_id', $channel_details->id)->pluck('user_id');
+             $user_ids = [$channel_details->user_id];
 
        
 
@@ -3689,6 +3689,155 @@ class NewUserApiController extends Controller
 
         }
    
+    }
+
+
+
+
+
+    public function notification_classpost_assignment($request){
+
+
+         try {
+
+            $validator = Validator::make( $request->all(), 
+                    [
+                        'channel_id' => 'required|exists:channels,id'
+                    ]);
+
+
+            if ($validator->fails()) {
+
+                $error = implode(',',$validator->messages()->all());
+
+                throw new Exception($error, 101);
+
+            }
+
+            DB::beginTransaction();
+
+            $channel_details = Channel::where('status', USER_CHANNEL_APPROVED)
+                                    ->where('is_approved', ADMIN_CHANNEL_APPROVED)
+                                    ->where('id', $request->channel_id)
+                                    ->first();
+
+            // @todo $channel_deyails handle excpetion
+
+           if($request->type=='Class_Post'){
+
+                $channel_subscription_details = new Class_Discusion;
+
+                $channel_subscription_details->user_id = $request->users_id;
+
+                $channel_subscription_details->channel_id = $request->channel_id;
+
+                $channel_subscription_details->comment= $request->class_comments;
+
+                $channel_subscription_details->save();
+
+            }
+
+                // Bell Notification
+
+               
+
+
+        $template_details = BellNotificationTemplate::where('type', $request->type)->first();
+
+        $message = "new notification";
+
+        if($template_details) {
+
+            Log::info("BellNotification - template_details");
+
+            $channel_details = $channel_details->id ? Channel::find($channel_details->id): [];
+            $video_tape_details = isset($channel_details->video_tape_id) ? VideoTape::find($channel_details->video_tape_id) : [];
+
+            $user_details = User::find($request->users_id);
+
+            $channel_name = $channel_details ? $channel_details->name : "";
+
+            $video_title = $video_tape_details ? $video_tape_details->title : "";
+
+            $username = $user_details ? $user_details->name : "";
+
+            $replacers = [
+                '{username}' => $username,
+                '{channel_name}' => $channel_name,
+                '{video_title}' => $video_title
+            ];
+
+            $message = $username. " uploaded answer in ". $channel_name . " class";
+
+             }
+
+
+             $user_ids = [$channel_details->user_id];
+
+             if($request->type == 'Class_Post') {
+
+            $user_ids = ChannelSubscription::where('channel_id', $request->channel_id)->pluck('user_id');
+            $message = $username. " has posted to ". $channel_name . " class";
+
+                }
+
+            if($request->type == 'Assignment_Upload') {
+
+                $user_ids = ChannelSubscription::where('channel_id', $request->channel_id)->pluck('user_id');
+               $message = $username. " has uploaded assignment in ". $channel_name . " class";
+
+             }
+
+       
+
+            foreach ($user_ids as $key => $to_user_id) {
+            
+            $bell_notification = New BellNotification;
+
+            $bell_notification->from_user_id = $request->users_id;
+
+            $bell_notification->to_user_id =$to_user_id;
+
+            $bell_notification->notification_type =$request->type;
+
+            $bell_notification->message = $message;
+
+            $bell_notification->channel_id = $channel_details->id;
+
+            $bell_notification->video_tape_id =0;
+
+            $bell_notification->status = BELL_NOTIFICATION_STATUS_UNREAD;
+
+            $bell_notification->save();
+              }
+
+
+
+              Log::info("BellNotification - END");
+
+                $message = CommonHelper::success_message(221); 
+                $code = 221;
+
+                $is_user_subscribed_the_channel = YES;
+
+          
+            DB::commit();
+
+             $response_array = array('success' => true , 'comment' => $channel_subscription_details->toArray() , 'date' => $channel_subscription_details->created_at->diffForHumans(),'message' => tr('comment_success') );
+
+             $response = response()->json($response_array, 200);
+
+                   return $response;
+        } catch(Exception $e) {
+
+            DB::rollback();
+
+            return $this->sendError($e->getMessage(), $e->getCode());
+
+        }
+
+
+
     }
 
     /**

@@ -181,18 +181,21 @@
 
                                         <li role="presentation" class="active">
                                             <a href="#home1" class="yt-uix-button  spf-link  yt-uix-sessionlink yt-uix-button-epic-nav-item yt-uix-button-size-default" aria-controls="home" role="tab" data-toggle="tab">
-                                                <span class="yt-uix-button-content ">{{tr('home')}}</span>
+                                                <span class="yt-uix-button-content hidden-xs">{{tr('home')}}</span>
+                                                <span class="visible-xs"><i class="fa fa-home channel-tab-icon"></i></span>
                                             </a>
                                         </li>
 
                                         <li role="presentation">
                                             <a href="#about" class="yt-uix-button spf-link  yt-uix-sessionlink yt-uix-button-epic-nav-item yt-uix-button-size-default" aria-controls="about" role="tab" data-toggle="tab">
-                                                <span class="yt-uix-button-content ">About Class</span>
+                                                <span class="yt-uix-button-content hidden-xs">About Class</span>
+                                                <span class="visible-xs"><i class="fa fa-info channel-tab-icon"></i></span>
                                             </a>
                                         </li>
                                         <li role="presentation" id="videos_sec">
                                             <a href="#videos" class="yt-uix-button  spf-link  yt-uix-sessionlink yt-uix-button-epic-nav-item yt-uix-button-size-default" aria-controls="videos" role="tab" data-toggle="tab">
-                                                <span class="yt-uix-button-content ">{{tr('videos')}}</span>
+                                                <span class="yt-uix-button-content hidden-xs">{{tr('videos')}}</span>
+                                                <span class="visible-xs"><i class="fa fa-video-camera channel-tab-icon"></i></span>
                                             </a>
                                         </li>
                                         
@@ -209,13 +212,15 @@
                                         @endif
                                         <li role="presentation">
                                             <a href="#class-post" class="yt-uix-button spf-link  yt-uix-sessionlink yt-uix-button-epic-nav-item yt-uix-button-size-default" aria-controls="about" role="tab" data-toggle="tab">
-                                                <span class="yt-uix-button-content ">Discussion</span>
+                                                <span class="yt-uix-button-content hidden-xs class_note">Discussion</span>
+                                                <span class="visible-xs"><i class="fa fa-info channel-tab-icon"></i></span>
                                             </a>
                                         </li>
                                         
                                         <li role="presentation">
                                             <a href="#assignments" class="yt-uix-button spf-link  yt-uix-sessionlink yt-uix-button-epic-nav-item yt-uix-button-size-default" aria-controls="about" role="tab" data-toggle="tab">
-                                                <span class="yt-uix-button-content ">Assignments</span>
+                                                <span class="yt-uix-button-content hidden-xs">Assignments</span>
+                                                <span class="visible-xs"><i class="fa fa-info channel-tab-icon"></i></span>
                                             </a>
                                         </li>
 
@@ -719,6 +724,7 @@
                   <form method="post" id="class_comment_sent" name="class_comment_sent" action="{{route('user.class.add.comment')}}">
                      <input type="hidden" value="{{$channel_id}}" name="channel_id">
                      <input type="hidden" value="{{Auth::user()->id}}" name="users_id">
+                     <input type="hidden" value="Class_Post" name="type">
                      <textarea rows="10" id="class_comment" name="class_comments" placeholder="Add a CLass Comment"></textarea>
                      <p class="underline"></p>
                      <button class="btn pull-right btn-sm btn-info btn-lg top-btn-space" type="submit" id="class_comment_btn">Post Comment</button>
@@ -780,7 +786,7 @@
                                     <h5>Assignments</h5>
 
                                     @foreach($assignment as $assignment)
-                                    <a href="{{route('user.channel.assignments', ['assignment_id'=>$assignment->id])}}" >
+                                    <a href="{{route('user.channel.assignments', ['assignment_id'=>$assignment->id, 'channel_id'=>$channel_id])}}" >
                                         <div style="border:1px solid black; padding: 10px; margin-bottom:10px; color:black;">
                                             <P>{{$assignment->title}}<br/> <small>{{$assignment->created_at}}</small></P>
                                         </div>

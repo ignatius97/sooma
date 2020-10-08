@@ -30,83 +30,45 @@
 
                     @include('notification.notify')
 
-                    <div class="col-sm-8 col-md-7 col-lg-10 profile-view">
+                   <div class="col-sm-8 col-md-7 col-lg-10 profile-view">
                         
-                        <h2 class="mylist-head" style="text-align: center; font-size: 30px;">{{tr('edit_infromation')}}</h2>
+                        <h2 class="mylist-head" style="text-align: center; font-size: 30px;">FILL THE FORM BELOW</h2>
                        
                         <div class="edit-profile profile-view">
                             
                             <div class="edit-form profile-bg">
                                 
-                                <div class="image-profile edit-image">
-                                    @if(Auth::user()->picture)
-                                        <img src="{{Auth::user()->picture}}" id="img_profile">
-                                    @else
-                                        <img src="{{asset('placeholder.png')}}" id="img_profile">
-                                    @endif    
-                                   
-                                   <p class="help-block">{{tr('image_validate')}} {{tr('image_square')}}</p>
-                                </div><!--end of image-profile-->
 
                                 <div class="editform-content"> 
                                     
-                                    <form  action="{{ route('user.upload.information') }}" method="POST" enctype="multipart/form-data">
+                                    <form  action="{{ route('user.upload.information.save') }}" method="POST" enctype="multipart/form-data">
 
-                                        <div class="form-group">
-                                            <label for="exampleInputFile">{{tr('upload_image')}}</label>
-                                            <input type="file" name="picture" class="form-control-file" accept="image/png, image/jpeg" id="exampleInputFile" aria-describedby="fileHelp" onchange="loadFile(this,'img_profile')">
-                                            <p class="help-block">{{tr('image_validate')}} {{tr('image_square')}}</p>
-                                        </div>
-
-                                        @if(Auth::user()->login_by == 'manual')
-
-
-                                        @endif
                                        
 
-                                        <?php
+                                       
 
-                                        if (!empty(Auth::user()->dob) && Auth::user()->dob != "0000-00-00") {
-
-                                            $dob = date('d-m-Y', strtotime(Auth::user()->dob));
-
-                                        } else {
-
-                                            $dob = "00-00-0000";
-                                        }
-
-                                        ?>
 
                                         <div class="form-group">
-                                            <label for="dob">{{tr('dob')}}</label>
-                                            <input type="text" value="{{old('dob') ?: $dob }}" name="dob" class="form-control" placeholder="{{tr('enter_dob')}}" maxlength="13" id="dob" readonly>
+                                            <label for="profession">Profession</label>
+                                            <input type="text"  name="profession" class="form-control" placeholder=" A Teacher" >
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="users_role">{{tr('users_role')}}:  </label>
-                                            <select name="users_role"  style="margin-left: 2%; width: 30%;">
-                                                  <option value="{{Auth::user()->study_role}}">{{Auth::user()->study_role}}</option>
-                                                  <option value="Teacher">Teacher</option>
-                                                  <option value="Student">Student</option>  
-                                                </select>
-                                         </div>
 
-                                         <div class="form-group">
-                                            <label for="gender">Gender:  </label>
-                                            <select name="gender"  style="margin-left: 2%; width: 30%;">
-                                                <option value="{{Auth::user()->gender}}">{{Auth::user()->gender}}</option>
-                                                  <option value="Male">M</option>
-                                                  <option value="Female">F</option>  
-                                                </select>
-                                         </div>
+
+                                        <div class="form-group">
+                                            <label for="subject">Subject Specialization</label>
+                                            <input type="text"  name="subject" class="form-control" placeholder="Mathematics" >
+                                        </div>
+
+
                                               
                                         <div class="form-group">
                                             <label for="about">{{tr('about_me')}}</label>
                                             <textarea name="description" class="form-control" id="about" rows="3">{{old('description') ?: Auth::user()->description}}</textarea>
                                         </div>
                                               
-                                        <div style="margin-left: 12vw; display: inline; width: 25px;">
-                                            <button type="submit" class="btn btn-info">{{tr('submit')}}</button>
+                                        <div style="margin-left: 12vw; display: inline; ">
+                                            <button type="submit" class="btn btn-info">Submit To Become Teacher</button>
                                             
                                         </div>                                              
 

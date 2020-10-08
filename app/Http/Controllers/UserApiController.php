@@ -80,6 +80,7 @@ use App\LiveVideoPayment;
 
 use App\ChatMessage;
 
+
 use App\Viewer;
 
 use Exception;
@@ -2055,11 +2056,10 @@ class UserApiController extends Controller {
             $request->all(),
             array(
                 
-                'picture' => 'mimes:jpeg,bmp,png',
-                'device_token' => '',
-                'dob'=>'required',
-                'users_role'=>'required',
-                'gender'=>'required',
+           
+                'profession' => '',
+               
+                'subject'=>'required',
                 'description'=>'required',
                 
             ));
@@ -2081,51 +2081,15 @@ class UserApiController extends Controller {
                 
 
                
-                $user->gender = $request->gender ? $request->gender : $user->gender;
-                $user->address = $request->address ? $request->address : $user->address;
-                $user->study_role=$request->users_role?$request->users_role:$user->study_role;
-                $user->description = $request->description ? $request->description : $user->address;
-
-
-
-                if ($request->dob) {
-
-                    $user->dob = date('Y-m-d', strtotime($request->dob));
-
-                }
-
-                if ($user->dob) {
-
-                    $from = new \DateTime($user->dob);
-                    $to   = new \DateTime('today');
-
-                    $user->age_limit = $from->diff($to)->y;
-
-                }
-
-
-                // Upload picture
-
-                if ($request->hasFile('picture') != "") {
-
-                    Helper::delete_picture($user->picture, "/uploads/images/"); // Delete the old pic
-
-                    $user->picture = Helper::normal_upload_picture($request->file('picture'), "/uploads/images/", $user);
-                }
+                $user->profession = $request->profession;
+                $user->study_role=1;
+                $user->description = $request->address;
+                $user->subject = $request->subject;
 
                 $user->save();
             }
 
             $payment_mode_status = $user->payment_mode ? $user->payment_mode : "";
-
-            if (!empty($user->dob) && $user->dob != "0000-00-00") {
-
-                $user->dob = date('d-m-Y', strtotime($user->dob));
-
-            } else {
-
-                $user->dob = "";
-            }
 
             $response_array = array(
                 'success' => true,
@@ -2744,7 +2708,7 @@ class UserApiController extends Controller {
                     array(
                         'name' => 'required|max:255',
                         'email' => 'required|email|max:255',
-                        'mobile' => 'digits_between:6,13',
+                        'mobile' => 'digits_between:6,10',
                         'password' => 'required|min:6',
                         'picture' => 'mimes:jpeg,jpg,bmp,png',
                     )
@@ -10682,7 +10646,7 @@ public function trending_by_country($request) {
              $take = $this->take ?: TAKE_COUNT;
 
             $bell_notifications = BellNotification::where('to_user_id', $request->id)
-                                        ->select('notification_type', 'channel_id', 'video_tape_id', 'message', 'status as notification_status', 'from_user_id', 'to_user_id', 'created_at')
+                                        ->select('notification_type', 'channel_id', 'video_tape_id',  'message', 'status as notification_status', 'from_user_id', 'to_user_id', 'created_at')
                                         ->skip($skip)
                                         ->take($take)
                                         ->orderBy('bell_notifications.created_at', 'desc')
@@ -10795,11 +10759,44 @@ public function trending_by_country($request) {
             
         $bell_notifications_count = BellNotification::where('status', BELL_NOTIFICATION_STATUS_UNREAD)->where('to_user_id', $request->id)->count();
 
+
         $response_array = ['success' => true, 'count' => $bell_notifications_count];
 
         return response()->json($response_array);
 
     }
+
+
+
+
+
+     public function bell_notifications_class(Request $request) {
+
+        // TODO
+
+        if($request->type=='Answer_upload'){     
+            
+        $bell_notifications_count = BellNotification::where('status', BELL_NOTIFICATION_STATUS_UNREAD)->where('to_user_id', $request->id)->where('notification_type', 'Answer_upload')->count();
+       
+
+        }
+        elseif ($request->type=='Class_Post') {
+        $bell_notifications_count = BellNotification::where('status', BELL_NOTIFICATION_STATUS_UNREAD)->where('to_user_id', $request->id)->where('notification_type', 'Class_Post')->count();
+       
+        }
+
+        elseif ($request->type=='Assignment_Upload') {
+            $bell_notifications_count = BellNotification::where('status', BELL_NOTIFICATION_STATUS_UNREAD)->where('to_user_id', $request->id)->where('notification_type', 'Assignment_Upload')->count();
+       
+        }
+
+        $response_array = ['success' => true, 'count' => $bell_notifications_count];
+
+
+        return response()->json($response_array);
+        }
+
+    
 
     /**
      * @method video_tapes_youtube_grapper_save()

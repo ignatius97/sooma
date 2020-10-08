@@ -1,51 +1,20 @@
-<style>
-.content {
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: auto;
-  grid-area: content;
-  width:100%;
-  height: 80vh;
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
-
-</style>
-
-
-
-<div>
 <div class="y-menu col-sm-4 col-md-4" style="margin-right: 0px;" >
-
-    <div class="curriculum" style="position: fixed; width: 32%;">
-    <div class="content">
+    <div class="curriculum">
         <ul class="y-home menu1">
 
-          <style>
-          @media only screen and (min-width : 760px) {
-            
-            .y-home h3 {
-                font-size: 1.3vw;
-            }
-            .curriculum_name{
-                font-size:1.05vw;
-            }
-            .sooma_heade{
-                font-size:1.35vh;
-            }
-        }
-          </style> 
+           
 
         <li>
              @foreach($countries as $country)
              @if($country_with_ip=='') 
              @if($country->country_name==$country_ip)
-            <h3 style="color: black; margin-left: 20px; font-weight: bold; "> <span style="text-align: center;"> <img   class="slide-img1 placeholder" id="img" src="{{$country->picture}}"  /> </span>Curriculum Based Learning 
+            <h3 class="popular_title" style="color: black; margin-left: 20px; font-weight: bold;  font-style: italic; font-size: 16px"> <span style="text-align: center;"> <img   class="slide-img1 placeholder" id="img" src="{{$country->picture}}"  /> </span>Curriculum Based Learning 
             </h3>
               @endif
               @else
 
               @if($country->country_name==$country_with_ip)
-                <h3 style="color: black; margin-left: 20px; font-weight: bold; "> <span> <img   class="slide-img1 placeholder" id="img" src="{{$country->picture}}"  /> </span> Curriculum Based Learning
+                <h3 class="popular_title" style="color: black; margin-left: 20px; font-weight: bold;  font-style: italic; font-size: 16px"> <span> <img   class="slide-img1 placeholder" id="img" src="{{$country->picture}}"  /> </span> Curriculum Based Learning
             </h3>
               @endif
              @endif
@@ -60,7 +29,7 @@
        @if($country_with_ip=='')
        @if($curriculum->country==$country_ip)
         <li id="hom" title="{{$curriculum->name}}" style="margin-left: 20px;">
-            <a  href="{{ route('user.curriculum.selection' , ['curriculum_id' => $curriculum->id, 'country'=>$country_ip] ) }}" > <img   class="slide-img1 placeholder" id="img" src="{{$curriculum->picture}}"  /> <h6 style="display: inline-grid; vertical-align: bottom; color: black;" class="curriculum_name" >{{$curriculum->name}}</h6></a>
+            <a  href="{{ route('user.curriculum.selection' , ['curriculum_id' => $curriculum->id, 'country'=>$country_ip] ) }}" > <img   class="slide-img1 placeholder" id="img" src="{{$curriculum->picture}}"  /> <h6 style="display: inline-grid; vertical-align: bottom; color: black; font-size: 15px;" >{{$curriculum->name}}</h6></a>
         </li>
         @endif
 
@@ -69,7 +38,7 @@
 
         @if($curriculum->country==$country_with_ip)
         <li id="hom" title="{{$curriculum->name}}" style="margin-left: 20px;">
-            <a  href="{{ route('user.curriculum.selection' , ['curriculum_id' => $curriculum->id, 'country'=>$country_with_ip] ) }}" > <img   class="slide-img1 placeholder" id="img" src="{{$curriculum->picture}}"  /> <h6 style="display: inline-grid; vertical-align: bottom; color: black; " class="curriculum_name"  >{{$curriculum->name}}</h6></a>
+            <a  href="{{ route('user.curriculum.selection' , ['curriculum_id' => $curriculum->id, 'country'=>$country_with_ip] ) }}" > <img   class="slide-img1 placeholder" id="img" src="{{$curriculum->picture}}"  /> <h6 style="display: inline-grid; vertical-align: bottom; color: black; font-size: 15px;" >{{$curriculum->name}}</h6></a>
         </li>
         @endif
 
@@ -262,18 +231,14 @@
     margin-top: 10%;">
         <div class="menu4 top nav-space my_bg_color" >
 
-            <form method="get" action="{{route('user.register.form')}}">
+           <a href="{{ route('user.about_sooma') }}" target="_blank">
                 <button type="submit" class="sign_up_btn" style="background-color: brown;">About us</button>
-            </form>
-            <h3 class="sooma_heade">For more information about <span class="sooma_colo">sooma</span> Please click the button below</h3>
+            </a>
+            <h3 class="sooma_header">For more information about <span class="sooma_color">sooma</span> Please click the button below</h3>
             
             
         </div> 
         </div>  
     @endif             
-</div>
-</div>
-
-
 </div>
 </div>

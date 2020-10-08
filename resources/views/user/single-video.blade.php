@@ -87,7 +87,7 @@
       
       @include('layouts.user.nav')
          
-         <div class="page-inner   profile-edit">
+         <div class="page-inner  col-xs-12 col-sm-12 col-md-8 profile-edit">
             
             <div class="profile-content mar-0">
             
@@ -266,7 +266,7 @@
 
                                                    @else
                                                       
-                                                      <a class="btn btn-sm bottom-space btn-danger text-uppercase" href="{{route('user.channel.subscribers', array('channel_id'=>$video->channel_id))}}" style="background: rgb(229, 45, 39) !important"><i class="fa fa-users"></i>&nbsp; {{tr('subscribers')}} - {{$subscriberscnt}}</a>
+                                                      <a class="btn btn-sm bottom-space btn-danger text-uppercase" href="{{route('user.channel.subscribers', array('channel_id'=>$video->channel_id))}}" style="background: rgb(229, 45, 39) !important"><i class="fa fa-users"></i>&nbsp; Enroled- {{$subscriberscnt}}</a>
 
                                                    @endif
                                                 

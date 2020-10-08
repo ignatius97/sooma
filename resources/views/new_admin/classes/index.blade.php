@@ -4,11 +4,7 @@
 
 @section('content-header') 
 
-@if(isset($user)) 
 
-	<span class="text-green"> {{ $user->name }} </span>- 
-
-@endif {{ 'country' }}
 
 @endsection 
 

@@ -45,6 +45,7 @@
 
 }
 
+
 .main_video{
 
     margin-right: 35px;
@@ -73,15 +74,15 @@
 
         @include('layouts.user.nav')
 
-             <div class="page-inner ">
+            <div class="page-inner ">
                 <div class="row">
                 <div class="main_video">
   
     <!-- Wrapper for slides -->
     
     
-    <div id='video-slider' style="margin-top: 1%;">
-        <div class="slider-inner">
+    <div class="main_v" style="margin-top: 1%;">
+        <div >
             <ul>
                 <li>
                     <div class="video">
@@ -226,7 +227,7 @@
 
                                 <div class="video-details">
                                     <div class="video-head">
-                                        <a href="{{$recent_video->url}}">{{$recent_video->title}}</a>
+                                        <a href="{{ route('user.single' , ['id' => $recent_video->url] ) }}">{{$recent_video->title}}</a>
                                     </div>
 
                                     <span class="video_views">

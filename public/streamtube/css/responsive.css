@@ -924,7 +924,17 @@
 		overflow: auto;
 		z-index: 10;
 	}
-	
+	.about_us{
+
+		background-color: white;
+		margin-bottom: 0px;
+		width: 64%;
+		margin-left: 18%;
+		height: 30vh;
+		text-align: center;
+		margin-top: 10%;
+	}
+
 	
 	.curriculum{
 		border-right: 1px solid #f1f1f1;

@@ -48,7 +48,7 @@
 
             <a href="#" class="hidden-xs"><img src="{{asset('images/menu.png')}}"  class="toggle-icon"  style="color: white"></a>
 
-            <a href="{{route('user.dashboard')}}"> 
+            <a href="/mychannels/list"> 
                 @if(Setting::get('site_logo'))
                     <img src="{{Setting::get('site_logo')}}" class="logo-img"> <span class="product_name">SOOMA</span>
                 @else
@@ -143,7 +143,7 @@
                             <div class="row">
 
                                 <div class="col-xs-6">
-                                    <a href="/settings" class="menu-link">
+                                    <a href="/teacher-settings" class="menu-link">
                                         <i class="fa fa-cog"></i>
                                         {{tr('settings')}}
                                     </a>
@@ -168,7 +168,7 @@
 
                     <li  class="dropdown">
                         <a class="nav-link text-light notification-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="return notificationsStatusUpdate();">
-                            <i class="fa fa-bell"></i>
+                            <i class="fa fa-bell"></i><span id="global-notifications-teacher"></span>
                         </a>
 
                         <ul class="dropdown-menu-notification dropdown-menu">
@@ -178,7 +178,7 @@
                                     <div class="col-lg-12 col-sm-12 col-12">
                                         <span>
                                             {{tr('notifications')}} 
-                                            (<span id="global-notifications-count">0</span>)
+                                            (<span id="global-notifications-counts">0</span>)
                                         </span>
                                         <!-- <a href="" class="float-right text-light">Mark all as read</a> -->
                                     </div>
@@ -188,7 +188,7 @@
                             <span id="global-notifications-box"></span>
 
                             <li class="notification-footer bg-dark text-center">
-                                <a href="{{route('user.bell_notifications.index')}}" class="text-light">
+                                 <a href="{{route('user.bell_notifications.index')}}" class="text-light">
                                     {{tr('view_all')}}
                                 </a>
                             </li>
@@ -199,12 +199,9 @@
                  
                 </ul>
                  
-                 @if(is_null(Auth::user()->study_role))
-                 <a class="nav navbar-nav pull-right" href="{{route('user.upload.information')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Student</a>
-                  @else
 
-                   <a class="nav navbar-nav pull-right" href="{{url('/')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Student</a>
-                   @endif
+                   <a class="nav navbar-nav pull-right" href="{{url('/')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Switch to Student</a>
+                   
                    
               
 
@@ -273,7 +270,7 @@
 
         <!-- ======== RESPONSIVE HEADER VISIBLE IN MOBAILE VIEW====== -->
 
-        @include('layouts.teacher.header-mobile-teacher')
+       
 
         <!-- ======== RESPONSIVE HEADER VISIBLE IN MOBAILE VIEW====== -->
 

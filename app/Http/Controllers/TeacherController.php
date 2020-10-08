@@ -1062,9 +1062,12 @@ public function curriculum_class_select_dataa($id){
 
 
     public function class_add_assignment(Request $request)
-    {
+    {   
+        $data=$this->NewUserAPI->notification_classpost_assignment($request)->getData();
+        if($data){
         $response=$this->UserAPI->class_add_assignment($request);
         return 1;
+            }
     }
 
 //Assignment Edit, save, delete
@@ -1167,6 +1170,17 @@ public function assignment_delete(Request $request){
             return back()->with('flash_error',$error);
         }    
 }
+
+
+
+public function settings(Request $request) {
+         $trendings = $this->UserAPI->trending_list($request)->getData();
+
+        return view('teacher.settings')
+                ->with('page', 'settings')
+                ->with('trendings', $trendings)
+                ->with('subPage', '');
+    }
 
 
 

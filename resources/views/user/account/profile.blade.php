@@ -16,7 +16,7 @@
     <div class="row y-content-row">
         @include('layouts.user.nav')
 
-        <div class="page-inner col-sm-9 col-md-10 profile-edit">
+        <div class="page-inner col-sm-9 col-md-8 profile-edit">
             
             <div class="profile-content slide-area1">
                 <div class="row no-margin">
@@ -150,7 +150,7 @@
 
                     <?php // $wishlist = wishlist($user->id); ?>
 
-                    @if ($user->id == Auth::user()->id)
+                    
                     
                     @if(count($wishlist->items) > 0)
                         
@@ -222,7 +222,7 @@
 
                     @endif
 
-                    @endif
+               
 
                 </div><!--end of profile-content row-->
             

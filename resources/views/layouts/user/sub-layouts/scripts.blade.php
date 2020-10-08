@@ -153,11 +153,16 @@
 
         .done(function(response) {
 
+
+
+
             if(response.success == false) {
                 return false;
             }
 
             $('#global-notifications-count').html(response.data.length);
+              $('#global-notifications-counts').html(response.data.length);
+              
 
             $.each(response.data, function(key,notificationDetails) { 
 
@@ -165,11 +170,29 @@
 
                 var global_notification_redirect_url = "/video/"+notificationDetails.video_tape_id;
 
-                if(notificationDetails.notification_type == 'NEW_SUBSCRIBER') {
+                if(notificationDetails.notification_type == 'BELL_NOTIFICATION_NEW_SUBSCRIBER') {
 
                     var global_notification_redirect_url = "/channel/"+notificationDetails.channel_id;
 
                 }
+                if(notificationDetails.notification_type == 'Class_Post') {
+
+                    var global_notification_redirect_url = "/channels/"+notificationDetails.channel_id;
+
+                }
+
+                if(notificationDetails.notification_type == 'Assignment_Upload') {
+
+                    var global_notification_redirect_url = "/channels/"+notificationDetails.channel_id;
+
+                }
+
+                if(notificationDetails.notification_type == 'Answer_upload') {
+
+                    var global_notification_redirect_url = "/channel/"+notificationDetails.channel_id;
+
+                }
+
 
                 var messageTemplate = '';
 
@@ -206,6 +229,19 @@
                 messageTemplate +=  '</li>';
                 
                 $('#global-notifications-box').append(messageTemplate);
+
+
+              
+
+
+               //New Assignment solutions and notification
+
+
+
+             
+
+
+          
 
                 // $(chatBox).animate({scrollTop: chatBox.scrollHeight}, 500);
 
@@ -342,5 +378,105 @@
         $("#{{$page}}").addClass("active");
     @endif
 </script>
+
+
+<script type="text/javascript">
+
+ $(document).ready(function() {
+    
+ @if(Auth::check())
+        $.post('{{ route("user.bell_notifications.count")}}', {'is_json': 1})
+
+        .done(function(response) {
+
+            if(response.success == false) {
+                return false;
+            }
+
+              if(response.count==0){
+              
+              }
+
+              else
+
+              {
+               $('#global-notifications-student').html(response.count);
+               $('#global-notifications-teacher').html(response.count);
+               $('#global-notifications-student_channel').html(response.count);
+
+
+
+              }
+
+
+        })
+        .fail(function(response) {
+            console.log(response);
+        })
+        .always(function(response) {
+            console.log(response);
+        });
+
+       if(response.count==0){
+          function loadNotificationsCount(){
+           return false;
+          }
+       }
+
+       else{
+        function loadNotificationsCount() {
+
+            $.post('{{ route("user.bell_notifications.count")}}', {'is_json': 1})
+
+            .done(function(response) {
+
+                $('#global-notifications-student').html(response.count);
+                
+            })
+            .fail(function(response) {
+                // console.log(response);
+            })
+            .always(function(response) {
+                // console.log(response);
+            });
+  
+        }
+    }
+
+        setInterval(loadNotificationsCount, 10000);
+    @endif
+    });
+
+
+    $(document).on("click", ".class_note", function(){ 
+
+            
+
+            $.post('{{ route("user.bell_notifications.update")}}', {'is_json': 1})
+
+            .done(function(response) {
+
+                //$('#global-notifications-count').html(response.count);
+
+                console.log('True');
+                return true;
+                
+            })
+            .fail(function(response) {
+                console.log('false response');
+            })
+            .always(function(response) {
+                console.log('last respones');
+            });
+
+
+    });
+
+
+    
+
+</script>
+
+
 
 <?php echo Setting::get('body_scripts') ?: ""; ?>

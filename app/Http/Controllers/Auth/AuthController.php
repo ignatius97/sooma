@@ -41,10 +41,17 @@ class AuthController extends Controller
      * @var string
      */
      protected $UserAPI;
-    protected $redirectTo = '/update/more_infromation';
+    protected $redirectTo = '/';
 
     protected $redirectAfterLogout = '/';
 
+    /**
+     * The Login form view that should be used.
+     *
+     * @var string
+     */
+
+   
     /**
      * The Login form view that should be used.
      *
@@ -59,7 +66,7 @@ class AuthController extends Controller
      * @var string
      */
 
-    
+    protected $registerView = 'user.auth.register';
 
 
     /**
@@ -69,7 +76,6 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-       
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
     }
 
@@ -86,28 +92,11 @@ class AuthController extends Controller
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|regex:/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/',
             'mobile'=>'required',
-            'curriculum'=>'required',
+           
             'referral' => 'exists:user_referrers,referral_code,status,'.DEFAULT_TRUE
         ]);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
-     */
-
-
-   public function showRegistrationForm(){
-
-    $categories_list = Category::select('id as category_id', 'name as category_name', 'country as category_country', 'curriculum as category_curriculum')->where('status', CATEGORY_APPROVE_STATUS)->orderBy('created_at', 'desc')
-                ->get();
-
-   return view('user.auth.register')->with('categories', $categories_list);
-
-
-   }
 
     protected function create(array $data)
     {        
@@ -117,7 +106,6 @@ class AuthController extends Controller
             'email' => $data['email'],
             'mobile' => $data['phone'].$data['mobile'],
             'password' => \Hash::make($data['password']),
-            'users_curriculum' => $data['curriculum'],
             'timezone' => $data['timezone'],
             'picture' => asset('placeholder.png'),
             'chat_picture'=>asset('placeholder.png'),
