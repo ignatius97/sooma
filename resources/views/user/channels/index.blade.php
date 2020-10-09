@@ -181,21 +181,21 @@
 
                                         <li role="presentation" class="active">
                                             <a href="#home1" class="yt-uix-button  spf-link  yt-uix-sessionlink yt-uix-button-epic-nav-item yt-uix-button-size-default" aria-controls="home" role="tab" data-toggle="tab">
-                                                <span class="yt-uix-button-content hidden-xs">{{tr('home')}}</span>
-                                                <span class="visible-xs"><i class="fa fa-home channel-tab-icon"></i></span>
+                                                <span class="yt-uix-button-content ">{{tr('home')}}</span>
+                                                <!-- <span class="visible-xs"><i class="fa fa-home channel-tab-icon"></i></span> -->
                                             </a>
                                         </li>
 
                                         <li role="presentation">
                                             <a href="#about" class="yt-uix-button spf-link  yt-uix-sessionlink yt-uix-button-epic-nav-item yt-uix-button-size-default" aria-controls="about" role="tab" data-toggle="tab">
-                                                <span class="yt-uix-button-content hidden-xs">About Class</span>
-                                                <span class="visible-xs"><i class="fa fa-info channel-tab-icon"></i></span>
+                                                <span class="yt-uix-button-content ">About Class</span>
+                                                <!-- <span class="visible-xs"><i class="fa fa-info channel-tab-icon"></i></span> -->
                                             </a>
                                         </li>
                                         <li role="presentation" id="videos_sec">
                                             <a href="#videos" class="yt-uix-button  spf-link  yt-uix-sessionlink yt-uix-button-epic-nav-item yt-uix-button-size-default" aria-controls="videos" role="tab" data-toggle="tab">
-                                                <span class="yt-uix-button-content hidden-xs">{{tr('videos')}}</span>
-                                                <span class="visible-xs"><i class="fa fa-video-camera channel-tab-icon"></i></span>
+                                                <span class="yt-uix-button-content ">{{tr('videos')}}</span>
+                                                <!-- <span class="visible-xs"><i class="fa fa-video-camera channel-tab-icon"></i></span> -->
                                             </a>
                                         </li>
                                         
@@ -212,17 +212,31 @@
                                         @endif
                                         <li role="presentation">
                                             <a href="#class-post" class="yt-uix-button spf-link  yt-uix-sessionlink yt-uix-button-epic-nav-item yt-uix-button-size-default" aria-controls="about" role="tab" data-toggle="tab">
-                                                <span class="yt-uix-button-content hidden-xs class_note">Discussion</span>
-                                                <span class="visible-xs"><i class="fa fa-info channel-tab-icon"></i></span>
+                                                <span class="yt-uix-button-content  class_note">Discussion</span>
+                                                <!-- <span class="visible-xs"><i class="fa fa-info channel-tab-icon"></i></span> -->
                                             </a>
                                         </li>
                                         
                                         <li role="presentation">
                                             <a href="#assignments" class="yt-uix-button spf-link  yt-uix-sessionlink yt-uix-button-epic-nav-item yt-uix-button-size-default" aria-controls="about" role="tab" data-toggle="tab">
-                                                <span class="yt-uix-button-content hidden-xs">Assignments</span>
-                                                <span class="visible-xs"><i class="fa fa-info channel-tab-icon"></i></span>
+                                                <span class="yt-uix-button-content ">Assignments</span>
+                                                <!-- <span class="visible-xs"><i class="fa fa-info channel-tab-icon"></i></span> -->
                                             </a>
                                         </li>
+
+                                        <li role="presentation">
+                                            <a href="#private_message" class="yt-uix-button spf-link  yt-uix-sessionlink yt-uix-button-epic-nav-item yt-uix-button-size-default" aria-controls="about" role="tab" data-toggle="tab">
+                                                <span class="yt-uix-button-content ">Private Message</span>
+                                                <!-- <span class="visible-xs"><i class="fa fa-info channel-tab-icon"></i></span> -->
+                                            </a>
+                                        </li> 
+
+                                        <li role="presentation">
+                                            <a href="#time_table" class="yt-uix-button spf-link  yt-uix-sessionlink yt-uix-button-epic-nav-item yt-uix-button-size-default" aria-controls="about" role="tab" data-toggle="tab">
+                                                <span class="yt-uix-button-content ">Time Table</span>
+                                                <!-- <span class="visible-xs"><i class="fa fa-info channel-tab-icon"></i></span> -->
+                                            </a>
+                                        </li> 
 
                                         
 
@@ -797,6 +811,71 @@
                             </div>
 
                         </li>
+
+                        <li role="tabpanel" class="tab-pane" id="private_message">
+
+                            <div class="recom-area abt-sec">
+                                <div class="abt-sec-head">
+                                    <h5>Private Message</h5>
+                                    <hr>
+                                    <input class="form-control" style="width: 90%;display: inline-block;" type="text" placeholder="Message">
+                                    <button class="btn btn-primary">Send</button>
+                                    <hr>
+                                         <div style="border:1px solid black; padding: 10px; margin-bottom:10px; color:black;">
+                                         <div style="text-align: right;">
+                                                <P>Student's Message<br/> <small>Date of message</small></P>
+                                            </div>
+                                            <div >
+                                                <P>Teacher's Message<br/> <small>Date of message</small></P>
+                                            </div>
+                                            
+
+                                        </div>
+                                    
+                                    
+                                  
+                                </div>
+                            </div>
+
+                        </li>
+
+                        <li role="tabpanel" class="tab-pane" id="time_table">
+
+                            <div class="recom-area abt-sec">
+                                <div class="abt-sec-head">
+                                    <h5>TIme Table</h5>
+                                    <hr>
+                                    <table class="table table-striped" style="color:black;" width="100%">
+                                        <tr>
+                                            <td>Time</td>
+                                            <td>Monday</td>
+                                            <td>Tuesday</td>
+                                            <td>Wednesday</td>
+                                            <td>Thursday</td>
+                                            <td>Friday</td>
+                                            <td>Saturday</td>
+                                            <td>Sunday</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                    
+                                    
+                                  
+                                </div>
+                            </div>
+
+                        </li>
+
+                        
 
                         <li role="tabpanel" class="tab-pane" id="about">
 

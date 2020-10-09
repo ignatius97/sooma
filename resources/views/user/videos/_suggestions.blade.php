@@ -1,5 +1,5 @@
 
-<div class="content" style="">
+
 <div class="up-next pt-0">
 
     <h4 class="sugg-head1">{{tr('suggestions')}}</h4>
@@ -74,5 +74,5 @@
         @endif
     </ul>
 </div>
-</div>
+
 <!--end of up-next-->

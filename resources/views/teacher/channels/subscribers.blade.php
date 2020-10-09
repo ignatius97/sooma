@@ -49,6 +49,7 @@ thead>tr>th {
                                         <img src="{{$subscriber->user_image}}" alt="user-image">
                                         <h4>{{$subscriber->user_name}}</h4>
                                         <p>{{$subscriber->created_at->diffForHumans()}}</p>
+                                        <a style="margin: 10px;" class="btn btn-sm btn-primary text-uppercase" href="{{route('user.channel.private_messages', array('subscribe_id'=>$subscriber->subscriber_id))}}" >Message</a>
                                         <a class="btn btn-sm btn-danger text-uppercase" href="{{route('user.unsubscribe.channel', array('subscribe_id'=>$subscriber->subscriber_id))}}"  onclick="return confirm(&quot;{{ $subscriber->user_name }} -  {{tr('user_unsubscribe_confirm') }}&quot;)"><i class="fa fa-times"></i>&nbsp;{{tr('un_subscribe')}}</a>
                                     </div>
                                 </div>

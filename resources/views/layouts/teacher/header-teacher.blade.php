@@ -270,7 +270,7 @@
 
         <!-- ======== RESPONSIVE HEADER VISIBLE IN MOBAILE VIEW====== -->
 
-       
+        @include('layouts.teacher.header-mobile-teacher')
 
         <!-- ======== RESPONSIVE HEADER VISIBLE IN MOBAILE VIEW====== -->
 

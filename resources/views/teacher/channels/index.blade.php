@@ -248,6 +248,20 @@
                                             </a>
                                         </li>
 
+                                        <li role="presentation">
+                                            <a href="{{route('user.channel.subscribers', array('channel_id'=>$channel->channel_id))}}" class="yt-uix-button spf-link  yt-uix-sessionlink yt-uix-button-epic-nav-item yt-uix-button-size-default" >
+                                                <span class="yt-uix-button-content hidden-xs">Private Message</span>
+                                                <span class="visible-xs"><i class="fa fa-info channel-tab-icon"></i></span>
+                                            </a>
+                                        </li>
+
+                                        <li role="presentation">
+                                            <a href="#time_table" class="yt-uix-button spf-link  yt-uix-sessionlink yt-uix-button-epic-nav-item yt-uix-button-size-default" aria-controls="about" role="tab" data-toggle="tab">
+                                                <span class="yt-uix-button-content hidden-xs">Time Table</span>
+                                                <span class="visible-xs"><i class="fa fa-info channel-tab-icon"></i></span>
+                                            </a>
+                                        </li>
+
                                         
 
                                         
@@ -860,6 +874,44 @@
                                 </div>
                             </div>
                          
+
+                        </li>
+
+                        <li role="tabpanel" class="tab-pane" id="time_table">
+
+                            <div class="recom-area abt-sec">
+                                <div class="abt-sec-head">
+                                    <h5>TIme Table</h5>
+                                    <hr>
+                                    <table class="table table-striped" style="color:black;" width="100%">
+                                        <tr>
+                                            <td>Time</td>
+                                            <td>Monday</td>
+                                            <td>Tuesday</td>
+                                            <td>Wednesday</td>
+                                            <td>Thursday</td>
+                                            <td>Friday</td>
+                                            <td>Saturday</td>
+                                            <td>Sunday</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td contenteditable></td>
+                                            <td contenteditable></td>
+                                            <td contenteditable></td>
+                                            <td contenteditable></td>
+                                            <td contenteditable></td>
+                                            <td contenteditable></td>
+                                            <td contenteditable></td> 
+                                            <td contenteditable></td>
+                                            <td><button class="btn btn-primary">Add</button></td>
+                                        </tr>
+                                    </table>
+                                    
+                                    
+                                  
+                                </div>
+                            </div>
 
                         </li>
 

@@ -172,6 +172,9 @@ body {
         <li style="float: right;margin-top: 6px;" >
             <i class="fa fa-bell"></i>
         </li >
+        <li style="float: right;margin-top: 6px;" >
+            <i class="fa fa-envelope"></i>
+        </li >
         
         <li style="float: right;margin-top: 7px;"><a href="{{url('/')}}" class="mobile-menu">
             <img style="width: 2rem;" src="{{asset('prototype_icons/teacher-icon-png-15.png')}}" alt="" srcset="">

@@ -70,51 +70,47 @@
         .slider.round::before {
             border-radius: 50%;
         }
-        
-.bg-modal{
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.6);
-  position: absolute;
-  top:0;
-  display: flex;
-  justify-content: center;
-  z-index: 999;
-
-  display: none;
-}
-
-.modal-content{
-  width: 35vw;
-  height: 55vh;
-  background: url('images/t1.jpg');
-  border-radius: 5px;
- background-color:white;
-  padding: 20px;
-  margin: 145px auto;
-  position: relative;
-}
-.contents{
-   text-align: center;
-}
- 
-.close{
-  background-color: rgba(9,9,9,0.4);
-  position: absolute;
-  top: 0;
-  right: 14px;
-  font-size: 30px;
-  font-weight: bold;
-  cursor: pointer;
-  padding: 0px 10px;
-  border-radius: 20px;
-  color: #fff;
-}
-.close:hover{
-  border-radius: 20px;
-  padding: 0px 10px;
-}
-
+        .bg-modal{
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            position: absolute;
+            top:0;
+            display: flex;
+            justify-content: center;
+            z-index: 999;
+            display: none;
+            }
+            .modal-content{
+            width: 35vw;
+            height: 55vh;
+            background: url('images/t1.jpg');
+            border-radius: 5px;
+            background-color:white;
+            padding: 20px;
+            margin: 145px auto;
+            position: relative;
+            }
+            .contents{
+            text-align: center;
+            }
+            
+            .close{
+            background-color: rgba(9,9,9,0.4);
+            position: absolute;
+            top: 0;
+            right: 14px;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 0px 10px;
+            border-radius: 20px;
+            color: #fff;
+            }
+            .close:hover{
+            border-radius: 20px;
+            padding: 0px 10px;
+            }
     </style>
 
 @endsection 
@@ -127,9 +123,10 @@
 
           @include('layouts.user.nav')
 
-            <div class="page-inner col-sm-9 col-md-8 ">
+            <div class="page-inner col-sm-9 col-md-8 " >
                 @foreach($assignment as $assignment)
-                <div style=" margin-bottom:10px; margin-top:3%; color:black; display:inline-block; ">
+                <div class="above">
+                <div style=" margin-bottom:10px; margin-top:3%; color:black; display:inline-block;  ">
                     <P>{{$assignment->title}}<br/> <small>{{$assignment->created_at}}</small></P>
                 </div>
                
@@ -143,45 +140,51 @@
                          <h3>No file attached for the assignment</h3>
                      </div>
                      @else
-                    <div style=" margin-bottom:10px; margin-top:3%;  color:black; ">
-                    <div class="row">
-                        <div class="col-md-7">
-                            <div >
-                                <form  name="student_answer_form" method="post" action="{{route('user.assignment_answer_upload.save')}}" enctype="multipart/form-data">
-                                    <label>Upload Answer</label>
-                                    <input type="hidden" name="assignment_id" value="{{$assignment->id}}">
-                                    
-                                    <input id="myInput" type="file" name="assignment_answer"> 
-                                        <button class="btn btn-primary show_btn" style="display: none;">
-                                        submit
-                                        </button>
-                                </form>                      
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <a href="{{ route('user.assignment.download', ['file'=>$assignment->file]) }}">
-                                <button class="btn btn-primary">
-                                    download assignment
+                    <div style=" margin-top:1%; float:left; color:black; ">
+                        <a href="{{ route('user.assignment.download', ['file'=>$assignment->file]) }}">
+                        <button class="btn btn-primary">
+                            download assignment
+                        </button>
+
+                        </a>
+                        
+
+                    </div>
+                    <div style=" margin-top:1%; float:right; ">
+                    <div >
+                        <form  name="student_answer_form" method="post" action="{{route('user.assignment_answer_upload.save')}}" enctype="multipart/form-data">
+                            <label>Upload Answer</label>
+                            <input type="hidden" name="assignment_id" value="{{$assignment->id}}">
+                            <input type="hidden" value="{{$channel_id}}" name="channel_id">
+                            <input type="hidden" value="{{Auth::user()->id}}" name="users_id">
+                            <input type="hidden" value="Answer_upload" name="type">
+                            
+                            <input id="myInput" type="file" name="assignment_answer"> 
+                                <button class="btn btn-primary show_btn" style="display: none;">
+                                submit
                                 </button>
-                            </a>
+                            </form>
+                            
                         </div>
                     </div>
-                        
-                        
+
                     </div>
 
                     @endif
               
-        
+             
 
                 @endforeach
 
+
+
                @if(count($answer)>0)
+              
                @foreach($answer as $answer)
                 <div style=" margin-bottom:10px; margin-top: 15%; color:black;">
 
                     <h3>Uploaded Answer </h3>
-                    <div style="border: 1px solid black;display: inline-block;width: 100%;">
+                    <div style="border: 1px solid black;">
                     
                     <div class="row">
                         <div class="col-md-5">
@@ -189,7 +192,7 @@
                                     <p>File Name: {{$answer->file}}</p>
                             </div>
                             <div style=" color:black; margin:1rem 0 1rem 1rem; ">
-                                
+
                                     <p>Date uploaded: {{$answer->created_at}}</p>
                             </div>
                         </div>
@@ -199,33 +202,33 @@
                                 <button class="btn btn-primary" onclick="log()">
                                     Details 
                                 </button>
-                                <button class="btn btn-primary">
-                                    download 
-                                </button>
+                                
                             </div>
                         </div>
+
                     </div>
-                    
-                   
-                    
-                    
-                    </div>
-                    
+
                 @endforeach
                 @else
-                <div style=" margin-bottom:10px; margin-top: 15%; color:black;">
+                <div class="below" style=" margin-bottom:10px; margin-top: 15%; color:black;">
                 <h3>No answer uploaded</h3>
+
                 </div>
+
+
 
                 @endif
+                 <div class="upload_answer" style="text-align: center; margin-top: 20%; display: none;">
+                <h3>Answer uploaded successfully </h3>
 
-
+                <button class="btn btn-default"><a href="{{ route('user.channels', ['id'=>$channel_id]) }}">Ok</a></button>
 
                 </div>
 
+                </div>
+               
+        
                 
-                
-
 
             </div>
         </div>
@@ -238,13 +241,10 @@
                     <h2>Assignment Details</h2>
                     <p>Marks : __/100</p>
                     <p>Comment :</p>
-	
+
 	        </div> 
         </div>
     </div>
-
-
-
 
 
 @endsection 
@@ -252,7 +252,6 @@
 @section('scripts')
 
 <script type="text/javascript">
-
 	function log(){
 		document.getElementById('bg-modal').style.display ="block";
 		}
@@ -260,6 +259,7 @@
 		document.getElementById('bg-modal').style.display ="none";
 		}	
 </script>
+
 
 <script type="text/javascript">
         
@@ -299,7 +299,15 @@
                    success: function(data) {
                     console.log(data);
 
-                       
+                       var edit_success =document.querySelector('.upload_answer');
+                    edit_success.style.display='block';
+
+                       var upload_success =document.querySelector('.above');
+                   upload_success.style.display='none';
+
+
+                       var below =document.querySelector('.below');
+                   below.style.display='none';
    
                        $("#class_assignment_edit_btn").html("Comment");
    

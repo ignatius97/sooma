@@ -18,6 +18,8 @@
 }
 
 
+
+
 </style>
 
 
@@ -65,7 +67,7 @@
     
 
         
-             <div class="col-lg-6 col-md-5 col-sm-5 col-xs-12 hidden-xs">
+             <div class="col-lg-5 col-md-4 col-sm-3 col-xs-12 hidden-xs">
 
           
 
@@ -103,7 +105,7 @@
         </div>
 
         <!-- ========RESPONSIVE  HEADER VISIBLE IN MOBAILE VIEW====== -->
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 hidden-xs visible-sm visible-md visible-lg">
+        <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12 hidden-xs visible-sm visible-md visible-lg">
        
 
             @if(Auth::check())
@@ -168,7 +170,7 @@
                  <ul class="nav navbar-nav pull-right">
 
                     <li  class="dropdown">
-                        <a class="nav-link text-light notification-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="return notificationsStatusUpdate();">
+                        <a class="nav-link text-light notification-link" style="padding-right: 7px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="return notificationsStatusUpdate();">
                             <i class="fa fa-bell"></i><span id="global-notifications-student"></span>
                         </a>
 
@@ -187,6 +189,44 @@
                                 </div>
                             </li>
 
+                            
+
+                            <span id="global-notifications-box"></span>
+
+                            <li class="notification-footer bg-dark text-center">
+                                <a href="{{route('user.bell_notifications.index')}}" class="text-light">
+                                    {{tr('view_all')}}
+                                </a>
+                            </li>
+                        
+                        </ul>
+
+                    </li>
+
+                    <li  class="dropdown">
+                        <a class="nav-link text-light notification-link" style="padding-left: 7px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="return notificationsStatusUpdate();">
+                            <i class="fa fa-envelope"></i><span id="global-notifications-student"></span>
+                        </a>
+
+                        <ul class="dropdown-menu-notification dropdown-menu">
+
+                            <li class="notification-head text-light bg-dark">
+                                <div class="row">
+                                    <div class="col-lg-12 col-sm-12 col-12">
+                                        <span>
+                                            {{tr('notifications')}} 
+                                            
+                                            (<span id="global-notifications-count">0</span>)
+                                        </span>
+                                        <!-- <a href="" class="float-right text-light">Mark all as read</a> -->
+                                    </div>
+                                </div>
+                            </li>
+
+                            
+
+                            
+
                             <span id="global-notifications-box"></span>
 
                             <li class="notification-footer bg-dark text-center">
@@ -202,7 +242,7 @@
                 </ul>
                  
                  @if(Auth::user()->study_role==0)
-                  <a class="nav navbar-nav pull-right" href="{{route('user.upload.information')}}"  style="color: white; padding-top: 2%;">Become A Teacher</a>
+                  <a class="nav navbar-nav pull-right" href="{{route('user.upload.information')}}"  style="color: white; padding-top: 2%;">Become A Teacher<span> <img style="width: 20px;" src="{{asset('prototype_icons/teacher-icon-png-15(3).png')}}" alt="" srcset=""> </span></a>
             
                   @else
                    <a class="nav navbar-nav pull-right" href="{{url('mychannels/list')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Switch To Teacher</a>

@@ -1532,7 +1532,9 @@ Route::group(['as' => 'user.'], function(){
 
         // Subscribe
     
-    Route::get('/subscribers', 'TeacherController@channel_subscribers')->name('channel.subscribers');  
+    Route::get('/subscribers', 'TeacherController@channel_subscribers')->name('channel.subscribers'); 
+    
+    Route::get('/Private_Messages', 'TeacherController@private_messages')->name('channel.private_messages'); 
     
         // Channels
 
