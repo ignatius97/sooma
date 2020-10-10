@@ -46,7 +46,7 @@
     </div> -->
     <div class="row">
 
-         <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4">
+         <div class="col-lg-2 col-md-3 col-sm-3 col-xs-5">
 
             <a href="#" class="hidden-xs"><img src="{{asset('images/menu.png')}}"  class="toggle-icon"  style="color: white"></a>
 

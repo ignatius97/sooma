@@ -177,7 +177,7 @@ body {
         </li >
         
         <li style="float: right;margin-top: 7px;"><a href="{{url('/')}}" class="mobile-menu">
-            <img style="width: 2rem;" src="{{asset('prototype_icons/teacher-icon-png-15.png')}}" alt="" srcset="">
+            <i class="fa fa-retweet" style="color: white;"></i>
         </a>
         </li>
         

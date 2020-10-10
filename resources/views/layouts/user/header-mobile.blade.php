@@ -41,7 +41,7 @@ body {
   .sidenav a {font-size: 18px;}
 }
 </style>
-<div class="col-lg-3 col-md-3 col-sm-4 col-xs-8 visible-xs hidden-sm hidden-md hidden-lg">
+<div class="col-lg-3 col-md-3 col-sm-4 col-xs-6 visible-xs hidden-sm hidden-md hidden-lg">
             
     @if(Auth::check())
         
@@ -175,11 +175,20 @@ body {
             <i class="fa fa-bell"></i>
         </li>
         <li><a href="{{url('/')}}" class="mobile-menu">
-            <img style="width: 2rem;" src="{{asset('prototype_icons/assignment.png')}}" alt="" srcset="">
+            <i class="fa fa-envelope"></i>
         </a></li>
-        <li><a href="{{route('user.channel.list')}}" class="mobile-menu">
-            <img style="width: 2rem;" src="{{asset('prototype_icons/teacher-icon-png-15.png')}}" alt="" srcset="">
+        
+        @if(Auth::user()->study_role==0)
+            
+            <li><a href="{{route('user.upload.information')}}" class="mobile-menu">
+            <img style="width: 2rem;" src="{{asset('prototype_icons/teacher-icon-png-15(3).png')}}" alt="" srcset="">
         </a></li>
+            @else
+            <li><a href="{{url('mychannels/list')}}" class="mobile-menu">
+            <i class="fa fa-retweet" style="color: white;"></i>
+        </a></li>
+            
+        @endif
         <li>
             <span class="search-cls pull-right" id="search-btn"><i class="fa fa-globe" aria-hidden="true"></i><span class="caret"></span></span>
         </li>
