@@ -169,8 +169,8 @@ a {
 }
 #channel-subheader li {
 	float: left;
-	margin-left: 6px;
-	margin-right: 7px;
+	margin-left: 0px;
+	margin-right: 4px;
 
 }
 #channel-subheader li:first-child {

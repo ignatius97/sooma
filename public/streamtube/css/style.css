@@ -1787,7 +1787,7 @@ changes
 }
 @media only screen and (max-width : 991px) {
 	.common-streamtube {
-		margin-top: 45px;
+		margin-top: 0px;
 	}
 }
 .right-zero{
@@ -3569,14 +3569,14 @@ changes
 }
 #channel-subheader li > a{
 	text-transform: uppercase;
-	font-size: 14px;
+	font-size: 1.05vw;
 	color: #888;
 	padding: 2px 5px;
 	/*font-weight: bold;*/
 }
 #channel-subheader .active > a{
 	padding: 2px 5px !important;
-	font-size: 14px !important;
+	font-size: 1.05vw !important;
 }
 #channel-subheader .nav-tabs>li{
 	margin-bottom: 0;

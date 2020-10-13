@@ -95,7 +95,7 @@
 
             @include('layouts.teacher.nav_teacher')
 
-            <div class="page-inner col-xs-12 col-sm-12 col-md-8">
+            <div class="page-inner">
 
                 <div class="slide-area1">
 
