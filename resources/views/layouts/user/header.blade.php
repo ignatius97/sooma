@@ -16,7 +16,9 @@
 .nav>li>a:focus, .nav>li>a:hover {
     background-color: #fff;
 }
-
+.product_name {
+    vertical-align: middle;
+}
 
 
 
@@ -37,7 +39,7 @@
     <div class="clear-both"></div>
 </div>
 
-<div class="streamtube-nav trial_class" id="header-section" style="background-color: #3AAF44;">
+<div class="streamtube-nav trial_class" id="header-section" style="background-color: #4A4848;">
     <!-- <div class="row" style=" text-align: center;">
         <small >
             <strong>Helpline:</strong> +256 772 888 444  or help
@@ -48,11 +50,15 @@
 
          <div class="col-lg-2 col-md-3 col-sm-3 col-xs-5">
 
-            <a href="#" class="hidden-xs"><img src="{{asset('images/menu.png')}}"  class="toggle-icon"  style="color: white"></a>
+            <!-- <a href="#" class="hidden-xs"><img src="{{asset('images/menu.png')}}"  class="toggle-icon"  style="color: white"></a> -->
+            <a href="{{route('user.dashboard')}}"> 
+                <i class="fa fa-home" style="font-size: 30px; vertical-align: middle;"></i>
+            </a>
 
             <a href="{{route('user.dashboard')}}"> 
                 @if(Setting::get('site_logo'))
-                    <img src="{{Setting::get('site_logo')}}" class="logo-img"> <span class="product_name">SOOMA</span>
+
+                    <img src="{{Setting::get('site_logo')}}" class="logo-img"> <span class="product_name">SOOMA </span>
                 @else
                     <img src="{{asset('logo.png')}}" class="logo-img"><span class="product_name">SOOMA</span>
                 @endif
@@ -67,68 +73,18 @@
     
 
         
-             <div class="col-lg-5 col-md-4 col-sm-3 col-xs-12 hidden-xs">
-
-          
-
-            <div id="custom-search-input" class="">
-
-                
-            @if(!Auth::check())
-
-<!--            
-    <div class="y-button">
-        <a href="{{route('user.login.form')}}" ><i class='fas fa-stream' style='font-size:24px'></i>Live</a>
-        &nbsp&nbsp&nbsp
-        <a href="{{route('user.login.form')}}" ><i class="fa fa-upload fa-1x"></i>Upload</a>
-        &nbsp&nbsp&nbsp
-        
-    </div>
--->
-    
-
-@endif
-                <form method="post" action="{{route('search-all')}}" id="userSearch">
-                <div class="input-group search-input">
-                    
-                        <input type="text" id="auto_complete_search" name="key" class="search-query form-control" required placeholder="{{tr('search')}}" style="background-color: white;" />
-                        <div class="input-group-btn">
-                            <button class="btn btn-danger" type="submit">
-                            <i class=" glyphicon glyphicon-search"></i>
-                            </button>
-                        </div>
-                    
-                </div>
-                </form>
-            </div><!--custom-search-input end-->
-
-        </div>
 
         <!-- ========RESPONSIVE  HEADER VISIBLE IN MOBAILE VIEW====== -->
-        <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12 hidden-xs visible-sm visible-md visible-lg">
-       
+        <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12 hidden-xs visible-sm visible-md visible-lg">  
 
+        <div class="row"> 
             @if(Auth::check())
-
-            
-
                 <div class="y-button profile-button">
-
-
-
                    <div class="dropdown pull-right">
-                       
-        
-                    
                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-
                             <img class="profile-image" src="{{Auth::user()->picture ?: asset('placeholder.png')}}">
                         </button>
-
-
-                        
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-
                             <a href="{{route('user.profile')}}">
                                 <div class="display-inline">
                                     <div class="menu-profile-left">
@@ -140,18 +96,14 @@
                                     </div>
                                 </div>
                             </a>
-
                             <li role="separator" class="divider"></li>
-
                             <div class="row">
-
                                 <div class="col-xs-6">
                                     <a href="/settings" class="menu-link">
                                         <i class="fa fa-cog"></i>
                                         {{tr('settings')}}
                                     </a>
                                 </div>
-
                                 <div class="col-xs-6">
                                     <a href="{{route('user.logout')}}"  class="menu-link">
                                         <i class="fa fa-sign-out"></i>
@@ -159,23 +111,15 @@
                                     </a>
                                 </div>
                             </div>
-                           
-
                         </ul>
-                
                     </div>
-
                 </div>
-
-                 <ul class="nav navbar-nav pull-right">
-
+                <ul class="nav navbar-nav pull-right">
                     <li  class="dropdown">
                         <a class="nav-link text-light notification-link" style="padding-right: 7px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="return notificationsStatusUpdate();">
                             <i class="fa fa-bell"></i><span id="global-notifications-student"></span>
                         </a>
-
                         <ul class="dropdown-menu-notification dropdown-menu">
-
                             <li class="notification-head text-light bg-dark">
                                 <div class="row">
                                     <div class="col-lg-12 col-sm-12 col-12">
@@ -188,160 +132,176 @@
                                     </div>
                                 </div>
                             </li>
-
-                            
-
                             <span id="global-notifications-box"></span>
-
                             <li class="notification-footer bg-dark text-center">
                                 <a href="{{route('user.bell_notifications.index')}}" class="text-light">
                                     {{tr('view_all')}}
                                 </a>
                             </li>
-                        
                         </ul>
-
                     </li>
 
                     <li  class="dropdown">
                         <a class="nav-link text-light notification-link" style="padding-left: 7px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="return notificationsStatusUpdate();">
                             <i class="fa fa-envelope"></i><span id="global-notifications-student"></span>
                         </a>
-
                         <ul class="dropdown-menu-notification dropdown-menu">
-
                             <li class="notification-head text-light bg-dark">
                                 <div class="row">
                                     <div class="col-lg-12 col-sm-12 col-12">
                                         <span>
-                                            {{tr('notifications')}} 
-                                            
+                                            {{tr('notifications')}}                     
                                             (<span id="global-notifications-count">0</span>)
                                         </span>
                                         <!-- <a href="" class="float-right text-light">Mark all as read</a> -->
                                     </div>
                                 </div>
                             </li>
-
-                            
-
-                            
-
                             <span id="global-notifications-box"></span>
-
                             <li class="notification-footer bg-dark text-center">
                                 <a href="{{route('user.bell_notifications.index')}}" class="text-light">
                                     {{tr('view_all')}}
                                 </a>
                             </li>
-                        
                         </ul>
-
                     </li>
-                 
                 </ul>
                  
                  @if(Auth::user()->study_role==0)
                   <a class="nav navbar-nav pull-right" href="{{route('user.upload.information')}}"  style="color: white; padding-top: 2%;">Become A Teacher<span> <img style="width: 20px;" src="{{asset('prototype_icons/teacher-icon-png-15(3).png')}}" alt="" srcset=""> </span></a>
-            
-                  @else
+                @else
                    <a class="nav navbar-nav pull-right" href="{{url('mychannels/list')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Switch To Teacher</a>
                 @endif
-                     <form action="/" method="get" style="margin-top: 1vh;">
-                   <select id="options" name="targeted_country" style="width: auto;">
-
-                 @if($country_with_ip=='')
-                 <option value="{{$country_ip}}">{{$country_ip}}</option>
-                 @else
-                 <option value="{{$country_with_ip}}">{{$country_with_ip}}</option>
-                 @endif
-
-                @foreach($countries as $country)   
-                  
-                    <option value="{{$country->country_name}}">{{$country->country_name}}</option>
-                  @endforeach
-               
-                 </select> 
-                </form>
-              
-
-
+                    <form action="/" method="get" style="margin-top: 1vh;">
+                        <select id="options" name="targeted_country" style="width: auto;">
+                            @if($country_with_ip=='')
+                                <option value="{{$country_ip}}">{{$country_ip}}</option>
+                            @else
+                                <option value="{{$country_with_ip}}">{{$country_with_ip}}</option>
+                            @endif
+                            @foreach($countries as $country)   
+                                <option value="{{$country->country_name}}">{{$country->country_name}}</option>
+                            @endforeach
+                        </select> 
+                    </form>
                 @if(Setting::get('is_direct_upload_button') == YES)
-
-                <a href="{{userChannelId()}}" class="btn pull-right user-upload-btn" title="{{tr('upload_video')}}">
-                     {{tr('upload')}} 
-                    <i class="fa fa-upload fa-1x"></i>
-                </a>
-                  
-
+                    <a href="{{userChannelId()}}" class="btn pull-right user-upload-btn" title="{{tr('upload_video')}}">
+                        {{tr('upload')}} 
+                        <i class="fa fa-upload fa-1x"></i>
+                    </a>
                 @endif
 
             @else
                 <div class="y-button2 main_nav_btn">
-
-                  <a href="{{route('user.login.form')}}">SignIn</a> <i style="color: white; font-weight: bold;">|</i>
-                    <a href="{{route('user.register.form')}}">SignUp</a>
+                    <a href="{{route('user.register.form')}}"> <i class="fa fa-sign-in"></i> SignUp</a>
+                    <a href="{{route('user.login.form')}}">  SignIn</a> <i style="color: white; font-weight: bold;">|</i>
+                    
                 </div>
 
-                
+                <!-- <form action="/" method="get" style="margin-top: 1vh; ">
+                    <select id="options" name="targeted_country" style="width: auto;">
+                        @if($country_with_ip=='')
+                            <option value="{{$country_ip}}">{{$country_ip}}</option>
+                        @else
+                            <option value="{{$country_with_ip}}">{{$country_with_ip}}</option>
+                        @endif
 
-                 
-                <form action="/" method="get" style="margin-top: 1vh;">
-                   <select id="options" name="targeted_country" style="width: auto;">
-
-                 @if($country_with_ip=='')
-                 <option value="{{$country_ip}}">{{$country_ip}}</option>
-                 @else
-                 <option value="{{$country_with_ip}}">{{$country_with_ip}}</option>
-                 @endif
-
-                @foreach($countries as $country)   
-                  
-                    <option value="{{$country->country_name}}">{{$country->country_name}}</option>
-                  @endforeach
-               
-                 </select> 
-                </form>
+                        @foreach($countries as $country)   
+                            <option value="{{$country->country_name}}">{{$country->country_name}}</option>
+                        @endforeach
+                    </select> 
+                </form> -->
               
                 @if(Setting::get('is_direct_upload_button') == YES)
-
                     <a href="{{route('user.login.form')}}" class="btn pull-right" title="{{tr('upload_video')}}"> 
                         {{tr('upload')}} 
                         <i class="fa fa-upload fa-1x"></i>
                     </a>
-
                 @endif
-
             @endif
 
+            <div id="custom-search-input" style="width: 50%; margin-top: -4px; margin-right: 21px;" class="">
+                    <form method="post" action="{{route('search-all')}}" id="userSearch">
+                        <div class="input-group search-input">
+                            
+                                <input type="text" id="auto_complete_search" name="key" class="search-query form-control" required placeholder="{{tr('search')}}" style="background-color: white; border-radius: 50px !important;" />
+                                <div class="input-group-btn">
+                                    <button class="btn btn-primary" type="submit" style="background-color: #36B3BC; padding: 2px 12px; margin-top: -1px; left: -38px; border-radius: 50px; color: #fff; height: 35px; z-index: 9;">
+                                    Find Lessons
+                                    </button>
+                                </div>
+                            
+                        </div>
+                    </form>
+            </div><!--custom-search-input end-->
+
             <ul class="nav navbar-nav pull-right" style="margin: 3.5px 0px">
-
-                @if(Setting::get('admin_language_control'))
-                    
+                @if(Setting::get('admin_language_control')) 
                     @if(count($languages = getActiveLanguages()) > 1) 
-                       
                         <li  class="dropdown">
-                    
                             <a href="#" class="dropdown-toggle language-icon" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-globe"></i> <b class="caret"></b></a>
-
                             <ul class="dropdown-menu languages">
-
                                 @foreach($languages as $h => $language)
-
                                     <li class="{{(\Session::get('locale') == $language->folder_name) ? 'active' : ''}}" ><a href="{{route('user_session_language', $language->folder_name)}}" style="{{(\Session::get('locale') == $language->folder_name) ? 'background-color: #cc181e' : ''}}">{{$language->folder_name}}</a></li>
                                 @endforeach
-                                
                             </ul>
-                         
                         </li>
-                
                     @endif
-
                 @endif
-
             </ul>
 
         </div>
+
+        <div class="row">  
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 hidden-xs visible-sm visible-md visible-lg" >
+                <style>
+                    .slick-slide-btn {
+                        padding: 0px;
+                        width: 480px !important;
+                    }
+                    .slick-prev, .slick-next {
+                        width: 20px;
+                        height: 20px;
+                    }
+                       
+                    .btn1{
+                        border-radius: 50px;
+                        font-size: 1vw;
+                    }
+                </style>
+
+                <div style=" text-align: center; float: right;">
+                    <div class="box slick-slide-btn"  >
+                        <div>
+                            <button class="btn1"  >Mathematics</button>
+                        </div>
+                        <div>
+                            <button class="btn1" >Science</button>
+                        </div>
+                        <div>
+                            <button class="btn1" >English</button>
+                        </div>
+                        <div>
+                            <button class="btn1" >History</button>
+                        </div>
+                        <div>
+                            <button class="btn1" >Agriculture</button>
+                        </div>
+                        <div>
+                            <button class="btn1" >Literature</button>
+                        </div>
+                        <div>
+                            <button class="btn1" >Biology</button> 
+                        </div>     
+                    </div><!--end of box-->   
+                </div> 
+            </div>
+        </div>
+
+        </div>
+
+        
+        
 
         <!-- ======== RESPONSIVE HEADER VISIBLE IN MOBAILE VIEW====== -->
 
@@ -349,6 +309,10 @@
 
         <!-- ======== RESPONSIVE HEADER VISIBLE IN MOBAILE VIEW====== -->
 
+
+
     </div><!--end of row-->
+
+    
 
 </div><!--end of streamtube-nav-->

@@ -321,6 +321,46 @@
              
                 <div class="sidebar-back"></div>  
             </div>
+        <div style=" width:100%; height:10px; z-index:99;position: absolute;">
+            <div style="background-color:green; width:30%; border-radius: 50px; text-align: center; margin-left: 40px; display: inline-block;" >
+                <p>SOOMA is a FREE-School that allows users to teach <br> or learn virtually <br> from anywhere at any time</p>
+            </div>
+            <div style="background-color:white; width:15%; border-radius: 50px; text-align: center; margin-left: -20px;display: inline-block; " >
+                <p>SOOMA in numbers</p>
+            </div>
+            <div style=" width:10%; text-align: center; display: inline-block; " >
+                <div style="background-color:white; border-radius: 50%;width: 30px; margin-left: auto; margin-right: auto; ">
+                    <p style="font-size: 20px;">50</p>
+                </div>
+                <div style="background-color:white;">
+                    <p>Teachers Joined</p>
+                </div>
+            </div>
+            <div style=" width:10%; text-align: center; display: inline-block; " >
+                <div style="background-color:white; border-radius: 50%;width: 30px; margin-left: auto; margin-right: auto; ">
+                    <p style="font-size: 20px;">80</p>
+                </div>
+                <div style="background-color:white;">
+                    <p>Classes Created</p>
+                </div>
+            </div>
+            <div style=" width:10%; text-align: center; display: inline-block; " >
+                <div style="background-color:white; border-radius: 50%;width: 30px; margin-left: auto; margin-right: auto; ">
+                    <p style="font-size: 20px;">4K</p>
+                </div>
+                <div style="background-color:white;">
+                    <p>Students erolled</p>
+                </div>
+            </div>
+            <div style=" width:15%; text-align: center; display: inline-block; " >
+                <div style="background-color:white; border-radius: 50%;width: 30px; margin-left: auto; margin-right: auto; ">
+                    <p style="font-size: 20px;">25</p>
+                </div>
+                <div style="background-color:white;">
+                    <p>Certificates & Awards</p>
+                </div>
+            </div>
+        </div>
 
         </div>
     </div>

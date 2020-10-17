@@ -26,7 +26,6 @@
 		width: 50%;
 	}*/
 	.y-menu{
-		border-right: 1px solid #f1f1f1;
 		/*background-color: #fff;*/
 		padding-bottom: 15px;
 		padding-top: 15px;
@@ -391,7 +390,6 @@
 		width: 50%;
 	}*/
 	.y-menu{
-		border-right: 1px solid #f1f1f1;
 		/*background-color: #fff;*/
 		padding-bottom: 15px;
 		padding-top: 15px;
@@ -578,8 +576,6 @@
 		width: 32%;
 	}
 	.y-menu{
-		border-right: 1px solid #f1f1f1;
-		background-color: #f1f1f1;
 		padding-bottom: 15px;
 		padding-top: 15px;
 		margin-top: 60px;
@@ -746,8 +742,6 @@
 		width: 24%;
 	}
 	.y-menu{
-		border-right: 1px solid #f1f1f1;
-		background-color: #f1f1f1;
 		padding-bottom: 15px;
 		padding-top: 15px;
 		margin-top: 60px;
@@ -942,7 +936,7 @@
 		border-right: 1px solid #f1f1f1;
 		background-color: #f1f1f1;
 		height: 84vh;
-		width: 100%;
+		width: 76%;
 	}
 	.bottom{
 		height: 60px;
@@ -967,9 +961,8 @@
 	}
 	.logo-img{
 		max-width: 128px;
-		height:30px;
-		vertical-align: middle;
-		margin-top: 4px;
+		height:55px;
+		margin-top: 0px;
 	}
 	.cross-mark {
 		width:35%;

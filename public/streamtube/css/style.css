@@ -40,9 +40,13 @@ body{
 	/*font-family: 'Roboto', sans-serif;*/
 	font-family:  Roboto-Regular;
 	/*background-color: #F1F1F1;*/
-	background-color: #fafafa;
+	/* background-color: #fafafa; */
+	background-image: url('../../prototype_icons/bggg.jpg');
 	position: relative;
 	min-height: 100%;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
 }
 a:hover{
 	text-decoration: none;
@@ -287,7 +291,7 @@ footer{
 	left:0;
 	right: 0;
 	width: 100%;
-	background-color: #fff;
+	background-color: rgba(74, 72, 72, 0.9);
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3), 0 0 4px rgba(0, 0, 0, 0.2);
 	margin-top: 4px;
 }
@@ -1787,7 +1791,7 @@ changes
 }
 @media only screen and (max-width : 991px) {
 	.common-streamtube {
-		margin-top: 0px;
+		margin-top: 45px;
 	}
 }
 .right-zero{
@@ -3569,14 +3573,14 @@ changes
 }
 #channel-subheader li > a{
 	text-transform: uppercase;
-	font-size: 1.05vw;
+	font-size: 14px;
 	color: #888;
 	padding: 2px 5px;
 	/*font-weight: bold;*/
 }
 #channel-subheader .active > a{
 	padding: 2px 5px !important;
-	font-size: 1.05vw !important;
+	font-size: 14px !important;
 }
 #channel-subheader .nav-tabs>li{
 	margin-bottom: 0;

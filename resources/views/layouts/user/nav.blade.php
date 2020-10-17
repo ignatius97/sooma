@@ -4,9 +4,20 @@
   grid-template-rows: auto;
   grid-area: content;
   width:100%;
-  height: 80vh;
+  height: 88vh;
   overflow-y: scroll;
   overflow-x: hidden;
+  border-radius: 0 0 100% 0%;
+  background-color: #4A4848;
+}
+.content::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.content {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 </style>
@@ -16,7 +27,7 @@
 <div>
 <div class="y-menu col-sm-4 col-md-4" style="margin-right: 0px;" >
 
-    <div class="curriculum" style="position: fixed; width: 32%;">
+    <div class="curriculum" style="position: fixed; width: 28%;background-color: #4A4848; border-radius: 0 0 100% 0%;">
     <div class="content">
         <ul class="y-home menu1">
 
@@ -39,13 +50,13 @@
              @foreach($countries as $country)
              @if($country_with_ip=='') 
              @if($country->country_name==$country_ip)
-            <h3 style="color: black; margin-left: 20px; font-weight: bold; "> <span style="text-align: center;"> <img   class="slide-img1 placeholder" id="img" src="{{$country->picture}}"  /> </span>Curriculum Based Learning 
+            <h3 style="color: Black; margin-left: 20px; font-weight: bold; "> <span style="text-align: center;"> <img   class="slide-img1 placeholder" id="img" src="{{$country->picture}}"  /> </span>Curriculum
             </h3>
               @endif
               @else
 
               @if($country->country_name==$country_with_ip)
-                <h3 style="color: black; margin-left: 20px; font-weight: bold; "> <span> <img   class="slide-img1 placeholder" id="img" src="{{$country->picture}}"  /> </span> Curriculum Based Learning
+                <h3 style="color: Black; margin-left: 20px; font-weight: bold; "> <span> <img   class="slide-img1 placeholder" id="img" src="{{$country->picture}}"  /> </span> Curriculum
             </h3>
               @endif
              @endif
@@ -60,7 +71,7 @@
        @if($country_with_ip=='')
        @if($curriculum->country==$country_ip)
         <li id="hom" title="{{$curriculum->name}}" style="margin-left: 20px;">
-            <a  href="{{ route('user.curriculum.selection' , ['curriculum_id' => $curriculum->id, 'country'=>$country_ip] ) }}" > <img   class="slide-img1 placeholder" id="img" src="{{$curriculum->picture}}"  /> <h6 style="display: inline-grid; vertical-align: bottom; color: black;" class="curriculum_name" >{{$curriculum->name}}</h6></a>
+            <a  href="{{ route('user.curriculum.selection' , ['curriculum_id' => $curriculum->id, 'country'=>$country_ip] ) }}" > <img   class="slide-img1 placeholder" id="img" src="{{$curriculum->picture}}"  /> <h6 style="display: inline-grid; vertical-align: bottom; color: white; border-radius: 50px; padding: 5px; background: linear-gradient(180deg, #EFBA1E, #555);" class="curriculum_name" >{{$curriculum->name}}</h6></a>
         </li>
         @endif
 
@@ -69,7 +80,7 @@
 
         @if($curriculum->country==$country_with_ip)
         <li id="hom" title="{{$curriculum->name}}" style="margin-left: 20px;">
-            <a  href="{{ route('user.curriculum.selection' , ['curriculum_id' => $curriculum->id, 'country'=>$country_with_ip] ) }}" > <img   class="slide-img1 placeholder" id="img" src="{{$curriculum->picture}}"  /> <h6 style="display: inline-grid; vertical-align: bottom; color: black; " class="curriculum_name"  >{{$curriculum->name}}</h6></a>
+            <a  href="{{ route('user.curriculum.selection' , ['curriculum_id' => $curriculum->id, 'country'=>$country_with_ip] ) }}" > <img   class="slide-img1 placeholder" id="img" src="{{$curriculum->picture}}"  /> <h6 style="display: inline-grid; vertical-align: bottom; color: white; border-radius: 50px; padding: 5px; background: linear-gradient(180deg, #EFBA1E, #555); " class="curriculum_name"  >{{$curriculum->name}}</h6></a>
         </li>
         @endif
 
@@ -252,24 +263,16 @@
         
 
     @else
-        <div style="
-    background-color: white;
-    margin-bottom: 0px;
-    width: 64%;
-    margin-left: 18%;
-    height: 30vh;
-    text-align: center;
-    margin-top: 10%;">
-        <div class="menu4 top nav-space my_bg_color" >
+    <div style="margin-left: 45px;">
+        <div class="menu4 top nav-space my_bg_color" style="padding: 0; margin-bottom: 15px; border-radius: 50px; width: 112px; height: 40px;" >
 
             <form method="get" action="{{route('user.register.form')}}">
-                <button type="submit" class="sign_up_btn" style="background-color: brown;">About us</button>
+                <button type="submit" class="sign_up_btn" style="background-color: brown;border-radius: 50px; margin-left: 9px; margin-top: 2px;">Enroll Now</button>
             </form>
-            <h3 class="sooma_heade">For more information about <span class="sooma_colo">sooma</span> Please click the button below</h3>
             
             
         </div> 
-        </div>  
+        </div>
     @endif             
 </div>
 </div>
