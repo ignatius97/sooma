@@ -1,20 +1,18 @@
 @extends('layouts.admin') 
 
-@section('title', 'Countries') 
+@section('title', 'Subjects') 
 
 @section('content-header') 
 
-@if(isset($user)) 
 
-
-@endif
 
 @endsection 
 
 @section('breadcrumb')
 	 
-	<li class="active"><i class="fa fa-suitcase"></i>Curriculums</li>
+	<li class="active"><i class="fa fa-suitcase"></i>Subjects</li>
 @endsection 
+
 
 @section('content')
 
@@ -28,22 +26,22 @@
 
             <div class="box-header label-primary">
 
-                <b style="font-size:18px;">Curriculum</b>
-                <a href="{{ route('admin.curriculums.create') }}" class="btn btn-default pull-right">Add Curriculum</a>
+                <b style="font-size:18px;">Subjects</b>
+                <a href="{{ route('admin.subjects.create') }}" class="btn btn-default pull-right">Add subject</a>
 
             </div>
             <div class="box-body table-responsive">
 
-                @if(count($curriculum_details) > 0)
+                @if(count($subject_details) > 0)
 
                 <table id="example1" class="table table-bordered table-striped">
 
                     <thead>
                         <tr>
                             <th>id</th>
+                            <th>Subject</th>
                             <th>Country</th>
                             <th>Curriculum</th>
-                            <th>Curriculum Abbreviation</th>
                             <th>date created</th>
                             <th>Action</th>
                         </tr>
@@ -51,15 +49,15 @@
 
                     <tbody>
 
-                        @foreach($curriculum_details as $i => $channel_details)
+                        @foreach($subject_details as $i => $channel_details)
 
 	                        <tr>
 	                            <td>{{ $i+1 }}</td>
+                                <td><a target="_blank" href="">{{ $channel_details->subject_name }}</a></td>
 
-	                            <td><a target="_blank" href="">{{ $channel_details->country }}</a></td>
+	                            <td><a target="_blank" href="">{{ $channel_details->country_name }}</a></td>
 
-	                            <td><a target="_blank" href="">{{ $channel_details->name }}</a></td>
-                                 <td><a target="_blank" href="">{{ $channel_details->abbreviation }}</a></td>
+                                 <td><a target="_blank" href="">{{ $channel_details->name }}</a></td>
                                 <td><a target="_blank" href="">{{ $channel_details->created_at }}</a></td>
 
 	                            <td>
@@ -81,9 +79,9 @@
                                                     
                                                 @else
 
-                                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ route('admin.curriculum.edit' , ['channel_id' => $channel_details->id] ) }}">{{ tr('edit') }}</a></li> 
+                                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ route('admin.subjects.edit' , ['subject_id' => $channel_details->id] ) }}">{{ tr('edit') }}</a></li> 
 
-                                                    <li role="presentation"><a role="menuitem" tabindex="-1" onclick="return confirm(&quot;{{ tr('admin_channel_delete_confirmation', $channel_details->name) }}&quot;)" href="{{ route('admin.curriculum.delete' , ['channel_id' => $channel_details->id] ) }}">{{ tr('delete') }}</a></li>
+                                                    <li role="presentation"><a role="menuitem" tabindex="-1" onclick="return confirm(&quot;{{ tr('admin_channel_delete_confirmation', $channel_details->name) }}&quot;)" href="{{ route('admin.subject.delete' , ['subject_id' => $channel_details->id] ) }}">{{ tr('delete') }}</a></li>
 
                                                 @endif
                                         

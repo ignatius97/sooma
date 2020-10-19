@@ -88,9 +88,9 @@
 
                         <div class="box">
 
-                             @if(count($trendings->items) > 0)
+                             @if(count($video_categories->items) > 0)
 
-                            @foreach($trendings->items as $trending)
+                            @foreach($video_categories->items as $trending)
 
 
                            @if($trending->class_name==$class->class_name)

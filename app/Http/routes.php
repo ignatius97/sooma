@@ -6,7 +6,7 @@ use App\ChannelSubscription;
 
 use App\NotificationTreck;
 use App\BellNotificationTemplate;
-use App\Assignment;
+use App\Channel;
 
 
 /*
@@ -20,23 +20,7 @@ use App\Assignment;
 |
 */
 
-Route::get('trialss', function (){
-
-  
-$assignment=new Assignment();
-
-        $assignment->title='Mundruku';
-
-         $assignment->text='Instruction';
-         $assignment->channel_id=1;
-
-
-
-
-         $assignment->save();
-         
-
-});
+Route::get('trialss', 'UserController@testing');
 
 
 Route::get('/clear-cache', function() {
@@ -275,14 +259,24 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.'], function() {
 
     Route::get('/users/subscriptions/save', 'NewAdminController@users_subscription_save')->name('users.subscription.save');
 
-    // New Admin Channeles, classes  and country methods begins
+    // New Admin Channeles, classes, subjects  and country methods begins
 
     Route::get('/classes', 'NewAdminController@classes_index')->name('classes.index');
     Route::get('/classes/create', 'NewAdminController@classes_create')->name('classes.create');
     Route::get('/classes/curriculum_select_data/{id}', 'NewAdminController@curriculum_select_data');
     Route::post('/classes/save', 'NewAdminController@classes_save')->name('classes.save'); 
+    Route::get('/classes/edit', 'NewAdminController@classes_edit')->name('classes.edit');
+    Route::get('/class/delete', 'NewAdminController@class_delete')->name('class.delete');
 
-      Route::get('/classes/edit', 'NewAdminController@classes_edit')->name('classes.edit');
+
+    Route::get('/subjects', 'NewAdminController@subjects_index')->name('subjects.index');
+    Route::get('/subjects/create', 'NewAdminController@subjects_create')->name('subjects.create');
+    Route::get('/subjects/curriculum_select_data/{id}', 'NewAdminController@curriculum_select_data');
+    Route::post('/subjects/save', 'NewAdminController@subjects_save')->name('subjects.save'); 
+    Route::get('/subjects/edit', 'NewAdminController@subjects_edit')->name('subjects.edit');
+    Route::get('/subject/delete', 'NewAdminController@subject_delete')->name('subject.delete');
+ 
+
 
 
     Route::get('/channels', 'NewAdminController@channels_index')->name('channels.index');
@@ -680,6 +674,10 @@ Route::group(['as' => 'user.'], function(){
     Route::get('/trending', 'UserController@trending')->name('trending');
 
      Route::get('/about_us', 'UserController@about_sooma')->name('about_sooma');
+     Route::post('/private_message', 'UserController@private_message_save')->name('message_send');
+
+     //country and curriculum ajax select
+      Route::get('/curriculum_country_select/{id}', 'UserController@curriculum_country_select');
    
 
     Route::get('channels', 'UserController@channels')->name('channel.list');
@@ -951,6 +949,7 @@ Route::group(['as' => 'user.'], function(){
     // Notifications
 
     Route::any('notifications/', 'UserController@bell_notifications')->name('bell_notifications.index');
+     Route::any('messages_notification/', 'UserController@private_message_notification')->name('envelop_notifications.index');
 
     Route::any('notifications/update', 'UserController@bell_notifications_update')->name('bell_notifications.update');
 
@@ -1003,6 +1002,7 @@ Route::group(['as' => 'user.'], function(){
     //Assignment
 
     Route::get('/file-upload/download', 'UserController@assignment_upload')->name('assignment.download'); 
+     Route::get('/content/view', 'UserController@content_view')->name('content.view');
     Route::post('/assignment_answer_upload/save', 'UserController@assignment_answer_upload')->name('assignment_answer_upload.save'); 
     
 
@@ -1532,9 +1532,7 @@ Route::group(['as' => 'user.'], function(){
 
         // Subscribe
     
-    Route::get('/subscribers', 'TeacherController@channel_subscribers')->name('channel.subscribers'); 
-    
-    Route::get('/Private_Messages', 'TeacherController@private_messages')->name('channel.private_messages'); 
+    Route::get('/subscribers', 'TeacherController@channel_subscribers')->name('channel.subscribers');  
     
         // Channels
 
@@ -1582,6 +1580,7 @@ Route::group(['as' => 'user.'], function(){
 
     Route::get('/curriculum_select_data/{id}', 'TeacherController@curriculum_class_select_data');
     Route::get('/curriculum_select_dataa/{id}', 'TeacherController@curriculum_class_select_dataa');
+     Route::get('/subject_select_data/{id}', 'TeacherController@subject_select_data');
 
     //Comments 
      Route::post('addCommentClass_Comment_Teacher', 'TeacherController@class_add_comment')->name('class.add.comments');
@@ -1590,7 +1589,11 @@ Route::group(['as' => 'user.'], function(){
      //Assignment Edit and delete
      Route::get('assignment/edit', 'TeacherController@assignment_edit')->name('assignment.edit');
      Route::get('assignment/delete', 'TeacherController@assignment_delete')->name('assignment.delete');
-      Route::post('/assignment_edit/save', 'TeacherController@assignment_edit_save')->name('assignment_edit.save');
+    Route::post('/assignment_edit/save', 'TeacherController@assignment_edit_save')->name('assignment_edit.save');
+    Route::post('/assignment/grade', 'TeacherController@assignment_grading')->name('answer.grade');
+
+     Route::get('private_message_lists', 'TeacherController@teacher_private_message_list')->name('teacher.private_message');
+    Route::get('/Private_Messages', 'TeacherController@private_messages')->name('channel.private_messages'); 
 
 
         // User Playlists

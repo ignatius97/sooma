@@ -11,6 +11,8 @@ use App\Country;
 use App\Curriculum;
 use Hash;
 use App\Classes;
+
+use App\Subject;
 use Log;
 use DB;
 use App\Channel;
@@ -418,7 +420,7 @@ class CommonRepository {
                     
                     'description' => 'required|max:1000',
                     'picture' => 'required|mimes:jpeg,jpg,bmp,png',
-                    'country' => 'required|min:4|max:255',
+                    'country_id' => 'required|max:255',
                     
                 ]
             );
@@ -454,8 +456,7 @@ class CommonRepository {
              
 
                 $curriculum->name = $request->has('name') ? $request->name : '';
-               
-                $curriculum->country = $request->has('country') ? $request->country : '';
+                $curriculum->country_id = $request->has('country_id') ? $request->country_id : '';
 
                 $curriculum->description = $request->has('description') ? $request->description : '';
 
@@ -587,6 +588,78 @@ class CommonRepository {
     }
 
 
+//subject save
+
+
+public static function subjects_save($request) {
+
+        try {  
+            $validator = Validator::make( $request->all(), [
+
+                    'subject_name' => 'required|min:2|max:255',
+                    'curriculum' => 'required|max:255',
+                    'country' => 'required|max:255',
+                
+                    
+                ]
+            );
+
+            if ($validator->fails()) {
+
+                $error = implode(',', $validator->messages()->all());
+
+                throw new Exception($error, 101);                    
+
+            }
+
+            
+                if ($request->subject_id != '') {
+
+                    $subjects = Subject::find($request->subject_id);
+
+                    $message = tr('admin_channel_update_success');
+
+                } else {
+
+                     $subjects = new Subject;
+
+                    $message = tr('admin_channel_create_success');
+                    //Add New User
+                   
+
+                }
+             
+
+                $subjects->subject_name = $request->has('subject_name') ? $request->subject_name : '';
+                $subjects->curricula_id = $request->has('curriculum') ? $request->curriculum : '';
+                $subjects->country_id = $request->has('country') ? $request->country : '';
+              
+                if ($subjects->save()) {
+
+                    // For response purpose
+
+                if ($subjects) {
+
+                    $response_array = ['success' => true, 'message' => $message, 'data' => $subjects];
+                } else {
+
+                    $response_array = ['success' => false, 'error_messages' => tr('something_error')]; 
+                }
+
+                }
+
+
+        } catch (Exception $e) {
+            
+          
+
+            $message = $e->getMessage();
+
+            $response_array = ['success' => false, 'error_messages' => $message, 'error_code' => $e->getCode()];
+        }    
+
+        return response()->json($response_array, 200);    
+    }
 
 
 

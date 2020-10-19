@@ -37,13 +37,6 @@
 
 
 
-    <script type="text/javascript">
-
-    
-    $("#options").change(function(){
-        this.form.submit();
-    });
-   </script>
 
    
 

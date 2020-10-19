@@ -15,6 +15,7 @@ use App\Helpers\Helper;
 
 use App\Settings;
 use App\Class_Discusion;
+use App\ClassChat;
 
 use App\User;
 use App\Curriculum;
@@ -29,6 +30,10 @@ use App\Wishlist;
 use App\Page;
 
 use App\Flag;
+
+use Response;
+
+use File;
 
 use App\Admin;
 
@@ -136,6 +141,7 @@ class UserController extends Controller {
                 'custom_live_videos',
                 'single_custom_live_video',
                 'tags_videos',
+                'curriculum_country_select',
                 'all_categories',
                 'category_videos',
                 'sub_category_videos',
@@ -1460,15 +1466,24 @@ class UserController extends Controller {
 
                $assignment=Assignment::join('channels', 'assignments.channel_id', '=', 'channels.id')->select('assignments.id as id', 'assignments.title as title', 'assignments.created_at as created_at')->get();
 
+        //Get channel id
+            $channel_creator=Channel::find($id); 
+
+            //receiver_messgae
+
+            $sender=ClassChat::where('to_user_id', $request->user_id)->orWhere('to_user_id', Auth::user()->id)->where('from_user_id', Auth::user()->id)->orWhere('from_user_id',$request->user_id)->where('channel_id', $id)->orderBy('id', 'desc')->get();
+
             return view('user.channels.index')
                         ->with('page' , 'channels_'.$id)
                         ->with('subPage' , 'channels')
                         ->with('channel' , $channel)
+                        ->with('sender', $sender)
                         ->with('comments', $comment)
                         ->with('assignment', $assignment)
                         ->with('channel_id', $id)
                         ->with('live_videos', $live_videos)
                         ->with('videos' , $videos)
+                        ->with('to_user_id', $channel_creator->user_id)
                         ->with('trending_videos', $trending_videos)
                         ->with('channel_playlists', $channel_playlists)
                         ->with('payment_videos', $payment_videos)
@@ -4623,6 +4638,10 @@ class UserController extends Controller {
 
     }  
 
+
+
+    // message notification 
+
     /**
      * Function Name : bell_notifications_count()
      * 
@@ -4704,6 +4723,28 @@ class UserController extends Controller {
         }
 
     }  
+
+
+
+/*
+
+message notification data
+
+*/
+       public function private_message_notification (Request $request) {
+
+        
+
+            $response = $this->UserAPI->private_message_notification ($request)->getData();
+
+
+         
+
+               return response()->json($response, 200);
+
+         
+           
+    } 
 
     /**
      *
@@ -6212,6 +6253,7 @@ public function country_curriculum(Request $request){
             ->get();
 
             $trendings = $this->UserAPI->trending_list($request)->getData();
+            $video_categories=$this->UserAPI->video_catergorization($request)->getData();
 
            
           return view('user.curriculum.index')->with('page' , 'home')
@@ -6224,6 +6266,7 @@ public function country_curriculum(Request $request){
                         ->with('country_with_ip', $request->country)
                         ->with('class', $class)
                         ->with('suggestions' , $suggestions)
+                        ->with('video_categories', $video_categories)
                         ->with('channels' , $channels)
                         ->with('banner_videos', $banner_videos)
                         ->with('country', $country)
@@ -6238,6 +6281,20 @@ public function country_curriculum(Request $request){
 
 
     
+
+
+}
+
+//function for partial data rendering on country change
+
+
+public function curriculum_country_select($id){
+
+ $curriculum=Curriculum::where('country_id', $id)->get();
+ $country=Country::find($id);
+ $country_video=$this->UserAPI->trending_by_country($id)->get();
+
+ echo json_encode(array('country'=>$country, 'curriculum'=>$curriculum, 'trending_videos_country'=>$country_video));
 
 
 }
@@ -6276,6 +6333,25 @@ public function assignment_upload(Request $request){
 }
 
 
+
+public function content_view(Request $request){
+    $filename=$request->file;
+
+    $pathInfo=pathinfo(storage_path("app/".$filename));
+    $extension=$pathInfo['extension'];
+    
+
+    
+    $file_url=Storage::disk('public')->get($request->file);
+    
+    
+
+    return view('view_content')->with('extension', $extension)->with('url', $file_url);
+
+}
+
+
+
 public function assignment_answer_upload(Request $request){
    $this->NewUserAPI->notification_classpost_assignment($request)->getData();
 
@@ -6307,7 +6383,54 @@ public function about_sooma(){
   return view('user.about_sooma');
 
 }
+ 
 
+
+// private  message  save 
+
+public function private_message_save(Request $request){
+
+
+                $message_details= new ClassChat;
+
+                $message_details->from_user_id = $request->from;
+
+                $message_details->to_user_id = $request->to;
+
+                $message_details->message= $request->message;
+                $message_details->channel_id=$request->channel_id;
+
+                $message_details->save();
+
+
+
+                if($message_details->save()){
+                 $response_array = array('success' => true , 'comment' => $message_details->toArray() , 'date' => $message_details->created_at->diffForHumans(),'message' => tr('comment_success') );
+
+                 
+
+                    return $response_array;
+
+                }
+
+                else
+                {
+                    return 0;
+                }
+
+
+
+
+}
+
+
+//Testing function 
+
+public function testing(Request $request){
+
+     $curriculum=Country::join('curricula', 'countries.id', '=', 'curricula.country_id')->where('countries.country_name', 'Uganda')->get();
+     echo $curriculum;
+}
 
 
 

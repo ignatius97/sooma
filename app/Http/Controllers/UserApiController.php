@@ -24,6 +24,7 @@ use App\Jobs\sendPushNotification;
 use App\Jobs\BellNotificationJob;
 
 use App\Assignment;
+use App\ClassChat;
 
 use Log;
 
@@ -6687,18 +6688,6 @@ public function recently_added_by_country($request) {
 public function trending_by_country($request) {
 
         
-  
-        $ip = '197.157.34.169';
-
-        $data = 'uganda';
-
-       $country= strtolower($data);
-       
-       $targeted_country=$request->input('targeted_country');
-
-       if ($targeted_country=='uganda'|| $targeted_country=='kenya' || $targeted_country=='tanzania'||$targeted_country=='rwanda') {
-           $country=$targeted_country;
-       }
 
         $base_query = VideoTape::where('watch_count' , '>' , 0)
                         ->leftJoin('channels' , 'video_tapes.channel_id' , '=' , 'channels.id')
@@ -6709,49 +6698,13 @@ public function trending_by_country($request) {
                      
                         ->where('channels.status', 1)
                         ->where('channels.is_approved', 1)
-                        ->leftJoin('categories' , 'categories.id' , '=' , 'video_tapes.category_id') 
-                        ->where('categories.status', CATEGORY_APPROVE_STATUS)
+                        ->where('video_tapes.country_id', $request)
                         ->videoResponse()
                         ->orderby('watch_count' , 'desc');
 
-        if ($request->id) {
+       
 
-            // Check any flagged videos are present
-
-            $flag_videos = flag_videos($request->id);
-
-            if($flag_videos) {
-                
-                $base_query->whereNotIn('video_tapes.id',$flag_videos);
-            }
-
-            $base_query = $base_query->where('video_tapes.age_limit','<=', checkAge($request));
-
-        } else {
-
-            $base_query = $base_query->where('video_tapes.age_limit','=', 0);
-        }
-
-        $videos = $base_query->paginate(16);
-
-        $items = [];
-
-        $pagination = 0;
-
-        if (count($videos) > 0) {
-
-            foreach ($videos->items() as $key => $value) {
-                
-                $items[] = displayVideoDetails($value, $request->id);
-
-            }
-
-            $pagination = (string) $videos->links();
-
-        }
-
-        return response()->json(['items'=>$items, 'pagination'=>$pagination]);
-    
+       return $base_query;
     }
 
 
@@ -6842,7 +6795,74 @@ public function trending_by_country($request) {
      *
      * @return Response of videos list
      */
-    public function trending_list($request) {
+   public function trending_list($request) {
+
+        $base_query = VideoTape::where('watch_count' , '>' , 0)
+                        ->leftJoin('channels' , 'video_tapes.channel_id' , '=' , 'channels.id')
+                        ->where('video_tapes.publish_status' , 1)
+                        ->where('video_tapes.status' , 1)
+                        ->where('video_tapes.is_approved' , 1)
+                        ->where('channels.status', 1)
+                        ->where('channels.is_approved', 1)
+                        ->videoResponse()
+                        
+                        ->orderby('watch_count' , 'desc');
+
+        if ($request->id) {
+
+            // Check any flagged videos are present
+
+            $flag_videos = flag_videos($request->id);
+
+            if($flag_videos) {
+                
+                $base_query->whereNotIn('video_tapes.id',$flag_videos);
+            }
+
+            $base_query = $base_query->where('video_tapes.age_limit','<=', checkAge($request));
+
+        } else {
+
+            $base_query = $base_query->where('video_tapes.age_limit','=', 0);
+        }
+
+        $videos = $base_query->paginate(16);
+
+        $items = [];
+
+        $pagination = 0;
+
+        if (count($videos) > 0) {
+
+            foreach ($videos->items() as $key => $value) {
+                
+                $items[] = displayVideoDetails($value, $request->id);
+
+            }
+
+            $pagination = (string) $videos->links();
+
+        }
+
+        return response()->json(['items'=>$items, 'pagination'=>$pagination]);
+    
+    }
+
+
+
+
+    /**
+     * @method video_catergorization()
+     *
+     * @usage_place : WEB
+     *
+     * @uses To display based on watch count, no of users seen videos
+     *
+     * @param object $request - User Details
+     *
+     * @return Response of videos list
+     */
+    public function video_catergorization($request) {
 
 
        $country=$request->has('targeted_country')?$request->input('targeted_country'): "Uganda";
@@ -7175,7 +7195,7 @@ public function trending_by_country($request) {
      *
      * @uses To list out all the channels which is in active status
      *
-     * @param Object $request - USer Details
+     * @param Object $request - USer Detailsbell_notifications
      *
      * @return array of channel list
      */
@@ -11088,6 +11108,67 @@ public function trending_by_country($request) {
 
         }
 
+    }
+
+
+
+
+    //Message notifactions 
+
+
+     public function private_message_notification (Request $request) {
+
+        try {
+
+           
+            $envelope_notifications = ClassChat::where('to_user_id',  Auth::user()->id)->where('status', 0)
+                                        ->select('channel_id',   'message', 'status', 'from_user_id', 'to_user_id', 'created_at')
+                                        ->orderBy('class_chats.created_at', 'desc')
+                                        ->get();
+
+
+
+            $envelope_notifications_count=ClassChat::where('to_user_id', Auth::user()->id)->count();
+            $redirect_url=ClassChat::join('channels', 'class_chats.channel_id', '=', 'channels.id')->where('class_chats.to_user_id', Auth::user()->id)->get();
+
+            $channel_details=Channel::where('user_id', Auth::user()->id)->get();
+
+
+            foreach ($envelope_notifications as $key => $envelope_notification_details) {
+
+                    $picture = asset('placeholder.png');
+
+                    $user_details = User::find($envelope_notification_details->from_user_id);
+
+                    $picture = $user_details ? $user_details->picture : $picture;
+                    $name=$user_details->name;
+
+               
+
+                $envelope_notification_details->picture = $picture;
+                $envelope_notification_details->name=$name;
+
+                unset($envelope_notification_details->from_user_id);
+
+                unset($envelope_notification_details->to_user_id);
+              }
+
+            $response_array = ['success' => true, 'data' => $envelope_notifications, 'redirect_urls'=>$redirect_url];
+
+             return response()->json($response_array);
+
+        } catch(Exception $e) {
+
+            $error_messages = $e->getMessage();
+
+            $error_code = $e->getCode();
+
+            $response_array = ['success' => false, 'error_messages' => $error_messages, 'error_code' => $error_code];
+
+            return response()->json($response_array);
+
+        }   
+    
     }
 
     /**

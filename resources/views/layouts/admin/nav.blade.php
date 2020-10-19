@@ -54,7 +54,7 @@
 
             <li class="treeview" id="channels">
                 <a href="{{route('admin.channels.index')}}">
-                    <i class="fa fa-tv"></i> <span>Country</span> <i class="fa fa-angle-left pull-right"></i>
+                    <i class="fa fa-tv"></i> <span>Countries</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
 
                 <ul class="treeview-menu">
@@ -92,6 +92,23 @@
                 
                 </ul>
             </li>
+
+
+             </li>
+               <li class="treeview" id="channels">
+                <a href="{{route('admin.channels.index')}}">
+                    <i class="fa fa-tv"></i> <span>Subjects</span> <i class="fa fa-angle-left pull-right"></i>
+                </a>
+
+                <ul class="treeview-menu">
+                    
+                    <li id="channels-create"><a href="{{route('admin.subjects.create')}}"><i class="fa fa-circle-o"></i>Add Subject</a></li>
+                    
+                    <li id="channels-view"><a href="{{route('admin.subjects.index')}}"><i class="fa fa-circle-o"></i>View Subjects</a></li>
+                
+                </ul>
+            </li>
+
 
              
 

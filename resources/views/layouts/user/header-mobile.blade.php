@@ -243,7 +243,7 @@ body {
             </li>
 
             <div>
-                @foreach($curriculum as $curriculum) 
+                @foreach($curriculum_auto as $curriculum) 
                     @if($country_with_ip=='')
                     @if($curriculum->country==$country_ip)
                         <li id="hom" title="{{$curriculum->name}}" style="margin-left: 20px;">

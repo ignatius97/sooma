@@ -174,10 +174,20 @@
  
                                      <div class="clearfix"></div>
                                      <div class="col-lg-6 col-md-6 col-sm-12">
-                                         <label for="subject" class="control-label"> {{tr('subject_name')}}  * </label>
-                                         <div>
-                                             <input type="text" required class="form-control" id="title" name="subject" placeholder=" Subject " value="{{old('subject')}}">
-                                         </div>
+ 
+ 
+                                            <label for="video" class="control-label">{{tr('tags')}}</label>
+                                           <div>
+                                               
+                                             <select id="tag_id" name="tag_id[]" class="form-control select2" data-placeholder="{{tr('select_tags')}}" multiple style="width: 100% !important">
+                                                 @foreach($tags as $tag)
+                                                       <option value="{{$tag->tag_id}}">{{$tag->tag_name}}</option>
+                                                 @endforeach
+                                             </select>
+ 
+ 
+                                           </div>
+                                        
                                      </div>
  
                                      <div class="col-lg-6 col-md-6 col-sm-12">
@@ -210,18 +220,13 @@
                                      
                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                           
-                                           <label for="video" class="control-label">{{tr('tags')}}</label>
-                                           <div>
-                                               
-                                             <select id="tag_id" name="tag_id[]" class="form-control select2" data-placeholder="{{tr('select_tags')}}" multiple style="width: 100% !important">
-                                                 @foreach($tags as $tag)
-                                                       <option value="{{$tag->tag_id}}">{{$tag->tag_name}}</option>
-                                                 @endforeach
+                                           <label for="subject" class="control-label"> {{tr('subject_name')}}  * </label>
+ 
+                                         <select id="category_id" name="subject" class="form-control select2 subject_change" required style="width: 100% !important">
+                                                 @foreach($subjects as $country)
+                                                       <option value="{{$country->id}}">{{$country->subject_name}}</option>
+                                                     @endforeach
                                              </select>
- 
- 
-                                           </div>
-                                        
                                        </div>       
                                      </div>
                                        <div class="clearfix"></div>
@@ -981,6 +986,8 @@
  
                 $('.class_change').children('option').remove();
                 $('.curriculum_changee').children('option').remove();
+                $('.subject_change').children('option').remove();
+ 
               }
             
               if(len > 0){
@@ -1126,6 +1133,61 @@
                   var option = "<option value='"+val+"'>"+name+"</option>"; 
  
                   $(".curriculum_changee").append(option); 
+                }
+ 
+ 
+              }
+ 
+                 }
+              }
+             )
+         });
+ 
+ 
+         $('.country_change').on('change', function (e){
+ 
+             var country=e.target.value;
+ 
+            
+            $.ajax(
+              {
+                 url: 'subject_select_data/'+country,
+                 type: 'get',
+                 dataType: 'json',
+ 
+                 success: function(data){
+                   
+ 
+                      var len = 0;
+ 
+ 
+ 
+ 
+                 if(data != null){
+                len = data.length;
+              }
+              if(len<1){
+ 
+                $('.subject_change').children('option').remove();
+              }
+ 
+ 
+              if(len > 0){
+ 
+                $('.subject_change').children('option').remove();
+ 
+                 for(var i=0; i<len; i++){
+ 
+                  
+                  var name = data[i].subject_name;
+                  var val=data[i].id;
+ 
+               
+                  
+ 
+                  var option = "<option value='"+val+"'>"+name+"</option>"; 
+ 
+                  $(".subject_change").append(option); 
                 }
  
  

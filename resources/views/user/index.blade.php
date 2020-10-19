@@ -62,6 +62,15 @@
    }
 
     }
+
+     @media only screen and (min-width : 760px) {
+
+   .box-head h3{
+
+    font-size: 1.3vw;
+   }
+
+    }
 </style>
 @endsection
 
@@ -81,7 +90,7 @@
     <!-- Wrapper for slides -->
     
     
-    <div id='video-slider' style="margin-top: 1%;">
+     <div id='video-slider' style="margin-top: 1%;">
         <div class="slider-inner">
             <ul>
                 <li>
@@ -93,6 +102,7 @@
             </ul>
         </div>
     </div>
+   
    
     
 
@@ -188,91 +198,27 @@
 
                 <!-- wishlist end -->
 
-                @if(count($recent_videos->items) > 0)
-
-                <hr>
-
-                <style>
-          @media only screen and (min-width : 760px) {
-            
-            .box-head h3 {
-                font-size: 1.3vw;
-            }
-           
-        }
-          </style> 
-                
-                    <div class="slide-area">
-                       
-                        <div class="box-head">
-                            <h3>{{tr('recent_videos')}}</h3>
-                        </div>
-
-                        <div class="box">
-
-                            @foreach($recent_videos->items as $recent_video)
-                            <div class="slide-box">
-                                <div class="slide-image">
-                                    <a href="{{ route('user.single' , ['id' => $recent_video->url] ) }}">
-                                        <!-- <img src="{{$recent_video->video_image}}" /> -->
-                                        <!-- <div style="background-image: url({{$recent_video->video_image}});" class="slide-img1"></div> -->
-                                        <img src="{{asset('streamtube/images/placeholder.gif')}}" data-src="{{$recent_video->video_image}}"class="slide-img1 placeholder" />
-                                    </a>
-                                    @if($recent_video->ppv_amount > 0)
-                                        @if(!$recent_video->ppv_status)
-                                            <div class="video_amount">
-
-                                            {{tr('pay')}} - {{Setting::get('currency')}}{{$recent_video->ppv_amount}}
-
-                                            </div>
-                                        @endif
-                                    @endif
-                                    <div class="video_mobile_views">
-                                        {{$recent_video->watch_count}} {{tr('views')}}
-                                    </div>
-                                    <div class="video_duration">
-                                        {{$recent_video->duration}}
-                                    </div>
-                                </div><!--end of slide-image-->
-
-                                <div class="video-details">
-                                    <div class="video-head">
-                                        <a href="{{ route('user.single' , ['id' => $recent_video->url] ) }}">{{$recent_video->title}}</a>
-                                    </div>
-
-                                    <span class="video_views">
-                                        <div><a href="{{route('user.channel',$recent_video->channel_id)}}">{{$recent_video->channel_name}}</a></div>
-                                        <div class="hidden-mobile"><i class="fa fa-eye"></i> {{$recent_video->watch_count}} {{tr('views')}} <b>.</b> 
-                                        {{common_date($recent_video->created_at) }}</div>
-                                    </span>
-                                </div><!--end of video-details-->
-                            </div><!--end of slide-box-->
-                            @endforeach
-                   
-                              
-                        </div><!--end of box--> 
-                   
-                    </div>
-                    <!--end of slide-area-->
-
-                @endif
-
-
                
 
                 @if(count($trendings->items) > 0)
 
                 <hr>
 
-                    <div class="slide-area">
+                    <div class="slide-area ">
+                         
                         <div class="box-head">
                             <h3>{{tr('trending')}}</h3>
                         </div>
 
+                        
+
                         <div class="box">
 
+                            <div class="trending_new_show" style="display: none;">
+                           </div>
+                            
                             @foreach($trendings->items as $trending)
-
+                            <div class="trending_new_hide">
                             <div class="slide-box">
                                 <div class="slide-image">
                                     <a href="{{ route('user.single' , ['id' => $trending->url, 'dd'=>$trending->url] ) }}">
@@ -309,58 +255,22 @@
                                     </span>
                                 </div><!--end of video-details-->
                             </div><!--end of slide-box-->
+                              </div> 
                             @endforeach
                    
-                              
+                          
                         </div><!--end of box--> 
                     </div><!--end of slide-area-->
 
                 @endif
 
-
+               
              
                 <div class="sidebar-back"></div>  
+                
+
+
             </div>
-        <div style=" width:100%; height:10px; z-index:99;position: absolute;">
-            <div style="background-color:green; width:30%; border-radius: 50px; text-align: center; margin-left: 40px; display: inline-block;" >
-                <p>SOOMA is a FREE-School that allows users to teach <br> or learn virtually <br> from anywhere at any time</p>
-            </div>
-            <div style="background-color:white; width:15%; border-radius: 50px; text-align: center; margin-left: -20px;display: inline-block; " >
-                <p>SOOMA in numbers</p>
-            </div>
-            <div style=" width:10%; text-align: center; display: inline-block; " >
-                <div style="background-color:white; border-radius: 50%;width: 30px; margin-left: auto; margin-right: auto; ">
-                    <p style="font-size: 20px;">50</p>
-                </div>
-                <div style="background-color:white;">
-                    <p>Teachers Joined</p>
-                </div>
-            </div>
-            <div style=" width:10%; text-align: center; display: inline-block; " >
-                <div style="background-color:white; border-radius: 50%;width: 30px; margin-left: auto; margin-right: auto; ">
-                    <p style="font-size: 20px;">80</p>
-                </div>
-                <div style="background-color:white;">
-                    <p>Classes Created</p>
-                </div>
-            </div>
-            <div style=" width:10%; text-align: center; display: inline-block; " >
-                <div style="background-color:white; border-radius: 50%;width: 30px; margin-left: auto; margin-right: auto; ">
-                    <p style="font-size: 20px;">4K</p>
-                </div>
-                <div style="background-color:white;">
-                    <p>Students erolled</p>
-                </div>
-            </div>
-            <div style=" width:15%; text-align: center; display: inline-block; " >
-                <div style="background-color:white; border-radius: 50%;width: 30px; margin-left: auto; margin-right: auto; ">
-                    <p style="font-size: 20px;">25</p>
-                </div>
-                <div style="background-color:white;">
-                    <p>Certificates & Awards</p>
-                </div>
-            </div>
-        </div>
 
         </div>
     </div>
@@ -401,5 +311,141 @@ $('[id^=carousel-thumb-]').click( function(){
   $('[id^=carousel-thumb-]').removeClass('selected');
   $(this).addClass('selected');
 });
+
+
+
+        $('.country_option_select').on('change', function (e){
+
+            var country=this.value;
+
+            console.log(country);
+           $.ajax(
+             {
+                url: 'curriculum_country_select/'+country,
+                type: 'get',
+                dataType: 'json',
+
+                success: function(data){
+                   
+                      console.log(data);
+                     var len = 0;
+
+                     $('.hide_title').hide();
+
+                     var template='<span style="text-align: center;"> <img id="img-country"   class="slide-img1 placeholder" id="img" src=""/> </span>Curriculum Based Learning ';
+
+                     $('.show_title').html(template);
+
+                     document.querySelector('#img-country').src=data.country.picture;
+
+                     $('.show_title').show();
+
+
+                     //curriculum logic
+                     
+                     if(data.curriculum.length<1){
+                    var no_result_template='<h2>No Curriculum, check latter';
+                    $('.curriculum_hide').hide();
+                    $('.curriculum_show').html(no_result_template);
+                     }
+
+            
+               
+                    
+                     $.each(data.curriculum, function(key,items) {
+                       //var url=` route('user.curriculum.selection', ['curriculum_id'=>${items.id}, 'country_id'=>${data.country.id}]`; 
+                        
+                          
+                        var template_curriculum=' <a  href="country-curriculum/selection?curriculum_id='+items.id+'&country_id='+data.country.id+'">'
+
+                        template_curriculum+='<li id="hom" title="'+items.name+'" style="margin-left: 20px;">'
+
+                        template_curriculum+=' <img   class="slide-img1 placeholder" id="img" src="'+items.picture+'"  />' 
+                        template_curriculum+='<h6 style="display: inline-grid;vertical-align: bottom; color: black; font-size: 15px;" >'+items.name+'</h6>'
+                        template_curriculum+='</a>'
+
+                        $('.curriculum_hide').hide();
+
+                        $('.curriculum_show').append(template_curriculum);
+                    
+                    
+
+                     })
+
+                       if(data.trending_videos_country<1){
+                        var no_result_template='<h2>No Videos, check latter';
+                        $('.trending_new_show').show();
+                         $('.trending_new_show').html(no_result_template);  
+
+                       }
+               
+                      $.each(data.trending_videos_country, function(key,video_items) {
+
+                        var video_detail_template='<div class="slide-box">'
+                        video_detail_template+='<div class="slide-image">'
+
+                        video_detail_template+='<a href="video/'+video_items.id+'">'
+                        video_detail_template+=' <img src="'+video_items.default_image+'" class="slide-img1 '
+                        video_detail_template+='placeholder" />   </a>'
+                        video_detail_template+='<div class="video_mobile_views">'
+                        video_detail_template+=''+video_items.watch_count+' Views'
+                        video_detail_template+='</div>'
+                        video_detail_template+='<div class="video_duration">'
+                        video_detail_template+=''+video_items.duration+''
+                        video_detail_template+='</div>'
+                        video_detail_template+=' </div>'
+                        video_detail_template+='<div class="video-details"> <div class="video-head">'
+                        video_detail_template+='<a href="video/'+video_items.id+'">'
+                        video_detail_template+=''+video_items.title+' </a></div><span class="video_views"> <div>'
+                        video_detail_template+='<a href="channel/'+video_items.channel_id+'">'
+                        video_detail_template+=''+video_items.channel_name+' </a> </div>'
+                        video_detail_template+='<div class="hidden-mobile"><i class="fa fa-eye"></i> '
+                        video_detail_template+=''+video_items.watch_count+' Views <b>.</b>'
+                        video_detail_template+=''+video_items.publish_time+' </div> </span>  </div>'
+                        video_detail_template+=' </div>'
+                       
+                         $('.trending_new_hide').hide();
+                         $('.trending_new_show').show();
+                         $('.trending_new_show').html(video_detail_template);            
+                                                       
+
+                    
+                           })
+                   
+
+                    
+
+
+
+                if(data != null){
+               len = data.length;
+             }
+
+
+             console.log(len);
+
+             if(len > 0){
+
+               $('.curriculum').children('option').remove();
+
+                for(var i=0; i<len; i++){
+
+                 
+                 var name = data[i].name;
+                 var curr_id=data[i].curriculum_id;
+
+
+                 var option = "<option value='"+curr_id+"'>"+name+"</option>"; 
+
+                 $(".curriculum").append(option); 
+               }
+
+
+             }
+
+                }
+             }
+            )
+        })
 </script>
 @endsection

@@ -75,13 +75,13 @@
                                                 
                                                     <li role="presentation"><a role="button" href="javascript:;" class="btn disabled" style="text-align: left">{{ tr('edit') }}</a></li> 
 
-                                                    <li role="presentation"><a role="button"  href="javascript:;" class="btn disabled" style="text-align: left" onclick="return confirm(&quot;{{ tr('admin_channel_delete_confirmation', $channel_details->name) }}&quot;)" >{{ tr('delete') }}</a></li> 
+                                                    <li role="presentation"><a role="button"  href="javascript:;" class="btn disabled" style="text-align: left" onclick="return confirm(&quot;{{ tr('Are you sure you want to delete the class, once deleted, all the videos corresponding to the class will be deleted', $channel_details->name) }}&quot;)" >{{ tr('delete') }}</a></li> 
                                                     
                                                 @else
 
                                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ route('admin.classes.edit' , ['channel_id' => $channel_details->id] ) }}">{{ tr('edit') }}</a></li> 
 
-                                                    <li role="presentation"><a role="menuitem" tabindex="-1" onclick="return confirm(&quot;{{ tr('admin_channel_delete_confirmation', $channel_details->name) }}&quot;)" href="{{ route('admin.curriculum.delete' , ['channel_id' => $channel_details->id] ) }}">{{ tr('delete') }}</a></li>
+                                                    <li role="presentation"><a role="menuitem" tabindex="-1" onclick="return confirm(&quot;{{ tr('Are you sure you want to delete the class, ones deleted, all the videos corresponding to the class will be deleted as well', $channel_details->name) }}&quot;)" href="{{ route('admin.class.delete' , ['class_id' => $channel_details->id] ) }}">{{ tr('delete') }}</a></li>
 
                                                 @endif
                                         

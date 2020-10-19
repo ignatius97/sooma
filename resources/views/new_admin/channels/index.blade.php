@@ -6,7 +6,7 @@
 
 @if(isset($user)) 
 
-	<span class="text-green"> {{ $user->name }} </span>- 
+	
 
 @endif {{ tr('channels') }}
 

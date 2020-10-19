@@ -64,7 +64,7 @@
 
     
 
-        <div class="col-lg-5 col-md-4 col-sm-3 col-xs-12 hidden-xs">
+        <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12 hidden-xs">
 
           
 
@@ -103,7 +103,7 @@
 
         <!-- ========RESPONSIVE  HEADER VISIBLE IN MOBAILE VIEW====== -->
         
-        <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12 hidden-xs visible-sm visible-md visible-lg">
+        <div class="col-lg-3 col-md-2 col-sm-3 col-xs-12 hidden-xs visible-sm visible-md visible-lg">
 
             @if(Auth::check())
 
@@ -196,6 +196,38 @@
                         </ul>
 
                     </li>
+
+                     <li  class="dropdown">
+                        <a class="nav-link text-light notification-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="return notificationsStatusUpdate();">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+
+                        </a>
+
+                        <ul class="dropdown-menu-notification dropdown-menu">
+
+                            <li class="notification-head text-light bg-dark">
+                                <div class="row">
+                                    <div class="col-lg-12 col-sm-12 col-12">
+                                        <span>
+                                            {{tr('notifications')}} 
+                                            (<span id="global-notifications-count">0</span>)
+                                        </span>
+                                        <!-- <a href="" class="float-right text-light">Mark all as read</a> -->
+                                    </div>
+                                </div>
+                            </li>
+
+                            <span id="global-notifications-box"></span>
+
+                            <li class="notification-footer bg-dark text-center">
+                                <a href="" class="text-light">
+                                    {{tr('view_all')}}
+                                </a>
+                            </li>
+                        
+                        </ul>
+
+                    </li>
                  
                 </ul>
                  
@@ -269,9 +301,7 @@
         </div>
 
         <!-- ======== RESPONSIVE HEADER VISIBLE IN MOBAILE VIEW====== -->
-
-        @include('layouts.teacher.header-mobile-teacher')
-
+        
         <!-- ======== RESPONSIVE HEADER VISIBLE IN MOBAILE VIEW====== -->
 
     </div><!--end of row-->

@@ -4,7 +4,7 @@
 
     <link rel="stylesheet" type="text/css" href="{{asset('streamtube/css/custom-style.css')}}">
 
-    <style>
+     <style>
    
         
         .payment_class {
@@ -126,7 +126,6 @@
             @include('layouts.teacher.nav_teacher')
             @foreach($assignment as $assignment)
             <div class="page-inner col-sm-9 col-md-8 ">
-            <h3 style="text-align:center;">ASSIGNMENT </h3>
                 <div style=" margin-bottom:10px; margin-top:3%; color:black; display:inline-block; ">
                     <P>{{$assignment->title}} <br/> <small>{{$assignment->created_at}}</small></P>
                 </div>
@@ -140,7 +139,7 @@
                 <hr>
 
                 @endforeach
-                <div style="text-align: right; margin-bottom: 6px;">      
+                <div style="text-align: center; margin-bottom: 6px;">      
 
 
                   <a href="{{ route('user.assignment.edit', ['assignment_id'=>$assignment_id]) }}">
@@ -166,57 +165,44 @@
                    <h4>Answers Uploaded</h4>
 
                </div>
-
-               <div style="border:1px solid black; padding: 10px; margin-bottom:10px; color:black;">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div style="display: inline-block;">
-                                <img class="profile-image" src="">
-                            </div>
-                            <div class="form-group" style="display: inline-block; vertical-align:top; ">
-                                <p> Student Name <br/> answer name <br/> answer file </p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <button class="btn btn-primary">
-                                Open
-                            </button>
-                            <br/>
-                            <br/>
-                            <button class="btn btn-primary" onclick="log()">
-                                Mark
-                            </button>
-                            &nbsp&nbsp&nbsp&nbsp&nbsp
-                            <a href="">
-                            <button class="btn">download</button>
-                            </a>
-                        </div>
-                    </div>
-                    
-                    
-                        
-                    
-
-
-                </div>
                 @if(count($answers)>0)
                 @foreach($answers as $answer)
                 <div style="border:1px solid black; padding: 10px; margin-bottom:10px; color:black;">
+
+                    <div class="row">
+                        <div class="col-md-8">
                     <div style="display: inline-block;">
                         <img class="profile-image" src="{{$answer->chat_picture}} ">
                     </div>
-                    <div class="form-group" style="display: inline-block; ">
-                        <p>{{$answer->name}}</p>
+                    <div class="form-group" style="display: inline-block; vertical-align:top;">
+                        <p>{{$answer->name}}  <br/>  {{$answer->file}}</p>
                     </div>
-                    <div style="border:1px solid black; color:black; margin:-1rem 0 2rem 3rem; height:5.5rem;padding:1rem 4rem;">
-                        {{$answer->file}}
+                </div>
+                    <div class="col-md-3">
+                        <a href="{{ route('user.content.view', ['file'=>$answer->file] ) }}">
+                        <button class="btn btn-primary">
+                                Open
+                            </button>
+                        </a>
+                            <br/>
+                            <br/>
+                            @if($answer->mark==0)
+                            <button class="btn btn-primary" onclick="log({{$answer->id}})">
+                                Mark
+                            </button>
+                            @else
+                            <button class="btn btn-primary" onclick="log({{$answer->id}})">
+                                Re-Mark
+                            </button>
+                            @endif
+
                         &nbsp&nbsp&nbsp&nbsp
                         <a href="{{ route('user.assignment.download', ['file'=>$answer->file]) }}">
                         <button class="btn">download</button>
                         </a>
                     </div>
 
-
+                </div>
                 </div>
                 @endforeach
 
@@ -244,29 +230,115 @@
 
    
     <div class="bg-modal" id="bg-modal">
-	    <div class="modal-content">
-		    <div class="contents">
-		        <div class="close" id="cls" onclick="cls()"> &times; </div>
+         <form method="post" id="answer_grading" name="answer_grading" action="{{route('user.answer.grade')}}"   enctype="multipart/form-data">
+        <div class="modal-content">
+            
+            <div class="contents">
+                <div class="close" id="cls" onclick="cls()"> &times; </div>
+                <div id="grade_hide">
+                    <input id="answer_id" type="hidden"  name="answer_id">
                     <h2>Assignment Details</h2>
-                    <p>Marks : <input type="text"> /100</p>
+                    <p>Marks : <input type="text" name="marks"> /100</p>
                     <p>Comment :</p>
-                    <textarea name="" id="" cols="30" rows="10"></textarea>
-	
+                    <textarea name="comment" id="answer_comment" cols="30" rows="10"></textarea>
+                      </div>
+    
             </div>
-            <button class="btn btn-primary" style="float: right; ">
+            <button class="btn btn-primary" id="grade_btn" style="float: right; ">
                 Send
             </button>
+          
+             <h3 style="margin-top: 40%; display: none;" id="grade_success">You have successfully Awarded marks for the answer</h3>
         </div>
+        </form>
+
+       
+           
+      
     </div>
 
+
+    @endsection 
+
+@section('scripts')
+
 <script type="text/javascript">
-    function log(){
+    function log(id){
+        console.log(id);
+        $("#answer_id").val(function (){
+            return this.value+id;
+        })
         document.getElementById('bg-modal').style.display ="block";
         }
     function cls(){
         document.getElementById('bg-modal').style.display ="none";
-        }	
+        }   
 </script>
+
+<script type="text/javascript">
+        
+
+   
+      jQuery("form[name='answer_grading']").submit(function(e) {
+   
+           //prevent Default functionality
+           e.preventDefault();
+   
+           //get the action-url of the form
+           var actionurl = e.currentTarget.action;
+   
+           var form_data =new FormData($(this)[0]);
+   
+           if(form_data) {
+   
+               $("#grade_btn").html("Sending...");
+   
+               $("#grade_btn").attr('disabled', true);
+   
+   
+               //do your own request an handle the results
+               jQuery.ajax({
+                   url: actionurl,
+                   type: 'post',
+                   dataType: 'json',
+                   processData: false,
+                   contentType: false,
+                   data: form_data,
+                   success: function(data) {
+                    console.log(data);
+                       
+                       $("#grade_btn").html("Comment");
+   
+                       $("#grade_btn").attr('disabled', false);
+                        document.getElementById('grade_hide').style.display ="none";
+                        document.getElementById('grade_success').style.display ="block";
+                        document.getElementById('grade_btn').style.display ="none";
+
+   
+                      
+                   }
+               });
+           } else {
+   
+               alert("Please fill the comment field");
+   
+               return false;
+   
+           }
+   
+       });
+   
+    </script>
+
+    @endsection
+
+
+
+
+
+
+
+
 
 
 

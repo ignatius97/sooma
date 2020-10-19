@@ -30,6 +30,8 @@ use DB;
 
 use Exception;
 
+use App\Subject;
+
 use Log;
 
 use Setting;
@@ -1292,7 +1294,177 @@ class NewAdminController extends Controller {
             return back()->with('flash_error',$error);
         }
    
-    }     
+    }  
+
+    // class delete 
+     public function class_delete(Request $request) {
+
+        try {
+            
+            DB::beginTransaction();
+
+            $curriculum = Classes::find($request->class_id);
+            $country_details = Country::all();
+
+            if(!$curriculum) {
+
+                throw new Exception(tr('admin_channel_not_found'), 101);
+            }
+            
+            if ($curriculum->delete()) {  
+
+                DB::commit();
+                return redirect()->route('admin.subjects.index')->with('flash_success','Subject deleted successfully');
+            
+            } 
+
+            throw new Exception(tr('admin_channel_delete_success'), 101);
+            
+        } catch (Exception $e) {
+            
+            DB::rollback();
+
+            $error = $e->getMessage();
+
+            return back()->with('flash_error',$error);
+        }    
+    }
+
+
+
+
+
+    // Subject add, edit, view functions    
+
+
+
+
+    public function subjects_create() {
+
+
+         $class_details = new Subject;
+         $country_details = Country::all();
+         $curriculum=Curriculum::all();
+         
+        return view('new_admin.subjects.create')
+                ->with('country_details', $country_details)
+                ->with('page' ,'channels')
+                ->with('sub_page' ,'channels-create')
+               
+                ->with('curriculum', $curriculum)
+                ->with('curriculum_details',$class_details );
+
+    }
+
+     public function subjects_save(Request $request) {
+
+        $response = CommonRepo::subjects_save($request)->getData();
+       
+        if($response->success) {
+
+            return redirect()->route('admin.subjects.index',['subject_id' => $response->data->id])->with('flash_success', 'Subject added succesfully');
+
+        } else {
+            
+            return back()->with('flash_error', $response->error_messages);
+        }
+        
+    }
+
+
+
+
+    public function subjects_index(){
+
+        try{
+             $subjects = DB::table('subjects')
+            ->join('curricula', 'subjects.curricula_id', '=', 'curricula.id')
+            ->join('countries', 'subjects.country_id', '=', 'countries.id')
+            ->select('subjects.*', 'subjects.id', 'subjects.subject_name', 'curricula.name', 'countries.country_name')
+            ->get();
+
+
+
+             if(!$subjects){
+                throw new Exception(tr('admin_channel_not_found'), 101);
+              }
+           return view('new_admin.subjects.index')->with('subject_details', $subjects)->withPage('country')->with('sub_page','channels-view');
+                    
+        }
+
+        catch (Exception $e) {
+            
+            $error = $e->getMessage();
+
+            return redirect()->back()->with('flash_error',$error);
+        }
+    }
+
+
+ public function subjects_edit(Request $request) {
+        
+        try {
+
+            
+         $subject_details = Subject::find($request->subject_id);
+         $country_details = Country::all();
+
+            if(!$subject_details) {
+
+                throw new Exception(tr('admin_channel_not_found'), 101);
+            }
+
+            return view('new_admin.subjects.create')
+                ->with('country_details', $country_details)
+                ->with('page' ,'channels')
+                ->with('sub_page' ,'channels-create')
+                ->with('curriculum_details', $subject_details);
+            
+        } catch (Exception $e) {
+            
+            $error = $e->getMessage();
+
+            return back()->with('flash_error',$error);
+        }
+   
+    }  
+
+     public function subject_delete(Request $request) {
+
+        try {
+            
+            DB::beginTransaction();
+
+            $curriculum = Subject::find($request->subject_id);
+            $country_details = Country::all();
+
+            if(!$curriculum) {
+
+                throw new Exception(tr('admin_channel_not_found'), 101);
+            }
+            
+            if ($curriculum->delete()) {  
+
+                DB::commit();
+                return redirect()->route('admin.subjects.index')->with('flash_success','Subject deleted successfully');
+            
+            } 
+
+            throw new Exception(tr('admin_channel_delete_success'), 101);
+            
+        } catch (Exception $e) {
+            
+            DB::rollback();
+
+            $error = $e->getMessage();
+
+            return back()->with('flash_error',$error);
+        }    
+    }
+
+
+
+
 
 
     //create curriculum
@@ -7967,33 +8139,6 @@ public function curriculum_select_data($id){
 
   return $curriculum;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

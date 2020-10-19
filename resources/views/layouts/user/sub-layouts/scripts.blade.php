@@ -371,6 +371,161 @@
 
 </script>
 
+<script type="text/javascript">
+
+    $(window).load(function() {
+        
+        $('.placeholder').each(function () {
+            var imagex = jQuery(this);
+            var imgOriginal = imagex.data('src');
+            $(imagex).attr('src', imgOriginal);
+        });
+        
+        $('#preloader').fadeOut(2000);
+
+    });
+
+ 
+
+     
+
+    $(document).ready(function() {
+
+    @if(Auth::check())
+        $.post('{{ route("user.envelop_notifications.index")}}', {'is_json': 1})
+
+        .done(function(response) {
+
+
+    
+           
+              
+            
+              $('#global-message_count_main').html(response.data.length);
+              
+
+            $.each(response.data, function(key,notificationDetails) { 
+
+                // console.log(JSON.stringify(notificationDetails));
+
+               
+
+                var global_notification_redirect_url = "/channels/"+notificationDetails.channel_id;
+
+               
+                  $.each(response.redirect_urls, function(keys,notificationDetailss){
+                    var t='{{Auth::user()->id}}';
+                    console.log(t);
+                    
+
+                    if(notificationDetailss.user_id=={{Auth::user()->id}}){
+                   global_notification_redirect_url="/channel/"+notificationDetails.channel_id;
+                  }
+                  else
+                    global_notification_redirect_url = "/channels/"+notificationDetails.channel_id+'?user_id='+notificationDetailss.user_id;
+
+                  })
+
+            
+
+                
+
+              
+
+                var messageTemplate = '';
+
+                messageTemplate = '<li class="notification-box">';
+
+                messageTemplate += '<a href="'+global_notification_redirect_url+'" target="_blank">';
+
+                messageTemplate += '<div class="row">';
+
+                messageTemplate +=  '<div class="col-lg-3 col-sm-3 col-3 text-center">';
+
+                messageTemplate +=  '<img src="'+notificationDetails.picture+'" class="w-50 rounded-circle">';
+
+                messageTemplate +=  '</div>';
+
+                messageTemplate +=  '<div class="col-lg-8 col-sm-8 col-8">';
+
+                // messageTemplate +=  '<strong class="text-info">'+notificationDetails+'</strong>';
+
+                messageTemplate +=  '<div>';
+
+                messageTemplate +=  notificationDetails.name;
+
+                          
+                messageTemplate +=  '</div>';
+                 messageTemplate +=  '<div>';
+
+                messageTemplate +=  notificationDetails.message;
+                
+                          
+                messageTemplate +=  '</div>';
+
+                messageTemplate +=  '<small class="text-warning">27.11.2015, 15:00</small>';
+                              
+                messageTemplate +=  '</div>';
+
+                messageTemplate +=  '</div>';
+
+                messageTemplate +=  '</a>';
+
+                messageTemplate +=  '</li>';
+                
+                $('#global-notifications-message-box').append(messageTemplate);
+
+
+              
+
+
+               //New Assignment solutions and notification
+
+
+
+             
+
+
+          
+
+                // $(chatBox).animate({scrollTop: chatBox.scrollHeight}, 500);
+
+            });
+
+        })
+        .fail(function(response) {
+            console.log("not success");
+        })
+        .always(function(response) {
+            console.log("no last");
+        });
+
+        function loadNotificationsCount() {
+
+            $.post('{{ route("user.bell_notifications.count")}}', {'is_json': 1})
+
+            .done(function(response) {
+
+                $('#global-notifications-count').html(response.count);
+                
+            })
+            .fail(function(response) {
+                // console.log(response);
+            })
+            .always(function(response) {
+                // console.log(response);
+            });
+  
+        }
+
+        setInterval(loadNotificationsCount, 10000);
+    @endif
+    });
+
+
+</script>
+
+
 @yield('scripts')
 
 <script type="text/javascript">
@@ -471,6 +626,14 @@
 
 
     });
+
+
+
+
+    //Private message notifications with the student interface 
+
+
+ 
 
 
     

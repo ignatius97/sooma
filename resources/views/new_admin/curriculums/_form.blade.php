@@ -13,14 +13,16 @@
 
             
             
-                <select id="user_id" name="country" class="form-control select2" required data-placeholder="{{$curriculum_details->country?$curriculum_details->country:'Select Curriculum Country'}}">
+                <select id="user_id" name="country_id" class="form-control select2" required data-placeholder="{{$curriculum_details->country?$curriculum_details->country:'Select Curriculum Country'}}">
                     <option value="{{$curriculum_details->country_name?$curriculum_details->country_name:''}}"></option>
                     @foreach($country_details as $user)
-                        <option value="{{ $user->country_name }}">{{ $user->country_name }}</option>
+                        <option value="{{ $user->id }}">{{ $user->country_name }}</option>
                     @endforeach
                 </select>   
 
         </div>
+
+
 
     </div>
 

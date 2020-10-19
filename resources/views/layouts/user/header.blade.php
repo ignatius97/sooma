@@ -21,7 +21,31 @@
 }
 
 
+            #container {
+             overflow: scroll; 
+             width: 80%;
+             display: inline-block;
+        }
+        #content {
+             width: 300px;
+            white-space: nowrap;
+        }
+        #container::-webkit-scrollbar {
+            display: none;
+        }
 
+        /* Hide scrollbar for IE, Edge and Firefox */
+        #container {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+        }
+
+        .btn1{
+                border-radius: 50px;
+                font-size: 1vw;
+                margin: 0 10px;
+            }
+          
 </style>
 
 
@@ -58,7 +82,7 @@
             <a href="{{route('user.dashboard')}}"> 
                 @if(Setting::get('site_logo'))
 
-                    <img src="{{Setting::get('site_logo')}}" class="logo-img"> <span class="product_name">SOOMA </span>
+                    <img src="{{Setting::get('site_logo')}}" class="logo-img"> <div><span class="product_name">SOOMA <br> <span style="font-size:10px">Study Anywhere Anytime</span> <hr></span></div>
                 @else
                     <img src="{{asset('logo.png')}}" class="logo-img"><span class="product_name">SOOMA</span>
                 @endif
@@ -142,28 +166,24 @@
                     </li>
 
                     <li  class="dropdown">
-                        <a class="nav-link text-light notification-link" style="padding-left: 7px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="return notificationsStatusUpdate();">
-                            <i class="fa fa-envelope"></i><span id="global-notifications-student"></span>
+                        <a class="nav-link text-light notification-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="return notificationsStatusUpdate();">
+                        <i class="fa fa-envelope" aria-hidden="true"></i> <span id="global-message_count_main">0</span>
+
                         </a>
+
                         <ul class="dropdown-menu-notification dropdown-menu">
-                            <li class="notification-head text-light bg-dark">
-                                <div class="row">
-                                    <div class="col-lg-12 col-sm-12 col-12">
-                                        <span>
-                                            {{tr('notifications')}}                     
-                                            (<span id="global-notifications-count">0</span>)
-                                        </span>
-                                        <!-- <a href="" class="float-right text-light">Mark all as read</a> -->
-                                    </div>
-                                </div>
-                            </li>
-                            <span id="global-notifications-box"></span>
+
+
+                            <span id="global-notifications-message-box"></span>
+
                             <li class="notification-footer bg-dark text-center">
-                                <a href="{{route('user.bell_notifications.index')}}" class="text-light">
+                                <a href="" class="text-light">
                                     {{tr('view_all')}}
                                 </a>
                             </li>
+                        
                         </ul>
+
                     </li>
                 </ul>
                  
@@ -172,18 +192,14 @@
                 @else
                    <a class="nav navbar-nav pull-right" href="{{url('mychannels/list')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Switch To Teacher</a>
                 @endif
-                    <form action="/" method="get" style="margin-top: 1vh;">
-                        <select id="options" name="targeted_country" style="width: auto;">
-                            @if($country_with_ip=='')
-                                <option value="{{$country_ip}}">{{$country_ip}}</option>
-                            @else
-                                <option value="{{$country_with_ip}}">{{$country_with_ip}}</option>
-                            @endif
-                            @foreach($countries as $country)   
-                                <option value="{{$country->country_name}}">{{$country->country_name}}</option>
-                            @endforeach
-                        </select> 
-                    </form>
+                    
+                <select id="options"  class="country_option_select"  name="targeted_country" style="width: auto;"> 
+                    <option value="{{$automatic_country_select}}">{{$automatic_country_select}}</option>
+                    @foreach($countries as $country)   
+                        <option value="{{$country->id}}">{{$country->country_name}}</option>
+                    @endforeach
+                </select> 
+
                 @if(Setting::get('is_direct_upload_button') == YES)
                     <a href="{{userChannelId()}}" class="btn pull-right user-upload-btn" title="{{tr('upload_video')}}">
                         {{tr('upload')}} 
@@ -198,19 +214,12 @@
                     
                 </div>
 
-                <!-- <form action="/" method="get" style="margin-top: 1vh; ">
-                    <select id="options" name="targeted_country" style="width: auto;">
-                        @if($country_with_ip=='')
-                            <option value="{{$country_ip}}">{{$country_ip}}</option>
-                        @else
-                            <option value="{{$country_with_ip}}">{{$country_with_ip}}</option>
-                        @endif
-
-                        @foreach($countries as $country)   
-                            <option value="{{$country->country_name}}">{{$country->country_name}}</option>
-                        @endforeach
-                    </select> 
-                </form> -->
+                <select id="options"  class="country_option_select"  name="targeted_country" style="width: auto;">
+                    <option value="{{$automatic_country_select}}">{{$automatic_country_select}}</option>
+                    @foreach($countries as $country)   
+                        <option value="{{$country->id}}">{{$country->country_name}}</option>
+                    @endforeach
+                 </select>
               
                 @if(Setting::get('is_direct_upload_button') == YES)
                     <a href="{{route('user.login.form')}}" class="btn pull-right" title="{{tr('upload_video')}}"> 
@@ -253,47 +262,22 @@
         </div>
 
         <div class="row">  
-            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 hidden-xs visible-sm visible-md visible-lg" >
-                <style>
-                    .slick-slide-btn {
-                        padding: 0px;
-                        width: 480px !important;
-                    }
-                    .slick-prev, .slick-next {
-                        width: 20px;
-                        height: 20px;
-                    }
-                       
-                    .btn1{
-                        border-radius: 50px;
-                        font-size: 1vw;
-                    }
-                </style>
-
-                <div style=" text-align: center; float: right;">
-                    <div class="box slick-slide-btn"  >
-                        <div>
+            <div class="col-lg-11 col-md-10 col-sm-10 col-xs-12 hidden-xs visible-sm visible-md visible-lg" style="margin-top: 5px;" >
+                
+                <div style=" text-align: center; float: right; width: 80%;">
+                    <button id="slideBack" style="font-weight: bold; padding: 0; width: 20px; height: 20px; top: -4px; position: relative; border-radius: 50% !important;" type="button"> < </button>
+                    <div id="container">
+                        <div id="content">
                             <button class="btn1"  >Mathematics</button>
-                        </div>
-                        <div>
                             <button class="btn1" >Science</button>
-                        </div>
-                        <div>
                             <button class="btn1" >English</button>
-                        </div>
-                        <div>
                             <button class="btn1" >History</button>
-                        </div>
-                        <div>
                             <button class="btn1" >Agriculture</button>
-                        </div>
-                        <div>
                             <button class="btn1" >Literature</button>
-                        </div>
-                        <div>
                             <button class="btn1" >Biology</button> 
-                        </div>     
-                    </div><!--end of box-->   
+                        </div>
+                    </div>
+                    <button id="slide"style="font-weight: bold; padding: 0; width: 20px; height: 20px; top: -4px; position: relative; border-radius: 50% !important;"  type="button"> > </button>  
                 </div> 
             </div>
         </div>
@@ -316,3 +300,32 @@
     
 
 </div><!--end of streamtube-nav-->
+
+<script>
+    var button = document.getElementById('slide');
+button.onclick = function () {
+    var container = document.getElementById('container');
+    sideScroll(container,'right',25,100,10);
+};
+
+var back = document.getElementById('slideBack');
+back.onclick = function () {
+    var container = document.getElementById('container');
+    sideScroll(container,'left',25,100,10);
+};
+
+function sideScroll(element,direction,speed,distance,step){
+    scrollAmount = 0;
+    var slideTimer = setInterval(function(){
+        if(direction == 'left'){
+            element.scrollLeft -= step;
+        } else {
+            element.scrollLeft += step;
+        }
+        scrollAmount += step;
+        if(scrollAmount >= distance){
+            window.clearInterval(slideTimer);
+        }
+    }, speed);
+}
+</script>
