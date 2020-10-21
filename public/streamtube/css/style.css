@@ -39,9 +39,9 @@ position: absolute; bottom: 0;width: 100%
 body{
 	/*font-family: 'Roboto', sans-serif;*/
 	font-family:  Roboto-Regular;
-	/*background-color: #F1F1F1;*/
-	/* background-color: #fafafa; */
-	background-image: url('../../prototype_icons/bggg.jpg');
+	background-color: #F1F1F1;
+	background-color: #fafafa;
+	/* background-image: url('../../prototype_icons/bggg.jpg'); */
 	position: relative;
 	min-height: 100%;
 	background-repeat: no-repeat;
@@ -100,7 +100,7 @@ a:hover{
 	padding: 10px 25px;
 }
 .y-home{
-	border-bottom: 1px solid #e8e8e8;
+	border-bottom: 1px solid #132234;
 }
 .y-home li:last-child{
 	margin-bottom: 10px;

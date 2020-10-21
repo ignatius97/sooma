@@ -72,19 +72,26 @@
     </div> -->
     <div class="row">
 
-         <div class="col-lg-2 col-md-3 col-sm-3 col-xs-5">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
 
             <!-- <a href="#" class="hidden-xs"><img src="{{asset('images/menu.png')}}"  class="toggle-icon"  style="color: white"></a> -->
             <a href="{{route('user.dashboard')}}"> 
                 <i class="fa fa-home" style="font-size: 30px; vertical-align: middle;"></i>
             </a>
 
+            <style>
+                hr {
+                    margin-top: -3px;
+                    margin-bottom: -8px;
+                }
+            </style>
+
             <a href="{{route('user.dashboard')}}"> 
                 @if(Setting::get('site_logo'))
 
-                    <img src="{{Setting::get('site_logo')}}" class="logo-img"> <div><span class="product_name">SOOMA <br> <span style="font-size:10px">Study Anywhere Anytime</span> <hr></span></div>
+                    <img src="{{Setting::get('site_logo')}}" class="logo-img"> <div style="display: inline-flex;"><span class="product_name">SOOMA <br><hr> <span style="font-size:8px">Study Anywhere Anytime</span> </span></div>
                 @else
-                    <img src="{{asset('logo.png')}}" class="logo-img"><span class="product_name">SOOMA</span>
+                    <img src="{{asset('logo.png')}}" class="logo-img"><div style="display: inline-flex;"><span class="product_name">SOOMA <br><hr> <span style="font-size:8px">Study Anywhere Anytime</span> </span></div>
                 @endif
 
 
@@ -99,7 +106,7 @@
         
 
         <!-- ========RESPONSIVE  HEADER VISIBLE IN MOBAILE VIEW====== -->
-        <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12 hidden-xs visible-sm visible-md visible-lg">  
+        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 hidden-xs visible-sm visible-md visible-lg">  
 
         <div class="row"> 
             @if(Auth::check())
