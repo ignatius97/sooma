@@ -8,44 +8,44 @@
     <div class="footer1 row">
         <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2">
             <ul class="footer_links">
-                <li><a href="http://" target="_blank" rel="noopener noreferrer">About Us</a></li>
-                <li><a href="http://" target="_blank" rel="noopener noreferrer">Who we are</a></li>
-                <li><a href="http://" target="_blank" rel="noopener noreferrer">Contact Us</a></li>
+                <li><a href="{{route('user.about_sooma')}}" target="_blank" rel="noopener noreferrer">About Us</a></li>
+                <li><a href="{{route('user.who_we_are')}}" target="_blank" rel="noopener noreferrer">Who we are</a></li>
+                <li><a href="{{route('user.contact_us')}}" target="_blank" rel="noopener noreferrer">Contact Us</a></li>
             </ul>
         </div>
         <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2">
             <ul class="footer_links">
-                <li><a href="http://" target="_blank" rel="noopener noreferrer"> Curriculum </a></li>
-                <li><a href="http://" target="_blank" rel="noopener noreferrer"> Subjects </a></li>
-                <li><a href="http://" target="_blank" rel="noopener noreferrer"> Teach on SOOMA </a></li>
+                <li><a href="{{route('user.curriculum')}}" target="_blank" rel="noopener noreferrer"> Curriculum </a></li>
+                <li><a href="{{route('user.subjects')}}" target="_blank" rel="noopener noreferrer"> Subjects </a></li>
+                <li><a href="{{route('user.teach_on_sooma')}}" target="_blank" rel="noopener noreferrer"> Teach on SOOMA </a></li>
             </ul>
         </div>
         <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2">
             <ul class="footer_links">
-                <li><a href="http://" target="_blank" rel="noopener noreferrer"> Discussion Forum </a></li>
-                <li><a href="http://" target="_blank" rel="noopener noreferrer"> Blog </a></li>
-                <li><a href="http://" target="_blank" rel="noopener noreferrer"> FAQs </a></li>
+                <li><a href="{{route('user.discussion_forum')}}" target="_blank" rel="noopener noreferrer"> Discussion Forum </a></li>
+                <li><a href="{{route('user.blog')}}" target="_blank" rel="noopener noreferrer"> Blog </a></li>
+                <li><a href="{{route('user.FAQs')}}" target="_blank" rel="noopener noreferrer"> FAQs </a></li>
             </ul>
         </div>
         <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2">
             <ul class="footer_links">
-                <li><a href="http://" target="_blank" rel="noopener noreferrer"> Terms of Service </a></li>
-                <li><a href="http://" target="_blank" rel="noopener noreferrer"> Privacy Policy </a></li>
-                <li><a href="http://" target="_blank" rel="noopener noreferrer"> Cookies Policy </a></li>
+                <li><a href="{{route('user.terms_of_service')}}" target="_blank" rel="noopener noreferrer"> Terms of Service </a></li>
+                <li><a href="{{route('user.privacy_policy')}}" target="_blank" rel="noopener noreferrer"> Privacy Policy </a></li>
+                <li><a href="{{route('user.cookies_policy')}}" target="_blank" rel="noopener noreferrer"> Cookies Policy </a></li>
             </ul>
         </div>
         <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2">
             <ul class="footer_links">
-                <li><a href="http://" target="_blank" rel="noopener noreferrer"> Affiliate Schools </a></li>
-                <li><a href="http://" target="_blank" rel="noopener noreferrer"> Careers </a></li>
-                <li><a href="http://" target="_blank" rel="noopener noreferrer"> Help & Support </a></li>
+                <li><a href="{{route('user.affiliate_schools')}}" target="_blank" rel="noopener noreferrer"> Affiliate Schools </a></li>
+                <li><a href="{{route('user.careers')}}" target="_blank" rel="noopener noreferrer"> Careers </a></li>
+                <li><a href="{{route('user.help_and_support')}}" target="_blank" rel="noopener noreferrer"> Help & Support </a></li>
             </ul>
         </div>
         <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2">
             <ul class="footer_links">
-                <li><a href="http://" target="_blank" rel="noopener noreferrer"> Donate </a></li>
-                <li><a href="http://" target="_blank" rel="noopener noreferrer"> News Letter </a></li>
-                <li><a href="http://" target="_blank" rel="noopener noreferrer"> Location Map </a></li>
+                <li><a href="{{route('user.donate')}}" target="_blank" rel="noopener noreferrer"> Donate </a></li>
+                <li><a href="{{route('user.news_letter')}}" target="_blank" rel="noopener noreferrer"> News Letter </a></li>
+                <li><a href="{{route('user.location_map')}}" target="_blank" rel="noopener noreferrer"> Location Map </a></li>
             </ul>
         </div>
     </div>

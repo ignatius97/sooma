@@ -294,9 +294,9 @@
                     anywhere at anytime
                 </p>
             </div>
-            <div style="margin-left: 45px;">
+            <div >
             
-                <div class="menu4 top nav-space my_bg_color" style="padding: 0; margin-bottom: 15px; border-radius: 50px; width: 112px; height: 40px;" >
+                <div class="menu4 top nav-space my_bg_color" style="padding: 0; margin-bottom: 15px; border-radius: 50px; width: 112px; height: 40px; margin-left: auto; margin-right: auto;" >
                     
                     <form method="get" action="{{route('user.register.form')}}">
                         <button type="submit" class="sign_up_btn" style="background-color: brown;border-radius: 50px; margin-left: 5px; margin-top: 2px;">Enroll Now</button>

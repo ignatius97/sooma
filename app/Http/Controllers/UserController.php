@@ -121,6 +121,23 @@ class UserController extends Controller {
                 'contact',
                 'uace',
                 'about_sooma',
+                'who_we_are',
+                'contact_us',
+                'curriculum',
+                'subjects',
+                'teach_on_sooma',
+                'discussion_forum',
+                'blog',
+                'FAQs',
+                'terms_of_service',
+                'privacy_policy',
+                'cookies_policy',
+                'affiliate_schools',
+                'careers',
+                'help_and_support',
+                'donate',
+                'news_letter',
+                'location_map',
                 'uce',
                 'pre_primary',
                 'country_curriculum',
@@ -6380,10 +6397,63 @@ public function assignment_answer_upload(Request $request){
 
 public function about_sooma(){
 
-  return view('user.about_sooma');
+  return view('user.footer_pages.about_sooma');
 
 }
- 
+
+// The footer pages
+
+public function who_we_are(){
+    return view('user.footer_pages.who_we_are');
+  }
+public function contact_us(){
+    return view('user.footer_pages.contact_us');
+  }
+  public function curriculum(){
+    return view('user.footer_pages.curriculum');
+  }
+  public function subjects(){
+    return view('user.footer_pages.subjects');
+  }
+  public function teach_on_sooma(){
+    return view('user.footer_pages.teach_on_sooma');
+  } 
+  public function discussion_forum(){
+    return view('user.footer_pages.discussion_forum');
+  }
+  public function blog(){
+    return view('user.footer_pages.blog');
+  }
+  public function FAQs(){
+    return view('user.footer_pages.FAQs');
+  } 
+  public function terms_of_service(){
+    return view('user.footer_pages.terms_of_service');
+  }
+  public function privacy_policy(){
+    return view('user.footer_pages.privacy_policy');
+  }
+  public function cookies_policy(){
+    return view('user.footer_pages.cookies_policy');
+  } 
+  public function affiliate_schools(){
+    return view('user.footer_pages.affiliate_schools');
+  }
+  public function careers(){
+    return view('user.footer_pages.careers');
+  }
+  public function help_and_support(){
+    return view('user.footer_pages.help_and_support');
+  } 
+  public function donate(){
+    return view('user.footer_pages.donate');
+  }
+  public function news_letter(){
+    return view('user.footer_pages.news_letter');
+  }
+  public function location_map(){
+    return view('user.footer_pages.location_map');
+  }  
 
 
 // private  message  save 

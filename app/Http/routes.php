@@ -1005,6 +1005,25 @@ Route::group(['as' => 'user.'], function(){
      Route::get('/content/view', 'UserController@content_view')->name('content.view');
     Route::post('/assignment_answer_upload/save', 'UserController@assignment_answer_upload')->name('assignment_answer_upload.save'); 
     
+    // Routes of the links in the footer
+    Route::get('who_we_are', 'UserController@who_we_are')->name('who_we_are');
+    Route::get('contact_us', 'UserController@contact_us')->name('contact_us');
+    Route::get('curriculum', 'UserController@curriculum')->name('curriculum');
+    Route::get('subjects', 'UserController@subjects')->name('subjects');
+    Route::get('teach_on_sooma', 'UserController@teach_on_sooma')->name('teach_on_sooma');
+    Route::get('discussion_forum', 'UserController@discussion_forum')->name('discussion_forum');
+    Route::get('blog', 'UserController@blog')->name('blog');
+    Route::get('FAQs', 'UserController@FAQs')->name('FAQs');
+    Route::get('terms_of_service', 'UserController@terms_of_service')->name('terms_of_service');
+    Route::get('privacy_policy', 'UserController@privacy_policy')->name('privacy_policy');
+    Route::get('cookies_policy', 'UserController@cookies_policy')->name('cookies_policy');
+    Route::get('affiliate_schools', 'UserController@affiliate_schools')->name('affiliate_schools');
+    Route::get('careers', 'UserController@careers')->name('careers');
+    Route::get('help_and_support', 'UserController@help_and_support')->name('help_and_support');
+    Route::get('donate', 'UserController@donate')->name('donate');
+    Route::get('news_letter', 'UserController@news_letter')->name('news_letter');
+    Route::get('location_map', 'UserController@location_map')->name('location_map');
+
 
 
 
