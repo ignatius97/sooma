@@ -75,23 +75,56 @@
                 <option value="">Uganda</option>
                 <option value="">Kenya</option>
             </select> 
+            @if($picture)
             <h3 class="popular_title hide_title" style="color: black; font-weight: bold; display: inline-flex; padding-left: 12px;  font-size: 16px"> <span style="text-align: center;"> <img   class="slide-img1 placeholder" style="width: 20px; height: 20px; margin: 0 0px 0px 0;" id="img" src="{{$picture->picture}}"  /> </span>Curriculum
             </h3> 
+            @endif
             </legend>
 					
 			<ul class="y-home menu1">
 
-                <div class="curriculum_hide">
-                    @if(count($curriculum_auto)>0)     
-                    @foreach($curriculum_auto as $curriculum) 
-                        <li id="hom" title="{{$curriculum->name}}" style="margin-left: 20px;">
-                            <a  href="{{ route('user.curriculum.selection' , ['curriculum_id' => $curriculum->id, 'country'=>$country_ip] ) }}" > <img   class="slide-img1 placeholder" id="img" src="{{$curriculum->picture}}"  /> <h6 style="display: inline-grid; vertical-align: bottom; color: black; font-size: 15px;" >{{$curriculum->name}}</h6></a>
-                        </li>
-                    @endforeach
-                    @else
-                        <h5>No Result Found</h5>
+            <div class="curriculum_hide">
+                @if($picture)
+                @if(count($curriculum_auto)>0)     
+                @foreach($curriculum_auto as $curriculum) 
+                
+                    <li id="hom" title="{{$curriculum->name}}" style="margin-left: 20px;">
+                        <a  href="{{ route('user.curriculum.selection' , ['curriculum_id' => $curriculum->id, 'country'=>$country_ip] ) }}" > <img   class="slide-img1 placeholder" id="img" src="{{$curriculum->picture}}"  /> <h6 style="display: inline-grid; vertical-align: bottom; color: black; font-size: 15px;" >{{$curriculum->name}}</h6></a>
+                    </li>
+                
+                @endforeach
+
+                @else
+
+                <h5>No Result Found</h5>
+
+                @endif
+
+                @else
+
+                <h5> No Service for the country </h5>
+
+                @if($picture)
+                    <li>
+                        
+                        <h3 class="popular_title hide_title" style="color: black; font-weight: bold; display: inline-flex; padding-left: 12px;  font-size: 16px"> <span style="text-align: center;"> <img   class="slide-img1 placeholder" style="width: 20px; height: 20px; margin: 0 0px 0px 0;" id="img" src="{{$picture->picture}}"  /> </span>Curriculum
+                        </h3>
+                            
+                    </li>
+
+                    <li>
+                        
+                        <h3 class="popular_title show_title" style="color: black; margin-left: 20px; font-weight: bold; display: none;  font-style: italic; font-size: 16px"> 
+                        </h3>
+                    </li>
                     @endif
-                </div>
+                        <div class="curriculum_hide">
+                        </div>
+                @endif
+     
+        </div>
+
+               
 
                 <div class="curriculum_show">
 

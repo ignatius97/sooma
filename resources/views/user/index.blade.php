@@ -321,6 +321,8 @@ $('[id^=carousel-thumb-]').click( function(){
 
             var country=this.value;
 
+            $('.curriculum_show').html('');
+
             console.log(country);
            $.ajax(
              {
@@ -359,12 +361,13 @@ $('[id^=carousel-thumb-]').click( function(){
                        //var url=` route('user.curriculum.selection', ['curriculum_id'=>${items.id}, 'country_id'=>${data.country.id}]`; 
                         
                           
-                        var template_curriculum=' <a  href="country-curriculum/selection?curriculum_id='+items.id+'&country_id='+data.country.id+'">'
+                       var template_curriculum=' <a class="hide_me"  href="country-curriculum/selection?curriculum_id='+items.id+'&country_id='+data.country.id+' style="margin-top:1px;">'
 
-                        template_curriculum+='<li id="hom" title="'+items.name+'" style="margin-left: 20px;">'
+                       template_curriculum+='<li id="hom" title="'+items.name+'" style="margin-left: 20px; margin-top:0;">'
 
                         template_curriculum+=' <img   class="slide-img1 placeholder" id="img" src="'+items.picture+'"  />' 
                         template_curriculum+='<h6 style="display: inline-grid;vertical-align: bottom; color: black; font-size: 15px;" >'+items.name+'</h6>'
+                        template_curriculum+='</li>'
                         template_curriculum+='</a>'
 
                         $('.curriculum_hide').hide();
@@ -377,6 +380,7 @@ $('[id^=carousel-thumb-]').click( function(){
 
                        if(data.trending_videos_country<1){
                         var no_result_template='<h2>No Videos, check latter';
+                        $('.trending_new_hide').hide();
                         $('.trending_new_show').show();
                          $('.trending_new_show').html(no_result_template);  
 
@@ -409,7 +413,7 @@ $('[id^=carousel-thumb-]').click( function(){
                        
                          $('.trending_new_hide').hide();
                          $('.trending_new_show').show();
-                         $('.trending_new_show').html(video_detail_template);            
+                         $('.trending_new_show').append(video_detail_template);            
                                                        
 
                     

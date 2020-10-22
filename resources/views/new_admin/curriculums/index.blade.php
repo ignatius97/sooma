@@ -43,7 +43,6 @@
                             <th>id</th>
                             <th>Country</th>
                             <th>Curriculum</th>
-                            <th>Curriculum Abbreviation</th>
                             <th>date created</th>
                             <th>Action</th>
                         </tr>
@@ -59,7 +58,7 @@
 	                            <td><a target="_blank" href="">{{ $channel_details->country }}</a></td>
 
 	                            <td><a target="_blank" href="">{{ $channel_details->name }}</a></td>
-                                 <td><a target="_blank" href="">{{ $channel_details->abbreviation }}</a></td>
+                                
                                 <td><a target="_blank" href="">{{ $channel_details->created_at }}</a></td>
 
 	                            <td>

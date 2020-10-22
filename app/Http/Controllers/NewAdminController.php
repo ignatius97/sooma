@@ -1244,7 +1244,6 @@ class NewAdminController extends Controller {
             ->get();
 
 
-
              if(!$classes){
                 throw new Exception(tr('admin_channel_not_found'), 101);
               }
@@ -1565,7 +1564,7 @@ public function curriculums_create() {
     public function curriculum_index(){
 
         try{
-             $curriculum_details = Curriculum::all();
+             $curriculum_details = Curriculum::join('countries', 'curricula.country_id', '=', 'countries.id')->select('curricula.id as id', 'curricula.name as name', 'curricula.created_at as created_at', 'curricula.picture as picture', 'countries.country_name as country')->get();
 
              if(!$curriculum_details){
                 throw new Exception(tr('admin_channel_not_found'), 101);
