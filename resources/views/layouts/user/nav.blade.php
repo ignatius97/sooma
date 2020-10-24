@@ -71,13 +71,17 @@
 
         <fieldset>    	
             <legend> 
-            <select id="options"  class="country_option_select"  name="targeted_country" style="width: auto;"> 
-                <option value="">Uganda</option>
-                <option value="">Kenya</option>
-            </select> 
+            <select id="options"  class="country_option_select"  name="targeted_country" style="width: auto;">
+                    <option value="{{$automatic_country_select}}">{{$automatic_country_select}}</option>
+                    @foreach($countries as $country)   
+                        <option value="{{$country->id}}">{{$country->country_name}}</option>
+                    @endforeach
+            </select>
             @if($picture)
             <h3 class="popular_title hide_title" style="color: black; font-weight: bold; display: inline-flex; padding-left: 12px;  font-size: 16px"> <span style="text-align: center;"> <img   class="slide-img1 placeholder" style="width: 20px; height: 20px; margin: 0 0px 0px 0;" id="img" src="{{$picture->picture}}"  /> </span>Curriculum
             </h3> 
+            <h3 class="popular_title show_title" style="color: black; margin-left: 20px; font-weight: bold; display: none;  font-style: italic; font-size: 16px"> 
+            </h3>
             @endif
             </legend>
 					

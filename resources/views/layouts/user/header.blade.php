@@ -51,6 +51,8 @@
 
 @endif
 
+
+
 <div class="header-search" id="search-section">
     <form method="post" action="{{route('search-all')}}" id="userSearch_min">
         <div class="form-group no-margin pull-left width-95">
@@ -107,8 +109,22 @@
 
         <!-- ========RESPONSIVE  HEADER VISIBLE IN MOBAILE VIEW====== -->
         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 hidden-xs visible-sm visible-md visible-lg">  
-
+        <div id="custom-search-input" style="width: 50%; margin-top: -4px; margin-left: 90px; float: left;" class="">
+                    <form method="post" action="{{route('search-all')}}" id="userSearch">
+                        <div class="input-group search-input">
+                            
+                                <input type="text" id="auto_complete_search" name="key" class="search-query form-control" required placeholder="{{tr('search')}}" style="background-color: white; border-radius: 50px !important;" />
+                                <div class="input-group-btn">
+                                    <button class="btn btn-primary" type="submit" style="background-color: #36B3BC; padding: 2px 12px; margin-top: -1px; left: -38px; border-radius: 50px; color: #fff; height: 35px; z-index: 9;">
+                                    Find Lessons
+                                    </button>
+                                </div>
+                            
+                        </div>
+                    </form>
+            </div><!--custom-search-input end-->
         <div class="row"> 
+        
             @if(Auth::check())
                 <div class="y-button profile-button">
                    <div class="dropdown pull-right">
@@ -200,12 +216,12 @@
                    <a class="nav navbar-nav pull-right" href="{{url('mychannels/list')}}"  style="color: white; padding-top: 2%;"><i class="fa fa-retweet fa-1x nav navbar-nav pull-right" style="color: white;"></i>Switch To Teacher</a>
                 @endif
                     
-                <select id="options"  class="country_option_select"  name="targeted_country" style="width: auto;"> 
+                <!-- <select id="options"  class="country_option_select"  name="targeted_country" style="width: auto;"> 
                     <option value="{{$automatic_country_select}}">{{$automatic_country_select}}</option>
                     @foreach($countries as $country)   
                         <option value="{{$country->id}}">{{$country->country_name}}</option>
                     @endforeach
-                </select> 
+                </select>  -->
 
                 @if(Setting::get('is_direct_upload_button') == YES)
                     <a href="{{userChannelId()}}" class="btn pull-right user-upload-btn" title="{{tr('upload_video')}}">
@@ -221,12 +237,12 @@
                     
                 </div>
 
-                <select id="options"  class="country_option_select"  name="targeted_country" style="width: auto;">
+                <!-- <select id="options"  class="country_option_select"  name="targeted_country" style="width: auto;">
                     <option value="{{$automatic_country_select}}">{{$automatic_country_select}}</option>
                     @foreach($countries as $country)   
                         <option value="{{$country->id}}">{{$country->country_name}}</option>
                     @endforeach
-                 </select>
+                 </select> -->
               
                 @if(Setting::get('is_direct_upload_button') == YES)
                     <a href="{{route('user.login.form')}}" class="btn pull-right" title="{{tr('upload_video')}}"> 
@@ -236,20 +252,7 @@
                 @endif
             @endif
 
-            <div id="custom-search-input" style="width: 50%; margin-top: -4px; margin-right: 21px;" class="">
-                    <form method="post" action="{{route('search-all')}}" id="userSearch">
-                        <div class="input-group search-input">
-                            
-                                <input type="text" id="auto_complete_search" name="key" class="search-query form-control" required placeholder="{{tr('search')}}" style="background-color: white; border-radius: 50px !important;" />
-                                <div class="input-group-btn">
-                                    <button class="btn btn-primary" type="submit" style="background-color: #36B3BC; padding: 2px 12px; margin-top: -1px; left: -38px; border-radius: 50px; color: #fff; height: 35px; z-index: 9;">
-                                    Find Lessons
-                                    </button>
-                                </div>
-                            
-                        </div>
-                    </form>
-            </div><!--custom-search-input end-->
+            
 
             <ul class="nav navbar-nav pull-right" style="margin: 3.5px 0px">
                 @if(Setting::get('admin_language_control')) 
@@ -269,12 +272,13 @@
         </div>
 
         <div class="row">  
-            <div class="col-lg-11 col-md-10 col-sm-10 col-xs-12 hidden-xs visible-sm visible-md visible-lg" style="margin-top: 5px;" >
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 hidden-xs visible-sm visible-md visible-lg" style="margin-top: 5px;" >
                 
-                <div style=" text-align: center; float: right; width: 80%;">
+                <div style=" text-align: center; width: 57%; margin-left: 45px;">
                     <button id="slideBack" style="font-weight: bold; padding: 0; width: 20px; height: 20px; top: -4px; position: relative; border-radius: 50% !important;" type="button"> < </button>
                     <div id="container">
                         <div id="content">
+                            <button class="btn1"  >All</button>
                             <button class="btn1"  >Mathematics</button>
                             <button class="btn1" >Science</button>
                             <button class="btn1" >English</button>

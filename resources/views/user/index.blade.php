@@ -337,11 +337,12 @@ $('[id^=carousel-thumb-]').click( function(){
 
                      $('.hide_title').hide();
 
-                     var template='<span style="text-align: center;"> <img id="img-country"   class="slide-img1 placeholder" id="img" src=""/> </span>Curriculum Based Learning ';
+                     var template='<span style="text-align: center;"> <img id="img-country" style="width: 20px; height: 20px; margin: 0 0px 0px 0;"  class="slide-img1 placeholder" id="img" src=""/> </span>Curriculum ';
 
                      $('.show_title').html(template);
 
                      document.querySelector('#img-country').src=data.country.picture;
+                     document.querySelector('.show_title').style.display="inline-flex";
 
                      $('.show_title').show();
 
