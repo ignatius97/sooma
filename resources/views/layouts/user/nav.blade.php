@@ -21,16 +21,7 @@
 </style>
 
 
-
-<div>
-<div class="y-menu col-sm-4 col-md-4" style="margin-right: 0px;" >
-
-    <div class="curriculum" style="position: fixed; width: 34%;">
-
-    <div class="content">
-        
-
-        <style>
+<style>
           @media only screen and (min-width : 760px) {
             
             .y-home h3 {
@@ -68,6 +59,15 @@
                 background-color: #ffffff;
             }
         </style> 
+
+<div>
+<div class="y-menu col-sm-4 col-md-4" style="margin-right: 0px;" >
+
+    <div class="curriculum" style="position: fixed; width: 34%;">
+
+    <div class="content">
+        
+
 
         <fieldset>    	
             <legend> 
@@ -300,7 +300,7 @@
             </div>
             <div >
             
-                <div class="menu4 top nav-space my_bg_color" style="padding: 0; margin-bottom: 15px; border-radius: 50px; width: 112px; height: 40px; margin-left: auto; margin-right: auto;" >
+                <div class="menu4 top nav-space my_bg_color" style="padding: 0; margin-bottom: 15px; border-radius: 50px; width: 118px; height: 40px; margin-left: auto; margin-right: auto;" >
                     
                     <form method="get" action="{{route('user.register.form')}}">
                         <button type="submit" class="sign_up_btn" style="background-color: brown;border-radius: 50px; margin-left: 5px; margin-top: 2px;">Enroll Now</button>

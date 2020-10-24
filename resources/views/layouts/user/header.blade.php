@@ -1,27 +1,5 @@
-@if (!Auth::check()) 
-
-<style type="text/css">
-
-
-.mobile-header li {
-
-    width: 19% !important;
-
-}
-.nav>li>a {  
-    display: inline;
-    padding: 0px 0px;
-}
-
-.nav>li>a:focus, .nav>li>a:hover {
-    background-color: #fff;
-}
-.product_name {
-    vertical-align: middle;
-}
-
-
-            #container {
+<style>
+                #container {
              overflow: scroll; 
              width: 80%;
              display: inline-block;
@@ -45,6 +23,31 @@
                 font-size: 1vw;
                 margin: 0 10px;
             }
+</style>
+@if (!Auth::check()) 
+
+<style type="text/css">
+
+
+.mobile-header li {
+
+    width: 19% !important;
+
+}
+.nav>li>a {  
+    display: inline;
+    padding: 0px 0px;
+}
+
+.nav>li>a:focus, .nav>li>a:hover {
+    background-color: #fff;
+}
+.product_name {
+    vertical-align: middle;
+}
+
+
+
           
 </style>
 
@@ -103,13 +106,9 @@
 
         </div>
 
-    
-
-        
-
-        <!-- ========RESPONSIVE  HEADER VISIBLE IN MOBAILE VIEW====== -->
-        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 hidden-xs visible-sm visible-md visible-lg">  
-        <div id="custom-search-input" style="width: 50%; margin-top: -4px; margin-left: 90px; float: left;" class="">
+        <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12 hidden-xs visible-sm visible-md visible-lg"> 
+        <div class="row"> 
+        <div id="custom-search-input" style="width: 90%; margin-top: -4px; margin-left: 45px; float: left;" class="">
                     <form method="post" action="{{route('search-all')}}" id="userSearch">
                         <div class="input-group search-input">
                             
@@ -123,6 +122,36 @@
                         </div>
                     </form>
             </div><!--custom-search-input end-->
+            </div>
+
+            <div class="row">  
+            <div class="col hidden-xs visible-sm visible-md visible-lg" style="margin-top: 5px;" >
+                
+                <div style=" text-align: center; width: 100%; margin-left: 6px;">
+                    <button id="slideBack" style="font-weight: bold; padding: 0; width: 20px; height: 20px; top: -4px; position: relative; border-radius: 50% !important;" type="button"> < </button>
+                    <div id="container">
+                        <div id="content">
+                            <button class="btn1"  >All</button>
+                            <button class="btn1"  >Mathematics</button>
+                            <button class="btn1" >Science</button>
+                            <button class="btn1" >English</button>
+                            <button class="btn1" >History</button>
+                            <button class="btn1" >Agriculture</button>
+                            <button class="btn1" >Literature</button>
+                            <button class="btn1" >Biology</button> 
+                        </div>
+                    </div>
+                    <button id="slide"style="font-weight: bold; padding: 0; width: 20px; height: 20px; top: -4px; position: relative; border-radius: 50% !important;"  type="button"> > </button>  
+                </div> 
+            </div>
+        </div>
+            </div>
+
+        
+
+        <!-- ========RESPONSIVE  HEADER VISIBLE IN MOBAILE VIEW====== -->
+        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 hidden-xs visible-sm visible-md visible-lg">  
+        
         <div class="row"> 
         
             @if(Auth::check())
@@ -231,7 +260,7 @@
                 @endif
 
             @else
-                <div class="y-button2 main_nav_btn">
+                <div class="y-button2 main_nav_btn" style="margin-top: 4vh;">
                     <a href="{{route('user.register.form')}}"> <i class="fa fa-sign-in"></i> SignUp</a>
                     <a href="{{route('user.login.form')}}">  SignIn</a> <i style="color: white; font-weight: bold;">|</i>
                     
@@ -271,27 +300,7 @@
 
         </div>
 
-        <div class="row">  
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 hidden-xs visible-sm visible-md visible-lg" style="margin-top: 5px;" >
-                
-                <div style=" text-align: center; width: 57%; margin-left: 45px;">
-                    <button id="slideBack" style="font-weight: bold; padding: 0; width: 20px; height: 20px; top: -4px; position: relative; border-radius: 50% !important;" type="button"> < </button>
-                    <div id="container">
-                        <div id="content">
-                            <button class="btn1"  >All</button>
-                            <button class="btn1"  >Mathematics</button>
-                            <button class="btn1" >Science</button>
-                            <button class="btn1" >English</button>
-                            <button class="btn1" >History</button>
-                            <button class="btn1" >Agriculture</button>
-                            <button class="btn1" >Literature</button>
-                            <button class="btn1" >Biology</button> 
-                        </div>
-                    </div>
-                    <button id="slide"style="font-weight: bold; padding: 0; width: 20px; height: 20px; top: -4px; position: relative; border-radius: 50% !important;"  type="button"> > </button>  
-                </div> 
-            </div>
-        </div>
+        
 
         </div>
 
