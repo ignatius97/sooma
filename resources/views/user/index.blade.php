@@ -48,7 +48,7 @@
 
 .main_video{
 
-    margin-right: 35px;
+    margin-right: 50px;
 }
 
 
@@ -58,7 +58,7 @@
 
     width: 80%;
     margin-right: 2px;
-    margin-left: 35px;
+    margin-left: 50px;
    }
 
     }
@@ -85,12 +85,58 @@
 
             <div class="page-inner ">
                 <div class="row">
-                <div class="main_video">
+                <div class="main_video" style="margin-top: 40px;margin-left: 50px;">
   
     <!-- Wrapper for slides -->
+
+
+    <div id='video-slider'>
+        <div class="slider-inner">
+            <ul>
+                
+                <li>
+                    <div class="video">
+                        <video controls autoplay width="100%">
+                            <source src="{{asset('streamtube/images/movie.mp4')}}" type="video/mp4" />
+                        </video>
+                    </div>
+                </li>
+                <li>
+                    <div class="video">
+                        <video controls autoplay width="100%">
+                            <source src="{{asset('streamtube/images/movie.mp4')}}" type="video/mp4" />
+                        </video>
+                    </div>
+                </li>
+                <li>
+                    <div class="video">
+                        <video controls autoplay width="100%">
+                            <source src="{{asset('streamtube/images/movie.mp4')}}" type="video/mp4" />
+                        </video>
+                    </div>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--     
     
-    
-     <div id='video-slider' style="margin-top: 1%;">
+    <div id='video-slider' style="margin-top: 1%;">
         <div class="slider-inner">
             <ul>
                 <li>
@@ -101,7 +147,7 @@
                 </li>  
             </ul>
         </div>
-    </div>
+    </div> -->
    
    
     
@@ -219,9 +265,11 @@
 
                             <div class="trending_new_show" style="display: none;">
                            </div>
-                            
+                           
                             @foreach($trendings->items as $trending)
-                            <div class="trending_new_hide">
+
+                            
+                                <div class="trending_new_hide">
                             <div class="slide-box">
                                 <div class="slide-image">
                                     <a href="{{ route('user.single' , ['id' => $trending->url, 'dd'=>$trending->url] ) }}">
@@ -259,8 +307,10 @@
                                 </div><!--end of video-details-->
                             </div><!--end of slide-box-->
                               </div> 
+                               
+                            
                             @endforeach
-                   
+                           
                           
                         </div><!--end of box--> 
                     </div><!--end of slide-area-->

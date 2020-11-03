@@ -20,9 +20,14 @@
 
         .btn1{
                 border-radius: 50px;
-                font-size: 1vw;
+                font-size: 0.9vw;
                 margin: 0 10px;
+                color: black;
             }
+            .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+    padding-right: 0px;
+    padding-left: 0px;
+}
 </style>
 @if (!Auth::check()) 
 
@@ -77,11 +82,11 @@
     </div> -->
     <div class="row">
 
-         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
 
             <!-- <a href="#" class="hidden-xs"><img src="{{asset('images/menu.png')}}"  class="toggle-icon"  style="color: white"></a> -->
             <a href="{{route('user.dashboard')}}"> 
-                <i class="fa fa-home" style="font-size: 30px; vertical-align: middle;"></i>
+                <i class="fa fa-home" style="font-size: 30px; color:#EFBA1E; vertical-align: middle;"></i>
             </a>
 
             <style>
@@ -106,9 +111,9 @@
 
         </div>
 
-        <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12 hidden-xs visible-sm visible-md visible-lg"> 
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 hidden-xs visible-sm visible-md visible-lg"> 
         <div class="row"> 
-        <div id="custom-search-input" style="width: 90%; margin-top: -4px; margin-left: 45px; float: left;" class="">
+        <div id="custom-search-input" style="width: 90%; margin-top: -4px; margin-left: 30px; float: left;" class="">
                     <form method="post" action="{{route('search-all')}}" id="userSearch">
                         <div class="input-group search-input">
                             
@@ -127,18 +132,18 @@
             <div class="row">  
             <div class="col hidden-xs visible-sm visible-md visible-lg" style="margin-top: 5px;" >
                 
-                <div style=" text-align: center; width: 100%; margin-left: 6px;">
+                <div style=" text-align: center; width: 100%; margin-left: 0px;">
                     <button id="slideBack" style="font-weight: bold; padding: 0; width: 20px; height: 20px; top: -4px; position: relative; border-radius: 50% !important;" type="button"> < </button>
                     <div id="container">
-                        <div id="content">
-                            <button class="btn1"  >All</button>
-                            <button class="btn1"  >Mathematics</button>
-                            <button class="btn1" >Science</button>
-                            <button class="btn1" >English</button>
-                            <button class="btn1" >History</button>
-                            <button class="btn1" >Agriculture</button>
-                            <button class="btn1" >Literature</button>
-                            <button class="btn1" >Biology</button> 
+                        <div id="content" >
+                             <a href=""> <button class="btn1"  >All</button></a>
+                            <a href=""><button class="btn1"  >Mathematics</button></a>
+                            <a href=""><button class="btn1" >Science</button></a>
+                            <a href=""><button class="btn1" >English</button></a>
+                            <a href=""> <button class="btn1" >History</button></a>
+                            <a href=""><button class="btn1" >Agriculture</button></a>
+                            <a href=""><button class="btn1" >Literature</button></a>
+                            <a href=""><button class="btn1" >Biology</button> </a>
                         </div>
                     </div>
                     <button id="slide"style="font-weight: bold; padding: 0; width: 20px; height: 20px; top: -4px; position: relative; border-radius: 50% !important;"  type="button"> > </button>  
@@ -150,7 +155,7 @@
         
 
         <!-- ========RESPONSIVE  HEADER VISIBLE IN MOBAILE VIEW====== -->
-        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 hidden-xs visible-sm visible-md visible-lg">  
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 hidden-xs visible-sm visible-md visible-lg">  
         
         <div class="row"> 
         
@@ -251,6 +256,11 @@
                         <option value="{{$country->id}}">{{$country->country_name}}</option>
                     @endforeach
                 </select>  -->
+                <select name="" id="" style="margin-left:10px;font-size:11px;">
+                    <option value="">English</option>
+                    <option value="">French</option>
+                    <option value="">Swahili</option>
+                </select>
 
                 @if(Setting::get('is_direct_upload_button') == YES)
                     <a href="{{userChannelId()}}" class="btn pull-right user-upload-btn" title="{{tr('upload_video')}}">
@@ -261,10 +271,16 @@
 
             @else
                 <div class="y-button2 main_nav_btn" style="margin-top: 4vh;">
-                    <a href="{{route('user.register.form')}}"> <i class="fa fa-sign-in"></i> SignUp</a>
-                    <a href="{{route('user.login.form')}}">  SignIn</a> <i style="color: white; font-weight: bold;">|</i>
-                    
+                    <a href="{{route('user.register.form')}}" style="margin-right:10px;"> <i class="fa fa-sign-in" style="font-size: 28px;vertical-align: middle;"></i> <span style="font-size:11px;">SignUp</span></a>
+                    <a href="{{route('user.login.form')}}" style="margin-right:10px;"> <img src="{{asset('prototype_icons/SignUp.png')}}" style="color: white;margin-top: 3px;height: 24px; "> <span style="font-size:11px;">SignIn</span></a>
+                    <select name="" id="" style="margin-left:10px;font-size:11px;">
+                        <option value="">English</option>
+                        <option value="">French</option>
+                        <option value="">Swahili</option>
+                    </select>
                 </div>
+
+                
 
                 <!-- <select id="options"  class="country_option_select"  name="targeted_country" style="width: auto;">
                     <option value="{{$automatic_country_select}}">{{$automatic_country_select}}</option>

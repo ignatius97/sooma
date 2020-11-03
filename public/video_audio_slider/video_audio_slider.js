@@ -3,8 +3,8 @@
 var nsOptions =
 {
     sliderId: "video-slider",
-    transitionType: "fade",
-    autoAdvance: true,
+    transitionType: "slide",
+    autoAdvance: false,
     rewind: true,
     delay: "default",
     transitionSpeed: 2000,

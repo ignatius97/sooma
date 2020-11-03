@@ -61,7 +61,7 @@
         </style> 
 
 <div>
-<div class="y-menu col-sm-4 col-md-4" style="margin-right: 0px;" >
+<div class="y-menu col-sm-4 col-md-4 hidden-xs visible-sm visible-md visible-lg" style="margin-right: 0px;" >
 
     <div class="curriculum" style="position: fixed; width: 34%;">
 
@@ -70,7 +70,7 @@
 
 
         <fieldset>    	
-            <legend> 
+            <legend style="text-align: center;"> 
             <select id="options"  class="country_option_select"  name="targeted_country" style="width: auto;">
                     <option value="{{$automatic_country_select}}">{{$automatic_country_select}}</option>
                     @foreach($countries as $country)   
@@ -93,7 +93,7 @@
                 @foreach($curriculum_auto as $curriculum) 
                 
                     <li id="hom" title="{{$curriculum->name}}" style="margin-left: 20px;">
-                        <a  href="{{ route('user.curriculum.selection' , ['curriculum_id' => $curriculum->id, 'country'=>$country_ip] ) }}" > <img   class="slide-img1 placeholder" id="img" src="{{$curriculum->picture}}"  /> <h6 style="display: inline-grid; vertical-align: bottom; color: black; font-size: 15px;" >{{$curriculum->name}}</h6></a>
+                        <a  href="{{ route('user.curriculum.selection' , ['curriculum_id' => $curriculum->id, 'country'=>$country_ip] ) }}" > <img   class="slide-img1 placeholder" id="img" src="{{$curriculum->picture}}"  /> <h6 style="display: inline-grid; vertical-align: bottom; color: white; border-radius: 50px; padding: 8px; background: linear-gradient(180deg, #586FC0, #555); font-size: 12px;" >{{$curriculum->name}}</h6></a>
                     </li>
                 
                 @endforeach
@@ -300,10 +300,10 @@
             </div>
             <div >
             
-                <div class="menu4 top nav-space my_bg_color" style="padding: 0; margin-bottom: 15px; border-radius: 50px; width: 118px; height: 40px; margin-left: auto; margin-right: auto;" >
+                <div class="menu4 top nav-space my_bg_color" style="padding: 0; margin-bottom: 15px; border-radius: 50px; width: 130px; height: 40px; margin-left: auto; margin-right: auto;" >
                     
                     <form method="get" action="{{route('user.register.form')}}">
-                        <button type="submit" class="sign_up_btn" style="background-color: brown;border-radius: 50px; margin-left: 5px; margin-top: 2px;">Enroll Now</button>
+                        <button type="submit" class="sign_up_btn" style="background-color: brown;border-radius: 50px; margin-left: 14px; margin-top: 2px;">Enroll Now</button>
                     </form>
             
             
@@ -312,7 +312,7 @@
             @endif  
             </fieldset>	               
         
-            <div style="margin-top: -12px;">
+            <div style="margin-top: -12px;margin-bottom: 60px;">
                 <style>
                     ul#social_media li {
                     display:inline;
