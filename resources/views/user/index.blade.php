@@ -52,23 +52,31 @@
 }
 
 
-@media only screen and (max-width : 1200px) {
+@media only screen and (max-width : 767px) {
 
    .main_video{
 
-    width: 80%;
+    width: 90%;
     margin-right: 2px;
     margin-left: 50px;
+    margin-top: 30px;margin-left: 50px;margin-bottom: 50px;
    }
 
     }
 
-     @media only screen and (min-width : 760px) {
+     @media only screen and (min-width : 767px) {
 
    .box-head h3{
 
     font-size: 1.3vw;
    }
+   .main_video{
+
+    width: 90%;
+    margin-right: 2px;
+    margin-left: 50px;
+    margin-top: 120px;margin-left: 50px;margin-bottom: 80px;
+    }
 
     }
 </style>
@@ -85,12 +93,195 @@
 
             <div class="page-inner ">
                 <div class="row">
-                <div class="main_video" style="margin-top: 40px;margin-left: 50px;">
+                <div class="main_video" style="">
   
     <!-- Wrapper for slides -->
 
+    <style>
+    @media only screen and (min-width : 767px) {
+.cascade-slider_slides{
+    left:0%;
+}
+}
+@media only screen and (max-width : 767px) {
 
-    <div id='video-slider'>
+.cascade-slider_slides{
+    left:22%;
+}
+}
+    .cascade-slider_container {
+  position: relative;
+  width: 100%;
+  height: 114px;
+  margin: 25px auto;
+  padding-top: 45px;
+}
+video {
+  width: 60%;
+}
+
+.cascade-slider_item {
+  position: absolute;
+  top: 50%;
+  left: 40vw;
+  transform: translateY(-50%) translateX(-50%) scale(0.3);
+  transition: all 1s ease;
+  opacity: 0;
+  z-index: -1;
+  text-align: center;
+}
+.cascade-slider_item img {
+  width: 400px;
+}
+
+.cascade-slider_item.next {
+  left: 40vw;
+  transform: translateY(-50%) translateX(-120%) scale(0.6);
+  opacity: 1;
+  z-index: 1;
+}
+
+.cascade-slider_item.prev {
+  left: 40vw;
+  transform: translateY(-50%) translateX(-20%) scale(0.6);
+  opacity: 1;
+  z-index: 1;
+}
+
+.cascade-slider_item.now {
+  top: 50%;
+  left: 40vw;
+  transform: translateY(-50%) translateX(-70%) scale(1);
+  opacity: 1;
+  z-index: 5;
+}
+
+.cascade-slider_arrow {
+  display: inline-block;
+  position: absolute;
+  top: 0%;
+  cursor: pointer;
+  z-index: 5;
+  height: 100%;
+  background-color: rgba(0,0,0,0.3);
+  width: 50px;
+  
+}
+
+.cascade-slider_arrow-left { left: 0; }
+
+.cascade-slider_arrow-right { right: 0; }
+
+.cascade-slider_nav {
+  position: absolute;
+  bottom: -120px;
+  width: 100%;
+  text-align: center;
+  z-index: 5;
+}
+
+.cascade-slider_dot {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin: 1em;
+  background: #ddd;
+  list-style: none;
+  cursor: pointer;
+}
+
+.cascade-slider_dot:hover { background: #555; }
+
+.cascade-slider_dot.cur { background: #555; }
+
+
+
+</style>
+    <div class="cascade-slider_container" id="cascade-slider">
+        <div class="cascade-slider_slides" style="position: relative;">
+          
+            <!-- <video class="cascade-slider_item" loop controls>
+                <source src="vid/1.mp4" type="video/mp4" />
+            </video>
+            <video class="cascade-slider_item" loop controls>
+                <source src="vid/3.mp4" type="video/mp4" />
+            </video>
+            <video class="cascade-slider_item" loop controls>
+                <source src="vid/4.mp4" type="video/mp4" />
+            </video>
+            <video class="cascade-slider_item" loop controls>
+                <source src="vid/5.mp4" type="video/mp4" />
+            </video> -->
+            @foreach($trendings->items as $trending)
+                        <video class="cascade-slider_item" loop controls>
+                            <source src="{{asset('streamtube/images/movie.mp4')}}" type="video/mp4" />
+                        </video>
+            
+            
+        @endforeach
+           
+          
+        </div>
+      
+        
+      
+        <span class="cascade-slider_arrow cascade-slider_arrow-left" onclick="playPreviousVideo()" data-action="prev"> <span style="top: 50%;position: relative;left: 10px;">Prev</span> </span>
+        <span class="cascade-slider_arrow cascade-slider_arrow-right" onclick="playNextVideo()" data-action="next" > <span style="top: 50%;position: relative;left: 10px;">Next</span> </span>
+      </div>
+     
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://www.jqueryscript.net/demo/Minimal-3D-Image-Rotator-with-jQuery-CSS3-Cascade-Slider/cascade-slider.js"></script>
+<script>
+    
+    function myAutoPlayFunction() {
+        const myAutoPlayVideo = document.getElementsByClassName('now');
+        for(let i = 0; i < myAutoPlayVideo.length; i++){
+            const myNowAuto = myAutoPlayVideo[i];
+            myNowAuto.play();
+        }
+        console.log('worksss');
+    }
+
+    function playNextVideo(){  
+        const myVideo = document.getElementsByClassName('next');
+        const myNowVideo = document.getElementsByClassName('now');
+        for(let i = 0; i < myVideo.length; i++){
+            const my = myVideo[i];
+            my.play();
+        }
+        for(let x = 0; x < myNowVideo.length; x++){
+            const myNow = myNowVideo[x];
+            myNow.pause();
+            myNow.currentTime = 0;
+        }
+    }
+    
+    function playPreviousVideo(){
+        const myNowVideo = document.getElementsByClassName('now');
+        const myVideo = document.getElementsByClassName('prev');
+        for(let i = 0; i < myVideo.length; i++){
+            const my = myVideo[i];
+            my.play();
+        }
+
+        for(let x = 0; x < myNowVideo.length; x++){
+            const myNow = myNowVideo[x];
+            myNow.pause();
+            myNow.currentTime = 0;
+        }
+    }
+    $('#cascade-slider').cascadeSlider({
+  itemClass: 'cascade-slider_item',
+  arrowClass: 'cascade-slider_arrow'
+});
+
+</script>
+
+
+
+
+    <!-- <div id='video-slider'>
         <div class="slider-inner">
             <ul>
                 
@@ -118,7 +309,7 @@
                 
             </ul>
         </div>
-    </div>
+    </div> -->
 
 
 

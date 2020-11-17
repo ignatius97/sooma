@@ -1,6 +1,6 @@
 <style>
     .nav > li > a:focus, .nav > li > a:hover{
-        background-color:#3AAF44;
+        background-color: #132234;
     }
     .product_name {
     color: white;
@@ -18,15 +18,31 @@ margin-left: 5px;
     
 </style>
 
-<div class="streamtube-nav signup-nav">
+<div class="streamtube-nav signup-nav" style="background-color: #132234;">
     <div class="row">
         <div class="test col-xs-12">
-            <a href="{{route('user.dashboard')}}" class="">
+            
+
+            <a href="{{route('user.dashboard')}}"> 
+                <i class="fa fa-home" style="font-size: 30px; color:#EFBA1E; vertical-align: middle;"></i>
+            </a>
+
+            <style>
+                hr {
+                    margin-top: -3px;
+                    margin-bottom: -8px;
+                }
+            </style>
+
+            <a href="{{route('user.dashboard')}}"> 
                 @if(Setting::get('site_logo'))
-                    <img src="{{Setting::get('site_logo')}}" class="logo-img"><span class="product_name">SOOMA</span>
+
+                    <img src="{{Setting::get('site_logo')}}" class="logo-img"> <div style="display: inline-flex;"><span class="product_name">SOOMA <br><hr> <span style="font-size:8px">Study Anywhere Anytime</span> </span></div>
                 @else
-                    <img src="{{asset('logo.png')}}" class="logo-img"><span class="product_name">SOOMA</span>
+                    <img src="{{asset('logo.png')}}" class="logo-img"><div style="display: inline-flex;"><span class="product_name">SOOMA <br><hr> <span style="font-size:8px">Study Anywhere Anytime</span> </span></div>
                 @endif
+
+
             </a>
             
             <ul class="nav navbar-nav pull-right">
