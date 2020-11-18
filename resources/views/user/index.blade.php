@@ -85,7 +85,7 @@
         width: 85%;
         margin-right: 2px;
         margin-left: 50px;
-        margin-top: 120px;margin-left: 50px;margin-bottom: 80px;
+        margin-top: 205px;margin-left: 50px;margin-bottom: 145px;
         }
 
  }

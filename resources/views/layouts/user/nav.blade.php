@@ -18,6 +18,20 @@
   scrollbar-width: none;  /* Firefox */
 }
 
+.nav-space{
+    padding: 0; margin-bottom: 15px; border-radius: 50px; width: 107px; height: 40px; margin-left: auto; margin-right: auto;
+}
+.menu4 button{
+    background-color: brown;border-radius: 50px; margin-left: 3px; margin-top: 2px;
+}
+@media (min-width: 1680px) and (max-width: 1919px) {
+.nav-space{
+    padding: 0; margin-bottom: 15px; border-radius: 50px; width: 152px; height: 48px; margin-left: auto; margin-right: auto;
+}
+.menu4 button{
+    background-color: brown;border-radius: 50px; margin-left: 14px; margin-top: 2px;
+}
+}
 </style>
 
 
@@ -300,10 +314,10 @@
             </div>
             <div >
             
-                <div class="menu4 top nav-space my_bg_color" style="padding: 0; margin-bottom: 15px; border-radius: 50px; width: 130px; height: 40px; margin-left: auto; margin-right: auto;" >
+                <div class="menu4 top nav-space my_bg_color" >
                     
                     <form method="get" action="{{route('user.register.form')}}">
-                        <button type="submit" class="sign_up_btn" style="background-color: brown;border-radius: 50px; margin-left: 14px; margin-top: 2px;">Enroll Now</button>
+                        <button type="submit" class="sign_up_btn" >Enroll Now</button>
                     </form>
             
             
