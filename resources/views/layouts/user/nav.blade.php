@@ -93,7 +93,7 @@
                 @foreach($curriculum_auto as $curriculum) 
                 
                     <li id="hom" title="{{$curriculum->name}}" style="margin-left: 20px;">
-                        <a  href="{{ route('user.curriculum.selection' , ['curriculum_id' => $curriculum->id, 'country'=>$country_ip] ) }}" > <img   class="slide-img1 placeholder" id="img" src="{{$curriculum->picture}}"  /> <h6 style="display: inline-grid; vertical-align: bottom; color: white; border-radius: 50px; padding: 8px; background: linear-gradient(180deg, #586FC0, #555); font-size: 12px;" >{{$curriculum->name}}</h6></a>
+                        <a  href="{{ route('user.curriculum.selection' , ['curriculum_id' => $curriculum->id, 'country'=>$country_ip] ) }}" > <img   class="slide-img1 placeholder" id="img" src="{{$curriculum->picture}}"  /> <h6 style="display: inline-grid; vertical-align: bottom; color: white; border-radius: 50px; padding: 8px; background: linear-gradient(180deg, #586FC0, #555); font-size: 12px;width: 150px;text-align: center;" >{{$curriculum->name}}</h6></a>
                     </li>
                 
                 @endforeach

@@ -113,13 +113,13 @@
 
         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 hidden-xs visible-sm visible-md visible-lg"> 
         <div class="row"> 
-        <div id="custom-search-input" style="width: 90%; margin-top: -4px; margin-left: 30px; float: left;" class="">
+        <div id="custom-search-input" style="width: 92.4%; margin-top: -4px; margin-left: 26px; float: left;" class="">
                     <form method="post" action="{{route('search-all')}}" id="userSearch">
                         <div class="input-group search-input">
                             
-                                <input type="text" id="auto_complete_search" name="key" class="search-query form-control" required placeholder="{{tr('search')}}" style="background-color: white; border-radius: 50px !important;" />
+                                <input type="text" id="auto_complete_search" name="key" class="search-query form-control" required placeholder="What are you interested in learning?" style="background-color: white; border-radius: 50px !important;font-size: 10px;" />
                                 <div class="input-group-btn">
-                                    <button class="btn btn-primary" type="submit" style="background-color: #36B3BC; padding: 2px 12px; margin-top: -1px; left: -38px; border-radius: 50px; color: #fff; height: 35px; z-index: 9;">
+                                    <button class="btn btn-primary" type="submit" style="background-color: #36B3BC; padding: 1px 12px; margin-top: -1px; left: -38px; border-radius: 50px; color: #fff; height: 20px; z-index: 9;font-size: 10px;">
                                     Find Lessons
                                     </button>
                                 </div>
@@ -270,7 +270,7 @@
                 @endif
 
             @else
-                <div class="y-button2 main_nav_btn" style="margin-top: 4vh;">
+                <div class="y-button2 main_nav_btn" style="margin-top: 1vh;">
                     <a href="{{route('user.register.form')}}" style="margin-right:10px;"> <i class="fa fa-sign-in" style="font-size: 28px;vertical-align: middle;"></i> <span style="font-size:11px;">SignUp</span></a>
                     <a href="{{route('user.login.form')}}" style="margin-right:10px;"> <img src="{{asset('prototype_icons/SignUp.png')}}" style="color: white;margin-top: 3px;height: 24px; "> <span style="font-size:11px;">SignIn</span></a>
                     <select name="" id="" style="margin-left:10px;font-size:11px;">
