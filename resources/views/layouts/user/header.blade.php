@@ -57,12 +57,12 @@
     }
 
 
-.find{
+#custom-search-input button{
         background-color: #36B3BC; padding: 1px 12px; margin-top: -1px; left: -38px; border-radius: 50px; color: #fff; height: 20px; z-index: 9;font-size: 10px;
     }
 
 @media (min-width: 1680px) and (max-width: 1919px) {
-    .find{
+    #custom-search-input button{
         background-color: #36B3BC; padding: 1px 12px; margin-top: -2px; left: -38px; border-radius: 50px; color: #fff; height: 30px; z-index: 9;font-size: 10px;
     }
     #custom-search-input{
