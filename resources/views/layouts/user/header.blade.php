@@ -63,10 +63,10 @@
 
 @media (min-width: 1680px) and (max-width: 1919px) {
     #custom-search-input button{
-        background-color: #36B3BC; padding: 1px 12px; margin-top: -2px; left: -38px; border-radius: 50px; color: #fff; height: 30px; z-index: 9;font-size: 10px;
+        background-color: #36B3BC; padding: 1px 12px; margin-top: -4px; left: -38px; border-radius: 50px; color: #fff; height: 30px; z-index: 9;font-size: 10px;
     }
     #custom-search-input{
-        width: 90%; margin-top: -4px; margin-left: 30px; float: left;
+        width: 89%; margin-top: -4px; margin-left: 54px; float: left;
     }
 }
 
@@ -150,7 +150,7 @@
             <div class="col hidden-xs visible-sm visible-md visible-lg" style="margin-top: 5px;" >
                 
                 <div style=" text-align: center; width: 100%; margin-left: 0px;">
-                    <button id="slideBack" style="font-weight: bold; padding: 0; width: 20px; height: 20px; top: -4px; position: relative; border-radius: 50% !important;" type="button"> < </button>
+                    <button id="slideBack" style="font-weight: bold; padding: 0; width: 20px; height: 20px; top: -4px; position: relative; border-radius: 50% !important;" type="button"> <span style="top: -2px;position: relative;" title="Previous"><</span> </button>
                     <div id="container">
                         <div id="content" >
                              <a href=""> <button class="btn1"  >All</button></a>
@@ -163,7 +163,7 @@
                             <a href=""><button class="btn1" >Biology</button> </a>
                         </div>
                     </div>
-                    <button id="slide"style="font-weight: bold; padding: 0; width: 20px; height: 20px; top: -4px; position: relative; border-radius: 50% !important;"  type="button"> > </button>  
+                    <button id="slide"style="font-weight: bold; padding: 0; width: 20px; height: 20px; top: -4px; position: relative; border-radius: 50% !important;"  type="button"> <span style="top: -2px;position: relative;" title="Next">></span> </button>  
                 </div> 
             </div>
         </div>
