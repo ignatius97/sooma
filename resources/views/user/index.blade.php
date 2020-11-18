@@ -79,6 +79,16 @@
     }
 
     }
+    @media (min-width: 1680px) and (max-width: 1919px) {
+        .main_video{
+
+        width: 85%;
+        margin-right: 2px;
+        margin-left: 50px;
+        margin-top: 120px;margin-left: 50px;margin-bottom: 80px;
+        }
+
+ }
 </style>
 @endsection
 
